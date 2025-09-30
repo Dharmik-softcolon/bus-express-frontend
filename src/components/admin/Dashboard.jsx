@@ -914,18 +914,18 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-gray-50 py-4 sm:py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="mb-8">
-          <p className="text-gray-600">
+        <div className="mb-6 sm:mb-8">
+          <p className="text-gray-600 text-sm sm:text-base">
             Manage buses, routes, employees, and analyze operations
           </p>
         </div>
 
         {/* Tabs */}
-        <div className="mb-6">
-          <div className="flex space-x-2">
+        <div className="mb-4 sm:mb-6">
+          <div className="flex flex-wrap gap-2">
             {[
               { id: 'overview', name: 'Overview' },
               { id: 'booking', name: 'Booking' },
@@ -942,13 +942,26 @@ const Dashboard = () => {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors ${
                   activeTab === tab.id
                     ? 'bg-blue-600 text-white'
                     : 'bg-white text-gray-700 hover:bg-gray-50'
                 }`}
               >
-                {tab.name}
+                <span className="hidden sm:inline">{tab.name}</span>
+                <span className="sm:hidden">
+                  {tab.id === 'overview' ? 'Overview' :
+                   tab.id === 'booking' ? 'Booking' :
+                   tab.id === 'buses' ? 'Buses' :
+                   tab.id === 'routes' ? 'Routes' :
+                   tab.id === 'employees' ? 'Employees' :
+                   tab.id === 'booking-men' ? 'Booking' :
+                   tab.id === 'trips' ? 'Trips' :
+                   tab.id === 'expenses' ? 'Expenses' :
+                   tab.id === 'earnings' ? 'Earnings' :
+                   tab.id === 'trip-analytics' ? 'Analytics' :
+                   tab.id === 'payroll' ? 'Payroll' : tab.name}
+                </span>
               </button>
             ))}
           </div>

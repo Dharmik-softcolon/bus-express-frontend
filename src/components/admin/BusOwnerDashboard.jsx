@@ -506,30 +506,31 @@ const BusOwnerDashboard = () => {
 
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-gray-50 py-4 sm:py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="mb-8">
-          <div className="flex justify-between items-center">
+        <div className="mb-6 sm:mb-8">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
             <div>
-              <p className="text-gray-600">
+              <p className="text-gray-600 text-sm sm:text-base">
                 Manage your bus operations, employees, and view reports
               </p>
             </div>
             <button
               onClick={() => setShowAddModal(true)}
               disabled={busAdmins.length >= 2}
-              className={`btn-primary flex items-center ${busAdmins.length >= 2 ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`btn-primary flex items-center justify-center sm:justify-start ${busAdmins.length >= 2 ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
               <Plus className="h-4 w-4 mr-2" />
-              Add Bus Admin ({busAdmins.length}/2)
+              <span className="hidden sm:inline">Add Bus Admin ({busAdmins.length}/2)</span>
+              <span className="sm:hidden">Add Admin ({busAdmins.length}/2)</span>
             </button>
           </div>
         </div>
 
         {/* Tabs */}
-        <div className="mb-6">
-          <div className="flex space-x-2">
+        <div className="mb-4 sm:mb-6">
+          <div className="flex flex-wrap gap-2">
             {[
               { id: 'overview', name: 'Analytics Overview' },
               { id: 'admins', name: 'Bus Admins (2 Max)' }
@@ -537,34 +538,37 @@ const BusOwnerDashboard = () => {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors ${
                   activeTab === tab.id
                     ? 'bg-blue-600 text-white'
                     : 'bg-white text-gray-700 hover:bg-gray-50'
                 }`}
               >
-                {tab.name}
+                <span className="hidden sm:inline">{tab.name}</span>
+                <span className="sm:hidden">
+                  {tab.id === 'overview' ? 'Overview' : 'Admins'}
+                </span>
               </button>
             ))}
           </div>
         </div>
 
         {/* Quick Analytics Links (View Only) */}
-        <div className="mb-6">
-          <div className="flex space-x-4">
+        <div className="mb-4 sm:mb-6">
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
             <button
               onClick={() => navigate('/admin/revenue')}
-              className="flex items-center space-x-2 px-4 py-2 bg-green-100 text-green-700 rounded-lg hover:bg-green-200 transition-colors"
+              className="flex items-center justify-center sm:justify-start space-x-2 px-4 py-2 bg-green-100 text-green-700 rounded-lg hover:bg-green-200 transition-colors"
             >
               <DollarSign className="h-4 w-4" />
-              <span>View Revenue Analytics</span>
+              <span className="text-sm sm:text-base">View Revenue Analytics</span>
             </button>
             <button
               onClick={() => navigate('/admin/expenses')}
-              className="flex items-center space-x-2 px-4 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors"
+              className="flex items-center justify-center sm:justify-start space-x-2 px-4 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors"
             >
               <TrendingDown className="h-4 w-4" />
-              <span>View Expense Analytics</span>
+              <span className="text-sm sm:text-base">View Expense Analytics</span>
             </button>
           </div>
         </div>

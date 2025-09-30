@@ -68,23 +68,23 @@ const Login = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-6 sm:space-y-8">
         {/* Header */}
         <div className="text-center">
           <div className="flex justify-center">
-            <Bus className="h-12 w-12 text-white" />
+            <Bus className="h-10 w-10 sm:h-12 sm:w-12 text-white" />
           </div>
-          <h2 className="mt-6 text-3xl font-bold text-white">
+          <h2 className="mt-4 sm:mt-6 text-2xl sm:text-3xl font-bold text-white">
             BusExpress Login
           </h2>
-          <p className="mt-2 text-blue-100">
+          <p className="mt-2 text-blue-100 text-sm sm:text-base">
             Sign in to your account
           </p>
         </div>
 
         {/* Login Form */}
-        <div className="bg-white rounded-lg shadow-xl p-8">
+        <div className="bg-white rounded-lg shadow-xl p-4 sm:p-6 lg:p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
             {error && (
               <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-md">
@@ -162,7 +162,7 @@ const Login = () => {
           </form>
 
           {/* Demo Accounts */}
-          <div className="mt-8">
+          <div className="mt-6 sm:mt-8">
             <h3 className="text-sm font-medium text-gray-700 mb-3">Demo Accounts (Click to fill)</h3>
             <div className="space-y-2">
               {demoAccounts.map((account, index) => (
@@ -170,11 +170,11 @@ const Login = () => {
                   key={index}
                   type="button"
                   onClick={() => fillDemoAccount(account)}
-                  className="w-full text-left p-2 text-sm bg-gray-50 hover:bg-gray-100 rounded border transition-colors"
+                  className="w-full text-left p-2 text-xs sm:text-sm bg-gray-50 hover:bg-gray-100 rounded border transition-colors"
                 >
                   <span className="font-medium">{account.role}</span>
                   <br />
-                  <span className="text-gray-600">{account.username} / {account.password}</span>
+                  <span className="text-gray-600 break-all">{account.username} / {account.password}</span>
                 </button>
               ))}
             </div>
