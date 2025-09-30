@@ -1,6 +1,6 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import { useState } from 'react'
-import { UserProvider } from './contexts/UserContext'
+import { UserProvider, useUser } from './contexts/UserContext'
 import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
 import Login from './components/auth/Login'
@@ -28,6 +28,19 @@ import RevenueAnalytics from './components/admin/RevenueAnalytics'
 import ExpenseAnalytics from './components/admin/ExpenseAnalytics'
 import UserProfileManagement from './components/admin/UserProfileManagement'
 
+// Component to handle home page with auto-redirect for logged-in users
+const HomePageWrapper = ({ onSearch }) => {
+  const { user, getDashboardRoute } = useUser()
+  
+  // If user is logged in, redirect to their dashboard
+  if (user) {
+    return <Navigate to={getDashboardRoute()} replace />
+  }
+  
+  // If not logged in, show home page
+  return <HomePage onSearch={onSearch} />
+}
+
 function App() {
   const [searchData, setSearchData] = useState(null)
   const [selectedSeats, setSelectedSeats] = useState([])
@@ -42,7 +55,7 @@ function App() {
             {/* Public Routes */}
             <Route 
               path="/" 
-              element={<HomePage onSearch={setSearchData} />} 
+              element={<HomePageWrapper onSearch={setSearchData} />} 
             />
             <Route 
               path="/search" 

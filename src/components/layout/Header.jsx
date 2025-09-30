@@ -1,13 +1,10 @@
-import { Link, useLocation } from 'react-router-dom'
-import { Bus, User, Settings, Home, Search } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { Bus, User } from 'lucide-react'
 import { useUser } from '../../contexts/UserContext'
 import UserProfile from '../auth/UserProfile'
 
 const Header = () => {
-  const location = useLocation()
-  const { user, getDashboardRoute } = useUser()
-  
-  const isActive = (path) => location.pathname === path
+  const { user } = useUser()
 
   return (
     <header className="bg-white shadow-lg border-b">
@@ -19,53 +16,28 @@ const Header = () => {
             <span className="text-xl font-bold text-gray-900">BusExpress</span>
           </Link>
 
-          {/* Navigation */}
-          <nav className="hidden md:flex space-x-8">
-            <Link
-              to="/"
-              className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                isActive('/') 
-                  ? 'text-blue-600 bg-blue-50' 
-                  : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
-              }`}
-            >
-              <Home className="h-4 w-4" />
-              <span>Home</span>
-            </Link>
-            
-            <Link
-              to="/search"
-              className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                isActive('/search') 
-                  ? 'text-blue-600 bg-blue-50' 
-                  : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
-              }`}
-            >
-              <Search className="h-4 w-4" />
-              <span>Search Buses</span>
-            </Link>
-          </nav>
+          {/* Company Name - Empty for Master Admin */}
+          <div className="flex-1 text-center">
+            {user && user.role !== 'master-admin' && user.company && (
+              <h1 className="text-lg font-semibold text-gray-800">
+                {user.company}
+              </h1>
+            )}
+          </div>
 
           {/* User Menu */}
           <div className="flex items-center space-x-4">
             {user ? (
               <>
-                <Link
-                  to={getDashboardRoute()}
-                  className="flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors"
-                >
-                  <Settings className="h-4 w-4" />
-                  <span className="hidden sm:inline">Dashboard</span>
-                </Link>
-                
-                <Link
-                  to="/admin/roles"
-                  className="flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors"
-                >
-                  <Settings className="h-4 w-4" />
-                  <span className="hidden sm:inline">Switch Role</span>
-                </Link>
-                
+                {/* User Role Badge */}
+                <div className="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                  {user.role === 'master-admin' ? 'Master Admin' :
+                   user.role === 'bus-owner' ? 'Bus Owner' :
+                   user.role === 'bus-admin' ? 'Bus Admin' :
+                   user.role === 'booking-man' ? 'Booking Manager' :
+                   user.role === 'bus-employee' ? 'Bus Employee' :
+                   user.role === 'customer' ? 'Customer' : user.role}
+                </div>
                 <UserProfile />
               </>
             ) : (

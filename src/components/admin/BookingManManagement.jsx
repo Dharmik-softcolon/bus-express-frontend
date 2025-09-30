@@ -1148,9 +1148,6 @@ const BookingManManagement = () => {
           <div className="mb-8">
             <div className="flex justify-between items-center">
               <div>
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                  Booking Man Dashboard
-                </h1>
                 <p className="text-gray-600">
                   Book seats for customers, manage bookings, and track earnings
                 </p>

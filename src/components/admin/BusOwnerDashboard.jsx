@@ -512,9 +512,6 @@ const BusOwnerDashboard = () => {
         <div className="mb-8">
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                Bus Owner Dashboard
-              </h1>
               <p className="text-gray-600">
                 Manage your bus operations, employees, and view reports
               </p>
