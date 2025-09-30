@@ -161,25 +161,6 @@ const Login = () => {
             </button>
           </form>
 
-          {/* Demo Accounts */}
-          <div className="mt-6 sm:mt-8">
-            <h3 className="text-sm font-medium text-gray-700 mb-3">Demo Accounts (Click to fill)</h3>
-            <div className="space-y-2">
-              {demoAccounts.map((account, index) => (
-                <button
-                  key={index}
-                  type="button"
-                  onClick={() => fillDemoAccount(account)}
-                  className="w-full text-left p-2 text-xs sm:text-sm bg-gray-50 hover:bg-gray-100 rounded border transition-colors"
-                >
-                  <span className="font-medium">{account.role}</span>
-                  <br />
-                  <span className="text-gray-600 break-all">{account.email} / {account.password}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-
           {/* Back to Home */}
           <div className="mt-6 text-center">
             <button

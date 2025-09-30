@@ -201,6 +201,50 @@ export const authAPI = {
       includeAuth: false,
     });
   },
+
+  // Bus Owner Management
+  // Create bus owner
+  createBusOwner: async (busOwnerData) => {
+    return apiRequest('/auth/bus-owners', {
+      method: 'POST',
+      data: busOwnerData,
+    });
+  },
+
+  // Get all bus owners
+  getAllBusOwners: async (params = {}) => {
+    return apiRequest('/auth/bus-owners', {
+      method: 'GET',
+      params,
+    });
+  },
+
+  // Get bus owner by ID
+  getBusOwnerById: async (busOwnerId) => {
+    return apiRequest(`/auth/bus-owners/${busOwnerId}`);
+  },
+
+  // Update bus owner
+  updateBusOwner: async (busOwnerId, busOwnerData) => {
+    return apiRequest(`/auth/bus-owners/${busOwnerId}`, {
+      method: 'PUT',
+      data: busOwnerData,
+    });
+  },
+
+  // Delete bus owner
+  deleteBusOwner: async (busOwnerId) => {
+    return apiRequest(`/auth/bus-owners/${busOwnerId}`, {
+      method: 'DELETE',
+    });
+  },
+
+  // Toggle bus owner status
+  toggleBusOwnerStatus: async (busOwnerId) => {
+    return apiRequest(`/auth/bus-owners/${busOwnerId}/toggle-status`, {
+      method: 'PUT',
+    });
+  },
 };
 
 // Search API
