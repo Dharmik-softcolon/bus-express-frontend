@@ -86,6 +86,7 @@ const BusOwnerDashboard = () => {
     { id: 2, name: 'Carol Brown', email: 'carol@abctransport.com', phone: '+91 9876543220', status: 'active', totalBookings: 280, monthlyEarnings: 2100, commission: 5 }
   ])
 
+
   const ownerStats = {
     totalBuses: buses.length,
     activeBuses: buses.filter(bus => bus.status === 'active').length,
@@ -116,6 +117,7 @@ const BusOwnerDashboard = () => {
       [name]: value
     }))
   }
+
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -404,6 +406,7 @@ const BusOwnerDashboard = () => {
       </div>
     </div>
   )
+
 
   const renderBusAdmins = () => (
     <div className="space-y-4">
@@ -707,6 +710,7 @@ const BusOwnerDashboard = () => {
             </div>
           </div>
         )}
+
       </div>
     </div>
   )

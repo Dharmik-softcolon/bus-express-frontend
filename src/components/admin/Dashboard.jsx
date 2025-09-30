@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Users, Bus, Calendar, DollarSign, TrendingUp, TrendingDown, Clock, MapPin, Route, Plus, Edit, Trash2, UserCheck, UserX, Settings, BarChart3 } from 'lucide-react'
+import { Users, Bus, Calendar, DollarSign, TrendingUp, TrendingDown, Clock, MapPin, Route, Plus, Edit, Trash2, UserCheck, UserX, Settings, BarChart3, Search, Star, ArrowRight, Filter, User, CheckCircle, XCircle } from 'lucide-react'
 
 const Dashboard = () => {
   const [timeRange, setTimeRange] = useState('7d')
@@ -13,6 +13,16 @@ const Dashboard = () => {
   const [showEmployeeDetails, setShowEmployeeDetails] = useState(false)
   const [showBookingManDetails, setShowBookingManDetails] = useState(false)
   const [selectedBookingMan, setSelectedBookingMan] = useState(null)
+  const [showSeatModal, setShowSeatModal] = useState(false)
+  const [selectedBus, setSelectedBus] = useState(null)
+  const [selectedSeats, setSelectedSeats] = useState([])
+  const [customerDetails, setCustomerDetails] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    age: '',
+    gender: ''
+  })
 
   // Mock data for comprehensive management
   const [buses, setBuses] = useState([
@@ -43,6 +53,189 @@ const Dashboard = () => {
     { id: 1, name: 'Bob Wilson', email: 'bob@abctransport.com', phone: '+91 9876543213', status: 'active', totalBookings: 320, monthlyEarnings: 2400, commission: 5 },
     { id: 2, name: 'Carol Brown', email: 'carol@abctransport.com', phone: '+91 9876543220', status: 'active', totalBookings: 280, monthlyEarnings: 2100, commission: 5 }
   ])
+
+  const [searchFilters, setSearchFilters] = useState({
+    from: '',
+    to: '',
+    date: '',
+    passengers: 1
+  })
+
+  const [availableBuses, setAvailableBuses] = useState([
+    {
+      id: 1,
+      busNumber: 'BE-001',
+      operator: 'Express Bus Lines',
+      route: 'New York → Boston',
+      from: 'New York',
+      to: 'Boston',
+      departureTime: '08:00 AM',
+      arrivalTime: '12:30 PM',
+      duration: '4h 30m',
+      price: 45,
+      totalSeats: 36,
+      availableSeats: 12,
+      amenities: ['WiFi', 'AC', 'Reclining Seats', 'USB Charging'],
+      rating: 4.5,
+      busType: 'Standard',
+      seatLayout: generateSeatLayout(36)
+    },
+    {
+      id: 2,
+      busNumber: 'BE-002',
+      operator: 'Premium Travel',
+      route: 'New York → Boston',
+      from: 'New York',
+      to: 'Boston',
+      departureTime: '10:30 AM',
+      arrivalTime: '03:00 PM',
+      duration: '4h 30m',
+      price: 65,
+      totalSeats: 36,
+      availableSeats: 8,
+      amenities: ['WiFi', 'AC', 'Reclining Seats', 'USB Charging', 'Snacks'],
+      rating: 4.8,
+      busType: 'Premium',
+      seatLayout: generateSeatLayout(36)
+    },
+    {
+      id: 3,
+      busNumber: 'BE-003',
+      operator: 'City Connect',
+      route: 'Los Angeles → San Francisco',
+      from: 'Los Angeles',
+      to: 'San Francisco',
+      departureTime: '02:15 PM',
+      arrivalTime: '06:45 PM',
+      duration: '4h 30m',
+      price: 35,
+      totalSeats: 36,
+      availableSeats: 15,
+      amenities: ['AC', 'Reclining Seats'],
+      rating: 4.2,
+      busType: 'Economy',
+      seatLayout: generateSeatLayout(36)
+    }
+  ])
+
+  const [bookings, setBookings] = useState([
+    {
+      id: 'BK001',
+      customerName: 'John Doe',
+      customerPhone: '+1-555-1001',
+      customerEmail: 'john@example.com',
+      route: 'New York → Boston',
+      busNumber: 'BE-001',
+      seatNumbers: [12],
+      bookingDate: '2024-01-15',
+      travelDate: '2024-01-20',
+      amount: 45.00,
+      status: 'confirmed',
+      bookingTime: '10:30 AM'
+    },
+    {
+      id: 'BK002',
+      customerName: 'Jane Smith',
+      customerPhone: '+1-555-1002',
+      customerEmail: 'jane@example.com',
+      route: 'Los Angeles → San Francisco',
+      busNumber: 'BE-003',
+      seatNumbers: [8],
+      bookingDate: '2024-01-15',
+      travelDate: '2024-01-22',
+      amount: 35.00,
+      status: 'confirmed',
+      bookingTime: '02:15 PM'
+    }
+  ])
+
+  // Generate seat layout for buses (36 seats: 2 sections, 18 seats each)
+  function generateSeatLayout(totalSeats = 36) {
+    const seats = []
+
+    // Create 2 sections (Lower and Upper)
+    for (let section = 0; section < 2; section++) {
+      const sectionSeats = []
+
+      // 6 rows in each section
+      for (let row = 0; row < 6; row++) {
+        const rowSeats = []
+
+        // Left side - single seat
+        const leftSeatNumber = section === 0 ? row + 25 : row + 31
+        const leftOccupied = Math.random() > 0.7
+        const leftBookedByWomen = leftOccupied && Math.random() > 0.8
+
+        rowSeats.push({
+          number: leftSeatNumber,
+          side: 'left',
+          berth: 'single',
+          occupied: leftOccupied,
+          selected: false,
+          isSingle: true,
+          bookedByWomen: leftBookedByWomen,
+          section: section === 0 ? 'lower' : 'upper',
+          row: row + 1
+        })
+
+        // Right side - double seat pair with specific combinations
+        let rightSeat1Number, rightSeat2Number
+
+        if (section === 0) { // Lower berth
+          const lowerBerthPairs = [
+            [1, 2], [5, 6], [9, 10], [13, 14], [17, 18], [21, 22]
+          ]
+          rightSeat1Number = lowerBerthPairs[row][0]
+          rightSeat2Number = lowerBerthPairs[row][1]
+        } else { // Upper berth
+          const upperBerthPairs = [
+            [3, 4], [7, 8], [11, 12], [15, 16], [19, 20], [23, 24]
+          ]
+          rightSeat1Number = upperBerthPairs[row][0]
+          rightSeat2Number = upperBerthPairs[row][1]
+        }
+
+        const right1Occupied = Math.random() > 0.7
+        const right2Occupied = Math.random() > 0.7
+        const right1BookedByWomen = right1Occupied && Math.random() > 0.8
+        const right2BookedByWomen = right2Occupied && Math.random() > 0.8
+
+        // First seat of the pair
+        rowSeats.push({
+          number: rightSeat1Number,
+          side: 'right',
+          berth: 'double',
+          occupied: right1Occupied,
+          selected: false,
+          isSingle: false,
+          pairSeat: rightSeat2Number,
+          bookedByWomen: right1BookedByWomen,
+          section: section === 0 ? 'lower' : 'upper',
+          row: row + 1
+        })
+
+        // Second seat of the pair
+        rowSeats.push({
+          number: rightSeat2Number,
+          side: 'right',
+          berth: 'double',
+          occupied: right2Occupied,
+          selected: false,
+          isSingle: false,
+          pairSeat: rightSeat1Number,
+          bookedByWomen: right2BookedByWomen,
+          section: section === 0 ? 'lower' : 'upper',
+          row: row + 1
+        })
+
+        sectionSeats.push(rowSeats)
+      }
+
+      seats.push(sectionSeats)
+    }
+
+    return seats
+  }
 
   const [trips, setTrips] = useState([
     { id: 1, route: 'Mumbai-Pune', bus: 'MH-01-AB-1234', date: '2024-01-16', time: '08:00', driver: 'Mike Johnson', conductor: 'Sarah Wilson', status: 'scheduled', bookings: 45, revenue: 20250 },
@@ -272,6 +465,159 @@ const Dashboard = () => {
     }
   }
 
+  const handleSearchInputChange = (e) => {
+    const { name, value } = e.target
+    setSearchFilters(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  const handleCustomerInputChange = (e) => {
+    const { name, value } = e.target
+    setCustomerDetails(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  const searchBuses = () => {
+    // Filter buses based on search criteria
+    return availableBuses.filter(bus => {
+      if (searchFilters.from && !bus.from.toLowerCase().includes(searchFilters.from.toLowerCase())) return false
+      if (searchFilters.to && !bus.to.toLowerCase().includes(searchFilters.to.toLowerCase())) return false
+      return true
+    })
+  }
+
+  const handleSeatSelection = (bus) => {
+    setSelectedBus(bus)
+    setSelectedSeats([])
+    setShowSeatModal(true)
+  }
+
+  const handleSeatClick = (seatNumber) => {
+    if (!selectedBus) return
+
+    // Find the seat object - flatten the nested array structure
+    const allSeats = selectedBus.seatLayout.flat(2)
+    const seat = allSeats.find(s => s.number === seatNumber)
+
+    if (!seat || seat.occupied) return
+
+    // Calculate bus occupancy percentage
+    const totalSeats = allSeats.length
+    const occupiedSeats = allSeats.filter(s => s.occupied).length
+    const occupancyPercentage = (occupiedSeats / totalSeats) * 100
+
+    // Check if seat is already selected
+    const isAlreadySelected = selectedSeats.includes(seatNumber)
+
+    // For right side double seats
+    if (seat.side === 'right' && !seat.isSingle) {
+      const pairSeat = allSeats.find(s => s.number === seat.pairSeat)
+
+      if (occupancyPercentage < 70) {
+        // Bus is less than 70% full - must book both seats together
+        if (isAlreadySelected) {
+          // Deselecting: remove both seats from selection
+          setSelectedSeats(prev => prev.filter(num =>
+              num !== seatNumber && num !== seat.pairSeat
+          ))
+        } else {
+          // Selecting: add both seats to selection
+          if (pairSeat && !pairSeat.occupied) {
+            setSelectedSeats(prev => [...prev, seatNumber, seat.pairSeat])
+          } else {
+            alert('Both seats in this pair must be available to book together when bus occupancy is below 70%')
+            return
+          }
+        }
+      } else {
+        // Bus is 70% or more full - can book individual seats
+        if (isAlreadySelected) {
+          // Deselecting: remove only this seat
+          setSelectedSeats(prev => prev.filter(num => num !== seatNumber))
+        } else {
+          // Selecting: add only this seat
+          setSelectedSeats(prev => [...prev, seatNumber])
+        }
+      }
+    } else {
+      // Left side single seats or other seats
+      if (isAlreadySelected) {
+        // Deselecting: remove seat from selection
+        setSelectedSeats(prev => prev.filter(num => num !== seatNumber))
+      } else {
+        // Selecting: add seat to selection
+        setSelectedSeats(prev => [...prev, seatNumber])
+      }
+    }
+  }
+
+  const confirmBooking = () => {
+    if (selectedSeats.length === 0) {
+      alert('Please select at least one seat')
+      return
+    }
+
+    const newBooking = {
+      id: `BK${Date.now()}`,
+      customerName: customerDetails.name,
+      customerPhone: customerDetails.phone,
+      customerEmail: customerDetails.email,
+      customerAge: customerDetails.age,
+      customerGender: customerDetails.gender,
+      route: selectedBus.route,
+      busNumber: selectedBus.busNumber,
+      seatNumbers: selectedSeats,
+      bookingDate: new Date().toISOString().split('T')[0],
+      travelDate: searchFilters.date,
+      amount: selectedBus.price * selectedSeats.length,
+      status: 'confirmed',
+      bookingTime: new Date().toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+      }),
+      bookedByWomen: customerDetails.gender === 'female'
+    }
+
+    // Add booking to the list
+    setBookings(prev => [...prev, newBooking])
+
+    // Update bus seat availability
+    setAvailableBuses(prev => prev.map(bus =>
+        bus.id === selectedBus.id
+            ? {
+              ...bus,
+              availableSeats: bus.availableSeats - selectedSeats.length,
+              seatLayout: bus.seatLayout.map(section =>
+                  section.map(position =>
+                      position.map(seat =>
+                          selectedSeats.includes(seat.number)
+                              ? { ...seat, occupied: true, bookedByWomen: customerDetails.gender === 'female' }
+                              : seat
+                      )
+                  )
+              )
+            }
+            : bus
+    ))
+
+    // Reset form
+    setShowSeatModal(false)
+    setSelectedBus(null)
+    setSelectedSeats([])
+    setCustomerDetails({
+      name: '',
+      phone: '',
+      email: '',
+      age: '',
+      gender: ''
+    })
+  }
+
   const getIconColor = (color) => {
     switch (color) {
       case 'blue': return 'text-blue-600 bg-blue-100'
@@ -310,6 +656,231 @@ const Dashboard = () => {
       }
     }
   }
+
+  const renderBookingInterface = () => (
+    <div className="space-y-6">
+      {/* Search Section */}
+      <div className="card">
+        <h3 className="text-lg font-semibold mb-4">Search Available Buses</h3>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              From
+            </label>
+            <input
+              type="text"
+              name="from"
+              value={searchFilters.from}
+              onChange={handleSearchInputChange}
+              placeholder="Pickup location"
+              className="input-field"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              To
+            </label>
+            <input
+              type="text"
+              name="to"
+              value={searchFilters.to}
+              onChange={handleSearchInputChange}
+              placeholder="Drop location"
+              className="input-field"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Travel Date
+            </label>
+            <input
+              type="date"
+              name="date"
+              value={searchFilters.date}
+              onChange={handleSearchInputChange}
+              className="input-field"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Passengers
+            </label>
+            <input
+              type="number"
+              name="passengers"
+              value={searchFilters.passengers}
+              onChange={handleSearchInputChange}
+              min="1"
+              max="10"
+              className="input-field"
+            />
+          </div>
+        </div>
+        <button
+          onClick={searchBuses}
+          className="btn-primary mt-4 flex items-center"
+        >
+          <Search className="h-4 w-4 mr-2" />
+          Search Buses
+        </button>
+      </div>
+
+      {/* Available Buses */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold">Available Buses</h3>
+        {searchBuses().map((bus) => (
+          <div key={bus.id} className="card hover:shadow-lg transition-shadow">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+              {/* Bus Info */}
+              <div className="lg:col-span-3">
+                <div className="flex justify-between items-start mb-4">
+                  <div>
+                    <h4 className="text-xl font-semibold text-gray-900 mb-1">
+                      {bus.operator}
+                    </h4>
+                    <div className="flex items-center text-sm text-gray-600 mb-2">
+                      <Star className="h-4 w-4 text-yellow-400 fill-current mr-1" />
+                      <span>{bus.rating}</span>
+                      <span className="mx-2">•</span>
+                      <span className="capitalize">{bus.busType}</span>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-2xl font-bold text-blue-600">
+                      ${bus.price}
+                    </div>
+                    <div className="text-sm text-gray-500">
+                      per person
+                    </div>
+                  </div>
+                </div>
+
+                {/* Schedule */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                  <div className="text-center">
+                    <div className="text-lg font-semibold text-gray-900">
+                      {bus.departureTime}
+                    </div>
+                    <div className="text-sm text-gray-600">
+                      {bus.from}
+                    </div>
+                  </div>
+
+                  <div className="text-center">
+                    <div className="flex items-center justify-center mb-1">
+                      <Clock className="h-4 w-4 text-gray-400 mr-1" />
+                      <span className="text-sm text-gray-600">{bus.duration}</span>
+                    </div>
+                    <div className="w-full h-px bg-gray-300"></div>
+                  </div>
+
+                  <div className="text-center">
+                    <div className="text-lg font-semibold text-gray-900">
+                      {bus.arrivalTime}
+                    </div>
+                    <div className="text-sm text-gray-600">
+                      {bus.to}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Amenities */}
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {bus.amenities.map((amenity, index) => (
+                    <span
+                      key={index}
+                      className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
+                    >
+                      {amenity}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Seats Info */}
+                <div className="flex items-center text-sm text-gray-600">
+                  <Users className="h-4 w-4 mr-1" />
+                  <span>{bus.availableSeats} of {bus.totalSeats} seats available</span>
+                </div>
+              </div>
+
+              {/* Action */}
+              <div className="lg:col-span-1 flex flex-col justify-between">
+                <div className="text-center mb-4">
+                  <div className="text-sm text-gray-600 mb-2">
+                    Available Seats
+                  </div>
+                  <div className="text-2xl font-bold text-green-600">
+                    {bus.availableSeats}
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => handleSeatSelection(bus)}
+                  className="btn-primary w-full flex items-center justify-center"
+                  disabled={bus.availableSeats === 0}
+                >
+                  {bus.availableSeats === 0 ? 'Sold Out' : 'Book Seats'}
+                  {bus.availableSeats > 0 && <ArrowRight className="h-4 w-4 ml-2" />}
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Recent Bookings */}
+      <div className="card">
+        <h3 className="text-lg font-semibold mb-4">Recent Bookings</h3>
+        <div className="overflow-x-auto">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Booking ID</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Route</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Seats</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fare</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Travel Date</th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {bookings.map((booking) => (
+                <tr key={booking.id} className="hover:bg-gray-50">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                    {booking.id}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div>
+                      <div className="text-sm font-medium text-gray-900">{booking.customerName}</div>
+                      <div className="text-sm text-gray-500">{booking.customerPhone}</div>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    {booking.route}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    {Array.isArray(booking.seatNumbers) ? booking.seatNumbers.join(', ') : booking.seatNumbers}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-600">
+                    ${booking.amount}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(booking.status)}`}>
+                      {booking.status}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    {booking.travelDate}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  )
 
   const toggleStatus = (type, id) => {
     switch (type) {
@@ -360,6 +931,7 @@ const Dashboard = () => {
           <div className="flex space-x-2">
             {[
               { id: 'overview', name: 'Overview' },
+              { id: 'booking', name: 'Booking' },
               { id: 'buses', name: 'Bus Management' },
               { id: 'routes', name: 'Route Management' },
               { id: 'employees', name: 'Employee Management' },
@@ -386,6 +958,7 @@ const Dashboard = () => {
         </div>
 
         {/* Content */}
+        {activeTab === 'booking' && renderBookingInterface()}
         {activeTab === 'overview' && (
           <div className="space-y-6">
             {/* Time Range Selector */}
@@ -1820,6 +2393,326 @@ const Dashboard = () => {
                         </div>
                       </div>
                     ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Seat Selection Modal */}
+        {showSeatModal && selectedBus && (
+          <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+            <div className="relative top-10 mx-auto p-5 border w-full max-w-6xl shadow-lg rounded-md bg-white">
+              <div className="mt-3">
+                <h3 className="text-lg font-medium text-gray-900 mb-4">
+                  Select Seats - {selectedBus.operator} ({selectedBus.busNumber})
+                </h3>
+
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                  {/* Seat Layout */}
+                  <div className="lg:col-span-2">
+                    <div className="card">
+                      <h4 className="text-lg font-semibold mb-4">Choose Your Seats</h4>
+
+                      {/* Seat Legend */}
+                      <div className="flex justify-center mb-6">
+                        <div className="flex flex-wrap gap-4 text-sm">
+                          <div className="flex items-center">
+                            <div className="w-6 h-6 rounded border-2 border-green-300 bg-green-100 mr-2"></div>
+                            <span>Available</span>
+                          </div>
+                          <div className="flex items-center">
+                            <div className="w-6 h-6 rounded border-2 border-blue-500 bg-blue-200 mr-2 flex items-center justify-center">
+                              <User className="h-3 w-3 text-blue-800" />
+                            </div>
+                            <span>Selected</span>
+                          </div>
+                          <div className="flex items-center">
+                            <div className="w-6 h-6 rounded border-2 border-gray-300 bg-gray-100 mr-2"></div>
+                            <span>Occupied (Men)</span>
+                          </div>
+                          <div className="flex items-center">
+                            <div className="w-6 h-6 rounded border-2 border-pink-300 bg-pink-100 mr-2"></div>
+                            <span>Occupied (Women)</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Bus Layout */}
+                      <div className="flex justify-center">
+                        <div className="bg-gray-100 p-6 rounded-lg">
+                          {/* Driver */}
+                          <div className="text-center mb-4">
+                            <div className="w-8 h-8 bg-gray-400 rounded mx-auto mb-2"></div>
+                            <span className="text-xs text-gray-600">Driver</span>
+                          </div>
+
+                          {/* Seats */}
+                          <div className="flex space-x-8">
+                            {selectedBus.seatLayout.map((section, sectionIndex) => (
+                              <div key={sectionIndex} className="flex-1 border-2 border-gray-300 rounded-lg p-4 bg-gray-50">
+                                <div className="text-center text-sm font-medium text-gray-700 mb-4">
+                                  {section[0][0].section === 'lower' ? 'LOWER BERTH' : 'UPPER BERTH'}
+                                </div>
+
+                                {/* Seat Layout */}
+                                <div className="space-y-2">
+                                  {section.map((row, rowIndex) => (
+                                    <div key={rowIndex} className="flex justify-center space-x-8">
+                                      {/* Left side - single seat */}
+                                      <div className="flex flex-col">
+                                        <button
+                                          key={row[0].number}
+                                          onClick={() => {
+                                            if (!row[0].occupied) {
+                                              handleSeatClick(row[0].number)
+                                            }
+                                          }}
+                                          className={`w-8 h-16 rounded border-2 text-xs font-medium flex items-center justify-center transition-colors ${
+                                            row[0].occupied
+                                              ? row[0].bookedByWomen
+                                                ? 'border-pink-300 bg-pink-100 text-pink-600 cursor-not-allowed'
+                                                : 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed'
+                                              : selectedSeats.includes(row[0].number)
+                                                ? 'border-blue-500 bg-blue-200 text-blue-800 shadow-md'
+                                                : 'border-green-300 bg-green-100 text-green-800 hover:bg-green-200 hover:border-green-400'
+                                          }`}
+                                          disabled={row[0].occupied}
+                                          title={`Seat ${row[0].number} - Left Single`}
+                                        >
+                                          {selectedSeats.includes(row[0].number) ? (
+                                            <User className="h-4 w-4" />
+                                          ) : (
+                                            section[0][0].section === 'lower'
+                                              ? ['A', 'C', 'E', 'G', 'I', 'K'][rowIndex]
+                                              : ['B', 'D', 'F', 'H', 'J', 'L'][rowIndex]
+                                          )}
+                                        </button>
+                                      </div>
+
+                                      {/* Right side - double seat pair */}
+                                      <div className="flex space-x-1">
+                                        <button
+                                          key={row[1].number}
+                                          onClick={() => {
+                                            if (!row[1].occupied) {
+                                              handleSeatClick(row[1].number)
+                                            }
+                                          }}
+                                          className={`w-8 h-16 rounded border-2 text-xs font-medium flex items-center justify-center transition-colors ${
+                                            row[1].occupied
+                                              ? row[1].bookedByWomen
+                                                ? 'border-pink-300 bg-pink-100 text-pink-600 cursor-not-allowed'
+                                                : 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed'
+                                              : selectedSeats.includes(row[1].number)
+                                                ? 'border-blue-500 bg-blue-200 text-blue-800 shadow-md'
+                                                : 'border-green-300 bg-green-100 text-green-800 hover:bg-green-200 hover:border-green-400'
+                                          }`}
+                                          disabled={row[1].occupied}
+                                          title={`Seat ${row[1].number} - Right Double`}
+                                        >
+                                          {selectedSeats.includes(row[1].number) ? (
+                                            <User className="h-4 w-4" />
+                                          ) : (
+                                            row[1].number
+                                          )}
+                                        </button>
+                                        <button
+                                          key={row[2].number}
+                                          onClick={() => {
+                                            if (!row[2].occupied) {
+                                              handleSeatClick(row[2].number)
+                                            }
+                                          }}
+                                          className={`w-8 h-16 rounded border-2 text-xs font-medium flex items-center justify-center transition-colors ${
+                                            row[2].occupied
+                                              ? row[2].bookedByWomen
+                                                ? 'border-pink-300 bg-pink-100 text-pink-600 cursor-not-allowed'
+                                                : 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed'
+                                              : selectedSeats.includes(row[2].number)
+                                                ? 'border-blue-500 bg-blue-200 text-blue-800 shadow-md'
+                                                : 'border-green-300 bg-green-100 text-green-800 hover:bg-green-200 hover:border-green-400'
+                                          }`}
+                                          disabled={row[2].occupied}
+                                          title={`Seat ${row[2].number} - Right Double`}
+                                        >
+                                          {selectedSeats.includes(row[2].number) ? (
+                                            <User className="h-4 w-4" />
+                                          ) : (
+                                            row[2].number
+                                          )}
+                                        </button>
+                                      </div>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="mt-6 text-center text-sm text-gray-600">
+                        <div>Selected Seats: {selectedSeats.length > 0 ? selectedSeats.join(', ') : 'None'}</div>
+                        <div className="mt-2 text-xs">
+                          Bus Occupancy: {selectedBus ? Math.round((selectedBus.seatLayout.flat(2).filter(s => s.occupied).length / selectedBus.seatLayout.flat(2).length) * 100) : 0}%
+                          {selectedBus && (selectedBus.seatLayout.flat(2).filter(s => s.occupied).length / selectedBus.seatLayout.flat(2).length) * 100 < 70 && (
+                            <span className="text-orange-600 ml-2">• Right side seats must be booked in pairs</span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Customer Details & Summary */}
+                  <div className="lg:col-span-1">
+                    <div className="card mb-6">
+                      <h4 className="text-lg font-semibold mb-4">Customer Details</h4>
+
+                      <div className="space-y-3">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Full Name
+                          </label>
+                          <input
+                            type="text"
+                            name="name"
+                            value={customerDetails.name}
+                            onChange={handleCustomerInputChange}
+                            className="input-field"
+                            placeholder="Enter full name"
+                            required
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Phone Number
+                          </label>
+                          <input
+                            type="tel"
+                            name="phone"
+                            value={customerDetails.phone}
+                            onChange={handleCustomerInputChange}
+                            className="input-field"
+                            placeholder="Enter phone number"
+                            required
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Email
+                          </label>
+                          <input
+                            type="email"
+                            name="email"
+                            value={customerDetails.email}
+                            onChange={handleCustomerInputChange}
+                            className="input-field"
+                            placeholder="Enter email"
+                          />
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-3">
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                              Age
+                            </label>
+                            <input
+                              type="number"
+                              name="age"
+                              value={customerDetails.age}
+                              onChange={handleCustomerInputChange}
+                              className="input-field"
+                              placeholder="Age"
+                              min="1"
+                              max="120"
+                            />
+                          </div>
+
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                              Gender
+                            </label>
+                            <select
+                              name="gender"
+                              value={customerDetails.gender}
+                              onChange={handleCustomerInputChange}
+                              className="input-field"
+                            >
+                              <option value="">Select</option>
+                              <option value="male">Male</option>
+                              <option value="female">Female</option>
+                              <option value="other">Other</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Booking Summary */}
+                    <div className="card">
+                      <h4 className="text-lg font-semibold mb-4">Booking Summary</h4>
+
+                      <div className="space-y-3 mb-6">
+                        <div className="flex justify-between">
+                          <span>Route:</span>
+                          <span className="text-sm">{selectedBus.route}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Bus:</span>
+                          <span className="text-sm">{selectedBus.busNumber}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Date:</span>
+                          <span className="text-sm">{searchFilters.date}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Seats ({selectedSeats.length}):</span>
+                          <span className="text-sm">{selectedSeats.join(', ')}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Base Fare ({selectedSeats.length} × ${selectedBus.price})</span>
+                          <span>${selectedBus.price * selectedSeats.length}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Service Fee</span>
+                          <span>$2.00</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Taxes</span>
+                          <span>$3.50</span>
+                        </div>
+                        <div className="border-t pt-3">
+                          <div className="flex justify-between font-semibold text-lg">
+                            <span>Total</span>
+                            <span>${(selectedBus.price * selectedSeats.length + 5.5).toFixed(2)}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="space-y-3">
+                        <button
+                          onClick={confirmBooking}
+                          className="btn-primary w-full"
+                          disabled={selectedSeats.length === 0 || !customerDetails.name || !customerDetails.phone}
+                        >
+                          Confirm Booking
+                        </button>
+                        <button
+                          onClick={() => {
+                            setShowSeatModal(false)
+                            setSelectedBus(null)
+                            setSelectedSeats([])
+                          }}
+                          className="btn-secondary w-full"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
