@@ -1,50 +1,75 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { TrendingUp, TrendingDown, MapPin, Bus, Calendar, Filter, Download } from 'lucide-react'
+import { analyticsAPI } from '../../services/api'
 
 const RevenueAnalytics = () => {
   const [selectedPeriod, setSelectedPeriod] = useState('monthly')
   const [selectedRoute, setSelectedRoute] = useState('all')
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+  const [revenueData, setRevenueData] = useState(null)
 
-  // Mock revenue data
-  const revenueData = {
-    daily: [
-      { date: '2024-01-15', route: 'Mumbai-Pune', revenue: 45000, passengers: 120, trips: 8 },
-      { date: '2024-01-14', route: 'Mumbai-Pune', revenue: 42000, passengers: 110, trips: 8 },
-      { date: '2024-01-13', route: 'Mumbai-Pune', revenue: 48000, passengers: 125, trips: 8 },
-      { date: '2024-01-15', route: 'Mumbai-Nashik', revenue: 32000, passengers: 85, trips: 6 },
-      { date: '2024-01-14', route: 'Mumbai-Nashik', revenue: 35000, passengers: 90, trips: 6 },
-      { date: '2024-01-13', route: 'Mumbai-Nashik', revenue: 30000, passengers: 80, trips: 6 }
-    ],
-    weekly: [
-      { week: 'Week 1', route: 'Mumbai-Pune', revenue: 320000, passengers: 850, trips: 56 },
-      { week: 'Week 2', route: 'Mumbai-Pune', revenue: 340000, passengers: 900, trips: 56 },
-      { week: 'Week 3', route: 'Mumbai-Pune', revenue: 310000, passengers: 820, trips: 56 },
-      { week: 'Week 1', route: 'Mumbai-Nashik', revenue: 220000, passengers: 580, trips: 42 },
-      { week: 'Week 2', route: 'Mumbai-Nashik', revenue: 240000, passengers: 630, trips: 42 },
-      { week: 'Week 3', route: 'Mumbai-Nashik', revenue: 210000, passengers: 550, trips: 42 }
-    ],
-    monthly: [
-      { month: 'January', route: 'Mumbai-Pune', revenue: 1350000, passengers: 3600, trips: 240 },
-      { month: 'December', route: 'Mumbai-Pune', revenue: 1280000, passengers: 3400, trips: 240 },
-      { month: 'November', route: 'Mumbai-Pune', revenue: 1420000, passengers: 3800, trips: 240 },
-      { month: 'January', route: 'Mumbai-Nashik', revenue: 920000, passengers: 2400, trips: 180 },
-      { month: 'December', route: 'Mumbai-Nashik', revenue: 880000, passengers: 2300, trips: 180 },
-      { month: 'November', route: 'Mumbai-Nashik', revenue: 950000, passengers: 2500, trips: 180 }
-    ],
-    yearly: [
-      { year: '2024', route: 'Mumbai-Pune', revenue: 16200000, passengers: 43200, trips: 2880 },
-      { year: '2023', route: 'Mumbai-Pune', revenue: 15800000, passengers: 42000, trips: 2880 },
-      { year: '2024', route: 'Mumbai-Nashik', revenue: 11000000, passengers: 28800, trips: 2160 },
-      { year: '2023', route: 'Mumbai-Nashik', revenue: 10500000, passengers: 27600, trips: 2160 }
-    ]
+  // Load revenue analytics on component mount
+  useEffect(() => {
+    loadRevenueAnalytics()
+  }, [selectedPeriod])
+
+  const loadRevenueAnalytics = async () => {
+    setLoading(true)
+    setError(null)
+    
+    try {
+      const response = await analyticsAPI.getRevenueAnalytics({
+        period: selectedPeriod,
+        route: selectedRoute === 'all' ? undefined : selectedRoute
+      })
+      
+      if (response.success) {
+        setRevenueData(response.data)
+          } else {
+            setError('Failed to load revenue analytics')
+            setRevenueData(null)
+          }
+    } catch (error) {
+      console.error('Error loading revenue analytics:', error)
+      setError('Failed to load revenue analytics')
+      setRevenueData(null)
+    } finally {
+      setLoading(false)
+    }
   }
 
   const routes = ['Mumbai-Pune', 'Mumbai-Nashik', 'Pune-Nashik', 'Mumbai-Goa']
   const periods = ['daily', 'weekly', 'monthly', 'yearly']
 
-  const filteredData = revenueData[selectedPeriod].filter(item => 
+  // Handle loading and error states
+  if (loading) {
+    return (
+      <div className="p-6">
+        <div className="flex items-center justify-center h-64">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+          <span className="ml-2 text-gray-600">Loading revenue analytics...</span>
+        </div>
+      </div>
+    )
+  }
+
+  if (error || !revenueData) {
+    return (
+      <div className="p-6">
+        <div className="text-center py-12">
+          <div className="text-red-600">
+            <p className="text-lg font-medium mb-2">Error loading analytics</p>
+            <p className="text-sm">{error || 'No data available'}</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  const filteredData = revenueData[selectedPeriod]?.filter(item => 
     selectedRoute === 'all' || item.route === selectedRoute
-  )
+  ) || []
 
   const totalRevenue = filteredData.reduce((sum, item) => sum + item.revenue, 0)
   const totalPassengers = filteredData.reduce((sum, item) => sum + item.passengers, 0)

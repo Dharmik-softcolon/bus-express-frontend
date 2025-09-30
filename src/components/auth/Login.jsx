@@ -5,7 +5,7 @@ import { Eye, EyeOff, User, Lock, Bus } from 'lucide-react'
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    username: '',
+    email: '',
     password: ''
   })
   const [showPassword, setShowPassword] = useState(false)
@@ -29,7 +29,7 @@ const Login = () => {
     setLoading(true)
     setError('')
 
-    const result = await login(formData.username, formData.password)
+    const result = await login(formData.email, formData.password)
     
     if (result.success) {
       // Redirect to appropriate dashboard
@@ -52,17 +52,17 @@ const Login = () => {
   }
 
   const demoAccounts = [
-    { username: 'master', password: 'admin123', role: 'Master Admin' },
-    { username: 'owner1', password: 'owner123', role: 'Bus Owner' },
-    { username: 'admin1', password: 'admin123', role: 'Bus Admin' },
-    { username: 'booking1', password: 'booking123', role: 'Booking Man' },
-    { username: 'driver1', password: 'driver123', role: 'Bus Employee' },
-    { username: 'customer1', password: 'customer123', role: 'Customer' }
+    { email: 'dharmikghevariya08@gmail.com', password: 'Admin@1995', role: 'Master Admin' },
+    { email: 'owner1@example.com', password: 'owner123', role: 'Bus Owner' },
+    { email: 'admin1@example.com', password: 'admin123', role: 'Bus Admin' },
+    { email: 'booking1@example.com', password: 'booking123', role: 'Booking Man' },
+    { email: 'driver1@example.com', password: 'driver123', role: 'Bus Employee' },
+    { email: 'customer1@example.com', password: 'customer123', role: 'Customer' }
   ]
 
   const fillDemoAccount = (account) => {
     setFormData({
-      username: account.username,
+      email: account.email,
       password: account.password
     })
   }
@@ -93,22 +93,22 @@ const Login = () => {
             )}
 
             <div>
-              <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
-                Username
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                Email
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <User className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
-                  id="username"
-                  name="username"
-                  type="text"
+                  id="email"
+                  name="email"
+                  type="email"
                   required
-                  value={formData.username}
+                  value={formData.email}
                   onChange={handleInputChange}
                   className="input-field pl-10"
-                  placeholder="Enter your username"
+                  placeholder="Enter your email"
                 />
               </div>
             </div>
@@ -174,7 +174,7 @@ const Login = () => {
                 >
                   <span className="font-medium">{account.role}</span>
                   <br />
-                  <span className="text-gray-600 break-all">{account.username} / {account.password}</span>
+                  <span className="text-gray-600 break-all">{account.email} / {account.password}</span>
                 </button>
               ))}
             </div>

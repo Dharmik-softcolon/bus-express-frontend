@@ -1,55 +1,98 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Plus, Edit, Trash2, MapPin, Clock, DollarSign, Bus } from 'lucide-react'
+import { routeAPI } from '../../services/api'
 
 const RouteManagement = () => {
   const [showAddModal, setShowAddModal] = useState(false)
   const [editingRoute, setEditingRoute] = useState(null)
-  const [routes, setRoutes] = useState([
-    {
-      id: 1,
-      from: 'New York',
-      to: 'Boston',
-      distance: '215 miles',
-      duration: '4h 30m',
-      price: 45,
-      busType: 'Standard',
-      frequency: 'Every 2 hours',
-      status: 'active'
-    },
-    {
-      id: 2,
-      from: 'Los Angeles',
-      to: 'San Francisco',
-      distance: '383 miles',
-      duration: '6h 15m',
-      price: 65,
-      busType: 'Premium',
-      frequency: 'Every 3 hours',
-      status: 'active'
-    },
-    {
-      id: 3,
-      from: 'Chicago',
-      to: 'Detroit',
-      distance: '282 miles',
-      duration: '4h 45m',
-      price: 35,
-      busType: 'Economy',
-      frequency: 'Every 4 hours',
-      status: 'active'
-    },
-    {
-      id: 4,
-      from: 'Miami',
-      to: 'Orlando',
-      distance: '235 miles',
-      duration: '3h 30m',
-      price: 25,
-      busType: 'Standard',
-      frequency: 'Every hour',
-      status: 'inactive'
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+  const [routes, setRoutes] = useState([])
+  
+  // Load routes on component mount
+  useEffect(() => {
+    loadRoutes()
+  }, [])
+  
+  const loadRoutes = async () => {
+    setLoading(true)
+    setError(null)
+    
+    try {
+      const response = await routeAPI.getAllRoutes()
+      if (response.success) {
+        setRoutes(response.data.routes || [])
+          } else {
+            setError('Failed to load routes')
+            setRoutes([])
+          }
+    } catch (error) {
+      console.error('Error loading routes:', error)
+      setError('Failed to load routes')
+      setRoutes([])
+    } finally {
+      setLoading(false)
     }
-  ])
+  }
+  
+  // Route CRUD operations
+  const handleAddRoute = async (routeData) => {
+    try {
+      const response = await routeAPI.createRoute(routeData)
+      if (response.success) {
+        await loadRoutes() // Reload routes
+        setShowAddModal(false)
+        return { success: true }
+      } else {
+        return { success: false, error: response.message || 'Failed to add route' }
+      }
+    } catch (error) {
+      return { success: false, error: error.message || 'Failed to add route' }
+    }
+  }
+  
+  const handleUpdateRoute = async (routeId, routeData) => {
+    try {
+      const response = await routeAPI.updateRoute(routeId, routeData)
+      if (response.success) {
+        await loadRoutes() // Reload routes
+        setEditingRoute(null)
+        return { success: true }
+      } else {
+        return { success: false, error: response.message || 'Failed to update route' }
+      }
+    } catch (error) {
+      return { success: false, error: error.message || 'Failed to update route' }
+    }
+  }
+  
+  const handleDeleteRoute = async (routeId) => {
+    try {
+      const response = await routeAPI.deleteRoute(routeId)
+      if (response.success) {
+        await loadRoutes() // Reload routes
+        return { success: true }
+      } else {
+        return { success: false, error: response.message || 'Failed to delete route' }
+      }
+    } catch (error) {
+      return { success: false, error: error.message || 'Failed to delete route' }
+    }
+  }
+  
+  const handleUpdateRouteStatus = async (routeId, status) => {
+    try {
+      const response = await routeAPI.updateRouteStatus(routeId, status)
+      if (response.success) {
+        await loadRoutes() // Reload routes
+        return { success: true }
+      } else {
+        return { success: false, error: response.message || 'Failed to update route status' }
+      }
+    } catch (error) {
+      return { success: false, error: error.message || 'Failed to update route status' }
+    }
+  }
 
   const [formData, setFormData] = useState({
     from: '',

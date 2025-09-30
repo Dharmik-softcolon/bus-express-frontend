@@ -1,90 +1,66 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { User, Mail, Phone, MapPin, Calendar, CreditCard, Car, Edit, Save, X, Plus, Trash2 } from 'lucide-react'
+import { authAPI } from '../../services/api'
 
 const UserProfileManagement = () => {
-  const [users, setUsers] = useState([
-    {
-      id: 1,
-      name: 'Master Admin',
-      email: 'master@busexpress.com',
-      phone: '+91 9876543210',
-      role: 'master-admin',
-      company: 'BusExpress Platform',
-      aadhaarCard: '1234-5678-9012',
-      drivingLicense: null,
-      position: 'Master Administrator',
-      address: 'Mumbai, Maharashtra',
-      joinDate: '2023-01-01'
-    },
-    {
-      id: 2,
-      name: 'John Smith',
-      email: 'john@abctransport.com',
-      phone: '+91 9876543211',
-      role: 'bus-owner',
-      company: 'ABC Transport Company',
-      aadhaarCard: '2345-6789-0123',
-      drivingLicense: null,
-      position: 'Owner',
-      address: 'Pune, Maharashtra',
-      joinDate: '2023-02-01'
-    },
-    {
-      id: 3,
-      name: 'Alice Johnson',
-      email: 'alice@abctransport.com',
-      phone: '+91 9876543212',
-      role: 'bus-admin',
-      company: 'ABC Transport Company',
-      aadhaarCard: '3456-7890-1234',
-      drivingLicense: null,
-      position: 'Bus Administrator',
-      address: 'Nashik, Maharashtra',
-      joinDate: '2023-03-01'
-    },
-    {
-      id: 4,
-      name: 'Bob Wilson',
-      email: 'bob@abctransport.com',
-      phone: '+91 9876543213',
-      role: 'booking-man',
-      company: 'ABC Transport Company',
-      aadhaarCard: '4567-8901-2345',
-      drivingLicense: null,
-      position: 'Booking Manager',
-      address: 'Goa, Goa',
-      joinDate: '2023-04-01'
-    },
-    {
-      id: 5,
-      name: 'Mike Johnson',
-      email: 'mike@abctransport.com',
-      phone: '+91 9876543214',
-      role: 'bus-employee',
-      company: 'ABC Transport Company',
-      aadhaarCard: '5678-9012-3456',
-      drivingLicense: 'DL-1234567890123',
-      position: 'Driver',
-      address: 'Mumbai, Maharashtra',
-      joinDate: '2023-05-01',
-      licenseExpiry: '2025-12-31',
-      experience: '8 years'
-    },
-    {
-      id: 6,
-      name: 'Sarah Davis',
-      email: 'sarah@abctransport.com',
-      phone: '+91 9876543215',
-      role: 'bus-employee',
-      company: 'ABC Transport Company',
-      aadhaarCard: '6789-0123-4567',
-      drivingLicense: null,
-      position: 'Conductor',
-      address: 'Pune, Maharashtra',
-      joinDate: '2023-06-01',
-      experience: '5 years'
+  const [users, setUsers] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+  
+  // Load users on component mount
+  useEffect(() => {
+    loadUsers()
+  }, [])
+  
+  const loadUsers = async () => {
+    setLoading(true)
+    setError(null)
+    
+    try {
+      const response = await authAPI.getAllUsers()
+      if (response.success) {
+        setUsers(response.data.users || [])
+          } else {
+            setError('Failed to load users')
+            setUsers([])
+          }
+    } catch (error) {
+      console.error('Error loading users:', error)
+      setError('Failed to load users')
+      setUsers([])
+    } finally {
+      setLoading(false)
     }
-  ])
+  }
+  
+  // User CRUD operations
+  const handleUpdateUser = async (userId, userData) => {
+    try {
+      const response = await authAPI.updateUserById(userId, userData)
+      if (response.success) {
+        await loadUsers() // Reload users
+        return { success: true }
+      } else {
+        return { success: false, error: response.message || 'Failed to update user' }
+      }
+    } catch (error) {
+      return { success: false, error: error.message || 'Failed to update user' }
+    }
+  }
+  
+  const handleDeleteUser = async (userId) => {
+    try {
+      const response = await authAPI.deleteUser(userId)
+      if (response.success) {
+        await loadUsers() // Reload users
+        return { success: true }
+      } else {
+        return { success: false, error: response.message || 'Failed to delete user' }
+      }
+    } catch (error) {
+      return { success: false, error: error.message || 'Failed to delete user' }
+    }
+  }
 
   const [editingUser, setEditingUser] = useState(null)
   const [showAddForm, setShowAddForm] = useState(false)

@@ -1,48 +1,47 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { TrendingDown, Bus, Calendar, Filter, Download, Fuel, CreditCard, Wrench, Car } from 'lucide-react'
+import { expenseAPI } from '../../services/api'
 
 const ExpenseAnalytics = () => {
   const [selectedPeriod, setSelectedPeriod] = useState('monthly')
   const [selectedBus, setSelectedBus] = useState('all')
   const [selectedExpenseType, setSelectedExpenseType] = useState('all')
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+  const [expenseData, setExpenseData] = useState(null)
 
-  // Mock expense data
-  const expenseData = {
-    daily: [
-      { date: '2024-01-15', bus: 'Bus-001', type: 'fuel', amount: 15000, description: 'Diesel refill' },
-      { date: '2024-01-15', bus: 'Bus-001', type: 'fastag', amount: 2500, description: 'Toll charges' },
-      { date: '2024-01-15', bus: 'Bus-001', type: 'maintenance', amount: 3000, description: 'Oil change' },
-      { date: '2024-01-15', bus: 'Bus-002', type: 'fuel', amount: 14000, description: 'Diesel refill' },
-      { date: '2024-01-15', bus: 'Bus-002', type: 'parking', amount: 800, description: 'Parking charges' },
-      { date: '2024-01-14', bus: 'Bus-001', type: 'tyres', amount: 12000, description: 'Tyre replacement' },
-      { date: '2024-01-14', bus: 'Bus-001', type: 'fastag', amount: 2200, description: 'Toll charges' }
-    ],
-    weekly: [
-      { week: 'Week 1', bus: 'Bus-001', type: 'fuel', amount: 105000, description: 'Weekly fuel expenses' },
-      { week: 'Week 1', bus: 'Bus-001', type: 'fastag', amount: 17500, description: 'Weekly toll charges' },
-      { week: 'Week 1', bus: 'Bus-001', type: 'maintenance', amount: 21000, description: 'Weekly maintenance' },
-      { week: 'Week 1', bus: 'Bus-002', type: 'fuel', amount: 98000, description: 'Weekly fuel expenses' },
-      { week: 'Week 1', bus: 'Bus-002', type: 'parking', amount: 5600, description: 'Weekly parking' }
-    ],
-    monthly: [
-      { month: 'January', bus: 'Bus-001', type: 'fuel', amount: 450000, description: 'Monthly fuel expenses' },
-      { month: 'January', bus: 'Bus-001', type: 'fastag', amount: 75000, description: 'Monthly toll charges' },
-      { month: 'January', bus: 'Bus-001', type: 'maintenance', amount: 90000, description: 'Monthly maintenance' },
-      { month: 'January', bus: 'Bus-001', type: 'tyres', amount: 48000, description: 'Tyre replacement' },
-      { month: 'January', bus: 'Bus-002', type: 'fuel', amount: 420000, description: 'Monthly fuel expenses' },
-      { month: 'January', bus: 'Bus-002', type: 'parking', amount: 24000, description: 'Monthly parking' }
-    ],
-    yearly: [
-      { year: '2024', bus: 'Bus-001', type: 'fuel', amount: 5400000, description: 'Annual fuel expenses' },
-      { year: '2024', bus: 'Bus-001', type: 'fastag', amount: 900000, description: 'Annual toll charges' },
-      { year: '2024', bus: 'Bus-001', type: 'maintenance', amount: 1080000, description: 'Annual maintenance' },
-      { year: '2024', bus: 'Bus-001', type: 'tyres', amount: 576000, description: 'Annual tyre expenses' },
-      { year: '2024', bus: 'Bus-002', type: 'fuel', amount: 5040000, description: 'Annual fuel expenses' },
-      { year: '2024', bus: 'Bus-002', type: 'parking', amount: 288000, description: 'Annual parking' }
-    ]
+  // Load expense analytics on component mount
+  useEffect(() => {
+    loadExpenseAnalytics()
+  }, [selectedPeriod])
+
+  const loadExpenseAnalytics = async () => {
+    setLoading(true)
+    setError(null)
+    
+    try {
+      const response = await expenseAPI.getExpenseStatistics({
+        period: selectedPeriod,
+        bus: selectedBus === 'all' ? undefined : selectedBus,
+        type: selectedExpenseType === 'all' ? undefined : selectedExpenseType
+      })
+      
+      if (response.success) {
+        setExpenseData(response.data)
+          } else {
+            setError('Failed to load expense analytics')
+            setExpenseData(null)
+          }
+    } catch (error) {
+      console.error('Error loading expense analytics:', error)
+      setError('Failed to load expense analytics')
+      setExpenseData(null)
+    } finally {
+      setLoading(false)
+    }
   }
 
-  const buses = ['Bus-001', 'Bus-002', 'Bus-003', 'Bus-004']
+  const buses = ['MH-01-AB-1234', 'MH-02-CD-5678', 'MH-03-EF-9012', 'MH-04-GH-3456']
   const periods = ['daily', 'weekly', 'monthly', 'yearly']
   const expenseTypes = [
     { value: 'fuel', label: 'Fuel', icon: Fuel, color: 'text-blue-600' },
@@ -53,11 +52,36 @@ const ExpenseAnalytics = () => {
     { value: 'other', label: 'Other', icon: Wrench, color: 'text-red-600' }
   ]
 
-  const filteredData = expenseData[selectedPeriod].filter(item => {
+  // Handle loading and error states
+  if (loading) {
+    return (
+      <div className="p-6">
+        <div className="flex items-center justify-center h-64">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+          <span className="ml-2 text-gray-600">Loading expense analytics...</span>
+        </div>
+      </div>
+    )
+  }
+
+  if (error || !expenseData) {
+    return (
+      <div className="p-6">
+        <div className="text-center py-12">
+          <div className="text-red-600">
+            <p className="text-lg font-medium mb-2">Error loading analytics</p>
+            <p className="text-sm">{error || 'No data available'}</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  const filteredData = expenseData[selectedPeriod]?.filter(item => {
     const busMatch = selectedBus === 'all' || item.bus === selectedBus
     const typeMatch = selectedExpenseType === 'all' || item.type === selectedExpenseType
     return busMatch && typeMatch
-  })
+  }) || []
 
   const totalExpenses = filteredData.reduce((sum, item) => sum + item.amount, 0)
 

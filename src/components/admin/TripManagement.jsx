@@ -1,59 +1,100 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Plus, Edit, Trash2, MapPin, Users, Calendar, Clock, Bus, Route, DollarSign } from 'lucide-react'
+import { tripAPI } from '../../services/api'
 
 const TripManagement = () => {
   const [showAddModal, setShowAddModal] = useState(false)
   const [editingTrip, setEditingTrip] = useState(null)
   const [activeTab, setActiveTab] = useState('trips')
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
   
-  const [trips, setTrips] = useState([
-    {
-      id: 1,
-      tripNumber: 'TR-001',
-      route: 'New York → Boston',
-      busNumber: 'BE-001',
-      driver: 'John Smith',
-      helper: 'Mike Johnson',
-      departureTime: '08:00 AM',
-      arrivalTime: '12:30 PM',
-      departureDate: '2024-01-20',
-      pickupPoints: [
-        { id: 1, name: 'Times Square', time: '08:00 AM', address: 'Times Square, New York' },
-        { id: 2, name: 'Central Station', time: '08:30 AM', address: 'Central Station, New York' }
-      ],
-      dropPoints: [
-        { id: 1, name: 'South Station', time: '12:00 PM', address: 'South Station, Boston' },
-        { id: 2, name: 'Logan Airport', time: '12:30 PM', address: 'Logan Airport, Boston' }
-      ],
-      status: 'scheduled',
-      totalBookings: 35,
-      availableSeats: 10,
-      fare: 45.00
-    },
-    {
-      id: 2,
-      tripNumber: 'TR-002',
-      route: 'Los Angeles → San Francisco',
-      busNumber: 'BE-002',
-      driver: 'Sarah Wilson',
-      helper: 'David Brown',
-      departureTime: '10:30 AM',
-      arrivalTime: '04:45 PM',
-      departureDate: '2024-01-22',
-      pickupPoints: [
-        { id: 1, name: 'Union Station', time: '10:30 AM', address: 'Union Station, LA' },
-        { id: 2, name: 'Hollywood Blvd', time: '11:00 AM', address: 'Hollywood Blvd, LA' }
-      ],
-      dropPoints: [
-        { id: 1, name: 'Civic Center', time: '04:15 PM', address: 'Civic Center, SF' },
-        { id: 2, name: 'SFO Airport', time: '04:45 PM', address: 'SFO Airport, SF' }
-      ],
-      status: 'in-progress',
-      totalBookings: 42,
-      availableSeats: 8,
-      fare: 65.00
+  const [trips, setTrips] = useState([])
+  
+  // Load trips on component mount
+  useEffect(() => {
+    loadTrips()
+  }, [])
+  
+  const loadTrips = async () => {
+    setLoading(true)
+    setError(null)
+    
+    try {
+      const response = await tripAPI.getAllTrips()
+      if (response.success) {
+        setTrips(response.data.trips || [])
+          } else {
+            setError('Failed to load trips')
+            setTrips([])
+          }
+    } catch (error) {
+      console.error('Error loading trips:', error)
+      setError('Failed to load trips')
+      setTrips([])
+    } finally {
+      setLoading(false)
     }
-  ])
+  }
+  
+  // Trip CRUD operations
+  const handleAddTrip = async (tripData) => {
+    try {
+      const response = await tripAPI.createTrip(tripData)
+      if (response.success) {
+        await loadTrips() // Reload trips
+        setShowAddModal(false)
+        return { success: true }
+      } else {
+        return { success: false, error: response.message || 'Failed to add trip' }
+      }
+    } catch (error) {
+      return { success: false, error: error.message || 'Failed to add trip' }
+    }
+  }
+  
+  const handleUpdateTrip = async (tripId, tripData) => {
+    try {
+      const response = await tripAPI.updateTrip(tripId, tripData)
+      if (response.success) {
+        await loadTrips() // Reload trips
+        setEditingTrip(null)
+        return { success: true }
+      } else {
+        return { success: false, error: response.message || 'Failed to update trip' }
+      }
+    } catch (error) {
+      return { success: false, error: error.message || 'Failed to update trip' }
+    }
+  }
+  
+  const handleDeleteTrip = async (tripId) => {
+    try {
+      const response = await tripAPI.deleteTrip(tripId)
+      if (response.success) {
+        await loadTrips() // Reload trips
+        return { success: true }
+      } else {
+        return { success: false, error: response.message || 'Failed to delete trip' }
+      }
+    } catch (error) {
+      return { success: false, error: error.message || 'Failed to delete trip' }
+    }
+  }
+  
+  const handleUpdateTripStatus = async (tripId, status) => {
+    try {
+      const response = await tripAPI.updateTripStatus(tripId, status)
+      if (response.success) {
+        await loadTrips() // Reload trips
+        return { success: true }
+      } else {
+        return { success: false, error: response.message || 'Failed to update trip status' }
+      }
+    } catch (error) {
+      return { success: false, error: error.message || 'Failed to update trip status' }
+    }
+  }
 
   const [buses, setBuses] = useState([
     { id: 1, busNumber: 'BE-001', busName: 'Express Deluxe', capacity: 45, status: 'available' },

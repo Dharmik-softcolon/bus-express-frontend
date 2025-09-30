@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Calendar, MapPin, Users, Clock, Star, Shield, Wifi, Coffee } from 'lucide-react'
+import { searchAPI } from '../../services/api'
 
 const HomePage = ({ onSearch }) => {
   const navigate = useNavigate()
@@ -10,6 +11,24 @@ const HomePage = ({ onSearch }) => {
     departureDate: '',
     passengers: 1
   })
+  const [popularRoutes, setPopularRoutes] = useState([])
+  const [loading, setLoading] = useState(false)
+
+  // Load popular routes on component mount
+  useEffect(() => {
+    const loadPopularRoutes = async () => {
+      try {
+        const response = await searchAPI.getPopularRoutes({ limit: 4 })
+        if (response.success) {
+          setPopularRoutes(response.data.routes || [])
+        }
+      } catch (error) {
+        console.error('Error loading popular routes:', error)
+      }
+    }
+    
+    loadPopularRoutes()
+  }, [])
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
@@ -19,20 +38,43 @@ const HomePage = ({ onSearch }) => {
     }))
   }
 
-  const handleSearch = (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault()
     if (searchForm.from && searchForm.to && searchForm.departureDate) {
-      onSearch(searchForm)
-      navigate('/search')
+      setLoading(true)
+      try {
+        // Search for buses using the API
+        const searchParams = {
+          from: searchForm.from,
+          to: searchForm.to,
+          departureDate: searchForm.departureDate,
+          passengers: searchForm.passengers
+        }
+        
+        const response = await searchAPI.searchBuses(searchParams)
+        
+        if (response.success) {
+          onSearch({
+            ...searchForm,
+            searchResults: response.data
+          })
+          navigate('/search')
+        } else {
+          // Still navigate to search page even if no results
+          onSearch(searchForm)
+          navigate('/search')
+        }
+      } catch (error) {
+        console.error('Search error:', error)
+        // Still navigate to search page
+        onSearch(searchForm)
+        navigate('/search')
+      } finally {
+        setLoading(false)
+      }
     }
   }
 
-  const popularRoutes = [
-    { from: 'New York', to: 'Boston', price: '$45', duration: '4h 30m' },
-    { from: 'Los Angeles', to: 'San Francisco', price: '$65', duration: '6h 15m' },
-    { from: 'Chicago', to: 'Detroit', price: '$35', duration: '4h 45m' },
-    { from: 'Miami', to: 'Orlando', price: '$25', duration: '3h 30m' }
-  ]
 
   const features = [
     { icon: Shield, title: 'Safe & Secure', description: 'Your safety is our priority' },
@@ -135,9 +177,17 @@ const HomePage = ({ onSearch }) => {
                 <div className="sm:col-span-2 lg:col-span-4 flex justify-center">
                   <button
                     type="submit"
-                    className="btn-primary px-6 sm:px-8 py-2 sm:py-3 text-base sm:text-lg w-full sm:w-auto"
+                    disabled={loading}
+                    className="btn-primary px-6 sm:px-8 py-2 sm:py-3 text-base sm:text-lg w-full sm:w-auto disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    Search Buses
+                    {loading ? (
+                      <div className="flex items-center">
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                        Searching...
+                      </div>
+                    ) : (
+                      'Search Buses'
+                    )}
                   </button>
                 </div>
               </form>
@@ -166,10 +216,20 @@ const HomePage = ({ onSearch }) => {
                     {route.from} → {route.to}
                   </h3>
                   <div className="flex justify-between items-center mb-2">
-                    <span className="text-2xl font-bold text-blue-600">{route.price}</span>
-                    <span className="text-gray-500">{route.duration}</span>
+                    <span className="text-2xl font-bold text-blue-600">{route.price || '₹450'}</span>
+                    <span className="text-gray-500">{route.duration || '3h 30m'}</span>
                   </div>
-                  <button className="btn-outline w-full">
+                  <button 
+                    className="btn-outline w-full"
+                    onClick={() => {
+                      setSearchForm({
+                        from: route.from,
+                        to: route.to,
+                        departureDate: new Date().toISOString().split('T')[0],
+                        passengers: 1
+                      })
+                    }}
+                  >
                     Book Now
                   </button>
                 </div>

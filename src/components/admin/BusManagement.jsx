@@ -1,62 +1,107 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Plus, Edit, Trash2, MapPin, Users, Fuel, CreditCard, Route, Calendar, DollarSign } from 'lucide-react'
+import { busAPI } from '../../services/api'
 
 const BusManagement = () => {
   const [showAddModal, setShowAddModal] = useState(false)
   const [editingBus, setEditingBus] = useState(null)
   const [activeTab, setActiveTab] = useState('buses')
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
   
-  const [buses, setBuses] = useState([
-    {
-      id: 1,
-      busNumber: 'BE-001',
-      busName: 'Express Deluxe',
-      busType: 'AC Sleeper',
-      capacity: 45,
-      assignedRoute: 'New York → Boston',
-      driver: 'John Smith',
-      helper: 'Mike Johnson',
-      fuelCapacity: 200,
-      currentFuel: 150,
-      totalKm: 12500,
-      lastServiceKm: 12000,
-      fastTagNumber: 'FT123456789',
-      fastTagBalance: 250.00,
-      status: 'active',
-      expenses: [
-        { id: 1, type: 'Fuel', amount: 150.00, date: '2024-01-15', description: 'Diesel refill' },
-        { id: 2, type: 'Maintenance', amount: 300.00, date: '2024-01-10', description: 'Oil change' }
-      ]
-    },
-    {
-      id: 2,
-      busNumber: 'BE-002',
-      busName: 'City Connect',
-      busType: 'Non-AC',
-      capacity: 50,
-      assignedRoute: 'Los Angeles → San Francisco',
-      driver: 'Sarah Wilson',
-      helper: 'David Brown',
-      fuelCapacity: 180,
-      currentFuel: 120,
-      totalKm: 8900,
-      lastServiceKm: 8500,
-      fastTagNumber: 'FT987654321',
-      fastTagBalance: 180.00,
-      status: 'active',
-      expenses: [
-        { id: 3, type: 'Fuel', amount: 120.00, date: '2024-01-14', description: 'Diesel refill' },
-        { id: 4, type: 'Toll', amount: 45.00, date: '2024-01-13', description: 'Highway toll' }
-      ]
+  const [buses, setBuses] = useState([])
+  
+  // Load buses on component mount
+  useEffect(() => {
+    loadBuses()
+  }, [])
+  
+  const loadBuses = async () => {
+    setLoading(true)
+    setError(null)
+    
+    try {
+      const response = await busAPI.getAllBuses()
+      if (response.success) {
+        setBuses(response.data.buses || [])
+          } else {
+            setError('Failed to load buses')
+            setBuses([])
+          }
+    } catch (error) {
+      console.error('Error loading buses:', error)
+      setError('Failed to load buses')
+      setBuses([])
+    } finally {
+      setLoading(false)
     }
-  ])
+  }
 
   const [employees, setEmployees] = useState([
-    { id: 1, name: 'John Smith', role: 'Driver', license: 'DL123456', phone: '+1-555-0101' },
-    { id: 2, name: 'Mike Johnson', role: 'Helper', phone: '+1-555-0102' },
-    { id: 3, name: 'Sarah Wilson', role: 'Driver', license: 'DL789012', phone: '+1-555-0103' },
-    { id: 4, name: 'David Brown', role: 'Helper', phone: '+1-555-0104' }
+    { id: 1, name: 'John Smith', role: 'Driver', license: 'DL123456', phone: '+91 9876543214' },
+    { id: 2, name: 'Mike Johnson', role: 'Helper', phone: '+91 9876543215' },
+    { id: 3, name: 'Sarah Wilson', role: 'Driver', license: 'DL789012', phone: '+91 9876543216' },
+    { id: 4, name: 'David Brown', role: 'Helper', phone: '+91 9876543217' }
   ])
+  
+  // Bus CRUD operations
+  const handleAddBus = async (busData) => {
+    try {
+      const response = await busAPI.createBus(busData)
+      if (response.success) {
+        await loadBuses() // Reload buses
+        setShowAddModal(false)
+        return { success: true }
+      } else {
+        return { success: false, error: response.message || 'Failed to add bus' }
+      }
+    } catch (error) {
+      return { success: false, error: error.message || 'Failed to add bus' }
+    }
+  }
+  
+  const handleUpdateBus = async (busId, busData) => {
+    try {
+      const response = await busAPI.updateBus(busId, busData)
+      if (response.success) {
+        await loadBuses() // Reload buses
+        setEditingBus(null)
+        return { success: true }
+      } else {
+        return { success: false, error: response.message || 'Failed to update bus' }
+      }
+    } catch (error) {
+      return { success: false, error: error.message || 'Failed to update bus' }
+    }
+  }
+  
+  const handleDeleteBus = async (busId) => {
+    try {
+      const response = await busAPI.deleteBus(busId)
+      if (response.success) {
+        await loadBuses() // Reload buses
+        return { success: true }
+      } else {
+        return { success: false, error: response.message || 'Failed to delete bus' }
+      }
+    } catch (error) {
+      return { success: false, error: error.message || 'Failed to delete bus' }
+    }
+  }
+  
+  const handleUpdateBusStatus = async (busId, status) => {
+    try {
+      const response = await busAPI.updateBusStatus(busId, status)
+      if (response.success) {
+        await loadBuses() // Reload buses
+        return { success: true }
+      } else {
+        return { success: false, error: response.message || 'Failed to update bus status' }
+      }
+    } catch (error) {
+      return { success: false, error: error.message || 'Failed to update bus status' }
+    }
+  }
 
   const [routes, setRoutes] = useState([
     { id: 1, name: 'New York → Boston', distance: 215, duration: '4h 30m' },
