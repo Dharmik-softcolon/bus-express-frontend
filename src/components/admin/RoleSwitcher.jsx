@@ -75,17 +75,17 @@ const RoleSwitcher = () => {
   const getRoleRoutes = (roleId) => {
     switch (roleId) {
       case 'MASTER_ADMIN':
-        return '/api/v1/master-admin'
+        return '/master-admin'
       case 'BUS_OWNER':
-        return '/api/v1/bus-owner'
+        return '/bus-owner'
       case 'BUS_ADMIN':
-        return '/api/v1/bus-admin'
+        return '/bus-admin'
       case 'BOOKING_MAN':
-        return '/api/v1/booking-man'
+        return '/booking-man'
       case 'BUS_EMPLOYEE':
-        return '/api/v1/bus-employee'
+        return '/bus-employee'
       default:
-        return '/api/v1/bus-admin'
+        return '/bus-admin'
     }
   }
 

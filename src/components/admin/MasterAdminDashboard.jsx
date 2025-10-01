@@ -3,6 +3,8 @@ import { Users, Bus, Building, Plus, Edit, Trash2, Search, Filter, Loader2 } fro
 import { authAPI } from '../../services/api'
 
 const MasterAdminDashboard = () => {
+  console.log('MasterAdminDashboard component rendering...')
+  
   const [activeTab, setActiveTab] = useState('owners')
   const [showAddModal, setShowAddModal] = useState(false)
   const [editingOwner, setEditingOwner] = useState(null)
@@ -255,6 +257,14 @@ const MasterAdminDashboard = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Debug Info */}
+        <div className="mb-4 p-4 bg-yellow-100 border border-yellow-400 rounded">
+          <p>Debug: MasterAdminDashboard is rendering</p>
+          <p>Loading: {loading ? 'true' : 'false'}</p>
+          <p>Error: {error || 'none'}</p>
+          <p>Bus Owners Count: {busOwners.length}</p>
+        </div>
+        
         {/* Header */}
         <div className="mb-8">
           <div className="flex justify-between items-center">
@@ -345,7 +355,7 @@ const MasterAdminDashboard = () => {
             </div>
           </div>
           <div className="mt-4 text-sm text-gray-600">
-            Showing {filteredBusOwners.length} of {busOwners.length} bus owners
+            Showing {sortedBusOwners.length} of {busOwners.length} bus owners
           </div>
         </div>
 

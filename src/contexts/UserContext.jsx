@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import { authAPI } from '../services/api'
 import config from '../config/config'
+import { canAccessRoute, getDefaultRoute, PUBLIC_ROUTES } from '../config/routes'
 
 const UserContext = createContext()
 
@@ -92,29 +93,12 @@ export const UserProvider = ({ children }) => {
 
   const canAccess = (path) => {
     if (!user) return false
-    
-    // Public routes
-    const publicRoutes = [config.ROUTES.HOME, config.ROUTES.SEARCH, config.ROUTES.SEATS, config.ROUTES.CONFIRMATION]
-    if (publicRoutes.includes(path)) return true
-    
-    // Role-based access
-    const roleRoutes = {
-      [config.ROLES.MASTER_ADMIN]: [config.ROUTES.ADMIN, config.ROUTES.ADMIN_MASTER, config.ROUTES.ADMIN_BUS_OWNER, config.ROUTES.ADMIN_EMPLOYEE, config.ROUTES.ADMIN_ROLES],
-      [config.ROLES.BUS_OWNER]: [config.ROUTES.ADMIN, config.ROUTES.ADMIN_BUS_OWNER, config.ROUTES.ADMIN_EMPLOYEE],
-      [config.ROLES.BUS_ADMIN]: [config.ROUTES.ADMIN, config.ROUTES.ADMIN_BUSES, config.ROUTES.ADMIN_TRIPS, config.ROUTES.ADMIN_BOOKING_MEN, config.ROUTES.ADMIN_ROUTES, config.ROUTES.ADMIN_USERS, config.ROUTES.ADMIN_SETTINGS],
-      [config.ROLES.BOOKING_MAN]: [config.ROUTES.ADMIN, config.ROUTES.ADMIN_BOOKING_MEN],
-      [config.ROLES.BUS_EMPLOYEE]: [config.ROUTES.ADMIN, config.ROUTES.ADMIN_EMPLOYEE],
-      [config.ROLES.CUSTOMER]: [config.ROUTES.HOME]
-    }
-    
-    const allowedRoutes = roleRoutes[user.role] || []
-    return allowedRoutes.some(route => path.startsWith(route))
+    return canAccessRoute(path, user.role)
   }
 
   const getDashboardRoute = () => {
-    if (!user) return config.ROUTES.HOME
-    
-    return config.DASHBOARD_ROUTES[user.role] || config.ROUTES.HOME
+    if (!user) return PUBLIC_ROUTES.HOME
+    return getDefaultRoute(user.role)
   }
 
   const value = {

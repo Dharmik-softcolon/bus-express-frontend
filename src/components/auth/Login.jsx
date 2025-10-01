@@ -34,12 +34,12 @@ const Login = () => {
     if (result.success) {
       // Redirect to appropriate dashboard based on role
       const dashboardRoutes = {
-        'MASTER_ADMIN': '/api/v1/master-admin',
-        'BUS_OWNER': '/api/v1/bus-owner',
-        'BUS_ADMIN': '/api/v1/bus-admin',
-        'BOOKING_MAN': '/api/v1/booking-man',
-        'BUS_EMPLOYEE': '/api/v1/bus-employee',
-        'CUSTOMER': '/api/v1/customer'
+        'MASTER_ADMIN': '/master-admin',
+        'BUS_OWNER': '/bus-owner',
+        'BUS_ADMIN': '/bus-admin',
+        'BOOKING_MAN': '/booking-man',
+        'BUS_EMPLOYEE': '/bus-employee',
+        'CUSTOMER': '/customer'
       }
       
       const redirectTo = dashboardRoutes[result.user.role] || '/'

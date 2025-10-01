@@ -62,7 +62,7 @@ apiClient.interceptors.response.use(
       throw new Error(config.ERRORS.TIMEOUT_ERROR);
     } else {
       // Other errors
-      throw new Error(error.message || config.ERRORS.UNKNOWN_ERROR);
+      throw new Error(error.message || config.ERRORS.SERVER_ERROR);
     }
   }
 );
