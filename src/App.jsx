@@ -17,6 +17,7 @@ import BookingConfirmation from './components/customer/BookingConfirmation'
 // Role-based Dashboards
 import MasterAdminDashboard from './components/role-dashboards/MasterAdminDashboard'
 import BusOwnerDashboard from './components/role-dashboards/BusOwnerDashboard'
+import BusAdminDashboard from './components/role-dashboards/BusAdminDashboard'
 import CustomerDashboard from './components/role-dashboards/CustomerDashboard'
 
 // Import route configuration
@@ -83,6 +84,11 @@ function App() {
             <Route path="/bus-owner" element={
               <ProtectedRoute requiredRoles={[ROLES.BUS_OWNER, ROLES.MASTER_ADMIN]}>
                 <BusOwnerDashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/bus-admin" element={
+              <ProtectedRoute requiredRoles={[ROLES.BUS_ADMIN, ROLES.BUS_OWNER, ROLES.MASTER_ADMIN]}>
+                <BusAdminDashboard />
               </ProtectedRoute>
             } />
             <Route path="/customer" element={

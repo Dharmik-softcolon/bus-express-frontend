@@ -1,6 +1,25 @@
 import { useState, useEffect } from 'react'
 import { useUser } from '../../contexts/UserContext'
-import { ROLES, BUS_EMPLOYEE_SUBROLES } from '../../config/config'
+import { ROLES, BUS_EMPLOYEE_SUBROLES, ROLE_HIERARCHY } from '../../config/config'
+import { employeeAPI, authAPI } from '../../services/api'
+import { 
+  Plus, 
+  Edit, 
+  Trash2, 
+  Eye, 
+  EyeOff, 
+  User, 
+  Mail, 
+  Phone, 
+  MapPin, 
+  DollarSign,
+  Shield,
+  Users,
+  Search,
+  Filter,
+  Download,
+  Upload
+} from 'lucide-react'
 
 const EmployeeManagement = () => {
   const { user } = useUser()
@@ -8,26 +27,99 @@ const EmployeeManagement = () => {
   const [loading, setLoading] = useState(true)
   const [showModal, setShowModal] = useState(false)
   const [editingEmployee, setEditingEmployee] = useState(null)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [filterRole, setFilterRole] = useState('all')
+  const [showPassword, setShowPassword] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    role: ROLES.BUS_EMPLOYEE,
-    subrole: BUS_EMPLOYEE_SUBROLES.DRIVER,
-    salary: '',
+    password: '',
+    confirmPassword: '',
+    role: getDefaultRole(), // Default based on user role
+    subrole: getDefaultRole() === ROLES.BUS_EMPLOYEE ? BUS_EMPLOYEE_SUBROLES.DRIVER : undefined, // Only for BUS_EMPLOYEE
+    license: '',
+    aadhaarCard: '',
     address: '',
+    assignedBus: '',
+    status: 'active'
   })
+
+  // Get default role based on user's role
+  function getDefaultRole() {
+    switch (user?.role) {
+      case ROLES.MASTER_ADMIN:
+        return ROLES.BUS_OWNER;
+      case ROLES.BUS_OWNER:
+        return ROLES.BUS_ADMIN;
+      case ROLES.BUS_ADMIN:
+        return ROLES.BUS_EMPLOYEE;
+      default:
+        return ROLES.BUS_EMPLOYEE;
+    }
+  }
+
+  // Get available roles based on user's role
+  function getAvailableRoles() {
+    switch (user?.role) {
+      case ROLES.MASTER_ADMIN:
+        return [
+          { value: ROLES.BUS_OWNER, label: 'Bus Owner' }
+        ];
+      case ROLES.BUS_OWNER:
+        return [
+          { value: ROLES.BUS_ADMIN, label: 'Bus Admin' }
+        ];
+      case ROLES.BUS_ADMIN:
+        return [
+          { value: ROLES.BUS_EMPLOYEE, label: 'Bus Employee' },
+          { value: ROLES.BOOKING_MAN, label: 'Booking Manager' }
+        ];
+      default:
+        return [
+          { value: ROLES.BUS_EMPLOYEE, label: 'Bus Employee' }
+        ];
+    }
+  }
 
   useEffect(() => {
     fetchEmployees()
   }, [])
 
+  // Role is fixed to BUS_ADMIN, no need for dynamic role setting
+
   const fetchEmployees = async () => {
     try {
-      // TODO: Implement API call to fetch employees
-      setEmployees([])
+      setLoading(true)
+      
+      // Fetch employees and bus admins separately
+      const [employeesResponse, busAdminsResponse] = await Promise.all([
+        employeeAPI.getAllEmployees(),
+        authAPI.getAllBusAdmins()
+      ])
+      
+      const allEmployees = []
+      
+      // Add employees
+      if (employeesResponse.success) {
+        allEmployees.push(...(employeesResponse.data.employees || []))
+      }
+      
+      // Add bus admins (convert to employee format for display)
+      if (busAdminsResponse.success) {
+        const busAdmins = (busAdminsResponse.data.busAdmins || []).map(admin => ({
+          ...admin,
+          id: admin._id || admin.id,
+          role: ROLES.BUS_ADMIN,
+          status: admin.isActive ? 'active' : 'inactive'
+        }))
+        allEmployees.push(...busAdmins)
+      }
+      
+      setEmployees(allEmployees)
     } catch (error) {
       console.error('Error fetching employees:', error)
+      setEmployees([])
     } finally {
       setLoading(false)
     }
@@ -35,51 +127,172 @@ const EmployeeManagement = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    
+    // Validation
+    if (formData.password !== formData.confirmPassword) {
+      alert('Passwords do not match!')
+      return
+    }
+    
+    if (!editingEmployee && formData.password.length < 6) {
+      alert('Password must be at least 6 characters long!')
+      return
+    }
+    
     try {
-      // TODO: Implement API call to create/update employee
-      console.log('Employee data:', formData)
-      setShowModal(false)
-      setEditingEmployee(null)
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        role: ROLES.BUS_EMPLOYEE,
-        subrole: BUS_EMPLOYEE_SUBROLES.DRIVER,
-        salary: '',
-        address: '',
-      })
-      fetchEmployees()
+      const employeeData = {
+        ...formData,
+        company: user.company,
+        createdBy: user.id
+      }
+      
+      // Remove confirmPassword from the data
+      delete employeeData.confirmPassword
+      
+      // Remove subrole if not BUS_EMPLOYEE
+      if (employeeData.role !== ROLES.BUS_EMPLOYEE) {
+        delete employeeData.subrole
+      }
+      
+      // Remove license if not DRIVER
+      if (employeeData.subrole !== BUS_EMPLOYEE_SUBROLES.DRIVER) {
+        delete employeeData.license
+      }
+      
+      // Remove assignedBus if not DRIVER
+      if (employeeData.subrole !== BUS_EMPLOYEE_SUBROLES.DRIVER) {
+        delete employeeData.assignedBus
+      }
+      
+      let response
+      if (editingEmployee) {
+        const employeeId = editingEmployee.id || editingEmployee._id
+        // Use bus admin API for BUS_ADMIN role, employee API for others
+        if (formData.role === ROLES.BUS_ADMIN) {
+          response = await authAPI.updateBusAdmin(employeeId, employeeData)
+        } else {
+          response = await employeeAPI.updateEmployee(employeeId, employeeData)
+        }
+      } else {
+        // Use bus admin API for BUS_ADMIN role, employee API for others
+        if (formData.role === ROLES.BUS_ADMIN) {
+          response = await authAPI.createBusAdmin(employeeData)
+        } else {
+          response = await employeeAPI.createEmployee(employeeData)
+        }
+      }
+      
+      if (response.success) {
+        setShowModal(false)
+        setEditingEmployee(null)
+        resetForm()
+        fetchEmployees()
+        const employeeType = formData.role === ROLES.BUS_ADMIN ? 'bus admin' : 'employee'
+        alert(editingEmployee ? `${employeeType.charAt(0).toUpperCase() + employeeType.slice(1)} updated successfully!` : `${employeeType.charAt(0).toUpperCase() + employeeType.slice(1)} created successfully!`)
+      } else {
+        alert(response.message || 'Failed to save employee')
+      }
     } catch (error) {
       console.error('Error saving employee:', error)
+      const employeeType = formData.role === ROLES.BUS_ADMIN ? 'bus admin' : 'employee'
+      alert(`Error saving ${employeeType}. Please try again.`)
     }
+  }
+  
+  const resetForm = () => {
+    const defaultRole = getDefaultRole()
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      password: '',
+      confirmPassword: '',
+      role: defaultRole,
+      subrole: defaultRole === ROLES.BUS_EMPLOYEE ? BUS_EMPLOYEE_SUBROLES.DRIVER : undefined,
+      license: '',
+      aadhaarCard: '',
+      address: '',
+      assignedBus: '',
+      status: 'active'
+    })
+    setShowPassword(false)
   }
 
   const handleEdit = (employee) => {
     setEditingEmployee(employee)
+    const role = employee.role || getDefaultRole()
     setFormData({
-      name: employee.name,
-      email: employee.email,
-      phone: employee.phone,
-      role: employee.role,
-      subrole: employee.subrole,
-      salary: employee.salary,
-      address: employee.address,
+      name: employee.name || '',
+      email: employee.email || '',
+      phone: employee.phone || '',
+      password: '',
+      confirmPassword: '',
+      role: role,
+      subrole: role === ROLES.BUS_EMPLOYEE ? (employee.subrole || BUS_EMPLOYEE_SUBROLES.DRIVER) : undefined,
+      license: employee.license || '',
+      aadhaarCard: employee.aadhaarCard || '',
+      address: employee.address || '',
+      assignedBus: employee.assignedBus || '',
+      status: employee.status || 'active'
     })
     setShowModal(true)
   }
 
   const handleDelete = async (employeeId) => {
-    if (window.confirm('Are you sure you want to delete this employee?')) {
+    const employee = employees.find(emp => (emp.id === employeeId) || (emp._id === employeeId))
+    const employeeType = employee?.role === ROLES.BUS_ADMIN ? 'bus admin' : 'employee'
+    
+    if (window.confirm(`Are you sure you want to delete this ${employeeType}? This action cannot be undone.`)) {
       try {
-        // TODO: Implement API call to delete employee
-        console.log('Delete employee:', employeeId)
-        fetchEmployees()
+        // Use bus admin API for BUS_ADMIN role, employee API for others
+        let response
+        if (employee?.role === ROLES.BUS_ADMIN) {
+          response = await authAPI.deleteBusAdmin(employeeId)
+        } else {
+          response = await employeeAPI.deleteEmployee(employeeId)
+        }
+        
+        if (response.success) {
+          fetchEmployees()
+          alert(`${employeeType.charAt(0).toUpperCase() + employeeType.slice(1)} deleted successfully!`)
+        } else {
+          alert(response.message || `Failed to delete ${employeeType}`)
+        }
       } catch (error) {
         console.error('Error deleting employee:', error)
+        alert(`Error deleting ${employeeType}. Please try again.`)
       }
     }
   }
+  
+  const handleStatusToggle = async (employeeId, currentStatus) => {
+    const employee = employees.find(emp => (emp.id === employeeId) || (emp._id === employeeId))
+    const employeeType = employee?.role === ROLES.BUS_ADMIN ? 'bus admin' : 'employee'
+    
+    try {
+      const newStatus = currentStatus === 'active' ? 'inactive' : 'active'
+      const response = await employeeAPI.updateEmployeeStatus(employeeId, newStatus)
+      if (response.success) {
+        fetchEmployees()
+        alert(`${employeeType.charAt(0).toUpperCase() + employeeType.slice(1)} status updated to ${newStatus}!`)
+      } else {
+        alert(response.message || `Failed to update ${employeeType} status`)
+      }
+    } catch (error) {
+      console.error('Error updating employee status:', error)
+      alert(`Error updating ${employeeType} status. Please try again.`)
+    }
+  }
+  
+
+  // Filter and search employees
+  const filteredEmployees = employees.filter(employee => {
+    const matchesSearch = employee.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         employee.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         employee.phone?.includes(searchTerm)
+    const matchesRole = filterRole === 'all' || employee.role === filterRole
+    return matchesSearch && matchesRole
+  })
 
   const getRoleLabel = (role) => {
     const labels = {
@@ -103,19 +316,94 @@ const EmployeeManagement = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
-          <div className="flex justify-between items-center">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Employee Management</h1>
+              <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-2">
+                <Shield className="h-8 w-8 text-blue-600" />
+                {user?.role === ROLES.BUS_OWNER ? 'Bus Admin Management' : 'Employee Management'}
+              </h1>
               <p className="mt-2 text-gray-600">
-                Manage your bus company employees and their roles.
+                {user?.role === ROLES.BUS_OWNER 
+                  ? 'Manage your bus company administrators.' 
+                  : 'Manage your bus company employees and administrators.'
+                }
               </p>
+              {user?.role === ROLES.MASTER_ADMIN && (
+                <div className="mt-2 p-2 bg-purple-50 border border-purple-200 rounded-md">
+                  <p className="text-sm text-purple-800">
+                    <Shield className="inline h-4 w-4 mr-1" />
+                    You can create Bus Owners.
+                  </p>
+                </div>
+              )}
+              {user?.role === ROLES.BUS_OWNER && (
+                <div className="mt-2 p-2 bg-blue-50 border border-blue-200 rounded-md">
+                  <p className="text-sm text-blue-800">
+                    <Shield className="inline h-4 w-4 mr-1" />
+                    You can create Bus Admins.
+                  </p>
+                </div>
+              )}
+              {user?.role === ROLES.BUS_ADMIN && (
+                <div className="mt-2 p-2 bg-green-50 border border-green-200 rounded-md">
+                  <p className="text-sm text-green-800">
+                    <Shield className="inline h-4 w-4 mr-1" />
+                    You can create Bus Employees and Booking Managers.
+                  </p>
+                </div>
+              )}
             </div>
             <button
               onClick={() => setShowModal(true)}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="btn-primary flex items-center gap-2"
             >
-              Add Employee
+              <Plus className="h-4 w-4" />
+              {user?.role === ROLES.BUS_OWNER ? 'Add Bus Admin' : 'Add Employee'}
             </button>
+          </div>
+        </div>
+
+        {/* Search and Filter Bar */}
+        <div className="bg-white rounded-lg shadow-sm border p-4 mb-6">
+          <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex-1">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <input
+                  type="text"
+                  placeholder={user?.role === ROLES.BUS_OWNER 
+                    ? "Search bus admins by name, email, or phone..." 
+                    : "Search employees by name, email, or phone..."
+                  }
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="input-field pl-10"
+                />
+              </div>
+            </div>
+            <div className="sm:w-48">
+              <div className="relative">
+                <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <select
+                  value={filterRole}
+                  onChange={(e) => setFilterRole(e.target.value)}
+                  className="input-field pl-10"
+                >
+                  <option value="all">All Bus Admins</option>
+                  <option value={ROLES.BUS_ADMIN}>Bus Admin</option>
+                </select>
+              </div>
+            </div>
+            <div className="flex gap-2">
+              <button className="btn-outline flex items-center gap-2">
+                <Download className="h-4 w-4" />
+                Export
+              </button>
+              <button className="btn-outline flex items-center gap-2">
+                <Upload className="h-4 w-4" />
+                Import
+              </button>
+            </div>
           </div>
         </div>
 
@@ -126,21 +414,28 @@ const EmployeeManagement = () => {
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
               <p className="mt-2 text-gray-500">Loading employees...</p>
             </div>
-          ) : employees.length === 0 ? (
+          ) : filteredEmployees.length === 0 ? (
             <div className="p-8 text-center">
-              <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
-              </svg>
-              <h3 className="mt-2 text-sm font-medium text-gray-900">No employees</h3>
-              <p className="mt-1 text-sm text-gray-500">Get started by adding your first employee.</p>
-              <div className="mt-6">
-                <button
-                  onClick={() => setShowModal(true)}
-                  className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
-                >
-                  Add Employee
-                </button>
-              </div>
+              <Users className="mx-auto h-12 w-12 text-gray-400" />
+              <h3 className="mt-2 text-sm font-medium text-gray-900">
+                {employees.length === 0 ? 'No bus admins' : 'No bus admins found'}
+              </h3>
+              <p className="mt-1 text-sm text-gray-500">
+                {employees.length === 0 
+                  ? 'Get started by adding your first bus admin.' 
+                  : 'Try adjusting your search or filter criteria.'}
+              </p>
+              {employees.length === 0 && user?.role === ROLES.BUS_OWNER && (
+                <div className="mt-6">
+                  <button
+                    onClick={() => setShowModal(true)}
+                    className="btn-primary flex items-center gap-2 mx-auto"
+                  >
+                    <Plus className="h-4 w-4" />
+                    Add Bus Admin
+                  </button>
+                </div>
+              )}
             </div>
           ) : (
             <div className="overflow-x-auto">
@@ -148,7 +443,7 @@ const EmployeeManagement = () => {
                 <thead className="bg-gray-50">
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Employee
+                      Bus Admin
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Role
@@ -168,8 +463,8 @@ const EmployeeManagement = () => {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {employees.map((employee) => (
-                    <tr key={employee.id}>
+                  {filteredEmployees.map((employee) => (
+                    <tr key={employee.id || employee._id}>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           <div className="flex-shrink-0 h-10 w-10">
@@ -184,7 +479,7 @@ const EmployeeManagement = () => {
                               {employee.name}
                             </div>
                             <div className="text-sm text-gray-500">
-                              ID: {employee.id}
+                              ID: {employee.id || employee._id}
                             </div>
                           </div>
                         </div>
@@ -211,27 +506,34 @@ const EmployeeManagement = () => {
                         ₹{employee.salary}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                          employee.status === 'active' 
-                            ? 'bg-green-100 text-green-800'
-                            : 'bg-red-100 text-red-800'
-                        }`}>
+                        <button
+                          onClick={() => handleStatusToggle(employee.id || employee._id, employee.status)}
+                          className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full transition-colors ${
+                            employee.status === 'active' 
+                              ? 'bg-green-100 text-green-800 hover:bg-green-200'
+                              : 'bg-red-100 text-red-800 hover:bg-red-200'
+                          }`}
+                        >
                           {employee.status}
-                        </span>
+                        </button>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                        <button
-                          onClick={() => handleEdit(employee)}
-                          className="text-blue-600 hover:text-blue-900 mr-3"
-                        >
-                          Edit
-                        </button>
-                        <button
-                          onClick={() => handleDelete(employee.id)}
-                          className="text-red-600 hover:text-red-900"
-                        >
-                          Delete
-                        </button>
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={() => handleEdit(employee)}
+                            className="text-blue-600 hover:text-blue-900 p-1 rounded hover:bg-blue-50 transition-colors"
+                            title={employee.role === ROLES.BUS_ADMIN ? "Edit Bus Admin" : "Edit Employee"}
+                          >
+                            <Edit className="h-4 w-4" />
+                          </button>
+                          <button
+                            onClick={() => handleDelete(employee.id || employee._id)}
+                            className="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50 transition-colors"
+                            title={employee.role === ROLES.BUS_ADMIN ? "Delete Bus Admin" : "Delete Employee"}
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))}
@@ -244,120 +546,307 @@ const EmployeeManagement = () => {
         {/* Add/Edit Employee Modal */}
         {showModal && (
           <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-            <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
-              <div className="mt-3">
-                <h3 className="text-lg font-medium text-gray-900 mb-4">
-                  {editingEmployee ? 'Edit Employee' : 'Add New Employee'}
+            <div className="relative top-10 mx-auto p-6 border w-full max-w-2xl shadow-lg rounded-md bg-white">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-xl font-semibold text-gray-900 flex items-center gap-2">
+                  <Shield className="h-5 w-5 text-blue-600" />
+                  {editingEmployee 
+                    ? 'Edit Employee' 
+                    : user?.role === ROLES.BUS_OWNER 
+                      ? 'Add New Bus Admin' 
+                      : 'Add New Employee'
+                  }
                 </h3>
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <button
+                  onClick={() => {
+                    setShowModal(false)
+                    setEditingEmployee(null)
+                    resetForm()
+                  }}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Basic Information */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Name</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Full Name *
+                    </label>
                     <input
                       type="text"
                       value={formData.name}
                       onChange={(e) => setFormData({...formData, name: e.target.value})}
-                      className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                      className="input-field"
+                      placeholder="Enter full name"
                       required
                     />
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Email</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Email Address *
+                    </label>
                     <input
                       type="email"
                       value={formData.email}
                       onChange={(e) => setFormData({...formData, email: e.target.value})}
-                      className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                      className="input-field"
+                      placeholder="Enter email address"
                       required
                     />
                   </div>
-                  
+                </div>
+
+                {/* Contact Information */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Phone</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Phone Number
+                    </label>
                     <input
                       type="tel"
                       value={formData.phone}
                       onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                      className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                      className="input-field"
+                      placeholder="Enter phone number"
                     />
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Role</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Joining Date
+                    </label>
+                    <input
+                      type="date"
+                      value={formData.joiningDate}
+                      onChange={(e) => setFormData({...formData, joiningDate: e.target.value})}
+                      className="input-field"
+                    />
+                  </div>
+                </div>
+
+                {/* Password Fields - Only for new employees */}
+                {!editingEmployee && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Password *
+                      </label>
+                      <div className="relative">
+                        <input
+                          type={showPassword ? 'text' : 'password'}
+                          value={formData.password}
+                          onChange={(e) => setFormData({...formData, password: e.target.value})}
+                          className="input-field pr-10"
+                          placeholder="Enter password"
+                          required
+                          minLength={6}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                        >
+                          {showPassword ? (
+                            <EyeOff className="h-4 w-4 text-gray-400" />
+                          ) : (
+                            <Eye className="h-4 w-4 text-gray-400" />
+                          )}
+                        </button>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Confirm Password *
+                      </label>
+                      <input
+                        type="password"
+                        value={formData.confirmPassword}
+                        onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
+                        className="input-field"
+                        placeholder="Confirm password"
+                        required
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {/* Role Selection - Hidden for BUS_OWNER, shown for others */}
+                {user?.role !== ROLES.BUS_OWNER && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Role *
+                    </label>
                     <select
                       value={formData.role}
                       onChange={(e) => setFormData({...formData, role: e.target.value})}
-                      className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                      className="input-field"
+                      required
                     >
-                      <option value={ROLES.BUS_ADMIN}>Bus Admin</option>
-                      <option value={ROLES.BOOKING_MAN}>Booking Manager</option>
-                      <option value={ROLES.BUS_EMPLOYEE}>Bus Employee</option>
+                      {getAvailableRoles().map(role => (
+                        <option key={role.value} value={role.value}>
+                          {role.label}
+                        </option>
+                      ))}
                     </select>
                   </div>
-                  
-                  {formData.role === ROLES.BUS_EMPLOYEE && (
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700">Subrole</label>
-                      <select
-                        value={formData.subrole}
-                        onChange={(e) => setFormData({...formData, subrole: e.target.value})}
-                        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                      >
-                        <option value={BUS_EMPLOYEE_SUBROLES.DRIVER}>Driver</option>
-                        <option value={BUS_EMPLOYEE_SUBROLES.HELPER}>Helper</option>
-                      </select>
+                )}
+
+                {/* Fixed Role Display for BUS_OWNER */}
+                {user?.role === ROLES.BUS_OWNER && (
+                  <div className="bg-blue-50 border border-blue-200 rounded-md p-3">
+                    <div className="flex items-center gap-2">
+                      <Shield className="h-4 w-4 text-blue-600" />
+                      <span className="text-sm font-medium text-blue-800">Role: Bus Admin</span>
                     </div>
-                  )}
-                  
+                    <p className="text-xs text-blue-600 mt-1">
+                      This user will have administrative privileges for your bus company.
+                    </p>
+                  </div>
+                )}
+
+                {/* Subrole Selection - Only for BUS_EMPLOYEE */}
+                {formData.role === ROLES.BUS_EMPLOYEE && (
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Salary</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Employee Type *
+                    </label>
+                    <select
+                      value={formData.subrole}
+                      onChange={(e) => setFormData({...formData, subrole: e.target.value})}
+                      className="input-field"
+                      required
+                    >
+                      <option value={BUS_EMPLOYEE_SUBROLES.DRIVER}>Driver</option>
+                      <option value={BUS_EMPLOYEE_SUBROLES.HELPER}>Helper</option>
+                    </select>
+                  </div>
+                )}
+
+                {/* License Field - Only for Drivers */}
+                {formData.role === ROLES.BUS_EMPLOYEE && formData.subrole === BUS_EMPLOYEE_SUBROLES.DRIVER && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Driving License
+                    </label>
                     <input
-                      type="number"
-                      value={formData.salary}
-                      onChange={(e) => setFormData({...formData, salary: e.target.value})}
-                      className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                      type="text"
+                      value={formData.license}
+                      onChange={(e) => setFormData({...formData, license: e.target.value})}
+                      className="input-field"
+                      placeholder="Enter driving license number"
                     />
+                  </div>
+                )}
+
+                {/* Assigned Bus - Only for Drivers */}
+                {formData.role === ROLES.BUS_EMPLOYEE && formData.subrole === BUS_EMPLOYEE_SUBROLES.DRIVER && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Assigned Bus *
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.assignedBus}
+                      onChange={(e) => setFormData({...formData, assignedBus: e.target.value})}
+                      className="input-field"
+                      placeholder="Enter bus number (e.g., MH-01-AB-1234)"
+                      required
+                    />
+                  </div>
+                )}
+
+                {/* Salary and Status */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Monthly Salary
+                    </label>
+                    <div className="relative">
+                      <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                      <input
+                        type="number"
+                        value={formData.salary}
+                        onChange={(e) => setFormData({...formData, salary: e.target.value})}
+                        className="input-field pl-10"
+                        placeholder="Enter salary"
+                        min="0"
+                      />
+                    </div>
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Address</label>
-                    <textarea
-                      value={formData.address}
-                      onChange={(e) => setFormData({...formData, address: e.target.value})}
-                      rows={3}
-                      className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                    />
-                  </div>
-                  
-                  <div className="flex justify-end space-x-3 pt-4">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setShowModal(false)
-                        setEditingEmployee(null)
-                        setFormData({
-                          name: '',
-                          email: '',
-                          phone: '',
-                          role: ROLES.BUS_EMPLOYEE,
-                          subrole: BUS_EMPLOYEE_SUBROLES.DRIVER,
-                          salary: '',
-                          address: '',
-                        })
-                      }}
-                      className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Status
+                    </label>
+                    <select
+                      value={formData.status}
+                      onChange={(e) => setFormData({...formData, status: e.target.value})}
+                      className="input-field"
                     >
-                      Cancel
-                    </button>
-                    <button
-                      type="submit"
-                      className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700"
-                    >
-                      {editingEmployee ? 'Update' : 'Add'} Employee
-                    </button>
+                      <option value="active">Active</option>
+                      <option value="inactive">Inactive</option>
+                    </select>
                   </div>
-                </form>
-              </div>
+                </div>
+
+                {/* Aadhaar Card */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Aadhaar Card Number
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.aadhaarCard}
+                    onChange={(e) => setFormData({...formData, aadhaarCard: e.target.value})}
+                    className="input-field"
+                    placeholder="Enter Aadhaar card number"
+                  />
+                </div>
+
+                {/* Address */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Address
+                  </label>
+                  <textarea
+                    value={formData.address}
+                    onChange={(e) => setFormData({...formData, address: e.target.value})}
+                    rows={3}
+                    className="input-field"
+                    placeholder="Enter full address"
+                  />
+                </div>
+
+                {/* Form Actions */}
+                <div className="flex justify-end space-x-3 pt-6 border-t border-gray-200">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowModal(false)
+                      setEditingEmployee(null)
+                      resetForm()
+                    }}
+                    className="btn-outline"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="btn-primary flex items-center gap-2"
+                  >
+                    <Shield className="h-4 w-4" />
+                    {editingEmployee ? 'Update Bus Admin' : 'Create Bus Admin'}
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         )}

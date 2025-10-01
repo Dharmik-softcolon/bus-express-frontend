@@ -4,24 +4,6 @@ import { Bus, Users, BarChart3, Shield, Clock, MapPin } from 'lucide-react'
 const LandingPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      {/* Header */}
-      <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-2">
-              <Bus className="h-8 w-8 text-blue-600" />
-              <span className="text-2xl font-bold text-gray-900">BusExpress</span>
-            </div>
-            <Link
-              to="/login"
-              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium"
-            >
-              Login
-            </Link>
-          </div>
-        </div>
-      </header>
-
       {/* Hero Section */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

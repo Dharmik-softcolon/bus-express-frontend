@@ -6,6 +6,7 @@ import { FEATURE_ROUTES, getDefaultRoute } from '../../config/routes'
 // Import all dashboard components
 import MasterAdminDashboard from '../role-dashboards/MasterAdminDashboard'
 import BusOwnerDashboard from '../role-dashboards/BusOwnerDashboard'
+import BusAdminDashboard from '../role-dashboards/BusAdminDashboard'
 import Dashboard from '../admin/Dashboard'
 import BookingManManagement from '../admin/BookingManManagement'
 import BusEmployeeDashboard from '../admin/BusEmployeeDashboard'
@@ -103,7 +104,7 @@ const DashboardRouter = () => {
         <>
           <Route 
             path="/admin" 
-            element={<Dashboard />} 
+            element={<BusAdminDashboard />} 
           />
           <Route 
             path="/admin/buses" 

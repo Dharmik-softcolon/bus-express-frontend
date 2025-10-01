@@ -47,6 +47,7 @@ const BusOwnerDashboard = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    password: '',
     phone: '',
     role: 'Bus Admin',
     status: 'active',
@@ -148,6 +149,7 @@ const BusOwnerDashboard = () => {
     setFormData({
       name: '',
       email: '',
+      password: '',
       phone: '',
       role: 'Bus Admin',
       status: 'active',
@@ -611,6 +613,21 @@ const BusOwnerDashboard = () => {
                       value={formData.email}
                       onChange={handleInputChange}
                       className="input-field"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Password
+                    </label>
+                    <input
+                      type="password"
+                      name="password"
+                      value={formData.password}
+                      onChange={handleInputChange}
+                      className="input-field"
+                      placeholder="Minimum 6 characters with uppercase, lowercase, and number"
                       required
                     />
                   </div>

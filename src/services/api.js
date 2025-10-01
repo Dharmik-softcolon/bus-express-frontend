@@ -254,6 +254,27 @@ export const authAPI = {
     });
   },
 
+  // Update bus admin
+  updateBusAdmin: async (busAdminId, busAdminData) => {
+    return apiRequest(`/auth/bus-admins/${busAdminId}`, {
+      method: 'PUT',
+      data: busAdminData,
+    });
+  },
+
+  // Delete bus admin
+  deleteBusAdmin: async (busAdminId) => {
+    return apiRequest(`/auth/bus-admins/${busAdminId}`, {
+      method: 'DELETE',
+    });
+  },
+
+  // Get all bus admins
+  getAllBusAdmins: async (params = {}) => {
+    const queryParams = new URLSearchParams(params).toString();
+    return apiRequest(`/auth/bus-admins${queryParams ? `?${queryParams}` : ''}`);
+  },
+
   // Create booking manager
   createBookingManager: async (bookingManagerData) => {
     return apiRequest('/auth/booking-managers', {
