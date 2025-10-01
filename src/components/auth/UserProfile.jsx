@@ -13,11 +13,11 @@ const UserProfile = () => {
 
   const getRoleDisplayName = (role) => {
     const roleNames = {
-      'master-admin': 'Master Admin',
-      'bus-owner': 'Bus Owner',
-      'bus-admin': 'Bus Admin',
-      'booking-man': 'Booking Man',
-      'bus-employee': 'Bus Employee',
+      'MASTER_ADMIN': 'Master Admin',
+      'BUS_OWNER': 'Bus Owner',
+      'BUS_ADMIN': 'Bus Admin',
+      'BOOKING_MAN': 'Booking Man',
+      'BUS_EMPLOYEE': 'Bus Employee',
       'customer': 'Customer'
     }
     return roleNames[role] || role
@@ -25,11 +25,11 @@ const UserProfile = () => {
 
   const getRoleColor = (role) => {
     const colors = {
-      'master-admin': 'bg-red-100 text-red-800',
-      'bus-owner': 'bg-blue-100 text-blue-800',
-      'bus-admin': 'bg-green-100 text-green-800',
-      'booking-man': 'bg-purple-100 text-purple-800',
-      'bus-employee': 'bg-orange-100 text-orange-800',
+      'MASTER_ADMIN': 'bg-red-100 text-red-800',
+      'BUS_OWNER': 'bg-blue-100 text-blue-800',
+      'BUS_ADMIN': 'bg-green-100 text-green-800',
+      'BOOKING_MAN': 'bg-purple-100 text-purple-800',
+      'BUS_EMPLOYEE': 'bg-orange-100 text-orange-800',
       'customer': 'bg-gray-100 text-gray-800'
     }
     return colors[role] || 'bg-gray-100 text-gray-800'

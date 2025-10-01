@@ -82,10 +82,12 @@ export const UserProvider = ({ children }) => {
   const hasRole = (requiredRole) => {
     if (!user) return false
     
-    const userLevel = config.ROLE_HIERARCHY[user.role] || 0
-    const requiredLevel = config.ROLE_HIERARCHY[requiredRole] || 0
+    // Direct role match
+    if (user.role === requiredRole) return true
     
-    return userLevel >= requiredLevel
+    // Check if user's role can create the required role (hierarchy check)
+    const userCanCreate = config.ROLE_HIERARCHY[user.role] || []
+    return userCanCreate.includes(requiredRole)
   }
 
   const canAccess = (path) => {

@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Plus, Edit, Trash2, Users, Calendar, Clock, MapPin, DollarSign, CheckCircle, XCircle, Search, Bus, Star, ArrowRight, Filter, User } from 'lucide-react'
+import { searchAPI, bookingAPI, tripAPI } from '../../services/api'
 
 const BookingManManagement = () => {
   const [showAddModal, setShowAddModal] = useState(false)
@@ -85,6 +86,9 @@ const BookingManManagement = () => {
     date: '',
     passengers: 1
   })
+
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
 
   const [availableBuses, setAvailableBuses] = useState([
     {
@@ -288,6 +292,92 @@ const BookingManManagement = () => {
       if (searchFilters.to && !bus.to.toLowerCase().includes(searchFilters.to.toLowerCase())) return false
       return true
     })
+  }
+
+  // Load booking managers on component mount
+  useEffect(() => {
+    loadBookingManagers()
+  }, [])
+
+  const loadBookingManagers = async () => {
+    try {
+      setLoading(true)
+      setError(null)
+      // This would be replaced with actual API call
+      // const response = await authAPI.getUsersByRole('BOOKING_MAN')
+      // setBookingMen(response.data.users)
+    } catch (err) {
+      setError(err.message || 'Failed to load booking managers')
+      console.error('Error loading booking managers:', err)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleSearchBusesAPI = async () => {
+    try {
+      setLoading(true)
+      setError(null)
+      
+      if (!searchFilters.from || !searchFilters.to || !searchFilters.date) {
+        setError('Please fill in all search fields')
+        return
+      }
+
+      const response = await searchAPI.searchBuses({
+        from: searchFilters.from,
+        to: searchFilters.to,
+        date: searchFilters.date,
+        passengers: searchFilters.passengers
+      })
+      
+      setAvailableBuses(response.data?.buses || [])
+    } catch (err) {
+      setError(err.message || 'Failed to search buses')
+      console.error('Error searching buses:', err)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleCreateBookingAPI = async (bookingData) => {
+    try {
+      setLoading(true)
+      setError(null)
+      
+      const response = await bookingAPI.createBooking(bookingData)
+      
+      // Update booking managers list
+      await loadBookingManagers()
+      
+      return response
+    } catch (err) {
+      setError(err.message || 'Failed to create booking')
+      console.error('Error creating booking:', err)
+      throw err
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleCancelBookingAPI = async (bookingId) => {
+    try {
+      setLoading(true)
+      setError(null)
+      
+      const response = await bookingAPI.cancelBooking(bookingId)
+      
+      // Update booking managers list
+      await loadBookingManagers()
+      
+      return response
+    } catch (err) {
+      setError(err.message || 'Failed to cancel booking')
+      console.error('Error canceling booking:', err)
+      throw err
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleSeatSelection = (bus) => {

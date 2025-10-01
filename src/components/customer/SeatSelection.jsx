@@ -1,14 +1,14 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ArrowLeft, ArrowRight, User, Clock, MapPin } from 'lucide-react'
+import { searchAPI, bookingAPI } from '../../services/api'
 
 const SeatSelection = ({ selectedSeats, onBooking }) => {
   const navigate = useNavigate()
   const [selectedSeatNumbers, setSelectedSeatNumbers] = useState([])
   const [passengerDetails, setPassengerDetails] = useState([])
 
-  // Mock bus data
-  const bus = {
+  const [bus, setBus] = useState({
     id: 1,
     operator: 'Express Bus Lines',
     from: 'New York',
@@ -19,6 +19,45 @@ const SeatSelection = ({ selectedSeats, onBooking }) => {
     price: 45,
     busType: 'Standard',
     totalSeats: 45
+  })
+  
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+  const [availableSeats, setAvailableSeats] = useState([])
+
+  // Load bus and seat data on component mount
+  useEffect(() => {
+    loadBusAndSeatData()
+  }, [])
+
+  const loadBusAndSeatData = async () => {
+    try {
+      setLoading(true)
+      setError(null)
+      
+      // Get bus details from search results or URL params
+      const busId = new URLSearchParams(window.location.search).get('busId')
+      const tripId = new URLSearchParams(window.location.search).get('tripId')
+      const date = new URLSearchParams(window.location.search).get('date')
+      
+      if (tripId && date) {
+        // Get available seats for the trip
+        const seatsResponse = await searchAPI.getAvailableSeats(tripId, date)
+        setAvailableSeats(seatsResponse.data?.seats || [])
+        
+        // Get trip details
+        const tripResponse = await searchAPI.getTripDetails(tripId)
+        if (tripResponse.data?.trip) {
+          setBus(tripResponse.data.trip)
+        }
+      }
+      
+    } catch (err) {
+      setError(err.message || 'Failed to load bus and seat data')
+      console.error('Error loading bus and seat data:', err)
+    } finally {
+      setLoading(false)
+    }
   }
 
   // Generate seat layout (2-2 configuration)
@@ -65,21 +104,55 @@ const SeatSelection = ({ selectedSeats, onBooking }) => {
     })
   }
 
-  const handleProceedToPayment = () => {
+  const handleProceedToPayment = async () => {
     if (selectedSeatNumbers.length === 0) {
       alert('Please select at least one seat')
       return
     }
 
-    const bookingData = {
-      bus,
-      selectedSeats: selectedSeatNumbers,
-      passengerDetails,
-      totalAmount: bus.price * selectedSeatNumbers.length
+    if (passengerDetails.length !== selectedSeatNumbers.length) {
+      alert('Please fill in details for all selected seats')
+      return
     }
-    
-    onBooking(bookingData)
-    navigate('/confirmation')
+
+    try {
+      setLoading(true)
+      setError(null)
+
+      const bookingData = {
+        bus: bus.id,
+        trip: bus.tripId,
+        seats: selectedSeatNumbers.map((seatNumber, index) => ({
+          seatNumber,
+          passengerName: passengerDetails[index]?.name || '',
+          passengerAge: passengerDetails[index]?.age || '',
+          passengerGender: passengerDetails[index]?.gender || '',
+          passengerPhone: passengerDetails[index]?.phone || ''
+        })),
+        journeyDate: new URLSearchParams(window.location.search).get('date'),
+        totalAmount: bus.price * selectedSeatNumbers.length
+      }
+
+      const response = await bookingAPI.createBooking(bookingData)
+      
+      const finalBookingData = {
+        ...bookingData,
+        bookingId: response.data?.booking?.id,
+        bus,
+        selectedSeats: selectedSeatNumbers,
+        passengerDetails,
+        totalAmount: bus.price * selectedSeatNumbers.length
+      }
+      
+      onBooking(finalBookingData)
+      navigate('/confirmation')
+      
+    } catch (err) {
+      setError(err.message || 'Failed to create booking')
+      console.error('Error creating booking:', err)
+    } finally {
+      setLoading(false)
+    }
   }
 
   const getSeatClass = (seat) => {

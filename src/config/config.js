@@ -98,32 +98,44 @@ const config = {
   
   // User Roles
   ROLES: {
-    MASTER_ADMIN: 'master-admin',
-    BUS_OWNER: 'bus-owner',
-    BUS_ADMIN: 'bus-admin',
-    BOOKING_MAN: 'booking-man',
-    BUS_EMPLOYEE: 'bus-employee',
-    CUSTOMER: 'customer',
+    MASTER_ADMIN: 'MASTER_ADMIN',
+    BUS_OWNER: 'BUS_OWNER',
+    BUS_ADMIN: 'BUS_ADMIN',
+    BOOKING_MAN: 'BOOKING_MAN',
+    BUS_EMPLOYEE: 'BUS_EMPLOYEE',
+    CUSTOMER: 'CUSTOMER',
   },
   
-  // Role Hierarchy
+  // Bus Employee Subroles
+  BUS_EMPLOYEE_SUBROLES: {
+    DRIVER: 'DRIVER',
+    HELPER: 'HELPER',
+  },
+  
+  // Role Hierarchy - which roles can create which
   ROLE_HIERARCHY: {
-    'master-admin': 5,
-    'bus-owner': 4,
-    'bus-admin': 3,
-    'booking-man': 2,
-    'bus-employee': 1,
-    'customer': 0,
+    'MASTER_ADMIN': ['BUS_OWNER'],
+    'BUS_OWNER': ['BUS_ADMIN'],
+    'BUS_ADMIN': ['BOOKING_MAN', 'BUS_EMPLOYEE'],
+    'BOOKING_MAN': [],
+    'BUS_EMPLOYEE': [],
+    'CUSTOMER': [],
+  },
+  
+  // Role Limits
+  ROLE_LIMITS: {
+    MASTER_ADMIN: 1,
+    BUS_ADMIN_PER_OWNER: 2,
   },
   
   // Dashboard Routes by Role
   DASHBOARD_ROUTES: {
-    'master-admin': '/admin/master',
-    'bus-owner': '/admin/bus-owner',
-    'bus-admin': '/admin',
-    'booking-man': '/admin/booking-men',
-    'bus-employee': '/admin/employee',
-    'customer': '/',
+    'MASTER_ADMIN': '/api/v1/master-admin',
+    'BUS_OWNER': '/api/v1/bus-owner',
+    'BUS_ADMIN': '/api/v1/bus-admin',
+    'BOOKING_MAN': '/api/v1/booking-man',
+    'BUS_EMPLOYEE': '/api/v1/bus-employee',
+    'CUSTOMER': '/api/v1/customer',
   },
   
   // Status Options
@@ -266,7 +278,9 @@ export const {
   DEV,
   ROUTES,
   ROLES,
+  BUS_EMPLOYEE_SUBROLES,
   ROLE_HIERARCHY,
+  ROLE_LIMITS,
   DASHBOARD_ROUTES,
   STATUS,
   BUS_TYPES,

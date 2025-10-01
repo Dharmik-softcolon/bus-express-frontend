@@ -75,55 +75,70 @@ function App() {
             
             {/* Protected Admin Routes */}
             <Route path="/admin" element={
-              <ProtectedRoute requiredRole="bus-admin">
+              <ProtectedRoute requiredRole="BUS_ADMIN">
                 <Dashboard />
               </ProtectedRoute>
             } />
             <Route path="/admin/routes" element={
-              <ProtectedRoute requiredRole="bus-admin">
+              <ProtectedRoute requiredRole="BUS_ADMIN">
                 <RouteManagement />
               </ProtectedRoute>
             } />
             <Route path="/admin/users" element={
-              <ProtectedRoute requiredRole="bus-admin">
+              <ProtectedRoute requiredRole="BUS_ADMIN">
                 <UserManagement />
               </ProtectedRoute>
             } />
             <Route path="/admin/settings" element={
-              <ProtectedRoute requiredRole="bus-admin">
+              <ProtectedRoute requiredRole="BUS_ADMIN">
                 <SystemSettings />
               </ProtectedRoute>
             } />
             <Route path="/admin/buses" element={
-              <ProtectedRoute requiredRole="bus-admin">
+              <ProtectedRoute requiredRole="BUS_ADMIN">
                 <BusManagement />
               </ProtectedRoute>
             } />
             <Route path="/admin/booking-men" element={
-              <ProtectedRoute requiredRole="booking-man">
+              <ProtectedRoute requiredRole="BOOKING_MAN">
                 <BookingManManagement />
               </ProtectedRoute>
             } />
             <Route path="/admin/trips" element={
-              <ProtectedRoute requiredRole="bus-admin">
+              <ProtectedRoute requiredRole="BUS_ADMIN">
                 <TripManagement />
               </ProtectedRoute>
             } />
             
             {/* Role-Based Dashboards */}
-            <Route path="/admin/master" element={
-              <ProtectedRoute requiredRole="master-admin">
+            <Route path="/api/v1/master-admin" element={
+              <ProtectedRoute requiredRole="MASTER_ADMIN">
                 <MasterAdminDashboard />
               </ProtectedRoute>
             } />
-            <Route path="/admin/bus-owner" element={
-              <ProtectedRoute requiredRole="bus-owner">
+            <Route path="/api/v1/bus-owner" element={
+              <ProtectedRoute requiredRole="BUS_OWNER">
                 <BusOwnerDashboard />
               </ProtectedRoute>
             } />
-            <Route path="/admin/employee" element={
-              <ProtectedRoute requiredRole="bus-employee">
+            <Route path="/api/v1/bus-admin" element={
+              <ProtectedRoute requiredRole="BUS_ADMIN">
+                <Dashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/api/v1/booking-man" element={
+              <ProtectedRoute requiredRole="BOOKING_MAN">
+                <BookingManManagement />
+              </ProtectedRoute>
+            } />
+            <Route path="/api/v1/bus-employee" element={
+              <ProtectedRoute requiredRole="BUS_EMPLOYEE">
                 <BusEmployeeDashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/api/v1/customer" element={
+              <ProtectedRoute requiredRole="CUSTOMER">
+                <HomePage onSearch={setSearchData} />
               </ProtectedRoute>
             } />
             <Route path="/admin/roles" element={
@@ -134,17 +149,17 @@ function App() {
             
             {/* Analytics Routes */}
             <Route path="/admin/revenue" element={
-              <ProtectedRoute requiredRole="bus-owner">
+              <ProtectedRoute requiredRole="BUS_OWNER">
                 <RevenueAnalytics />
               </ProtectedRoute>
             } />
             <Route path="/admin/expenses" element={
-              <ProtectedRoute requiredRole="bus-owner">
+              <ProtectedRoute requiredRole="BUS_OWNER">
                 <ExpenseAnalytics />
               </ProtectedRoute>
             } />
             <Route path="/admin/user-profiles" element={
-              <ProtectedRoute requiredRole="master-admin">
+              <ProtectedRoute requiredRole="MASTER_ADMIN">
                 <UserProfileManagement />
               </ProtectedRoute>
             } />

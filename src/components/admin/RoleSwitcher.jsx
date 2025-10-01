@@ -2,11 +2,11 @@ import { useState } from 'react'
 import { Users, Building, Bus, UserCheck, Settings } from 'lucide-react'
 
 const RoleSwitcher = () => {
-  const [currentRole, setCurrentRole] = useState('master-admin')
+  const [currentRole, setCurrentRole] = useState('MASTER_ADMIN')
 
   const roles = [
     {
-      id: 'master-admin',
+      id: 'MASTER_ADMIN',
       name: 'Master Admin',
       description: 'System administrator with full control',
       icon: Settings,
@@ -19,7 +19,7 @@ const RoleSwitcher = () => {
       ]
     },
     {
-      id: 'bus-owner',
+      id: 'BUS_OWNER',
       name: 'Bus Owner',
       description: 'Company owner managing multiple buses',
       icon: Building,
@@ -32,7 +32,7 @@ const RoleSwitcher = () => {
       ]
     },
     {
-      id: 'bus-admin',
+      id: 'BUS_ADMIN',
       name: 'Bus Admin',
       description: 'Administrator for bus operations',
       icon: Bus,
@@ -45,7 +45,7 @@ const RoleSwitcher = () => {
       ]
     },
     {
-      id: 'booking-man',
+      id: 'BOOKING_MAN',
       name: 'Booking Man',
       description: 'Agent for customer bookings',
       icon: UserCheck,
@@ -58,7 +58,7 @@ const RoleSwitcher = () => {
       ]
     },
     {
-      id: 'bus-employee',
+      id: 'BUS_EMPLOYEE',
       name: 'Bus Employee',
       description: 'Driver or conductor',
       icon: Users,
@@ -74,18 +74,18 @@ const RoleSwitcher = () => {
 
   const getRoleRoutes = (roleId) => {
     switch (roleId) {
-      case 'master-admin':
-        return '/admin/master'
-      case 'bus-owner':
-        return '/admin/bus-owner'
-      case 'bus-admin':
-        return '/admin'
-      case 'booking-man':
-        return '/admin/booking-men'
-      case 'bus-employee':
-        return '/admin/employee'
+      case 'MASTER_ADMIN':
+        return '/api/v1/master-admin'
+      case 'BUS_OWNER':
+        return '/api/v1/bus-owner'
+      case 'BUS_ADMIN':
+        return '/api/v1/bus-admin'
+      case 'BOOKING_MAN':
+        return '/api/v1/booking-man'
+      case 'BUS_EMPLOYEE':
+        return '/api/v1/bus-employee'
       default:
-        return '/admin'
+        return '/api/v1/bus-admin'
     }
   }
 

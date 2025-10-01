@@ -32,14 +32,14 @@ const Login = () => {
     const result = await login(formData.email, formData.password)
     
     if (result.success) {
-      // Redirect to appropriate dashboard
+      // Redirect to appropriate dashboard based on role
       const dashboardRoutes = {
-        'master-admin': '/admin/master',
-        'bus-owner': '/admin/bus-owner',
-        'bus-admin': '/admin',
-        'booking-man': '/admin/booking-men',
-        'bus-employee': '/admin/employee',
-        'customer': '/'
+        'MASTER_ADMIN': '/api/v1/master-admin',
+        'BUS_OWNER': '/api/v1/bus-owner',
+        'BUS_ADMIN': '/api/v1/bus-admin',
+        'BOOKING_MAN': '/api/v1/booking-man',
+        'BUS_EMPLOYEE': '/api/v1/bus-employee',
+        'CUSTOMER': '/api/v1/customer'
       }
       
       const redirectTo = dashboardRoutes[result.user.role] || '/'

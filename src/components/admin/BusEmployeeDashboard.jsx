@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { MapPin, Clock, Users, DollarSign, Plus, Camera, FileText, CheckCircle, Calendar, TrendingUp, Upload, Eye, Edit, Trash2, Download, UserCheck, UserX, Clock as ClockIcon, Phone, MessageSquare } from 'lucide-react'
+import { tripAPI, expenseAPI, bookingAPI } from '../../services/api'
 
 const BusEmployeeDashboard = () => {
   const [activeTab, setActiveTab] = useState('trips')
@@ -149,6 +150,86 @@ const BusEmployeeDashboard = () => {
     endDate: '',
     reason: ''
   })
+
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+
+  // Load employee data on component mount
+  useEffect(() => {
+    loadEmployeeData()
+  }, [])
+
+  const loadEmployeeData = async () => {
+    try {
+      setLoading(true)
+      setError(null)
+      
+      // Load assigned trips
+      const tripsResponse = await tripAPI.getAllTrips({ 
+        employeeId: 'current-user-id', // This would come from user context
+        status: 'scheduled,in_progress'
+      })
+      
+      if (tripsResponse.data?.trips?.length > 0) {
+        setCurrentTrip(tripsResponse.data.trips[0])
+      }
+      
+      // Load expenses
+      const expensesResponse = await expenseAPI.getAllExpenses({ 
+        employeeId: 'current-user-id' // This would come from user context
+      })
+      
+      if (expensesResponse.data?.expenses) {
+        setExpenses(expensesResponse.data.expenses)
+      }
+      
+    } catch (err) {
+      setError(err.message || 'Failed to load employee data')
+      console.error('Error loading employee data:', err)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleCreateExpense = async (expenseData) => {
+    try {
+      setLoading(true)
+      setError(null)
+      
+      const response = await expenseAPI.createExpense(expenseData)
+      
+      // Reload expenses
+      await loadEmployeeData()
+      
+      return response
+    } catch (err) {
+      setError(err.message || 'Failed to create expense')
+      console.error('Error creating expense:', err)
+      throw err
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleUpdateTripStatus = async (tripId, status) => {
+    try {
+      setLoading(true)
+      setError(null)
+      
+      const response = await tripAPI.updateTripStatus(tripId, status)
+      
+      // Reload trip data
+      await loadEmployeeData()
+      
+      return response
+    } catch (err) {
+      setError(err.message || 'Failed to update trip status')
+      console.error('Error updating trip status:', err)
+      throw err
+    } finally {
+      setLoading(false)
+    }
+  }
 
 
   const employeeInfo = {

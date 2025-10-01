@@ -245,6 +245,40 @@ export const authAPI = {
       method: 'PUT',
     });
   },
+
+  // Create bus admin
+  createBusAdmin: async (busAdminData) => {
+    return apiRequest('/auth/bus-admins', {
+      method: 'POST',
+      data: busAdminData,
+    });
+  },
+
+  // Create booking manager
+  createBookingManager: async (bookingManagerData) => {
+    return apiRequest('/auth/booking-managers', {
+      method: 'POST',
+      data: bookingManagerData,
+    });
+  },
+
+  // Create bus employee
+  createBusEmployee: async (busEmployeeData) => {
+    return apiRequest('/auth/bus-employees', {
+      method: 'POST',
+      data: busEmployeeData,
+    });
+  },
+
+  // Get role hierarchy
+  getRoleHierarchy: async () => {
+    return apiRequest('/auth/role-hierarchy');
+  },
+
+  // Get creatable roles
+  getCreatableRoles: async () => {
+    return apiRequest('/auth/creatable-roles');
+  },
 };
 
 // Search API
@@ -252,8 +286,8 @@ export const searchAPI = {
   // Search buses
   searchBuses: async (searchParams) => {
     return apiRequest('/search/buses', {
-      method: 'POST',
-      data: searchParams,
+      method: 'GET',
+      params: searchParams,
       includeAuth: false,
     });
   },
@@ -269,7 +303,7 @@ export const searchAPI = {
 
   // Get available seats
   getAvailableSeats: async (tripId, date) => {
-    return apiRequest(`/search/seats/${tripId}`, {
+    return apiRequest(`/search/trips/${tripId}/seats`, {
       method: 'GET',
       params: { date },
       includeAuth: false,
@@ -280,6 +314,15 @@ export const searchAPI = {
   getTripDetails: async (tripId) => {
     return apiRequest(`/search/trips/${tripId}`, {
       method: 'GET',
+      includeAuth: false,
+    });
+  },
+
+  // Get search suggestions
+  getSearchSuggestions: async (query) => {
+    return apiRequest('/search/suggestions', {
+      method: 'GET',
+      params: { q: query },
       includeAuth: false,
     });
   },
@@ -502,6 +545,14 @@ export const tripAPI = {
       params,
     });
   },
+
+  // Get trips by route
+  getTripsByRoute: async (routeId, params = {}) => {
+    return apiRequest(`/trips/route/${routeId}`, {
+      method: 'GET',
+      params,
+    });
+  },
 };
 
 // Booking API
@@ -563,6 +614,21 @@ export const bookingAPI = {
     return apiRequest(`/bookings/trip/${tripId}`, {
       method: 'GET',
       params,
+    });
+  },
+
+  // Download ticket
+  downloadTicket: async (bookingId) => {
+    return apiRequest(`/bookings/${bookingId}/ticket`, {
+      method: 'GET',
+      responseType: 'blob',
+    });
+  },
+
+  // Email ticket
+  emailTicket: async (bookingId) => {
+    return apiRequest(`/bookings/${bookingId}/email`, {
+      method: 'POST',
     });
   },
 };
@@ -663,6 +729,14 @@ export const expenseAPI = {
       params,
     });
   },
+
+  // Get expenses by employee
+  getExpensesByEmployee: async (employeeId, params = {}) => {
+    return apiRequest(`/expenses/employee/${employeeId}`, {
+      method: 'GET',
+      params,
+    });
+  },
 };
 
 // Employee API
@@ -724,6 +798,51 @@ export const employeeAPI = {
     return apiRequest(`/employees/role/${role}`, {
       method: 'GET',
       params,
+    });
+  },
+};
+
+// Dashboard API
+export const dashboardAPI = {
+  // Get Master Admin Dashboard
+  getMasterAdminDashboard: async () => {
+    return apiRequest('/master-admin', {
+      method: 'GET',
+    });
+  },
+
+  // Get Bus Owner Dashboard
+  getBusOwnerDashboard: async () => {
+    return apiRequest('/bus-owner', {
+      method: 'GET',
+    });
+  },
+
+  // Get Bus Admin Dashboard
+  getBusAdminDashboard: async () => {
+    return apiRequest('/bus-admin', {
+      method: 'GET',
+    });
+  },
+
+  // Get Booking Manager Dashboard
+  getBookingManagerDashboard: async () => {
+    return apiRequest('/booking-man', {
+      method: 'GET',
+    });
+  },
+
+  // Get Bus Employee Dashboard
+  getBusEmployeeDashboard: async () => {
+    return apiRequest('/bus-employee', {
+      method: 'GET',
+    });
+  },
+
+  // Get Customer Dashboard
+  getCustomerDashboard: async () => {
+    return apiRequest('/customer', {
+      method: 'GET',
     });
   },
 };

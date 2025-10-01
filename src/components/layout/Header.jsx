@@ -18,7 +18,7 @@ const Header = () => {
 
           {/* Company Name - Empty for Master Admin */}
           <div className="flex-1 text-center hidden sm:block">
-            {user && user.role !== 'master-admin' && user.company && (
+            {user && user.role !== 'MASTER_ADMIN' && user.company && (
               <h1 className="text-sm lg:text-lg font-semibold text-gray-800 truncate px-2">
                 {user.company}
               </h1>
@@ -31,11 +31,11 @@ const Header = () => {
               <>
                 {/* User Role Badge - Hidden on mobile */}
                 <div className="hidden md:block px-2 lg:px-3 py-1 rounded-full text-xs lg:text-sm font-medium bg-green-100 text-green-800">
-                  {user.role === 'master-admin' ? 'Master Admin' :
-                   user.role === 'bus-owner' ? 'Bus Owner' :
-                   user.role === 'bus-admin' ? 'Bus Admin' :
-                   user.role === 'booking-man' ? 'Booking Manager' :
-                   user.role === 'bus-employee' ? 'Bus Employee' :
+                  {user.role === 'MASTER_ADMIN' ? 'Master Admin' :
+                   user.role === 'BUS_OWNER' ? 'Bus Owner' :
+                   user.role === 'BUS_ADMIN' ? 'Bus Admin' :
+                   user.role === 'BOOKING_MAN' ? 'Booking Manager' :
+                   user.role === 'BUS_EMPLOYEE' ? 'Bus Employee' :
                    user.role === 'customer' ? 'Customer' : user.role}
                 </div>
                 <UserProfile />

@@ -68,11 +68,11 @@ const UserProfileManagement = () => {
   const [roleFilter, setRoleFilter] = useState('all')
 
   const roles = [
-    { value: 'master-admin', label: 'Master Admin' },
-    { value: 'bus-owner', label: 'Bus Owner' },
-    { value: 'bus-admin', label: 'Bus Admin' },
-    { value: 'booking-man', label: 'Booking Man' },
-    { value: 'bus-employee', label: 'Bus Employee' },
+    { value: 'MASTER_ADMIN', label: 'Master Admin' },
+    { value: 'BUS_OWNER', label: 'Bus Owner' },
+    { value: 'BUS_ADMIN', label: 'Bus Admin' },
+    { value: 'BOOKING_MAN', label: 'Booking Man' },
+    { value: 'BUS_EMPLOYEE', label: 'Bus Employee' },
     { value: 'customer', label: 'Customer' }
   ]
 
@@ -129,11 +129,11 @@ const UserProfileManagement = () => {
 
   const getRoleColor = (role) => {
     const colors = {
-      'master-admin': 'bg-red-100 text-red-800',
-      'bus-owner': 'bg-blue-100 text-blue-800',
-      'bus-admin': 'bg-green-100 text-green-800',
-      'booking-man': 'bg-purple-100 text-purple-800',
-      'bus-employee': 'bg-orange-100 text-orange-800',
+      'MASTER_ADMIN': 'bg-red-100 text-red-800',
+      'BUS_OWNER': 'bg-blue-100 text-blue-800',
+      'BUS_ADMIN': 'bg-green-100 text-green-800',
+      'BOOKING_MAN': 'bg-purple-100 text-purple-800',
+      'BUS_EMPLOYEE': 'bg-orange-100 text-orange-800',
       'customer': 'bg-gray-100 text-gray-800'
     }
     return colors[role] || 'bg-gray-100 text-gray-800'
@@ -446,11 +446,11 @@ const AddUserForm = ({ onAdd, onCancel }) => {
   }
 
   const roles = [
-    { value: 'master-admin', label: 'Master Admin' },
-    { value: 'bus-owner', label: 'Bus Owner' },
-    { value: 'bus-admin', label: 'Bus Admin' },
-    { value: 'booking-man', label: 'Booking Man' },
-    { value: 'bus-employee', label: 'Bus Employee' },
+    { value: 'MASTER_ADMIN', label: 'Master Admin' },
+    { value: 'BUS_OWNER', label: 'Bus Owner' },
+    { value: 'BUS_ADMIN', label: 'Bus Admin' },
+    { value: 'BOOKING_MAN', label: 'Booking Man' },
+    { value: 'BUS_EMPLOYEE', label: 'Bus Employee' },
     { value: 'customer', label: 'Customer' }
   ]
 

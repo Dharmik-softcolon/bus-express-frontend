@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { CheckCircle, Download, Mail, Calendar, MapPin, Clock, User, CreditCard } from 'lucide-react'
+import { bookingAPI } from '../../services/api'
 
 const BookingConfirmation = ({ bookingData }) => {
   const navigate = useNavigate()
@@ -29,14 +30,35 @@ const BookingConfirmation = ({ bookingData }) => {
 
   const totalWithFees = booking.totalAmount + 5.5
 
-  const handleDownloadTicket = () => {
-    // In a real app, this would generate and download a PDF
-    alert('Ticket download functionality would be implemented here')
+  const handleDownloadTicket = async () => {
+    try {
+      // In a real app, this would generate and download a PDF
+      // const response = await bookingAPI.downloadTicket(booking.bookingId)
+      // const blob = new Blob([response.data], { type: 'application/pdf' })
+      // const url = window.URL.createObjectURL(blob)
+      // const a = document.createElement('a')
+      // a.href = url
+      // a.download = `ticket-${booking.bookingId}.pdf`
+      // a.click()
+      // window.URL.revokeObjectURL(url)
+      
+      alert('Ticket download functionality would be implemented here')
+    } catch (error) {
+      console.error('Error downloading ticket:', error)
+      alert('Failed to download ticket')
+    }
   }
 
-  const handleEmailTicket = () => {
-    // In a real app, this would send an email
-    alert('Email ticket functionality would be implemented here')
+  const handleEmailTicket = async () => {
+    try {
+      // In a real app, this would send an email
+      // await bookingAPI.emailTicket(booking.bookingId)
+      
+      alert('Email ticket functionality would be implemented here')
+    } catch (error) {
+      console.error('Error emailing ticket:', error)
+      alert('Failed to email ticket')
+    }
   }
 
   return (

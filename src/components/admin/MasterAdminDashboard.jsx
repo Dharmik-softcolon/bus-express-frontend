@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Users, Bus, Building, Plus, Edit, Trash2, Search, Filter, Loader2 } from 'lucide-react'
 import { authAPI } from '../../services/api'
 
@@ -25,35 +25,33 @@ const MasterAdminDashboard = () => {
     aadhaarCard: ''
   })
 
-  // Load bus owners on component mount
+  // Load bus owners on component mount and when filters change
   useEffect(() => {
     loadBusOwners()
-  }, [])
+  }, [loadBusOwners])
 
-  const loadBusOwners = async () => {
+  const loadBusOwners = useCallback(async () => {
     try {
       setLoading(true)
       setError(null)
-      const response = await authAPI.getAllBusOwners()
-      setBusOwners(response.busOwners || [])
+      
+      // Prepare query parameters
+      const params = {}
+      if (searchTerm) params.search = searchTerm
+      if (statusFilter !== 'all') params.isActive = statusFilter === 'active'
+      
+      const response = await authAPI.getAllBusOwners(params)
+      setBusOwners(response.data?.busOwners || [])
     } catch (err) {
       setError(err.message || 'Failed to load bus owners')
       console.error('Error loading bus owners:', err)
     } finally {
       setLoading(false)
     }
-  }
+  }, [searchTerm, statusFilter])
 
-  // Filter and sort bus owners
-  const filteredBusOwners = busOwners
-    .filter(owner => {
-      const matchesSearch = owner.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           owner.company?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           owner.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           owner.phone?.includes(searchTerm)
-      const matchesStatus = statusFilter === 'all' || (statusFilter === 'active' ? owner.isActive : !owner.isActive)
-      return matchesSearch && matchesStatus
-    })
+  // Sort bus owners (filtering is now done by API)
+  const sortedBusOwners = busOwners
     .sort((a, b) => {
       switch (sortBy) {
         case 'name':
@@ -185,7 +183,7 @@ const MasterAdminDashboard = () => {
       )
     }
 
-    if (filteredBusOwners.length === 0) {
+    if (sortedBusOwners.length === 0) {
       return (
         <div className="text-center py-8">
           <Building className="h-12 w-12 text-gray-400 mx-auto mb-4" />
@@ -196,7 +194,7 @@ const MasterAdminDashboard = () => {
 
     return (
       <div className="space-y-4">
-        {filteredBusOwners.map((owner) => (
+        {sortedBusOwners.map((owner) => (
           <div key={owner._id} className="card">
             <div className="flex justify-between items-start mb-4">
               <div>
