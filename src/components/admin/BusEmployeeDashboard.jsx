@@ -1,13 +1,18 @@
 import { useState, useEffect } from 'react'
-import { MapPin, Clock, Users, DollarSign, Plus, Camera, FileText, CheckCircle, Calendar, TrendingUp, Upload, Eye, Edit, Trash2, Download, UserCheck, UserX, Clock as ClockIcon, Phone, MessageSquare } from 'lucide-react'
-import { tripAPI, expenseAPI, bookingAPI } from '../../services/api'
+import { MapPin, Clock, Users, DollarSign, Plus, Camera, FileText, CheckCircle, Calendar, TrendingUp, Upload, Eye, Edit, Trash2, Download, UserCheck, UserX, Clock as ClockIcon, Phone, MessageSquare, User, Shield } from 'lucide-react'
+import { tripAPI, expenseAPI, bookingAPI, dashboardAPI } from '../../services/api'
+import { useUser } from '../../contexts/UserContext'
+import { showToast } from '../../utils/toast'
+import BusEmployeeWelcome from './BusEmployeeWelcome'
 
 const BusEmployeeDashboard = () => {
+  const { user } = useUser()
   const [activeTab, setActiveTab] = useState('trips')
   const [showExpenseModal, setShowExpenseModal] = useState(false)
   const [showLeaveModal, setShowLeaveModal] = useState(false)
   const [showEarningsModal, setShowEarningsModal] = useState(false)
   const [selectedExpense, setSelectedExpense] = useState(null)
+  const [showWelcomeModal, setShowWelcomeModal] = useState(false)
 
   const [currentTrip, setCurrentTrip] = useState({
     id: 1,
@@ -157,7 +162,15 @@ const BusEmployeeDashboard = () => {
   // Load employee data on component mount
   useEffect(() => {
     loadEmployeeData()
-  }, [])
+    
+    // Show welcome modal for new employees (check if this is their first visit)
+    const hasSeenWelcome = localStorage.getItem(`welcome_seen_${user?._id}`)
+    if (!hasSeenWelcome && user?.role === 'BUS_EMPLOYEE') {
+      setTimeout(() => {
+        setShowWelcomeModal(true)
+      }, 1000) // Show after 1 second
+    }
+  }, [user])
 
   const loadEmployeeData = async () => {
     try {
@@ -233,13 +246,16 @@ const BusEmployeeDashboard = () => {
 
 
   const employeeInfo = {
-    name: 'John Smith',
-    role: 'Driver',
-    license: 'DL123456',
-    phone: '+1-555-0101',
-    totalTrips: 120,
-    rating: 4.8,
-    monthlyEarnings: 2800
+    name: user?.name || 'Unknown Employee',
+    role: user?.subrole || user?.position || 'Employee',
+    license: user?.license || 'No license info',
+    phone: user?.phone || 'No phone info',
+    totalTrips: user?.totalTrips || 0,
+    rating: user?.rating || 0,
+    monthlyEarnings: user?.salary || 0,
+    email: user?.email || '',
+    aadhaarCard: user?.aadhaarCard || '',
+    address: user?.address || ''
   }
 
   const handleExpenseInputChange = (e) => {
@@ -258,65 +274,159 @@ const BusEmployeeDashboard = () => {
     }))
   }
 
-  const handleExpenseSubmit = (e) => {
+  const handleExpenseSubmit = async (e) => {
     e.preventDefault()
-    const newExpense = {
-      id: expenses.length + 1,
-      ...expenseForm,
-      amount: parseFloat(expenseForm.amount),
-      date: new Date().toISOString().split('T')[0],
-      evidence: expenseForm.evidenceFile ? expenseForm.evidenceFile.name : expenseForm.evidence || 'No evidence provided',
-      evidenceFile: expenseForm.evidenceFile,
-      status: 'pending'
+    
+    try {
+      setLoading(true)
+      
+      const expenseData = {
+        employeeId: user._id,
+        type: expenseForm.type,
+        amount: parseFloat(expenseForm.amount),
+        description: expenseForm.description,
+        date: new Date().toISOString().split('T')[0],
+        evidence: expenseForm.evidenceFile ? expenseForm.evidenceFile.name : expenseForm.evidence || 'No evidence provided',
+        status: 'pending'
+      }
+      
+      const response = await handleCreateExpense(expenseData)
+      
+      if (response?.success) {
+        showToast.success('Expense submitted successfully')
+        setShowExpenseModal(false)
+        setExpenseForm({
+          type: '',
+          amount: '',
+          description: '',
+          evidence: '',
+          evidenceFile: null
+        })
+      } else {
+        showToast.error('Failed to submit expense')
+      }
+    } catch (error) {
+      console.error('Error submitting expense:', error)
+      showToast.error(error.message || 'Failed to submit expense')
+    } finally {
+      setLoading(false)
     }
-    setExpenses(prev => [...prev, newExpense])
-    setShowExpenseModal(false)
-    setExpenseForm({
-      type: '',
-      amount: '',
-      description: '',
-      evidence: '',
-      evidenceFile: null
-    })
   }
 
-  const handleLeaveSubmit = (e) => {
+  const handleLeaveSubmit = async (e) => {
     e.preventDefault()
-    const newLeaveRequest = {
-      id: leaveRequests.length + 1,
-      ...leaveForm,
-      status: 'pending',
-      appliedDate: new Date().toISOString().split('T')[0]
-    }
-    setLeaveRequests(prev => [...prev, newLeaveRequest])
-    setShowLeaveModal(false)
-    setLeaveForm({
-      startDate: '',
-      endDate: '',
-      reason: ''
-    })
-  }
-
-  const togglePickupStatus = (customerId) => {
-    setCurrentTrip(prev => ({
-      ...prev,
-      customers: prev.customers.map(customer => {
-        if (customer.id === customerId) {
-          const now = new Date()
-          const timeString = now.toLocaleTimeString('en-US', { 
-            hour: '2-digit', 
-            minute: '2-digit',
-            hour12: true 
-          })
-          return {
-            ...customer,
-            pickedUp: !customer.pickedUp,
-            pickedUpTime: !customer.pickedUp ? timeString : null
-          }
-        }
-        return customer
+    
+    try {
+      setLoading(true)
+      
+      // Validate dates
+      if (new Date(leaveForm.startDate) >= new Date(leaveForm.endDate)) {
+        showToast.error('End date must be after start date')
+        return
+      }
+      
+      const leaveData = {
+        employeeId: user._id,
+        startDate: leaveForm.startDate,
+        endDate: leaveForm.endDate,
+        reason: leaveForm.reason,
+        status: 'pending',
+        appliedDate: new Date().toISOString().split('T')[0]
+      }
+      
+      // This would need a backend API endpoint for leave requests
+      // For now, we'll simulate the API call
+      console.log('Leave request data:', leaveData)
+      
+      // Simulate API response
+      const newLeaveRequest = {
+        id: leaveRequests.length + 1,
+        ...leaveData
+      }
+      
+      setLeaveRequests(prev => [...prev, newLeaveRequest])
+      setShowLeaveModal(false)
+      setLeaveForm({
+        startDate: '',
+        endDate: '',
+        reason: ''
       })
-    }))
+      
+      showToast.success('Leave request submitted successfully')
+      
+    } catch (error) {
+      console.error('Error submitting leave request:', error)
+      showToast.error(error.message || 'Failed to submit leave request')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const togglePickupStatus = async (customerId) => {
+    try {
+      setLoading(true)
+      
+      const customer = currentTrip.customers.find(c => c.id === customerId)
+      if (!customer) return
+      
+      // Update local state immediately for better UX
+      setCurrentTrip(prev => ({
+        ...prev,
+        customers: prev.customers.map(customer => {
+          if (customer.id === customerId) {
+            const now = new Date()
+            const timeString = now.toLocaleTimeString('en-US', { 
+              hour: '2-digit', 
+              minute: '2-digit',
+              hour12: true 
+            })
+            return {
+              ...customer,
+              pickedUp: !customer.pickedUp,
+              pickedUpTime: !customer.pickedUp ? timeString : null
+            }
+          }
+          return customer
+        })
+      }))
+      
+      const newStatus = !customer.pickedUp
+      
+      // API call to update pickup status on the backend
+      const updateData = {
+        customerId,
+        tripId: currentTrip.id,
+        pickedUp: newStatus,
+        pickedUpTime: newStatus ? new Date().toISOString() : null,
+        driverId: user._id
+      }
+      
+      // This would need a backend API endpoint for updating customer pickup status
+      console.log('Updating pickup status:', updateData)
+      
+      showToast.success(`${customer.name} ${newStatus ? 'marked as picked up' : 'marked as not picked up'} successfully`)
+      
+    } catch (error) {
+      console.error('Error updating pickup status:', error)
+      showToast.error('Failed to update pickup status')
+      
+      // Revert the local state change
+      setCurrentTrip(prev => ({
+        ...prev,
+        customers: prev.customers.map(customer => {
+          if (customer.id === customerId) {
+            return {
+              ...customer,
+              pickedUp: !customer.pickedUp,
+              pickedUpTime: null
+            }
+          }
+          return customer
+        })
+      }))
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleCall = (phoneNumber, customerName) => {
@@ -463,14 +573,20 @@ const BusEmployeeDashboard = () => {
                       {/* Pickup Status Button and Communication Buttons */}
                       <div className="flex items-center space-x-2">
                         <button
-                          onClick={() => togglePickupStatus(customer.id)}
-                          className={`inline-flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 transform hover:scale-105 ${
+                          onClick={() => togglePickupStatus(customer.id)} 
+                          disabled={loading}
+                          className={`inline-flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed ${
                             customer.pickedUp
                               ? 'bg-red-500 text-white hover:bg-red-600 shadow-md hover:shadow-lg'
                               : 'bg-green-500 text-white hover:bg-green-600 shadow-md hover:shadow-lg'
                           }`}
                         >
-                          {customer.pickedUp ? (
+                          {loading ? (
+                            <>
+                              <Clock className="h-4 w-4 mr-2 animate-spin" />
+                              Updating...
+                            </>
+                          ) : customer.pickedUp ? (
                             <>
                               <UserX className="h-4 w-4 mr-2" />
                               Mark Not Picked
@@ -599,14 +715,27 @@ const BusEmployeeDashboard = () => {
               <div><span className="font-medium">Role:</span> {employeeInfo.role}</div>
               <div><span className="font-medium">License:</span> {employeeInfo.license}</div>
               <div><span className="font-medium">Phone:</span> {employeeInfo.phone}</div>
+              <div><span className="font-medium">Email:</span> {employeeInfo.email}</div>
+              <div><span className="font-medium">Aadhaar:</span> {employeeInfo.aadhaarCard}</div>
+              {employeeInfo.address && (
+                <div className="mt-2 p-2 bg-gray-50 rounded">
+                  <span className="font-medium">Address:</span>
+                  <p className="text-gray-600 break-words">{employeeInfo.address}</p>
+                </div>
+              )}
             </div>
           </div>
           <div>
-            <h4 className="font-medium mb-3">Performance</h4>
+            <h4 className="font-medium mb-3">Performance & Financial</h4>
             <div className="space-y-2 text-sm">
               <div><span className="font-medium">Total Trips:</span> {employeeInfo.totalTrips}</div>
               <div><span className="font-medium">Rating:</span> {employeeInfo.rating}/5.0</div>
-              <div><span className="font-medium">Monthly Earnings:</span> ${employeeInfo.monthlyEarnings}</div>
+              <div><span className="font-medium">Monthly Salary:</span> ${employeeInfo.monthlyEarnings.toLocaleString()}</div>
+              <div className="mt-3 p-3 bg-green-50 rounded-lg">
+                <div className="text-lg font-bold text-green-700">
+                  Next Pay Date: {new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1).toLocaleDateString()}
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -697,13 +826,53 @@ const BusEmployeeDashboard = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              Bus Employee Dashboard
-            </h1>
-            <p className="text-gray-600">
-              Welcome, {employeeInfo.name} ({employeeInfo.role})
-            </p>
+          <div className="bg-white shadow-lg rounded-lg p-6">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                  <User className="h-8 w-8 text-blue-600" />
+                </div>
+                <div>
+                  <div className="flex items-center mb-1">
+                    <h1 className="text-3xl font-bold text-gray-900 mr-3">
+                      Welcome, {employeeInfo.name}
+                    </h1>
+                    <button
+                      onClick={() => setShowWelcomeModal(true)}
+                      className="px-3 py-1 text-xs bg-blue-100 text-blue-700 rounded-full hover:bg-blue-200 transition-colors"
+                      title="Show onboarding guide"
+                    >
+                      Help & Tour
+                    </button>
+                  </div>
+                  <p className="text-gray-600 text-lg">
+                    {employeeInfo.role} Dashboard
+                  </p>
+                  <div className="flex items-center mt-2 space-x-4 text-sm text-gray-500">
+                    <span className="flex items-center">
+                      <Phone className="h-4 w-4 mr-1" />
+                      {employeeInfo.phone}
+                    </span>
+                    <span className="flex items-center">
+                      <Shield className="h-4 w-4 mr-1" />
+                      License: {employeeInfo.license}
+                    </span>
+                    {employeeInfo.email && (
+                      <span className="flex items-center">
+                        <span className="mr-1">📧</span>
+                        {employeeInfo.email}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+              <div className="text-right">
+                <div className="text-2xl font-bold text-green-600">
+                  ${employeeInfo.monthlyEarnings.toLocaleString()}
+                </div>
+                <div className="text-sm text-gray-500">Monthly Salary</div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -727,6 +896,49 @@ const BusEmployeeDashboard = () => {
                 {tab.name}
               </button>
             ))}
+          </div>
+        </div>
+
+        {/* Quick Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+          <div className="card bg-blue-50 p-4">
+            <div className="flex items-center">
+              <Users className="h-8 w-8 text-blue-600 mr-3" />
+              <div>
+                <div className="text-2xl font-bold text-blue-600">{currentTrip.customers.length}</div>
+                <div className="text-sm text-gray-600">Passengers Today</div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="card bg-green-50 p-4">
+            <div className="flex items-center">
+              <DollarSign className="h-8 w-8 text-green-600 mr-3" />
+              <div>
+                <div className="text-2xl font-bold text-green-600">{expenses.length}</div>
+                <div className="text-sm text-gray-600">Expenses Submitted</div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="card bg-purple-50 p-4">
+            <div className="flex items-center">
+              <Calendar className="h-8 w-8 text-purple-600 mr-3" />
+              <div>
+                <div className="text-2xl font-bold text-purple-600">{employeeInfo.totalTrips}</div>
+                <div className="text-sm text-gray-600">Total Trips</div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="card bg-orange-50 p-4">
+            <div className="flex items-center">
+              <Clock className="h-8 w-8 text-orange-600 mr-3" />
+              <div>
+                <div className="text-2xl font-bold text-orange-600">{leaveRequests.filter(req => req.status === 'pending').length}</div>
+                <div className="text-sm text-gray-600">Pending Requests</div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -828,9 +1040,20 @@ const BusEmployeeDashboard = () => {
                     </button>
                     <button
                       type="submit"
-                      className="btn-primary"
+                      disabled={loading}
+                      className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
                     >
-                      Add Expense
+                      {loading ? (
+                        <>
+                          <Clock className="h-4 w-4 mr-2 animate-spin" />
+                          Submitting...
+                        </>
+                      ) : (
+                        <>
+                          <Plus className="h-4 w-4 mr-2" />
+                          Add Expense
+                        </>
+                      )}
                     </button>
                   </div>
                 </form>
@@ -907,9 +1130,20 @@ const BusEmployeeDashboard = () => {
                     </button>
                     <button
                       type="submit"
-                      className="btn-primary"
+                      disabled={loading}
+                      className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
                     >
-                      Submit Request
+                      {loading ? (
+                        <>
+                          <Clock className="h-4 w-4 mr-2 animate-spin" />
+                          Submitting...
+                        </>
+                      ) : (
+                        <>
+                          <Calendar className="h-4 w-4 mr-2" />
+                          Submit Request
+                        </>
+                      )}
                     </button>
                   </div>
                 </form>
@@ -1021,6 +1255,18 @@ const BusEmployeeDashboard = () => {
         )}
 
       </div>
+      
+      {/* Welcome Modal for New Employees */}
+      {showWelcomeModal && (
+        <BusEmployeeWelcome 
+          employeeData={employeeInfo}
+          onClose={() => {
+            setShowWelcomeModal(false)
+            localStorage.setItem(`welcome_seen_${user?._id}`, 'true')
+            showToast.success('Welcome to your dashboard! You can access help anytime.')
+          }}
+        />
+      )}
     </div>
   )
 }

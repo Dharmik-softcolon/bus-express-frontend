@@ -102,11 +102,6 @@ const EmployeeManagement = () => {
 
   useEffect(() => {
     fetchEmployeesData()
-    
-    // Test toast notification on component mount (remove later)
-    setTimeout(() => {
-      showToast.success('Employee Management loaded successfully!')
-    }, 2000)
   }, [])
 
   const handleEmployeeInputChange = (e) => {

@@ -39,6 +39,7 @@ import BusManagement from "./components/pages/BusManagement.jsx";
 import BookingManManagement from "./components/admin/BookingManManagement.jsx";
 import BookingManagersManagement from "./components/pages/BookingManagersManagement.jsx";
 import BusAdminOverview from "./components/pages/BusAdminOverview.jsx";
+import BusEmployeeDashboard from "./components/admin/BusEmployeeDashboard.jsx";
 
 // Component to handle home page with auto-redirect for logged-in users
 const HomePageWrapper = ({ onSearch }) => {
@@ -130,7 +131,7 @@ function App() {
               </ProtectedRoute>
             } />
 
-            {/* Bus Owner Route & Pages */}
+            {/* Bus Admin Route & Pages */}
             <Route path="/bus-admin" element={
               <ProtectedRoute requiredRoles={[ROLES.BUS_ADMIN, ROLES.MASTER_ADMIN]}>
                 <BusAdminOverview />
@@ -187,6 +188,12 @@ function App() {
               </ProtectedRoute>
             } />
 
+            {/* Bus Employee Routes */}
+            <Route path="/bus-employee" element={
+              <ProtectedRoute requiredRoles={[ROLES.BUS_EMPLOYEE, ROLES.BUS_ADMIN, ROLES.BUS_OWNER, ROLES.MASTER_ADMIN]}>
+                <BusEmployeeDashboard />
+              </ProtectedRoute>
+            } />
 
             <Route path="/customer" element={
               <ProtectedRoute requiredRoles={[ROLES.CUSTOMER]}>
