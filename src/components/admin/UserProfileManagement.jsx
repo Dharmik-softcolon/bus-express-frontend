@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { User, Mail, Phone, MapPin, Calendar, CreditCard, Car, Edit, Save, X, Plus, Trash2 } from 'lucide-react'
 import { authAPI } from '../../services/api'
+import { formatAadhaarCard } from '../../utils/formatters'
 
 const UserProfileManagement = () => {
   const [users, setUsers] = useState([])
@@ -346,7 +347,7 @@ const UserProfileManagement = () => {
                   <input
                     type="text"
                     value={editingUser.aadhaarCard}
-                    onChange={(e) => setEditingUser({...editingUser, aadhaarCard: e.target.value})}
+                    onChange={(e) => setEditingUser({...editingUser, aadhaarCard: formatAadhaarCard(e.target.value)})}
                     className="input-field"
                     placeholder="1234-5678-9012"
                   />
@@ -540,7 +541,7 @@ const AddUserForm = ({ onAdd, onCancel }) => {
             type="text"
             required
             value={formData.aadhaarCard}
-            onChange={(e) => setFormData({...formData, aadhaarCard: e.target.value})}
+            onChange={(e) => setFormData({...formData, aadhaarCard: formatAadhaarCard(e.target.value)})}
             className="input-field"
             placeholder="1234-5678-9012"
           />

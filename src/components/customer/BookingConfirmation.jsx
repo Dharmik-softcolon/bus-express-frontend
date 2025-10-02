@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { CheckCircle, Download, Mail, Calendar, MapPin, Clock, User, CreditCard } from 'lucide-react'
 import { bookingAPI } from '../../services/api'
+import { showToast } from '../../utils/toast'
 
 const BookingConfirmation = ({ bookingData }) => {
   const navigate = useNavigate()
@@ -42,10 +43,10 @@ const BookingConfirmation = ({ bookingData }) => {
       // a.click()
       // window.URL.revokeObjectURL(url)
       
-      alert('Ticket download functionality would be implemented here')
+      showToast.info('Ticket download functionality would be implemented here')
     } catch (error) {
       console.error('Error downloading ticket:', error)
-      alert('Failed to download ticket')
+      showToast.error('Failed to download ticket')
     }
   }
 
@@ -54,10 +55,10 @@ const BookingConfirmation = ({ bookingData }) => {
       // In a real app, this would send an email
       // await bookingAPI.emailTicket(booking.bookingId)
       
-      alert('Email ticket functionality would be implemented here')
+      showToast.info('Email ticket functionality would be implemented here')
     } catch (error) {
       console.error('Error emailing ticket:', error)
-      alert('Failed to email ticket')
+      showToast.error('Failed to email ticket')
     }
   }
 

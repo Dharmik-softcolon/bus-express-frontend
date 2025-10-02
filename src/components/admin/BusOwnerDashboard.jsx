@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Users, Bus, Calendar, DollarSign, TrendingUp, TrendingDown, BarChart3, Plus, Edit, Trash2, UserCheck, UserX, Link } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import { showToast } from '../../utils/toast'
+import { formatAadhaarCard } from '../../utils/formatters'
 
 const BusOwnerDashboard = () => {
   const [activeTab, setActiveTab] = useState('overview')
@@ -115,7 +117,7 @@ const BusOwnerDashboard = () => {
     const { name, value } = e.target
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: name === 'aadhaarCard' ? formatAadhaarCard(value) : value
     }))
   }
 
@@ -125,7 +127,7 @@ const BusOwnerDashboard = () => {
     
     // Check if trying to add more than 2 Bus Admins
     if (!editingAdmin && busAdmins.length >= 2) {
-      alert('You can only have a maximum of 2 Bus Admins.')
+      showToast.error('You can only have a maximum of 2 Bus Admins.')
       return
     }
     

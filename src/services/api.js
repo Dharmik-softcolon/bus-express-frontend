@@ -1,6 +1,7 @@
 // Import configuration and axios
 import config from '../config/config.js'
 import axios from 'axios'
+import { handleApiError } from '../utils/toast.js'
 
 // Create axios instance with default configuration
 const apiClient = axios.create({
@@ -37,33 +38,9 @@ apiClient.interceptors.response.use(
     return response.data;
   },
   (error) => {
-    // Handle different types of errors
-    if (error.response) {
-      // Server responded with error status
-      const { status, data } = error.response;
-      
-      switch (status) {
-        case 401:
-          throw new Error(config.ERRORS.UNAUTHORIZED);
-        case 403:
-          throw new Error(config.ERRORS.FORBIDDEN);
-        case 404:
-          throw new Error(config.ERRORS.NOT_FOUND);
-        case 500:
-          throw new Error(config.ERRORS.SERVER_ERROR);
-        default:
-          throw new Error(data?.message || config.ERRORS.SERVER_ERROR);
-      }
-    } else if (error.request) {
-      // Network error
-      throw new Error(config.ERRORS.NETWORK_ERROR);
-    } else if (error.code === 'ECONNABORTED') {
-      // Timeout error
-      throw new Error(config.ERRORS.TIMEOUT_ERROR);
-    } else {
-      // Other errors
-      throw new Error(error.message || config.ERRORS.SERVER_ERROR);
-    }
+    // Handle API errors with toast notifications
+    const errorMessage = handleApiError(error);
+    throw new Error(errorMessage);
   }
 );
 

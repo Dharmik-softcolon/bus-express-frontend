@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ArrowLeft, ArrowRight, User, Clock, MapPin } from 'lucide-react'
 import { searchAPI, bookingAPI } from '../../services/api'
+import { showToast } from '../../utils/toast'
 
 const SeatSelection = ({ selectedSeats, onBooking }) => {
   const navigate = useNavigate()
@@ -106,12 +107,12 @@ const SeatSelection = ({ selectedSeats, onBooking }) => {
 
   const handleProceedToPayment = async () => {
     if (selectedSeatNumbers.length === 0) {
-      alert('Please select at least one seat')
+      showToast.error('Please select at least one seat')
       return
     }
 
     if (passengerDetails.length !== selectedSeatNumbers.length) {
-      alert('Please fill in details for all selected seats')
+      showToast.error('Please fill in details for all selected seats')
       return
     }
 

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Settings, Save, Bell, Mail, Shield, Globe, CreditCard, Database } from 'lucide-react'
+import { showToast } from '../../utils/toast'
 
 const SystemSettings = () => {
   const [settings, setSettings] = useState({
@@ -63,7 +64,7 @@ const SystemSettings = () => {
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1000))
     setIsSaving(false)
-    alert('Settings saved successfully!')
+    showToast.success('Settings saved successfully!')
   }
 
   const tabs = [

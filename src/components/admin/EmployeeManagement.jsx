@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { useUser } from '../../contexts/UserContext'
 import { ROLES, BUS_EMPLOYEE_SUBROLES, ROLE_HIERARCHY } from '../../config/config'
 import { employeeAPI, authAPI } from '../../services/api'
+import { showToast } from '../../utils/toast'
+import { formatAadhaarCard } from '../../utils/formatters'
 import { 
   Plus, 
   Edit, 
@@ -130,12 +132,12 @@ const EmployeeManagement = () => {
     
     // Validation
     if (formData.password !== formData.confirmPassword) {
-      alert('Passwords do not match!')
+      showToast.error('Passwords do not match!')
       return
     }
     
     if (!editingEmployee && formData.password.length < 6) {
-      alert('Password must be at least 6 characters long!')
+      showToast.error('Password must be at least 6 characters long!')
       return
     }
     
@@ -188,14 +190,14 @@ const EmployeeManagement = () => {
         resetForm()
         fetchEmployees()
         const employeeType = formData.role === ROLES.BUS_ADMIN ? 'bus admin' : 'employee'
-        alert(editingEmployee ? `${employeeType.charAt(0).toUpperCase() + employeeType.slice(1)} updated successfully!` : `${employeeType.charAt(0).toUpperCase() + employeeType.slice(1)} created successfully!`)
+        showToast.success(editingEmployee ? `${employeeType.charAt(0).toUpperCase() + employeeType.slice(1)} updated successfully!` : `${employeeType.charAt(0).toUpperCase() + employeeType.slice(1)} created successfully!`)
       } else {
-        alert(response.message || 'Failed to save employee')
+        showToast.error(response.message || 'Failed to save employee')
       }
     } catch (error) {
       console.error('Error saving employee:', error)
       const employeeType = formData.role === ROLES.BUS_ADMIN ? 'bus admin' : 'employee'
-      alert(`Error saving ${employeeType}. Please try again.`)
+      showToast.error(`Error saving ${employeeType}. Please try again.`)
     }
   }
   
@@ -254,13 +256,13 @@ const EmployeeManagement = () => {
         
         if (response.success) {
           fetchEmployees()
-          alert(`${employeeType.charAt(0).toUpperCase() + employeeType.slice(1)} deleted successfully!`)
+          showToast.success(`${employeeType.charAt(0).toUpperCase() + employeeType.slice(1)} deleted successfully!`)
         } else {
-          alert(response.message || `Failed to delete ${employeeType}`)
+          showToast.error(response.message || `Failed to delete ${employeeType}`)
         }
       } catch (error) {
         console.error('Error deleting employee:', error)
-        alert(`Error deleting ${employeeType}. Please try again.`)
+        showToast.error(`Error deleting ${employeeType}. Please try again.`)
       }
     }
   }
@@ -274,13 +276,13 @@ const EmployeeManagement = () => {
       const response = await employeeAPI.updateEmployeeStatus(employeeId, newStatus)
       if (response.success) {
         fetchEmployees()
-        alert(`${employeeType.charAt(0).toUpperCase() + employeeType.slice(1)} status updated to ${newStatus}!`)
+        showToast.success(`${employeeType.charAt(0).toUpperCase() + employeeType.slice(1)} status updated to ${newStatus}!`)
       } else {
-        alert(response.message || `Failed to update ${employeeType} status`)
+        showToast.error(response.message || `Failed to update ${employeeType} status`)
       }
     } catch (error) {
       console.error('Error updating employee status:', error)
-      alert(`Error updating ${employeeType} status. Please try again.`)
+      showToast.error(`Error updating ${employeeType} status. Please try again.`)
     }
   }
   
@@ -805,9 +807,9 @@ const EmployeeManagement = () => {
                   <input
                     type="text"
                     value={formData.aadhaarCard}
-                    onChange={(e) => setFormData({...formData, aadhaarCard: e.target.value})}
+                    onChange={(e) => setFormData({...formData, aadhaarCard: formatAadhaarCard(e.target.value)})}
                     className="input-field"
-                    placeholder="Enter Aadhaar card number"
+                    placeholder="1234-5678-9012"
                   />
                 </div>
 

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useUser } from '../../contexts/UserContext'
 import { getNavigationMenu } from '../../config/routes'
+import { formatAadhaarCard } from '../../utils/formatters'
 import { 
   Bus, 
   MapPin, 
@@ -161,7 +162,7 @@ const BusAdminDashboard = () => {
     const { name, value } = e.target
     setEmployeeFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: name === 'aadhaarCard' ? formatAadhaarCard(value) : value
     }))
   }
 
@@ -169,7 +170,7 @@ const BusAdminDashboard = () => {
     const { name, value } = e.target
     setBookingManFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: name === 'aadhaarCard' ? formatAadhaarCard(value) : value
     }))
   }
 

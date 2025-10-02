@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Users, Bus, Building, Plus, Edit, Trash2, Search, Filter, Loader2 } from 'lucide-react'
 import { authAPI } from '../../services/api'
+import { formatAadhaarCard } from '../../utils/formatters'
 
 const MasterAdminDashboard = () => {
   console.log('MasterAdminDashboard component rendering...')
@@ -74,7 +75,7 @@ const MasterAdminDashboard = () => {
     const { name, value } = e.target
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: name === 'aadhaarCard' ? formatAadhaarCard(value) : value
     }))
   }
 

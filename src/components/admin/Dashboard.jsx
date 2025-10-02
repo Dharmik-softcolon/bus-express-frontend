@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Users, Bus, Calendar, DollarSign, TrendingUp, TrendingDown, Clock, MapPin, Route, Plus, Edit, Trash2, UserCheck, UserX, Settings, BarChart3, Search, Star, ArrowRight, Filter, User, CheckCircle, XCircle } from 'lucide-react'
+import { showToast } from '../../utils/toast'
 
 const Dashboard = () => {
   const [timeRange, setTimeRange] = useState('7d')
@@ -529,7 +530,7 @@ const Dashboard = () => {
           if (pairSeat && !pairSeat.occupied) {
             setSelectedSeats(prev => [...prev, seatNumber, seat.pairSeat])
           } else {
-            alert('Both seats in this pair must be available to book together when bus occupancy is below 70%')
+            showToast.error('Both seats in this pair must be available to book together when bus occupancy is below 70%')
             return
           }
         }
@@ -557,7 +558,7 @@ const Dashboard = () => {
 
   const confirmBooking = () => {
     if (selectedSeats.length === 0) {
-      alert('Please select at least one seat')
+      showToast.error('Please select at least one seat')
       return
     }
 

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Plus, Edit, Trash2, Users, Calendar, Clock, MapPin, DollarSign, CheckCircle, XCircle, Search, Bus, Star, ArrowRight, Filter, User } from 'lucide-react'
 import { searchAPI, bookingAPI, tripAPI } from '../../services/api'
+import { showToast } from '../../utils/toast'
 
 const BookingManManagement = () => {
   const [showAddModal, setShowAddModal] = useState(false)
@@ -438,7 +439,7 @@ const BookingManManagement = () => {
           if (pairSeat && !pairSeat.occupied) {
             setSelectedSeats(prev => [...prev, seatNumber, seat.pairSeat])
           } else {
-            alert('Both seats in this pair must be available to book together when bus occupancy is below 70%')
+            showToast.error('Both seats in this pair must be available to book together when bus occupancy is below 70%')
             return
           }
         }
@@ -466,7 +467,7 @@ const BookingManManagement = () => {
 
   const confirmBooking = () => {
     if (selectedSeats.length === 0) {
-      alert('Please select at least one seat')
+      showToast.error('Please select at least one seat')
       return
     }
 
@@ -968,7 +969,7 @@ const BookingManManagement = () => {
                               <button
                                   onClick={() => {
                                     // Edit booking functionality
-                                    alert('Edit booking functionality would be implemented here')
+                                    showToast.info('Edit booking functionality would be implemented here')
                                   }}
                                   className="text-blue-600 hover:text-blue-900"
                                   title="Edit Booking"
