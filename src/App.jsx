@@ -5,7 +5,6 @@ import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
 import Login from './components/auth/Login'
 import ProtectedRoute from './components/auth/ProtectedRoute'
-import DashboardRouter from './components/routing/DashboardRouter'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -19,7 +18,6 @@ import BookingConfirmation from './components/customer/BookingConfirmation'
 // Role-based Dashboards
 import MasterAdminDashboard from './components/role-dashboards/MasterAdminDashboard'
 import BusOwnerDashboard from './components/role-dashboards/BusOwnerDashboard'
-import BusAdminDashboard from './components/role-dashboards/BusAdminDashboard'
 import CustomerDashboard from './components/role-dashboards/CustomerDashboard'
 
 // Management Pages
@@ -40,6 +38,7 @@ import { PUBLIC_ROUTES, getDefaultRoute } from './config/routes'
 import BusManagement from "./components/pages/BusManagement.jsx";
 import BookingManManagement from "./components/admin/BookingManManagement.jsx";
 import BookingManagersManagement from "./components/pages/BookingManagersManagement.jsx";
+import BusAdminOverview from "./components/pages/BusAdminOverview.jsx";
 
 // Component to handle home page with auto-redirect for logged-in users
 const HomePageWrapper = ({ onSearch }) => {
@@ -134,7 +133,7 @@ function App() {
             {/* Bus Owner Route & Pages */}
             <Route path="/bus-admin" element={
               <ProtectedRoute requiredRoles={[ROLES.BUS_ADMIN, ROLES.MASTER_ADMIN]}>
-                <BusAdminDashboard />
+                <BusAdminOverview />
               </ProtectedRoute>
             } />
             <Route path="/bus-admin/buses" element={
@@ -182,13 +181,6 @@ function App() {
             <Route path="/customer" element={
               <ProtectedRoute requiredRoles={[ROLES.CUSTOMER]}>
                 <CustomerDashboard />
-              </ProtectedRoute>
-            } />
-            
-            {/* Dashboard Routes - All protected routes handled by DashboardRouter */}
-            <Route path="/dashboard/*" element={
-              <ProtectedRoute>
-                <DashboardRouter />
               </ProtectedRoute>
             } />
             
