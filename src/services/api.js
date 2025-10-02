@@ -544,13 +544,6 @@ export const tripAPI = {
     });
   },
 
-  // Get trips by route
-  getTripsByRoute: async (routeId, params = {}) => {
-    return apiRequest(`/trips/route/${routeId}`, {
-      method: 'GET',
-      params,
-    });
-  },
 };
 
 // Booking API
@@ -737,11 +730,11 @@ export const expenseAPI = {
   },
 };
 
-// Employee API
-export const employeeAPI = {
+// Bus Employee API
+export const busEmployeeAPI = {
   // Get all bus employees
   getAllEmployees: async (params = {}) => {
-    return apiRequest('/auth/bus-employees', {
+    return apiRequest('/bus-admin/bus-employees', {
       method: 'GET',
       params,
     });
@@ -749,12 +742,12 @@ export const employeeAPI = {
 
   // Get employee by ID
   getEmployeeById: async (employeeId) => {
-    return apiRequest(`/auth/bus-employees/${employeeId}`);
+    return apiRequest(`/bus-admin/bus-employees/${employeeId}`);
   },
 
   // Create new bus employee
   createEmployee: async (employeeData) => {
-    return apiRequest('/auth/bus-employees', {
+    return apiRequest('/bus-admin/bus-employees', {
       method: 'POST',
       data: employeeData,
     });
@@ -762,7 +755,7 @@ export const employeeAPI = {
 
   // Update bus employee
   updateEmployee: async (employeeId, employeeData) => {
-    return apiRequest(`/auth/bus-employees/${employeeId}`, {
+    return apiRequest(`/bus-admin/bus-employees/${employeeId}`, {
       method: 'PUT',
       data: employeeData,
     });
@@ -770,32 +763,114 @@ export const employeeAPI = {
 
   // Delete bus employee
   deleteEmployee: async (employeeId) => {
-    return apiRequest(`/auth/bus-employees/${employeeId}`, {
+    return apiRequest(`/bus-admin/bus-employees/${employeeId}`, {
       method: 'DELETE',
     });
   },
 
   // Toggle bus employee status
   updateEmployeeStatus: async (employeeId) => {
-    return apiRequest(`/auth/bus-employees/${employeeId}/toggle-status`, {
+    return apiRequest(`/bus-admin/bus-employees/${employeeId}/toggle-status`, {
       method: 'PUT',
     });
   },
 
   // Get employee statistics
   getEmployeeStatistics: async (params = {}) => {
-    return apiRequest('/auth/bus-employees', {
+    return apiRequest('/bus-admin/bus-employees', {
       method: 'GET',
       params: { ...params, statistics: true },
     });
   },
+};
+
+// Booking Manager API
+export const bookingManagerAPI = {
+  // Get all booking managers
+  getAllBookingManagers: async (params = {}) => {
+    return apiRequest('/bus-admin/booking-managers', {
+      method: 'GET',
+      params,
+    });
+  },
+
+  // Get booking manager by ID
+  getBookingManagerById: async (managerId) => {
+    return apiRequest(`/bus-admin/booking-managers/${managerId}`);
+  },
+
+  // Create new booking manager
+  createBookingManager: async (managerData) => {
+    return apiRequest('/bus-admin/booking-managers', {
+      method: 'POST',
+      data: managerData,
+    });
+  },
+
+  // Update booking manager
+  updateBookingManager: async (managerId, managerData) => {
+    return apiRequest(`/bus-admin/booking-managers/${managerId}`, {
+      method: 'PUT',
+      data: managerData,
+    });
+  },
+
+  // Delete booking manager
+  deleteBookingManager: async (managerId) => {
+    return apiRequest(`/bus-admin/booking-managers/${managerId}`, {
+      method: 'DELETE',
+    });
+  },
+
+  // Get booking manager statistics
+  getBookingManagerStatistics: async (params = {}) => {
+    return apiRequest('/bus-admin/booking-managers', {
+      method: 'GET',
+      params: { ...params, statistics: true },
+    });
+  },
+};
+
+// Legacy Employee API (for backward compatibility)
+export const employeeAPI = {
+  // Get all bus employees
+  getAllEmployees: async (params = {}) => {
+    return busEmployeeAPI.getAllEmployees(params);
+  },
+
+  // Get employee by ID
+  getEmployeeById: async (employeeId) => {
+    return busEmployeeAPI.getEmployeeById(employeeId);
+  },
+
+  // Create new bus employee
+  createEmployee: async (employeeData) => {
+    return busEmployeeAPI.createEmployee(employeeData);
+  },
+
+  // Update bus employee
+  updateEmployee: async (employeeId, employeeData) => {
+    return busEmployeeAPI.updateEmployee(employeeId, employeeData);
+  },
+
+  // Delete bus employee
+  deleteEmployee: async (employeeId) => {
+    return busEmployeeAPI.deleteEmployee(employeeId);
+  },
+
+  // Toggle bus employee status
+  updateEmployeeStatus: async (employeeId) => {
+    return busEmployeeAPI.updateEmployeeStatus(employeeId);
+  },
+
+  // Get employee statistics
+  getEmployeeStatistics: async (params = {}) => {
+    return busEmployeeAPI.getEmployeeStatistics(params);
+  },
 
   // Get employees by role
   getEmployeesByRole: async (role, params = {}) => {
-    return apiRequest('/auth/bus-employees', {
-      method: 'GET',
-      params: { ...params, subrole: role },
-    });
+    return busEmployeeAPI.getAllEmployees({ ...params, subrole: role });
   },
 };
 
@@ -817,38 +892,33 @@ export const dashboardAPI = {
 
   // Get Bus Admin Dashboard
   getBusAdminDashboard: async () => {
-    return apiRequest('/bus-admin', {
+    return apiRequest('/bus-admin/dashboard', {
       method: 'GET',
     });
   },
 
   // Get Booking Manager Dashboard
   getBookingManagerDashboard: async () => {
-    return apiRequest('/booking-manager', {
+    return apiRequest('/booking-manager/dashboard', {
       method: 'GET',
     });
   },
 
   // Get Bus Employee Dashboard
   getBusEmployeeDashboard: async () => {
-    return apiRequest('/bus-employee', {
+    return apiRequest('/bus-employee/dashboard', {
       method: 'GET',
     });
   },
 
   // Get Customer Dashboard
   getCustomerDashboard: async () => {
-    return apiRequest('/customer', {
+    return apiRequest('/customer/dashboard', {
       method: 'GET',
     });
   },
 
   // Bus Admin Dashboard APIs (for comprehensive bus admin dashboard)
-  getBusAdminDashboard: async () => {
-    return apiRequest('/bus-admin/dashboard', {
-      method: 'GET',
-    });
-  },
 
   getBusAdminBuses: async (params = {}) => {
     return apiRequest('/bus-admin/buses', {

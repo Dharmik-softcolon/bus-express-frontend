@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { useUser } from '../../contexts/UserContext'
 import { getNavigationMenu } from '../../config/routes'
 import { formatAadhaarCard } from '../../utils/formatters'
+import { showToast } from '../../utils/toast'
+import { dashboardAPI, busEmployeeAPI, bookingManagerAPI } from '../../services/api'
 import { 
   Bus, 
   MapPin, 
@@ -26,254 +28,284 @@ const BusAdminDashboard = () => {
   const [editingEmployee, setEditingEmployee] = useState(null)
   const [editingBookingMan, setEditingBookingMan] = useState(null)
 
-  const [stats, setStats] = useState({
+  // Dynamic data state
+  const [dashboardData, setDashboardData] = useState(null)
+  const [dashboardLoading, setDashboardLoading] = useState(true)
+  const [busEmployees, setBusEmployees] = useState([])
+  const [busEmployeesLoading, setBusEmployeesLoading] = useState(true)
+  const [bookingManagers, setBookingManagers] = useState([])
+  const [bookingManagersLoading, setBookingManagersLoading] = useState(true)
+
+  // Form state
+  const [employeeForm, setEmployeeForm] = useState({
+    name: '',
+    email: '',
+    password: '',
+    phone: '',
+    subrole: '',
+    position: '',
+    address: ''
+  })
+
+  const [bookingManagerForm, setBookingManagerForm] = useState({
+    name: '',
+    email: '',
+    password: '',
+    phone: '',
+    position: '',
+    address: ''
+  })
+
+  // Fetch all data on component mount
+  useEffect(() => {
+    fetchAllData()
+  }, [])
+
+  const fetchAllData = async () => {
+    try {
+      setDashboardLoading(true)
+      const [dashboardResponse, employeesResponse, managersResponse] = await Promise.all([
+        dashboardAPI.getBusAdminDashboard(),
+        busEmployeeAPI.getAllEmployees({ limit: 20 }),
+        bookingManagerAPI.getAllBookingManagers({ limit: 20 })
+      ])
+
+      // Set dashboard data
+      if (dashboardResponse.success) {
+        setDashboardData(dashboardResponse.data)
+      }
+
+      // Set employees data
+      if (employeesResponse.success) {
+        setBusEmployees(employeesResponse.data.busEmployees || [])
+      }
+
+      // Set booking managers data
+      if (managersResponse.success) {
+        setBookingManagers(managersResponse.data.bookingManagers || [])
+      }
+    } catch (error) {
+      console.error('Error fetching dashboard data:', error)
+      showToast('Failed to load dashboard data', 'error')
+    } finally {
+      setDashboardLoading(false)
+      setBusEmployeesLoading(false)
+      setBookingManagersLoading(false)
+    }
+  }
+
+  // Employee management functions
+  const handleCreateEmployee = async (e) => {
+    e.preventDefault()
+    try {
+      const response = await busEmployeeAPI.createEmployee(employeeForm)
+      if (response.success) {
+        showToast('Bus employee created successfully', 'success')
+        setShowAddModal(false)
+        setEmployeeForm({
+          name: '',
+          email: '',
+          password: '',
+          phone: '',
+          subrole: '',
+          position: '',
+          address: ''
+        })
+        fetchAllData()
+      }
+    } catch (error) {
+      console.error('Error creating employee:', error)
+      showToast('Failed to create employee', 'error')
+    }
+  }
+
+  const handleUpdateEmployee = async (e) => {
+    e.preventDefault()
+    try {
+      const response = await busEmployeeAPI.updateEmployee(editingEmployee.id, employeeForm)
+      if (response.success) {
+        showToast('Bus employee updated successfully', 'success')
+        setEditingEmployee(null)
+        setEmployeeForm({
+          name: '',
+          email: '',
+          password: '',
+          phone: '',
+          subrole: '',
+          position: '',
+          address: ''
+        })
+        fetchAllData()
+      }
+    } catch (error) {
+      console.error('Error updating employee:', error)
+      showToast('Failed to update employee', 'error')
+    }
+  }
+
+  const handleDeleteEmployee = async (employeeId) => {
+    if (window.confirm('Are you sure you want to delete this employee?')) {
+      try {
+        const response = await busEmployeeAPI.deleteEmployee(employeeId)
+        if (response.success) {
+          showToast('Employee deleted successfully', 'success')
+          fetchAllData()
+        }
+      } catch (error) {
+        console.error('Error deleting employee:', error)
+        showToast('Failed to delete employee', 'error')
+      }
+    }
+  }
+
+  const handleToggleEmployeeStatus = async (employeeId) => {
+    try {
+      const response = await busEmployeeAPI.updateEmployeeStatus(employeeId)
+      if (response.success) {
+        showToast('Employee status updated successfully', 'success')
+        fetchAllData()
+      }
+    } catch (error) {
+      console.error('Error updating employee status:', error)
+      showToast('Failed to update employee status', 'error')
+    }
+  }
+
+  // Booking manager management functions
+  const handleCreateBookingManager = async (e) => {
+    e.preventDefault()
+    try {
+      const response = await bookingManagerAPI.createBookingManager(bookingManagerForm)
+      if (response.success) {
+        showToast('Booking manager created successfully', 'success')
+        setShowAddModal(false)
+        setBookingManagerForm({
+          name: '',
+          email: '',
+          password: '',
+          phone: '',
+          position: '',
+          address: ''
+        })
+        fetchAllData()
+      }
+    } catch (error) {
+      console.error('Error creating booking manager:', error)
+      showToast('Failed to create booking manager', 'error')
+    }
+  }
+
+  const handleUpdateBookingManager = async (e) => {
+    e.preventDefault()
+    try {
+      const response = await bookingManagerAPI.updateBookingManager(editingBookingMan.id, bookingManagerForm)
+      if (response.success) {
+        showToast('Booking manager updated successfully', 'success')
+        setEditingBookingMan(null)
+        setBookingManagerForm({
+          name: '',
+          email: '',
+          password: '',
+          phone: '',
+          position: '',
+          address: ''
+        })
+        fetchAllData()
+      }
+    } catch (error) {
+      console.error('Error updating booking manager:', error)
+      showToast('Failed to update booking manager', 'error')
+    }
+  }
+
+  const handleDeleteBookingManager = async (managerId) => {
+    if (window.confirm('Are you sure you want to delete this booking manager?')) {
+      try {
+        const response = await bookingManagerAPI.deleteBookingManager(managerId)
+        if (response.success) {
+          showToast('Booking manager deleted successfully', 'success')
+          fetchAllData()
+        }
+      } catch (error) {
+        console.error('Error deleting booking manager:', error)
+        showToast('Failed to delete booking manager', 'error')
+      }
+    }
+  }
+
+  // Helper functions
+  const openEditEmployee = (employee) => {
+    setEditingEmployee(employee)
+    setEmployeeForm({
+      name: employee.name || '',
+      email: employee.email || '',
+      password: '',
+      phone: employee.phone || '',
+      subrole: employee.subrole || '',
+      position: employee.position || '',
+      address: employee.address || ''
+    })
+  }
+
+  const openEditBookingManager = (manager) => {
+    setEditingBookingMan(manager)
+    setBookingManagerForm({
+      name: manager.name || '',
+      email: manager.email || '',
+      password: '',
+      phone: manager.phone || '',
+      position: manager.position || '',
+      address: manager.address || ''
+    })
+  }
+
+  const closeModals = () => {
+    setShowAddModal(false)
+    setEditingEmployee(null)
+    setEditingBookingMan(null)
+    setEmployeeForm({
+      name: '',
+      email: '',
+      password: '',
+      phone: '',
+      subrole: '',
+      position: '',
+      address: ''
+    })
+    setBookingManagerForm({
+      name: '',
+      email: '',
+      password: '',
+      phone: '',
+      position: '',
+      address: ''
+    })
+  }
+
+  // Mock data for demonstration (will be replaced with real data)
+  const mockStats = {
     totalBuses: 0,
     activeRoutes: 0,
     totalTrips: 0,
     monthlyRevenue: 0,
     totalBookings: 0,
     maintenanceDue: 0,
-    totalEmployees: 0,
-    totalBookingMen: 0
-  })
+    totalEmployees: dashboardData?.statistics?.totalBusEmployees || 0,
+    totalBookingMen: dashboardData?.statistics?.totalBookingManagers || 0
+  }
 
-  const [busEmployees, setBusEmployees] = useState([
-    {
-      id: 1,
-      name: 'Mike Johnson',
-      role: 'DRIVER',
-      license: 'DL123456',
-      phone: '+91 9876543214',
-      status: 'active',
-      assignedBus: 'MH-01-AB-1234',
-      totalTrips: 120,
-      rating: 4.8,
-      aadhaarCard: '3456-7890-1234',
-      address: 'Mumbai, Maharashtra'
-    },
-    {
-      id: 2,
-      name: 'John Smith',
-      role: 'DRIVER',
-      license: 'DL789012',
-      phone: '+91 9876543215',
-      status: 'active',
-      assignedBus: 'MH-02-CD-5678',
-      totalTrips: 95,
-      rating: 4.6,
-      aadhaarCard: '4567-8901-2345',
-      address: 'Pune, Maharashtra'
-    },
-    {
-      id: 3,
-      name: 'Sarah Wilson',
-      role: 'HELPER',
-      phone: '+91 9876543217',
-      status: 'active',
-      assignedBus: 'MH-01-AB-1234',
-      totalTrips: 120,
-      rating: 4.7,
-      aadhaarCard: '5678-9012-3456',
-      address: 'Mumbai, Maharashtra'
-    }
-  ])
-
-  const [bookingMen, setBookingMen] = useState([
-    {
-      id: 1,
-      name: 'Bob Wilson',
-      email: 'bob@abctransport.com',
-      phone: '+91 9876543213',
-      status: 'active',
-      totalBookings: 320,
-      monthlyEarnings: 2400,
-      commission: 5,
-      aadhaarCard: '6789-0123-4567',
-      address: 'Nashik, Maharashtra'
-    },
-    {
-      id: 2,
-      name: 'Carol Brown',
-      email: 'carol@abctransport.com',
-      phone: '+91 9876543220',
-      status: 'active',
-      totalBookings: 280,
-      monthlyEarnings: 2100,
-      commission: 5,
-      aadhaarCard: '7890-1234-5678',
-      address: 'Goa, Goa'
-    }
-  ])
-
-  const [buses] = useState([
-    { id: 1, number: 'MH-01-AB-1234', route: 'Mumbai-Pune', status: 'active', capacity: 50, driver: 'Mike Johnson', conductor: 'Sarah Wilson' },
-    { id: 2, number: 'MH-02-CD-5678', route: 'Mumbai-Pune', status: 'active', capacity: 45, driver: 'John Smith', conductor: 'Alice Brown' },
-    { id: 3, number: 'MH-03-EF-9012', route: 'Mumbai-Nashik', status: 'active', capacity: 40, driver: 'David Lee', conductor: 'Emma Davis' }
-  ])
-
-  const [routes] = useState([
-    { id: 1, name: 'Mumbai-Pune', distance: '150 km', duration: '3 hours', buses: ['MH-01-AB-1234', 'MH-02-CD-5678'], totalTrips: 24 },
-    { id: 2, name: 'Mumbai-Nashik', distance: '180 km', duration: '4 hours', buses: ['MH-03-EF-9012'], totalTrips: 18 }
-  ])
-
-  const [employeeFormData, setEmployeeFormData] = useState({
-    name: '',
-    role: 'DRIVER',
-    license: '',
-    phone: '',
-    status: 'active',
-    assignedBus: '',
-    aadhaarCard: '',
-    address: ''
-  })
-
-  const [bookingManFormData, setBookingManFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    status: 'active',
-    commission: 5,
-    aadhaarCard: '',
-    address: ''
-  })
-
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    // TODO: Fetch bus admin dashboard data
-    setTimeout(() => {
-      setStats({
-        totalBuses: buses.length,
-        activeRoutes: routes.length,
-        totalTrips: 156,
-        monthlyRevenue: 245000,
-        totalBookings: 1240,
-        maintenanceDue: 1,
-        totalEmployees: busEmployees.length,
-        totalBookingMen: bookingMen.length
-      })
-      setLoading(false)
-    }, 1000)
-  }, [])
+  if (dashboardLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading dashboard...</p>
+        </div>
+      </div>
+    )
+  }
 
   const navigationItems = getNavigationMenu(user?.role)
-
-  const handleEmployeeInputChange = (e) => {
-    const { name, value } = e.target
-    setEmployeeFormData(prev => ({
-      ...prev,
-      [name]: name === 'aadhaarCard' ? formatAadhaarCard(value) : value
-    }))
-  }
-
-  const handleBookingManInputChange = (e) => {
-    const { name, value } = e.target
-    setBookingManFormData(prev => ({
-      ...prev,
-      [name]: name === 'aadhaarCard' ? formatAadhaarCard(value) : value
-    }))
-  }
-
-  const handleEmployeeSubmit = (e) => {
-    e.preventDefault()
-    
-    if (editingEmployee) {
-      setBusEmployees(prev => prev.map(emp => 
-        emp.id === editingEmployee.id ? { ...emp, ...employeeFormData } : emp
-      ))
-    } else {
-      const newEmployee = {
-        ...employeeFormData,
-        id: busEmployees.length + 1,
-        totalTrips: 0,
-        rating: 5.0
-      }
-      setBusEmployees(prev => [...prev, newEmployee])
-    }
-    
-    setShowAddModal(false)
-    setEditingEmployee(null)
-    setEmployeeFormData({
-      name: '',
-      role: 'DRIVER',
-      license: '',
-      phone: '',
-      status: 'active',
-      assignedBus: '',
-      aadhaarCard: '',
-      address: ''
-    })
-  }
-
-  const handleBookingManSubmit = (e) => {
-    e.preventDefault()
-    
-    if (editingBookingMan) {
-      setBookingMen(prev => prev.map(bm => 
-        bm.id === editingBookingMan.id ? { ...bm, ...bookingManFormData } : bm
-      ))
-    } else {
-      const newBookingMan = {
-        ...bookingManFormData,
-        id: bookingMen.length + 1,
-        totalBookings: 0,
-        monthlyEarnings: 0
-      }
-      setBookingMen(prev => [...prev, newBookingMan])
-    }
-    
-    setShowAddModal(false)
-    setEditingBookingMan(null)
-    setBookingManFormData({
-      name: '',
-      email: '',
-      phone: '',
-      status: 'active',
-      commission: 5,
-      aadhaarCard: '',
-      address: ''
-    })
-  }
-
-  const handleEditEmployee = (employee) => {
-    setEditingEmployee(employee)
-    setEmployeeFormData(employee)
-    setShowAddModal(true)
-  }
-
-  const handleEditBookingMan = (bookingMan) => {
-    setEditingBookingMan(bookingMan)
-    setBookingManFormData(bookingMan)
-    setShowAddModal(true)
-  }
-
-  const handleDeleteEmployee = (id) => {
-    if (window.confirm('Are you sure you want to delete this employee?')) {
-      setBusEmployees(prev => prev.filter(emp => emp.id !== id))
-    }
-  }
-
-  const handleDeleteBookingMan = (id) => {
-    if (window.confirm('Are you sure you want to delete this booking manager?')) {
-      setBookingMen(prev => prev.filter(bm => bm.id !== id))
-    }
-  }
-
-  const toggleEmployeeStatus = (id) => {
-    setBusEmployees(prev => prev.map(emp => 
-      emp.id === id 
-        ? { ...emp, status: emp.status === 'active' ? 'inactive' : 'active' }
-        : emp
-    ))
-  }
-
-  const toggleBookingManStatus = (id) => {
-    setBookingMen(prev => prev.map(bm => 
-      bm.id === id 
-        ? { ...bm, status: bm.status === 'active' ? 'inactive' : 'active' }
-        : bm
-    ))
-  }
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -295,7 +327,7 @@ const BusAdminDashboard = () => {
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Total Buses</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.totalBuses}</p>
+              <p className="text-2xl font-bold text-gray-900">{mockStats.totalBuses}</p>
             </div>
           </div>
         </div>
@@ -307,7 +339,7 @@ const BusAdminDashboard = () => {
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Active Routes</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.activeRoutes}</p>
+              <p className="text-2xl font-bold text-gray-900">{mockStats.activeRoutes}</p>
             </div>
           </div>
         </div>
@@ -319,7 +351,7 @@ const BusAdminDashboard = () => {
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Bus Employees</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.totalEmployees}</p>
+              <p className="text-2xl font-bold text-gray-900">{mockStats.totalEmployees}</p>
             </div>
           </div>
         </div>
@@ -331,7 +363,7 @@ const BusAdminDashboard = () => {
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Booking Managers</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.totalBookingMen}</p>
+              <p className="text-2xl font-bold text-gray-900">{mockStats.totalBookingMen}</p>
             </div>
           </div>
         </div>
@@ -466,35 +498,46 @@ const BusAdminDashboard = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {busEmployees.map((employee) => (
-          <div key={employee.id} className="bg-white rounded-lg shadow p-4">
-            <div className="flex justify-between items-start mb-3">
-              <div>
-                <h4 className="font-medium text-gray-900">{employee.name}</h4>
-                <p className="text-sm text-gray-600">{employee.role}</p>
-                <p className="text-sm text-gray-600">Bus: {employee.assignedBus}</p>
-                <p className="text-sm text-gray-600">Phone: {employee.phone}</p>
-                {employee.license && <p className="text-sm text-gray-600">License: {employee.license}</p>}
-              </div>
-              <div className="flex space-x-2">
+        {busEmployeesLoading ? (
+          <div className="col-span-2 text-center py-8">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+            <p className="mt-2 text-gray-600">Loading employees...</p>
+          </div>
+        ) : busEmployees.length === 0 ? (
+          <div className="col-span-2 text-center py-8">
+            <Users className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+            <p className="text-gray-600">No employees found</p>
+          </div>
+        ) : (
+          busEmployees.map((employee) => (
+            <div key={employee._id || employee.id} className="bg-white rounded-lg shadow p-4">
+              <div className="flex justify-between items-start mb-3">
+                <div>
+                  <h4 className="font-medium text-gray-900">{employee.name}</h4>
+                  <p className="text-sm text-gray-600">{employee.subrole || employee.role}</p>
+                  <p className="text-sm text-gray-600">Phone: {employee.phone}</p>
+                  <p className="text-sm text-gray-600">Email: {employee.email}</p>
+                  {employee.position && <p className="text-sm text-gray-600">Position: {employee.position}</p>}
+                </div>
+                <div className="flex space-x-2">
                 <button
-                  onClick={() => toggleEmployeeStatus(employee.id)}
+                  onClick={() => handleToggleEmployeeStatus(employee._id || employee.id)}
                   className={`px-2 py-1 rounded text-xs ${
-                    employee.status === 'active' 
+                    employee.isActive 
                       ? 'bg-red-100 text-red-700 hover:bg-red-200' 
                       : 'bg-green-100 text-green-700 hover:bg-green-200'
                   }`}
                 >
-                  {employee.status === 'active' ? 'Deactivate' : 'Activate'}
+                  {employee.isActive ? 'Deactivate' : 'Activate'}
                 </button>
                 <button
-                  onClick={() => handleEditEmployee(employee)}
+                  onClick={() => openEditEmployee(employee)}
                   className="text-blue-600 hover:text-blue-900"
                 >
                   <Edit className="h-4 w-4" />
                 </button>
                 <button
-                  onClick={() => handleDeleteEmployee(employee.id)}
+                  onClick={() => handleDeleteEmployee(employee._id || employee.id)}
                   className="text-red-600 hover:text-red-900"
                 >
                   <Trash2 className="h-4 w-4" />
@@ -502,16 +545,17 @@ const BusAdminDashboard = () => {
               </div>
             </div>
             <div className="flex justify-between text-sm">
-              <span>Trips: {employee.totalTrips}</span>
-              <span>Rating: {employee.rating}⭐</span>
+              <span>Created: {new Date(employee.createdAt).toLocaleDateString()}</span>
+              <span>ID: {employee._id || employee.id}</span>
             </div>
             <div className="mt-2">
-              <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(employee.status)}`}>
-                {employee.status}
+              <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(employee.isActive ? 'active' : 'inactive')}`}>
+                {employee.isActive ? 'Active' : 'Inactive'}
               </span>
             </div>
           </div>
-        ))}
+        ))
+        )}
       </div>
     </div>
   )
@@ -519,7 +563,7 @@ const BusAdminDashboard = () => {
   const renderBookingMen = () => (
     <div className="space-y-4">
       <div className="flex justify-between items-center">
-        <h3 className="text-lg font-semibold">Booking Managers ({stats.totalBookingMen})</h3>
+        <h3 className="text-lg font-semibold">Booking Managers ({mockStats.totalBookingMen})</h3>
         <button
           onClick={() => {
             setEditingBookingMan(null)
@@ -533,51 +577,53 @@ const BusAdminDashboard = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {bookingMen.map((bm) => (
-          <div key={bm.id} className="bg-white rounded-lg shadow p-4">
-            <div className="flex justify-between items-start mb-3">
-              <div>
-                <h4 className="font-medium text-gray-900">{bm.name}</h4>
-                <p className="text-sm text-gray-600">{bm.email}</p>
-                <p className="text-sm text-gray-600">Phone: {bm.phone}</p>
-                <p className="text-sm text-gray-600">Commission: {bm.commission}%</p>
-              </div>
-              <div className="flex space-x-2">
+        {bookingManagersLoading ? (
+          <div className="col-span-2 text-center py-8">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+            <p className="mt-2 text-gray-600">Loading booking managers...</p>
+          </div>
+        ) : bookingManagers.length === 0 ? (
+          <div className="col-span-2 text-center py-8">
+            <Users className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+            <p className="text-gray-600">No booking managers found</p>
+          </div>
+        ) : (
+          bookingManagers.map((bm) => (
+            <div key={bm._id || bm.id} className="bg-white rounded-lg shadow p-4">
+              <div className="flex justify-between items-start mb-3">
+                <div>
+                  <h4 className="font-medium text-gray-900">{bm.name}</h4>
+                  <p className="text-sm text-gray-600">{bm.email}</p>
+                  <p className="text-sm text-gray-600">Phone: {bm.phone}</p>
+                  {bm.position && <p className="text-sm text-gray-600">Position: {bm.position}</p>}
+                </div>
+                <div className="flex space-x-2">
                 <button
-                  onClick={() => toggleBookingManStatus(bm.id)}
-                  className={`px-2 py-1 rounded text-xs ${
-                    bm.status === 'active' 
-                      ? 'bg-red-100 text-red-700 hover:bg-red-200' 
-                      : 'bg-green-100 text-green-700 hover:bg-green-200'
-                  }`}
-                >
-                  {bm.status === 'active' ? 'Deactivate' : 'Activate'}
-                </button>
-                <button
-                  onClick={() => handleEditBookingMan(bm)}
-                  className="text-blue-600 hover:text-blue-900"
-                >
-                  <Edit className="h-4 w-4" />
-                </button>
-                <button
-                  onClick={() => handleDeleteBookingMan(bm.id)}
+                  onClick={() => handleDeleteBookingManager(bm._id || bm.id)}
                   className="text-red-600 hover:text-red-900"
                 >
                   <Trash2 className="h-4 w-4" />
                 </button>
+                <button
+                  onClick={() => openEditBookingManager(bm)}
+                  className="text-blue-600 hover:text-blue-900"
+                >
+                  <Edit className="h-4 w-4" />
+                </button>
               </div>
             </div>
             <div className="flex justify-between text-sm">
-              <span>Bookings: {bm.totalBookings}</span>
-              <span>Earnings: ₹{bm.monthlyEarnings}</span>
+              <span>Created: {new Date(bm.createdAt).toLocaleDateString()}</span>
+              <span>ID: {bm._id || bm.id}</span>
             </div>
             <div className="mt-2">
-              <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(bm.status)}`}>
-                {bm.status}
+              <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(bm.isActive ? 'active' : 'inactive')}`}>
+                {bm.isActive ? 'Active' : 'Inactive'}
               </span>
             </div>
           </div>
-        ))}
+        ))
+        )}
       </div>
     </div>
   )
