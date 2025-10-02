@@ -106,77 +106,8 @@ const RoleSwitcher = () => {
             Role-Based Access Control
           </h1>
           <p className="text-gray-600">
-            Switch between different user roles to test the system
+            System that make management easy
           </p>
-        </div>
-
-        {/* Current Role Display */}
-        {currentRoleData && (
-          <div className="card mb-8">
-            <div className="flex items-center mb-4">
-              <div className={`p-3 rounded-full ${currentRoleData.color}`}>
-                <currentRoleData.icon className="h-6 w-6" />
-              </div>
-              <div className="ml-4">
-                <h2 className="text-xl font-semibold text-gray-900">{currentRoleData.name}</h2>
-                <p className="text-gray-600">{currentRoleData.description}</p>
-              </div>
-            </div>
-            
-            <div>
-              <h3 className="font-medium text-gray-900 mb-2">Key Features:</h3>
-              <ul className="list-disc list-inside space-y-1 text-sm text-gray-600">
-                {currentRoleData.features.map((feature, index) => (
-                  <li key={index}>{feature}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        )}
-
-        {/* Role Selection */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {roles.map((role) => (
-            <div
-              key={role.id}
-              className={`card cursor-pointer transition-all duration-200 hover:shadow-lg ${
-                currentRole === role.id ? 'ring-2 ring-blue-500' : ''
-              }`}
-              onClick={() => handleRoleSwitch(role.id)}
-            >
-              <div className="flex items-center mb-4">
-                <div className={`p-3 rounded-full ${role.color}`}>
-                  <role.icon className="h-6 w-6" />
-                </div>
-                <div className="ml-4">
-                  <h3 className="text-lg font-semibold text-gray-900">{role.name}</h3>
-                  <p className="text-sm text-gray-600">{role.description}</p>
-                </div>
-              </div>
-              
-              <div className="mb-4">
-                <h4 className="font-medium text-gray-900 mb-2">Features:</h4>
-                <ul className="list-disc list-inside space-y-1 text-sm text-gray-600">
-                  {role.features.slice(0, 3).map((feature, index) => (
-                    <li key={index}>{feature}</li>
-                  ))}
-                  {role.features.length > 3 && (
-                    <li className="text-blue-600">+{role.features.length - 3} more</li>
-                  )}
-                </ul>
-              </div>
-              
-              <button
-                className={`w-full py-2 px-4 rounded-lg text-sm font-medium transition-colors ${
-                  currentRole === role.id
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-              >
-                {currentRole === role.id ? 'Current Role' : 'Switch to Role'}
-              </button>
-            </div>
-          ))}
         </div>
 
         {/* Role Hierarchy */}
@@ -236,29 +167,6 @@ const RoleSwitcher = () => {
                 </div>
               </div>
               <span className="text-sm text-orange-600 font-medium">Level 5</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Instructions */}
-        <div className="card mt-8">
-          <h3 className="text-lg font-semibold mb-4">How to Use</h3>
-          <div className="space-y-3 text-sm text-gray-600">
-            <div className="flex items-start">
-              <span className="font-medium text-blue-600 mr-2">1.</span>
-              <span>Click on any role card to switch to that user's dashboard</span>
-            </div>
-            <div className="flex items-start">
-              <span className="font-medium text-blue-600 mr-2">2.</span>
-              <span>Each role has different permissions and features</span>
-            </div>
-            <div className="flex items-start">
-              <span className="font-medium text-blue-600 mr-2">3.</span>
-              <span>Test the system by switching between roles</span>
-            </div>
-            <div className="flex items-start">
-              <span className="font-medium text-blue-600 mr-2">4.</span>
-              <span>Higher level roles can access lower level features</span>
             </div>
           </div>
         </div>

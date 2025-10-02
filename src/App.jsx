@@ -22,6 +22,18 @@ import BusOwnerDashboard from './components/role-dashboards/BusOwnerDashboard'
 import BusAdminDashboard from './components/role-dashboards/BusAdminDashboard'
 import CustomerDashboard from './components/role-dashboards/CustomerDashboard'
 
+// Management Pages
+import RouteManagement from './components/pages/RouteManagement'
+import TripManagement from './components/pages/TripManagement'
+import EmployeeManagement from './components/pages/EmployeeManagement'
+
+// Analytics Pages
+import BusAnalytics from './components/pages/BusAnalytics'
+import RouteAnalytics from './components/pages/RouteAnalytics'
+import TripAnalytics from './components/pages/TripAnalytics'
+import Revenue from './components/pages/Revenue'
+import Expenses from './components/pages/Expenses'
+
 // Import route configuration
 import { ROLES } from './config/config'
 import { PUBLIC_ROUTES, getDefaultRoute } from './config/routes'
@@ -88,9 +100,54 @@ function App() {
                 <BusOwnerDashboard />
               </ProtectedRoute>
             } />
+            
+            {/* Bus Owner Analytics Pages */}
+            <Route path="/bus-owner/bus-analytics" element={
+              <ProtectedRoute requiredRoles={[ROLES.BUS_OWNER, ROLES.MASTER_ADMIN]}>
+                <BusAnalytics />
+              </ProtectedRoute>
+            } />
+            <Route path="/bus-owner/route-analytics" element={
+              <ProtectedRoute requiredRoles={[ROLES.BUS_OWNER, ROLES.MASTER_ADMIN]}>
+                <RouteAnalytics />
+              </ProtectedRoute>
+            } />
+            <Route path="/bus-owner/trip-analytics" element={
+              <ProtectedRoute requiredRoles={[ROLES.BUS_OWNER, ROLES.MASTER_ADMIN]}>
+                <TripAnalytics />
+              </ProtectedRoute>
+            } />
+            <Route path="/bus-owner/revenue" element={
+              <ProtectedRoute requiredRoles={[ROLES.BUS_OWNER, ROLES.MASTER_ADMIN]}>
+                <Revenue />
+              </ProtectedRoute>
+            } />
+            <Route path="/bus-owner/expenses" element={
+              <ProtectedRoute requiredRoles={[ROLES.BUS_OWNER, ROLES.MASTER_ADMIN]}>
+                <Expenses />
+              </ProtectedRoute>
+            } />
+            
             <Route path="/bus-admin" element={
               <ProtectedRoute requiredRoles={[ROLES.BUS_ADMIN, ROLES.MASTER_ADMIN]}>
                 <BusAdminDashboard />
+              </ProtectedRoute>
+            } />
+            
+            {/* Bus Admin Management Pages */}
+            <Route path="/bus-admin/routes" element={
+              <ProtectedRoute requiredRoles={[ROLES.BUS_ADMIN, ROLES.MASTER_ADMIN]}>
+                <RouteManagement />
+              </ProtectedRoute>
+            } />
+            <Route path="/bus-admin/trips" element={
+              <ProtectedRoute requiredRoles={[ROLES.BUS_ADMIN, ROLES.MASTER_ADMIN]}>
+                <TripManagement />
+              </ProtectedRoute>
+            } />
+            <Route path="/bus-admin/employees" element={
+              <ProtectedRoute requiredRoles={[ROLES.BUS_ADMIN, ROLES.MASTER_ADMIN]}>
+                <EmployeeManagement />
               </ProtectedRoute>
             } />
             <Route path="/customer" element={

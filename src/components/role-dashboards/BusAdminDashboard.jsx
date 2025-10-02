@@ -1410,10 +1410,25 @@ const BusAdminDashboard = () => {
               {navigationItems.map((item) => {
                 // Extract the tab ID from the path
                 const tabId = item.path.split('/').pop() || 'dashboard'
+                
+                const handleTabClick = () => {
+                  // For pages with dedicated routes, navigate to those routes
+                  if (item.path.includes('/routes')) {
+                    navigate('/bus-admin/routes')
+                  } else if (item.path.includes('/trips')) {
+                    navigate('/bus-admin/trips')
+                  } else if (item.path.includes('/employees')) {
+                    navigate('/bus-admin/employees')
+                  } else {
+                    // For dashboard features, set activeTab
+                    setActiveTab(tabId)
+                  }
+                }
+                
                 return (
                   <button
                     key={item.path}
-                    onClick={() => setActiveTab(tabId)}
+                    onClick={handleTabClick}
                     className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors ${
                       activeTab === tabId
                         ? 'bg-blue-600 text-white'

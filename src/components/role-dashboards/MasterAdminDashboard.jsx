@@ -55,29 +55,6 @@ const MasterAdminDashboard = () => {
                 System administration and management
               </p>
             </div>
-            
-            {/* Navigation Tabs */}
-            <div className="flex flex-wrap gap-2">
-              {[
-                { id: 'overview', name: 'Overview' },
-                { id: 'users', name: 'Users' },
-                { id: 'analytics', name: 'Analytics' },
-                { id: 'roles', name: 'Roles' },
-                { id: 'settings', name: 'Settings' }
-              ].map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors ${
-                    activeTab === tab.id
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
-                  }`}
-                >
-                  {tab.name}
-                </button>
-              ))}
-            </div>
           </div>
         </div>
         {/* Quick Stats */}

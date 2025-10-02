@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useUser } from '../../contexts/UserContext'
 import { getNavigationMenu } from '../../config/routes'
 import { 
@@ -14,6 +15,7 @@ import {
 } from 'lucide-react'
 
 const BusOwnerDashboard = () => {
+  const navigate = useNavigate()
   const { user } = useUser()
   const [activeTab, setActiveTab] = useState('overview')
   const [stats, setStats] = useState({
@@ -61,10 +63,29 @@ const BusOwnerDashboard = () => {
               {navigationItems.map((item) => {
                 // Extract the tab ID from the path
                 const tabId = item.path.split('/').pop() || 'dashboard'
+                
+                const handleTabClick = () => {
+                  // For analytics pages which have dedicated routes, navigate to those routes
+                  if (item.path.includes('/bus-analytics')) {
+                    navigate('/bus-owner/bus-analytics')
+                  } else if (item.path.includes('/route-analytics')) {
+                    navigate('/bus-owner/route-analytics')
+                  } else if (item.path.includes('/trip-analytics')) {
+                    navigate('/bus-owner/trip-analytics')
+                  } else if (item.path.includes('/revenue')) {
+                    navigate('/bus-owner/revenue')
+                  } else if (item.path.includes('/expenses')) {
+                    navigate('/bus-owner/expenses')
+                  } else {
+                    // For dashboard features, set activeTab
+                    setActiveTab(tabId)
+                  }
+                }
+                
                 return (
                   <button
                     key={item.path}
-                    onClick={() => setActiveTab(tabId)}
+                    onClick={handleTabClick}
                     className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors ${
                       activeTab === tabId
                         ? 'bg-blue-600 text-white'
