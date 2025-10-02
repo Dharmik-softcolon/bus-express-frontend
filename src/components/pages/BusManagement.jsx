@@ -206,27 +206,6 @@ const BusManagement = () => {
                 Manage your bus fleet and vehicle details
               </p>
             </div>
-            
-            {/* Navigation Tabs */}
-            <div className="flex flex-wrap gap-2">
-              {navigationItems.map((item) => {
-                // Extract the tab ID from the path
-                const tabId = item.path.split('/').pop() || 'dashboard'
-                return (
-                  <button
-                    key={item.path}
-                    onClick={() => setActiveTab(tabId)}
-                    className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors ${
-                      activeTab === tabId
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
-                    }`}
-                  >
-                    {item.label}
-                  </button>
-                )
-              })}
-            </div>
           </div>
         </div>
 
