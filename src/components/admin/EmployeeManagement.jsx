@@ -96,15 +96,21 @@ const EmployeeManagement = () => {
       
       // Fetch employees and bus admins separately
       const [employeesResponse, busAdminsResponse] = await Promise.all([
-        employeeAPI.getAllEmployees(),
-        authAPI.getAllBusAdmins()
+        employeeAPI.getAllEmployees({ search: searchTerm, isActive: filterRole === 'all' ? undefined : filterRole === 'active' }),
+        authAPI.getBusAdmins()
       ])
       
       const allEmployees = []
       
-      // Add employees
+      // Add bus employees
       if (employeesResponse.success) {
-        allEmployees.push(...(employeesResponse.data.employees || []))
+        const busEmployees = (employeesResponse.data.employees || []).map(emp => ({
+          ...emp,
+          id: emp._id || emp.id,
+          role: ROLES.BUS_EMPLOYEE,
+          status: emp.isActive ? 'active' : 'inactive'
+        }))
+        allEmployees.push(...busEmployees)
       }
       
       // Add bus admins (convert to employee format for display)
@@ -272,10 +278,19 @@ const EmployeeManagement = () => {
     const employeeType = employee?.role === ROLES.BUS_ADMIN ? 'bus admin' : 'employee'
     
     try {
-      const newStatus = currentStatus === 'active' ? 'inactive' : 'active'
-      const response = await employeeAPI.updateEmployeeStatus(employeeId, newStatus)
+      let response
+      if (employee?.role === ROLES.BUS_ADMIN) {
+        // For bus admins, we need to use a different approach since there's no toggle endpoint
+        const newStatus = currentStatus === 'active' ? false : true
+        response = await authAPI.updateBusAdmin(employeeId, { isActive: newStatus })
+      } else {
+        // For bus employees, use the toggle endpoint
+        response = await employeeAPI.updateEmployeeStatus(employeeId)
+      }
+      
       if (response.success) {
         fetchEmployees()
+        const newStatus = currentStatus === 'active' ? 'inactive' : 'active'
         showToast.success(`${employeeType.charAt(0).toUpperCase() + employeeType.slice(1)} status updated to ${newStatus}!`)
       } else {
         showToast.error(response.message || `Failed to update ${employeeType} status`)

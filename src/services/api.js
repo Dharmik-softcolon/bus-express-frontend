@@ -739,9 +739,9 @@ export const expenseAPI = {
 
 // Employee API
 export const employeeAPI = {
-  // Get all employees
+  // Get all bus employees
   getAllEmployees: async (params = {}) => {
-    return apiRequest('/employees', {
+    return apiRequest('/auth/bus-employees', {
       method: 'GET',
       params,
     });
@@ -749,53 +749,52 @@ export const employeeAPI = {
 
   // Get employee by ID
   getEmployeeById: async (employeeId) => {
-    return apiRequest(`/employees/${employeeId}`);
+    return apiRequest(`/auth/bus-employees/${employeeId}`);
   },
 
-  // Create new employee
+  // Create new bus employee
   createEmployee: async (employeeData) => {
-    return apiRequest('/employees', {
+    return apiRequest('/auth/bus-employees', {
       method: 'POST',
       data: employeeData,
     });
   },
 
-  // Update employee
+  // Update bus employee
   updateEmployee: async (employeeId, employeeData) => {
-    return apiRequest(`/employees/${employeeId}`, {
+    return apiRequest(`/auth/bus-employees/${employeeId}`, {
       method: 'PUT',
       data: employeeData,
     });
   },
 
-  // Delete employee
+  // Delete bus employee
   deleteEmployee: async (employeeId) => {
-    return apiRequest(`/employees/${employeeId}`, {
+    return apiRequest(`/auth/bus-employees/${employeeId}`, {
       method: 'DELETE',
     });
   },
 
-  // Update employee status
-  updateEmployeeStatus: async (employeeId, status) => {
-    return apiRequest(`/employees/${employeeId}/status`, {
+  // Toggle bus employee status
+  updateEmployeeStatus: async (employeeId) => {
+    return apiRequest(`/auth/bus-employees/${employeeId}/toggle-status`, {
       method: 'PUT',
-      data: { status },
     });
   },
 
   // Get employee statistics
   getEmployeeStatistics: async (params = {}) => {
-    return apiRequest('/employees/statistics', {
+    return apiRequest('/auth/bus-employees', {
       method: 'GET',
-      params,
+      params: { ...params, statistics: true },
     });
   },
 
   // Get employees by role
   getEmployeesByRole: async (role, params = {}) => {
-    return apiRequest(`/employees/role/${role}`, {
+    return apiRequest('/auth/bus-employees', {
       method: 'GET',
-      params,
+      params: { ...params, subrole: role },
     });
   },
 };
@@ -825,7 +824,7 @@ export const dashboardAPI = {
 
   // Get Booking Manager Dashboard
   getBookingManagerDashboard: async () => {
-    return apiRequest('/booking-man', {
+    return apiRequest('/booking-manager', {
       method: 'GET',
     });
   },
@@ -841,6 +840,48 @@ export const dashboardAPI = {
   getCustomerDashboard: async () => {
     return apiRequest('/customer', {
       method: 'GET',
+    });
+  },
+
+  // Bus Admin Dashboard APIs (for comprehensive bus admin dashboard)
+  getBusAdminDashboard: async () => {
+    return apiRequest('/bus-admin/dashboard', {
+      method: 'GET',
+    });
+  },
+
+  getBusAdminBuses: async (params = {}) => {
+    return apiRequest('/bus-admin/buses', {
+      method: 'GET',
+      params,
+    });
+  },
+
+  getBusAdminRoutes: async (params = {}) => {
+    return apiRequest('/bus-admin/routes', {
+      method: 'GET',
+      params,
+    });
+  },
+
+  getBusAdminBookings: async (params = {}) => {
+    return apiRequest('/bus-admin/bookings', {
+      method: 'GET',
+      params,
+    });
+  },
+
+  getBusAdminExpenses: async (params = {}) => {
+    return apiRequest('/bus-admin/expenses', {
+      method: 'GET',
+      params,
+    });
+  },
+
+  getBusAdminEarnings: async (params = {}) => {
+    return apiRequest('/bus-admin/earnings', {
+      method: 'GET',
+      params,
     });
   },
 };

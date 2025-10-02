@@ -15,9 +15,9 @@ export const PUBLIC_ROUTES = {
 export const DASHBOARD_ROUTES = {
   [ROLES.MASTER_ADMIN]: '/master-admin',
   [ROLES.BUS_OWNER]: '/bus-owner',
-  [ROLES.BUS_ADMIN]: '/dashboard/admin',
-  [ROLES.BOOKING_MAN]: '/dashboard/booking',
-  [ROLES.BUS_EMPLOYEE]: '/dashboard/employee',
+  [ROLES.BUS_ADMIN]: '/bus-admin',
+  [ROLES.BOOKING_MAN]: '/booking-manager',
+  [ROLES.BUS_EMPLOYEE]: '/bus-employee',
   [ROLES.CUSTOMER]: '/customer',
 }
 
@@ -45,25 +45,25 @@ export const FEATURE_ROUTES = {
   
   // Bus Admin routes
   [ROLES.BUS_ADMIN]: {
-    dashboard: '/dashboard/admin',
-    buses: '/dashboard/admin/buses',
-    routes: '/dashboard/admin/routes',
-    trips: '/dashboard/admin/trips',
-    employees: '/dashboard/admin/employees',
+    dashboard: '/bus-admin',
+    buses: '/bus-admin/buses',
+    routes: '/bus-admin/routes',
+    trips: '/bus-admin/trips',
+    employees: '/bus-admin/employees',
   },
   
   // Booking Manager routes
   [ROLES.BOOKING_MAN]: {
-    dashboard: '/dashboard/booking',
-    bookings: '/dashboard/booking/manage',
-    customers: '/dashboard/booking/customers',
+    dashboard: '/booking-manager',
+    bookings: '/booking-manager/bookings',
+    customers: '/booking-manager/customers',
   },
   
   // Bus Employee routes
   [ROLES.BUS_EMPLOYEE]: {
-    dashboard: '/dashboard/employee',
-    trips: '/dashboard/employee/trips',
-    profile: '/dashboard/employee/profile',
+    dashboard: '/bus-employee',
+    trips: '/bus-employee/trips',
+    profile: '/bus-employee/profile',
   },
   
   // Customer routes

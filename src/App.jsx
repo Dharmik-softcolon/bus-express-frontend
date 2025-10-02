@@ -107,10 +107,10 @@ function App() {
             } />
             
             {/* Legacy route redirects for backward compatibility */}
-            <Route path="/admin/*" element={<Navigate to="/dashboard/admin" replace />} />
-            <Route path="/bus-admin" element={<Navigate to="/dashboard/admin" replace />} />
-            <Route path="/booking-man" element={<Navigate to="/dashboard/booking" replace />} />
-            <Route path="/bus-employee" element={<Navigate to="/dashboard/employee" replace />} />
+            <Route path="/admin/*" element={<Navigate to="/bus-admin" replace />} />
+            <Route path="/dashboard/admin" element={<Navigate to="/bus-admin" replace />} />
+            <Route path="/dashboard/booking" element={<Navigate to="/booking-manager" replace />} />
+            <Route path="/dashboard/employee" element={<Navigate to="/bus-employee" replace />} />
             
             {/* Catch all route - redirect to home */}
             <Route path="*" element={<Navigate to="/" replace />} />

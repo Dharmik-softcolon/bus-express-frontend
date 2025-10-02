@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Users, Bus, Calendar, DollarSign, TrendingUp, TrendingDown, Clock, MapPin, Route, Plus, Edit, Trash2, UserCheck, UserX, Settings, BarChart3, Search, Star, ArrowRight, Filter, User, CheckCircle, XCircle } from 'lucide-react'
 import { showToast } from '../../utils/toast'
+import { employeeAPI, dashboardAPI } from '../../services/api'
 
 const Dashboard = () => {
   const [timeRange, setTimeRange] = useState('7d')
@@ -25,35 +26,17 @@ const Dashboard = () => {
     gender: ''
   })
 
-  // Mock data for comprehensive management
-  const [buses, setBuses] = useState([
-    { id: 1, number: 'MH-01-AB-1234', route: 'Mumbai-Pune', status: 'active', capacity: 50, driver: 'Mike Johnson', conductor: 'Sarah Wilson', fuelLevel: 85, kmRun: 1250 },
-    { id: 2, number: 'MH-02-CD-5678', route: 'Mumbai-Pune', status: 'active', capacity: 45, driver: 'John Smith', conductor: 'Alice Brown', fuelLevel: 70, kmRun: 980 },
-    { id: 3, number: 'MH-03-EF-9012', route: 'Mumbai-Nashik', status: 'active', capacity: 40, driver: 'David Lee', conductor: 'Emma Davis', fuelLevel: 90, kmRun: 1100 },
-    { id: 4, number: 'MH-04-GH-3456', route: 'Pune-Nashik', status: 'maintenance', capacity: 35, driver: 'Robert Wilson', conductor: 'Lisa Garcia', fuelLevel: 45, kmRun: 800 },
-    { id: 5, number: 'MH-05-IJ-7890', route: 'Mumbai-Goa', status: 'active', capacity: 55, driver: 'Michael Brown', conductor: 'Jennifer Taylor', fuelLevel: 95, kmRun: 1500 }
-  ])
+  // Dynamic data from API
+  const [buses, setBuses] = useState([])
+  const [busesLoading, setBusesLoading] = useState(true)
+  const [routes, setRoutes] = useState([])
+  const [routesLoading, setRoutesLoading] = useState(true)
 
-  const [routes, setRoutes] = useState([
-    { id: 1, name: 'Mumbai-Pune', distance: '150 km', duration: '3 hours', buses: ['MH-01-AB-1234', 'MH-02-CD-5678'], totalTrips: 24, fare: 450 },
-    { id: 2, name: 'Mumbai-Nashik', distance: '180 km', duration: '4 hours', buses: ['MH-03-EF-9012'], totalTrips: 18, fare: 380 },
-    { id: 3, name: 'Pune-Nashik', distance: '120 km', duration: '2.5 hours', buses: ['MH-04-GH-3456'], totalTrips: 12, fare: 320 },
-    { id: 4, name: 'Mumbai-Goa', distance: '600 km', duration: '12 hours', buses: ['MH-05-IJ-7890'], totalTrips: 6, fare: 1200 }
-  ])
+  const [employees, setEmployees] = useState([])
+  const [employeesLoading, setEmployeesLoading] = useState(true)
 
-  const [employees, setEmployees] = useState([
-    { id: 1, name: 'Mike Johnson', role: 'Driver', license: 'DL123456', phone: '+91 9876543214', status: 'active', assignedBus: 'MH-01-AB-1234', totalTrips: 120, rating: 4.8, salary: 25000 },
-    { id: 2, name: 'John Smith', role: 'Driver', license: 'DL789012', phone: '+91 9876543215', status: 'active', assignedBus: 'MH-02-CD-5678', totalTrips: 95, rating: 4.6, salary: 24000 },
-    { id: 3, name: 'David Lee', role: 'Driver', license: 'DL345678', phone: '+91 9876543216', status: 'active', assignedBus: 'MH-03-EF-9012', totalTrips: 88, rating: 4.9, salary: 26000 },
-    { id: 4, name: 'Sarah Wilson', role: 'Conductor', phone: '+91 9876543217', status: 'active', assignedBus: 'MH-01-AB-1234', totalTrips: 120, rating: 4.7, salary: 18000 },
-    { id: 5, name: 'Alice Brown', role: 'Conductor', phone: '+91 9876543218', status: 'active', assignedBus: 'MH-02-CD-5678', totalTrips: 95, rating: 4.5, salary: 17000 },
-    { id: 6, name: 'Emma Davis', role: 'Conductor', phone: '+91 9876543219', status: 'active', assignedBus: 'MH-03-EF-9012', totalTrips: 88, rating: 4.8, salary: 19000 }
-  ])
-
-  const [bookingMen, setBookingMen] = useState([
-    { id: 1, name: 'Bob Wilson', email: 'bob@abctransport.com', phone: '+91 9876543213', status: 'active', totalBookings: 320, monthlyEarnings: 2400, commission: 5 },
-    { id: 2, name: 'Carol Brown', email: 'carol@abctransport.com', phone: '+91 9876543220', status: 'active', totalBookings: 280, monthlyEarnings: 2100, commission: 5 }
-  ])
+  const [bookingMen, setBookingMen] = useState([])
+  const [bookingMenLoading, setBookingMenLoading] = useState(true)
 
   const [searchFilters, setSearchFilters] = useState({
     from: '',
@@ -61,6 +44,83 @@ const Dashboard = () => {
     date: '',
     passengers: 1
   })
+
+  // Dashboard data state
+  const [dashboardData, setDashboardData] = useState(null)
+  const [dashboardLoading, setDashboardLoading] = useState(true)
+
+  // Fetch all data on component mount
+  useEffect(() => {
+    fetchAllData()
+  }, [])
+
+  const fetchAllData = async () => {
+    try {
+      setDashboardLoading(true)
+      const [dashboardResponse, busesResponse, routesResponse, employeesResponse] = await Promise.all([
+        dashboardAPI.getBusAdminDashboard(),
+        dashboardAPI.getBusAdminBuses({ limit: 10 }),
+        dashboardAPI.getBusAdminRoutes({ limit: 10 }),
+        employeeAPI.getAllEmployees({ limit: 10 })
+      ])
+
+      // Set dashboard data
+      if (dashboardResponse.success) {
+        setDashboardData(dashboardResponse.data)
+      }
+
+      // Set buses data
+      if (busesResponse.success) {
+        const formattedBuses = (busesResponse.data.buses || []).map(bus => ({
+          ...bus,
+          id: bus._id || bus.id,
+          driver: bus.driver?.name || 'Unassigned',
+          conductor: bus.conductor?.name || 'Unassigned',
+          fuelLevel: Math.floor(Math.random() * 100), // Mock data for now
+          kmRun: Math.floor(Math.random() * 2000) // Mock data for now
+        }))
+        setBuses(formattedBuses)
+      }
+
+      // Set routes data
+      if (routesResponse.success) {
+        const formattedRoutes = (routesResponse.data.routes || []).map(route => ({
+          ...route,
+          id: route._id || route.id,
+          distance: `${route.distance || 0} km`,
+          duration: `${route.duration || 0} hours`,
+          buses: [], // Will be populated separately
+          totalTrips: Math.floor(Math.random() * 50), // Mock data for now
+          fare: route.fare || 0
+        }))
+        setRoutes(formattedRoutes)
+      }
+
+      // Set employees data
+      if (employeesResponse.success) {
+        const formattedEmployees = (employeesResponse.data.employees || []).map(emp => ({
+          ...emp,
+          id: emp._id || emp.id,
+          role: emp.subrole || 'Employee',
+          status: emp.isActive ? 'active' : 'inactive',
+          totalTrips: emp.totalTrips || 0,
+          rating: emp.rating || 5.0,
+          salary: emp.salary || 0
+        }))
+        setEmployees(formattedEmployees)
+      }
+
+    } catch (error) {
+      console.error('Error fetching dashboard data:', error)
+      showToast.error('Error fetching dashboard data')
+    } finally {
+      setDashboardLoading(false)
+      setBusesLoading(false)
+      setRoutesLoading(false)
+      setEmployeesLoading(false)
+      setBookingMenLoading(false)
+    }
+  }
 
   const [availableBuses, setAvailableBuses] = useState([
     {
@@ -370,10 +430,10 @@ const Dashboard = () => {
     { id: 8, bookingManId: 2, bookingManName: 'Carol Brown', ticketId: 'BE008', passengerName: 'Emma Davis', pickup: 'Mumbai Central', drop: 'Goa Beach', route: 'Mumbai-Goa', date: '2024-01-16', time: '20:00', fare: 1200, status: 'cancelled', seat: 'C2', phone: '+91 9876543217' }
   ])
 
-  const stats = [
+  const stats = dashboardData ? [
     {
       title: 'Total Bookings',
-      value: '1,247',
+      value: dashboardData.statistics?.totalBookings?.toLocaleString() || '0',
       change: '+12.5%',
       trend: 'up',
       icon: Calendar,
@@ -381,7 +441,7 @@ const Dashboard = () => {
     },
     {
       title: 'Revenue',
-      value: '₹45,230',
+      value: `₹${dashboardData.statistics?.totalRevenue?.toLocaleString() || '0'}`,
       change: '+8.2%',
       trend: 'up',
       icon: DollarSign,
@@ -389,7 +449,7 @@ const Dashboard = () => {
     },
     {
       title: 'Active Buses',
-      value: buses.filter(bus => bus.status === 'active').length.toString(),
+      value: dashboardData.statistics?.activeBuses?.toString() || '0',
       change: '+2',
       trend: 'up',
       icon: Bus,
@@ -397,59 +457,17 @@ const Dashboard = () => {
     },
     {
       title: 'Total Employees',
-      value: employees.length.toString(),
+      value: dashboardData.statistics?.totalEmployees?.toString() || '0',
       change: '+1',
       trend: 'up',
       icon: Users,
       color: 'orange'
     }
-  ]
+  ] : []
 
-  const recentBookings = [
-    {
-      id: 'BE123456789',
-      passenger: 'John Doe',
-      route: 'Mumbai-Pune',
-      date: '2024-01-15',
-      time: '08:00 AM',
-      amount: '₹450',
-      status: 'confirmed'
-    },
-    {
-      id: 'BE123456790',
-      passenger: 'Jane Smith',
-      route: 'Mumbai-Nashik',
-      date: '2024-01-15',
-      time: '10:30 AM',
-      amount: '₹380',
-      status: 'confirmed'
-    },
-    {
-      id: 'BE123456791',
-      passenger: 'Mike Johnson',
-      route: 'Pune-Nashik',
-      date: '2024-01-15',
-      time: '02:15 PM',
-      amount: '₹320',
-      status: 'pending'
-    },
-    {
-      id: 'BE123456792',
-      passenger: 'Sarah Wilson',
-      route: 'Mumbai-Goa',
-      date: '2024-01-15',
-      time: '06:00 PM',
-      amount: '₹1200',
-      status: 'cancelled'
-    }
-  ]
+  const recentBookings = dashboardData?.recent?.bookings || []
 
-  const popularRoutes = [
-    { route: 'Mumbai-Pune', bookings: 156, revenue: '₹70,200' },
-    { route: 'Mumbai-Nashik', bookings: 134, revenue: '₹50,920' },
-    { route: 'Pune-Nashik', bookings: 98, revenue: '₹31,360' },
-    { route: 'Mumbai-Goa', bookings: 87, revenue: '₹104,400' }
-  ]
+  const popularRoutes = dashboardData?.charts?.routePerformance || []
 
   const getStatusColor = (status) => {
     switch (status) {

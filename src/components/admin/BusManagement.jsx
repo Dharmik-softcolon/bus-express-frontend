@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Plus, Edit, Trash2, MapPin, Users, Fuel, CreditCard, Route, Calendar, DollarSign } from 'lucide-react'
-import { busAPI } from '../../services/api'
+import { busAPI, employeeAPI } from '../../services/api'
 
 const BusManagement = () => {
   const [showAddModal, setShowAddModal] = useState(false)
@@ -37,12 +37,37 @@ const BusManagement = () => {
     }
   }
 
-  const [employees, setEmployees] = useState([
-    { id: 1, name: 'John Smith', role: 'Driver', license: 'DL123456', phone: '+91 9876543214' },
-    { id: 2, name: 'Mike Johnson', role: 'Helper', phone: '+91 9876543215' },
-    { id: 3, name: 'Sarah Wilson', role: 'Driver', license: 'DL789012', phone: '+91 9876543216' },
-    { id: 4, name: 'David Brown', role: 'Helper', phone: '+91 9876543217' }
-  ])
+  const [employees, setEmployees] = useState([])
+  const [employeesLoading, setEmployeesLoading] = useState(true)
+
+  // Fetch employees on component mount
+  useEffect(() => {
+    fetchEmployees()
+  }, [])
+
+  const fetchEmployees = async () => {
+    try {
+      setEmployeesLoading(true)
+      const response = await employeeAPI.getAllEmployees()
+      if (response.success) {
+        const formattedEmployees = (response.data.employees || []).map(emp => ({
+          ...emp,
+          id: emp._id || emp.id,
+          role: emp.subrole || 'Employee',
+          license: emp.license || '',
+          phone: emp.phone || ''
+        }))
+        setEmployees(formattedEmployees)
+      } else {
+        setEmployees([])
+      }
+    } catch (error) {
+      console.error('Error fetching employees:', error)
+      setEmployees([])
+    } finally {
+      setEmployeesLoading(false)
+    }
+  }
   
   // Bus CRUD operations
   const handleAddBus = async (busData) => {
