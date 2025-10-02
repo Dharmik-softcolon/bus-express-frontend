@@ -65,7 +65,7 @@ const DashboardRouter = () => {
         </>
       )}
 
-      {/* Bus Owner Routes */}
+      {/* Bus Owner Routes (Analytics Only) */}
       {(userRole === ROLES.BUS_OWNER || userRole === ROLES.MASTER_ADMIN) && (
         <>
           <Route 
@@ -73,15 +73,15 @@ const DashboardRouter = () => {
             element={<BusOwnerDashboard />} 
           />
           <Route 
-            path="/owner/buses" 
+            path="/owner/bus-analytics" 
             element={<BusManagement />} 
           />
           <Route 
-            path="/owner/routes" 
+            path="/owner/route-analytics" 
             element={<RouteManagement />} 
           />
           <Route 
-            path="/owner/trips" 
+            path="/owner/trip-analytics" 
             element={<TripManagement />} 
           />
           <Route 
@@ -92,15 +92,11 @@ const DashboardRouter = () => {
             path="/owner/expenses" 
             element={<ExpenseAnalytics />} 
           />
-          <Route 
-            path="/owner/employees" 
-            element={<EmployeeManagement />} 
-          />
         </>
       )}
 
-      {/* Bus Admin Routes */}
-      {(userRole === ROLES.BUS_ADMIN || userRole === ROLES.BUS_OWNER || userRole === ROLES.MASTER_ADMIN) && (
+      {/* Bus Admin Routes (Management + Analytics) */}
+      {(userRole === ROLES.BUS_ADMIN || userRole === ROLES.MASTER_ADMIN) && (
         <>
           <Route 
             path="/admin" 
@@ -121,6 +117,18 @@ const DashboardRouter = () => {
           <Route 
             path="/admin/employees" 
             element={<EmployeeManagement />} 
+          />
+          <Route 
+            path="/admin/bus-analytics" 
+            element={<BusManagement />} 
+          />
+          <Route 
+            path="/admin/route-analytics" 
+            element={<RouteManagement />} 
+          />
+          <Route 
+            path="/admin/trip-analytics" 
+            element={<TripManagement />} 
           />
         </>
       )}

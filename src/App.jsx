@@ -35,8 +35,8 @@ const HomePageWrapper = ({ onSearch }) => {
     return <Navigate to={getDefaultRoute(user.role)} replace />
   }
   
-  // If not logged in, show home page
-  return <HomePage onSearch={onSearch} />
+  // If not logged in, show landing page
+  return <LandingPage onSearch={onSearch} />
 }
 
 function App() {
@@ -53,7 +53,7 @@ function App() {
             {/* Landing Page - Show at root for non-logged in users */}
             <Route 
               path="/" 
-              element={<LandingPage />} 
+              element={<HomePageWrapper onSearch={setSearchData} />} 
             />
             
             {/* Public Routes */}
@@ -89,7 +89,7 @@ function App() {
               </ProtectedRoute>
             } />
             <Route path="/bus-admin" element={
-              <ProtectedRoute requiredRoles={[ROLES.BUS_ADMIN, ROLES.BUS_OWNER, ROLES.MASTER_ADMIN]}>
+              <ProtectedRoute requiredRoles={[ROLES.BUS_ADMIN, ROLES.MASTER_ADMIN]}>
                 <BusAdminDashboard />
               </ProtectedRoute>
             } />

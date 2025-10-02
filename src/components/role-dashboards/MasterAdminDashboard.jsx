@@ -15,6 +15,7 @@ import {
 
 const MasterAdminDashboard = () => {
   const { user } = useUser()
+  const [activeTab, setActiveTab] = useState('overview')
   const [stats, setStats] = useState({
     totalUsers: 0,
     totalBuses: 0,
@@ -45,6 +46,40 @@ const MasterAdminDashboard = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Header with Navigation */}
+        <div className="mb-6 sm:mb-8">
+          <div className="flex flex-col gap-4">
+            <div>
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Master Admin Dashboard</h1>
+              <p className="text-gray-600 text-sm sm:text-base">
+                System administration and management
+              </p>
+            </div>
+            
+            {/* Navigation Tabs */}
+            <div className="flex flex-wrap gap-2">
+              {[
+                { id: 'overview', name: 'Overview' },
+                { id: 'users', name: 'Users' },
+                { id: 'analytics', name: 'Analytics' },
+                { id: 'roles', name: 'Roles' },
+                { id: 'settings', name: 'Settings' }
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors ${
+                    activeTab === tab.id
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
+                  }`}
+                >
+                  {tab.name}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
         {/* Quick Stats */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 mb-8">
           <div className="bg-white rounded-lg shadow p-6">
@@ -144,71 +179,81 @@ const MasterAdminDashboard = () => {
           </div>
         </div>
 
-        {/* Quick Actions */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-          <div className="bg-white rounded-lg shadow">
-            <div className="px-6 py-4 border-b border-gray-200">
-              <h2 className="text-lg font-medium text-gray-900">Quick Actions</h2>
-            </div>
-            <div className="p-6">
-              <div className="grid grid-cols-2 gap-4">
-                {navigationItems.slice(1).map((item) => (
-                  <a
-                    key={item.path}
-                    href={item.path}
-                    className="flex items-center p-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
-                  >
-                    <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                      {item.icon === 'users' && <Users className="w-4 h-4 text-blue-600" />}
-                      {item.icon === 'analytics' && <BarChart3 className="w-4 h-4 text-blue-600" />}
-                      {item.icon === 'roles' && <Shield className="w-4 h-4 text-blue-600" />}
-                      {item.icon === 'settings' && <Settings className="w-4 h-4 text-blue-600" />}
+        {/* Content */}
+        {activeTab === 'overview' && (
+          <div className="space-y-6">
+            {/* System Status */}
+            <div className="bg-white rounded-lg shadow">
+              <div className="px-6 py-4 border-b border-gray-200">
+                <h2 className="text-lg font-medium text-gray-900">System Status</h2>
+              </div>
+              <div className="p-6">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center">
+                      <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
+                      <span className="text-sm text-gray-900">Database</span>
                     </div>
-                    <span className="text-sm font-medium text-gray-900">{item.label}</span>
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow">
-            <div className="px-6 py-4 border-b border-gray-200">
-              <h2 className="text-lg font-medium text-gray-900">System Status</h2>
-            </div>
-            <div className="p-6">
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
-                    <span className="text-sm text-gray-900">Database</span>
+                    <span className="text-sm text-green-600 font-medium">Online</span>
                   </div>
-                  <span className="text-sm text-green-600 font-medium">Online</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
-                    <span className="text-sm text-gray-900">API Services</span>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center">
+                      <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
+                      <span className="text-sm text-gray-900">API Services</span>
+                    </div>
+                    <span className="text-sm text-green-600 font-medium">Online</span>
                   </div>
-                  <span className="text-sm text-green-600 font-medium">Online</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
-                    <span className="text-sm text-gray-900">Payment Gateway</span>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center">
+                      <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
+                      <span className="text-sm text-gray-900">Payment Gateway</span>
+                    </div>
+                    <span className="text-sm text-green-600 font-medium">Online</span>
                   </div>
-                  <span className="text-sm text-green-600 font-medium">Online</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <Clock className="w-5 h-5 text-yellow-500 mr-2" />
-                    <span className="text-sm text-gray-900">Email Service</span>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center">
+                      <Clock className="w-5 h-5 text-yellow-500 mr-2" />
+                      <span className="text-sm text-gray-900">Email Service</span>
+                    </div>
+                    <span className="text-sm text-yellow-600 font-medium">Maintenance</span>
                   </div>
-                  <span className="text-sm text-yellow-600 font-medium">Maintenance</span>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
+        
+        {activeTab === 'users' && (
+          <div className="text-center py-12">
+            <Users className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+            <p className="text-gray-600">User management feature coming soon</p>
+            <p className="text-sm text-gray-500 mt-2">This will include user creation, editing, and role management</p>
+          </div>
+        )}
+        
+        {activeTab === 'analytics' && (
+          <div className="text-center py-12">
+            <BarChart3 className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+            <p className="text-gray-600">System analytics feature coming soon</p>
+            <p className="text-sm text-gray-500 mt-2">This will include system-wide analytics and reporting</p>
+          </div>
+        )}
+        
+        {activeTab === 'roles' && (
+          <div className="text-center py-12">
+            <Shield className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+            <p className="text-gray-600">Role management feature coming soon</p>
+            <p className="text-sm text-gray-500 mt-2">This will include role creation, permissions, and hierarchy management</p>
+          </div>
+        )}
+        
+        {activeTab === 'settings' && (
+          <div className="text-center py-12">
+            <Settings className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+            <p className="text-gray-600">System settings feature coming soon</p>
+            <p className="text-sm text-gray-500 mt-2">This will include system configuration and preferences</p>
+          </div>
+        )}
 
         {/* Recent Activity */}
         <div className="bg-white rounded-lg shadow">

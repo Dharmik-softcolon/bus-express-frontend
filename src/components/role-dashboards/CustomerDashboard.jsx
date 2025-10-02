@@ -13,6 +13,7 @@ import {
 
 const CustomerDashboard = () => {
   const { user } = useUser()
+  const [activeTab, setActiveTab] = useState('overview')
   const [stats, setStats] = useState({
     totalBookings: 0,
     upcomingTrips: 0,
@@ -73,6 +74,38 @@ const CustomerDashboard = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Header with Navigation */}
+        <div className="mb-6 sm:mb-8">
+          <div className="flex flex-col gap-4">
+            <div>
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Customer Dashboard</h1>
+              <p className="text-gray-600 text-sm sm:text-base">
+                Manage your bookings and travel history
+              </p>
+            </div>
+            
+            {/* Navigation Tabs */}
+            <div className="flex flex-wrap gap-2">
+              {[
+                { id: 'overview', name: 'Overview' },
+                { id: 'bookings', name: 'My Bookings' },
+                { id: 'profile', name: 'Profile' }
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors ${
+                    activeTab === tab.id
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
+                  }`}
+                >
+                  {tab.name}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
         {/* Quick Stats */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <div className="bg-white rounded-lg shadow p-6">
@@ -140,109 +173,129 @@ const CustomerDashboard = () => {
           </div>
         </div>
 
-        {/* Quick Actions */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-          <div className="bg-white rounded-lg shadow">
-            <div className="px-6 py-4 border-b border-gray-200">
-              <h2 className="text-lg font-medium text-gray-900">Quick Actions</h2>
+        {/* Content */}
+        {activeTab === 'overview' && (
+          <div className="space-y-6">
+            {/* Quick Actions */}
+            <div className="bg-white rounded-lg shadow">
+              <div className="px-6 py-4 border-b border-gray-200">
+                <h2 className="text-lg font-medium text-gray-900">Quick Actions</h2>
+              </div>
+              <div className="p-6">
+                <div className="space-y-4">
+                  <a
+                    href="/search"
+                    className="flex items-center p-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
+                  >
+                    <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                      <Search className="w-4 h-4 text-blue-600" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-gray-900">Book New Trip</p>
+                      <p className="text-xs text-gray-500">Search and book your next journey</p>
+                    </div>
+                  </a>
+                  
+                  <a
+                    href="/dashboard/customer/bookings"
+                    className="flex items-center p-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
+                  >
+                    <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                      <Calendar className="w-4 h-4 text-green-600" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-gray-900">My Bookings</p>
+                      <p className="text-xs text-gray-500">View and manage your bookings</p>
+                    </div>
+                  </a>
+                  
+                  <a
+                    href="/dashboard/customer/profile"
+                    className="flex items-center p-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
+                  >
+                    <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center mr-3">
+                      <Plus className="w-4 h-4 text-purple-600" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-gray-900">Update Profile</p>
+                      <p className="text-xs text-gray-500">Manage your personal information</p>
+                    </div>
+                  </a>
+                </div>
+              </div>
             </div>
-            <div className="p-6">
-              <div className="space-y-4">
-                <a
-                  href="/search"
-                  className="flex items-center p-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
-                >
-                  <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                    <Search className="w-4 h-4 text-blue-600" />
+
+            {/* Upcoming Trips */}
+            <div className="bg-white rounded-lg shadow">
+              <div className="px-6 py-4 border-b border-gray-200">
+                <h2 className="text-lg font-medium text-gray-900">Upcoming Trips</h2>
+              </div>
+              <div className="p-6">
+                {loading ? (
+                  <div className="text-center py-4">
+                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mx-auto"></div>
+                    <p className="text-sm text-gray-500 mt-2">Loading...</p>
                   </div>
-                  <div>
-                    <p className="text-sm font-medium text-gray-900">Book New Trip</p>
-                    <p className="text-xs text-gray-500">Search and book your next journey</p>
+                ) : recentBookings.length === 0 ? (
+                  <div className="text-center py-8">
+                    <Calendar className="mx-auto h-12 w-12 text-gray-400" />
+                    <h3 className="mt-2 text-sm font-medium text-gray-900">No upcoming trips</h3>
+                    <p className="mt-1 text-sm text-gray-500">Book your next journey to get started.</p>
+                    <div className="mt-4">
+                      <a
+                        href="/search"
+                        className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+                      >
+                        Book a Trip
+                      </a>
+                    </div>
                   </div>
-                </a>
-                
-                <a
-                  href="/dashboard/customer/bookings"
-                  className="flex items-center p-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
-                >
-                  <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3">
-                    <Calendar className="w-4 h-4 text-green-600" />
+                ) : (
+                  <div className="space-y-4">
+                    {recentBookings.map((booking) => (
+                      <div key={booking.id} className="border border-gray-200 rounded-lg p-4">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <h3 className="text-sm font-medium text-gray-900">
+                              {booking.route}
+                            </h3>
+                            <p className="text-sm text-gray-500">
+                              {booking.bus} • {booking.date} at {booking.time}
+                            </p>
+                          </div>
+                          <div className="text-right">
+                            <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(booking.status)}`}>
+                              {booking.status}
+                            </span>
+                            <p className="text-sm font-medium text-gray-900 mt-1">
+                              ₹{booking.amount}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                  <div>
-                    <p className="text-sm font-medium text-gray-900">My Bookings</p>
-                    <p className="text-xs text-gray-500">View and manage your bookings</p>
-                  </div>
-                </a>
-                
-                <a
-                  href="/dashboard/customer/profile"
-                  className="flex items-center p-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
-                >
-                  <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center mr-3">
-                    <Plus className="w-4 h-4 text-purple-600" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-gray-900">Update Profile</p>
-                    <p className="text-xs text-gray-500">Manage your personal information</p>
-                  </div>
-                </a>
+                )}
               </div>
             </div>
           </div>
-
-          <div className="bg-white rounded-lg shadow">
-            <div className="px-6 py-4 border-b border-gray-200">
-              <h2 className="text-lg font-medium text-gray-900">Upcoming Trips</h2>
-            </div>
-            <div className="p-6">
-              {loading ? (
-                <div className="text-center py-4">
-                  <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mx-auto"></div>
-                  <p className="text-sm text-gray-500 mt-2">Loading...</p>
-                </div>
-              ) : recentBookings.length === 0 ? (
-                <div className="text-center py-8">
-                  <Calendar className="mx-auto h-12 w-12 text-gray-400" />
-                  <h3 className="mt-2 text-sm font-medium text-gray-900">No upcoming trips</h3>
-                  <p className="mt-1 text-sm text-gray-500">Book your next journey to get started.</p>
-                  <div className="mt-4">
-                    <a
-                      href="/search"
-                      className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
-                    >
-                      Book a Trip
-                    </a>
-                  </div>
-                </div>
-              ) : (
-                <div className="space-y-4">
-                  {recentBookings.map((booking) => (
-                    <div key={booking.id} className="border border-gray-200 rounded-lg p-4">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <h3 className="text-sm font-medium text-gray-900">
-                            {booking.route}
-                          </h3>
-                          <p className="text-sm text-gray-500">
-                            {booking.bus} • {booking.date} at {booking.time}
-                          </p>
-                        </div>
-                        <div className="text-right">
-                          <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(booking.status)}`}>
-                            {booking.status}
-                          </span>
-                          <p className="text-sm font-medium text-gray-900 mt-1">
-                            ₹{booking.amount}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+        )}
+        
+        {activeTab === 'bookings' && (
+          <div className="text-center py-12">
+            <Calendar className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+            <p className="text-gray-600">Booking management feature coming soon</p>
+            <p className="text-sm text-gray-500 mt-2">This will include booking history, cancellation, and modification</p>
           </div>
-        </div>
+        )}
+        
+        {activeTab === 'profile' && (
+          <div className="text-center py-12">
+            <Plus className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+            <p className="text-gray-600">Profile management feature coming soon</p>
+            <p className="text-sm text-gray-500 mt-2">This will include personal information, preferences, and account settings</p>
+          </div>
+        )}
 
         {/* Travel Tips */}
         <div className="bg-white rounded-lg shadow">
