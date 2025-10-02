@@ -176,6 +176,16 @@ function App() {
                 <TripAnalytics />
               </ProtectedRoute>
             } />
+            <Route path="/bus-admin/revenue" element={
+              <ProtectedRoute requiredRoles={[ROLES.BUS_ADMIN, ROLES.MASTER_ADMIN]}>
+                <Revenue />
+              </ProtectedRoute>
+            } />
+            <Route path="/bus-admin/expenses" element={
+              <ProtectedRoute requiredRoles={[ROLES.BUS_ADMIN, ROLES.MASTER_ADMIN]}>
+                <Expenses />
+              </ProtectedRoute>
+            } />
 
 
             <Route path="/customer" element={

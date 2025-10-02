@@ -54,6 +54,8 @@ export const FEATURE_ROUTES = {
     busAnalytics: '/bus-admin/bus-analytics',
     routeAnalytics: '/bus-admin/route-analytics',
     tripAnalytics: '/bus-admin/trip-analytics',
+    revenue: '/bus-admin/revenue',
+    expenses: '/bus-admin/expenses',
   },
   
   // Booking Manager routes
@@ -112,7 +114,9 @@ export const ROUTE_PERMISSIONS = {
   [FEATURE_ROUTES[ROLES.BUS_ADMIN].busAnalytics]: [ROLES.BUS_ADMIN, ROLES.BUS_OWNER, ROLES.MASTER_ADMIN], // Shared analytics
   [FEATURE_ROUTES[ROLES.BUS_ADMIN].routeAnalytics]: [ROLES.BUS_ADMIN, ROLES.BUS_OWNER, ROLES.MASTER_ADMIN], // Shared analytics
   [FEATURE_ROUTES[ROLES.BUS_ADMIN].tripAnalytics]: [ROLES.BUS_ADMIN, ROLES.BUS_OWNER, ROLES.MASTER_ADMIN], // Shared analytics
-  
+  [FEATURE_ROUTES[ROLES.BUS_ADMIN].revenue]: [ROLES.BUS_ADMIN, ROLES.MASTER_ADMIN],
+  [FEATURE_ROUTES[ROLES.BUS_ADMIN].expenses]: [ROLES.BUS_ADMIN, ROLES.MASTER_ADMIN],
+
   // Booking Manager routes
   [FEATURE_ROUTES[ROLES.BOOKING_MAN].dashboard]: [ROLES.BOOKING_MAN, ROLES.BUS_ADMIN, ROLES.BUS_OWNER, ROLES.MASTER_ADMIN],
   [FEATURE_ROUTES[ROLES.BOOKING_MAN].bookings]: [ROLES.BOOKING_MAN, ROLES.BUS_ADMIN, ROLES.BUS_OWNER, ROLES.MASTER_ADMIN],
@@ -191,6 +195,8 @@ export const NAVIGATION_MENU = {
     { label: 'Bus Analytics', path: FEATURE_ROUTES[ROLES.BUS_ADMIN].busAnalytics, icon: 'analytics' },
     { label: 'Route Analytics', path: FEATURE_ROUTES[ROLES.BUS_ADMIN].routeAnalytics, icon: 'analytics' },
     { label: 'Trip Analytics', path: FEATURE_ROUTES[ROLES.BUS_ADMIN].tripAnalytics, icon: 'analytics' },
+    { label: 'Revenue', path: FEATURE_ROUTES[ROLES.BUS_ADMIN].revenue, icon: 'revenue' },
+    { label: 'Expenses', path: FEATURE_ROUTES[ROLES.BUS_ADMIN].expenses, icon: 'expenses' },
   ],
   
   [ROLES.BOOKING_MAN]: [
