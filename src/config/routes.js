@@ -45,6 +45,7 @@ export const FEATURE_ROUTES = {
   // Bus Admin routes (management + analytics)
   [ROLES.BUS_ADMIN]: {
     dashboard: '/bus-admin',
+    overview: '/bus-admin/overview',
     buses: '/bus-admin/buses',
     routes: '/bus-admin/routes',
     trips: '/bus-admin/trips',
@@ -181,6 +182,7 @@ export const NAVIGATION_MENU = {
   
   [ROLES.BUS_ADMIN]: [
     { label: 'Dashboard', path: FEATURE_ROUTES[ROLES.BUS_ADMIN].dashboard, icon: 'dashboard' },
+    { label: 'Overview', path: FEATURE_ROUTES[ROLES.BUS_ADMIN].overview, icon: 'overview' },
     { label: 'Buses', path: FEATURE_ROUTES[ROLES.BUS_ADMIN].buses, icon: 'buses' },
     { label: 'Routes', path: FEATURE_ROUTES[ROLES.BUS_ADMIN].routes, icon: 'routes' },
     { label: 'Trips', path: FEATURE_ROUTES[ROLES.BUS_ADMIN].trips, icon: 'trips' },
