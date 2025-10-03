@@ -18,7 +18,6 @@ import BookingConfirmation from './components/customer/BookingConfirmation'
 // Role-based Dashboards
 import MasterAdminDashboard from './components/role-dashboards/MasterAdminDashboard'
 import BusOwnerDashboard from './components/role-dashboards/BusOwnerDashboard'
-import CustomerDashboard from './components/role-dashboards/CustomerDashboard'
 
 // Management Pages
 import RouteManagement from './components/pages/RouteManagement'
@@ -39,6 +38,7 @@ import BusManagement from "./components/pages/BusManagement.jsx";
 import BookingManManagement from "./components/admin/BookingManManagement.jsx";
 import BookingManagersManagement from "./components/pages/BookingManagersManagement.jsx";
 import BusAdminOverview from "./components/pages/BusAdminOverview.jsx";
+import BusApiTest from "./components/debug/BusApiTest.jsx";
 import BusEmployeeDashboard from "./components/admin/BusEmployeeDashboard.jsx";
 
 // Component to handle home page with auto-redirect for logged-in users
@@ -195,11 +195,9 @@ function App() {
               </ProtectedRoute>
             } />
 
-            <Route path="/customer" element={
-              <ProtectedRoute requiredRoles={[ROLES.CUSTOMER]}>
-                <CustomerDashboard />
-              </ProtectedRoute>
-            } />
+            
+            {/* Debug/Test Routes */}
+            <Route path="/debug/bus-api" element={<BusApiTest />} />
             
             {/* Legacy route redirects for backward compatibility */}
             <Route path="/admin/*" element={<Navigate to="/bus-admin" replace />} />

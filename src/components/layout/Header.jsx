@@ -37,8 +37,7 @@ const Header = () => {
                      user.role === 'BUS_OWNER' ? 'Bus Owner' :
                      user.role === 'BUS_ADMIN' ? 'Bus Admin' :
                      user.role === 'BOOKING_MAN' ? 'Booking Manager' :
-                     user.role === 'BUS_EMPLOYEE' ? 'Bus Employee' :
-                     user.role === 'CUSTOMER' ? 'Customer' : user.role}
+                     user.role === 'BUS_EMPLOYEE' ? 'Bus Employee' : user.role}
                   </div>
                   <UserProfile />
                 </>

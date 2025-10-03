@@ -9,7 +9,24 @@ import {
   Edit,
   Trash2,
   AlertCircle,
-  Fuel
+  Search,
+  Filter,
+  RefreshCw,
+  Users,
+  Wifi,
+  Battery,
+  Droplets,
+  Coffee,
+  Star,
+  MapPin,
+  Calendar,
+  Fuel,
+  Clock,
+  CheckCircle,
+  XCircle,
+  TrendingUp,
+  Activity,
+  Settings
 } from 'lucide-react'
 
 const BusManagement = () => {
@@ -23,13 +40,37 @@ const BusManagement = () => {
   const [busesLoading, setBusesLoading] = useState(true)
   const [ongoingRequests, setOngoingRequests] = useState(new Set())
 
+  // Search and filter states
+  const [searchTerm, setSearchTerm] = useState('')
+  const [filterStatus, setFilterStatus] = useState('all')
+  const [filterType, setFilterType] = useState('all')
+  const [sortBy, setSortBy] = useState('latest')
+  
+  // Form validation states
+  const [formErrors, setFormErrors] = useState({})
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
   const [busForm, setBusForm] = useState({
-    number: '',
-    model: '',
-    capacity: '',
-    type: 'sleeper',
-    fuelType: 'diesel',
+    busNumber: '',
+    busName: '',
+    type: 'AC',
+    totalSeats: '',
+    availableSeats: '',
+    amenities: [],
     status: 'active',
+    images: [],
+    features: {
+      wifi: false,
+      charging: false,
+      blankets: false,
+      water: false,
+      snacks: false
+    },
+    fuelCapacity: '',
+    currentFuel: '',
+    totalKm: '',
+    lastServiceKm: '',
+    fastTagNumber: '',
     description: ''
   })
 
@@ -70,16 +111,82 @@ const BusManagement = () => {
   const fetchBusesData = async () => {
     try {
       setBusesLoading(true)
+      console.log('Fetching buses...')
+      
       const response = await preventDuplicateRequest('buses', () => busAPI.getAllBuses({ limit: 50 }))
-      if (response && response.success) {
-        setBuses(response.data.buses || [])
+      
+      console.log('Buses API Response:', response)
+      
+      if (response) {
+        // Backend returns: { success: true, data: { buses: [...], pagination: {...} }, message: "...", timestamp: "..." }
+        let busData = []
+        
+        if (response.success && response.data?.buses) {
+          busData = response.data.buses
+          console.log('Found buses in response.data.buses:', busData.length)
+        } else if (response.data && Array.isArray(response.data)) {
+          busData = response.data
+          console.log('Found buses in response.data:', busData.length)
+        } else if (response.buses && Array.isArray(response.buses)) {
+          busData = response.buses
+          console.log('Found buses in response.buses:', busData.length)
+        } else if (Array.isArray(response)) {
+          busData = response
+          console.log('Response is directly an array:', busData.length)
+        } else {
+          console.log('No buses found in response:', response)
+        }
+        
+        if (Array.isArray(busData) && busData.length > 0) {
+          console.log('Setting buses:', busData)
+          setBuses(busData)
+        } else {
+          console.log('Setting empty buses array')
+          setBuses([])
+        }
+      } else {
+        console.log('No response received')
+        setBuses([])
       }
     } catch (error) {
       console.error('Error fetching buses data:', error)
-      showToast('Failed to load buses data', 'error')
+      showToast.error(`Failed to load buses data: ${error.message}`)
+      setBuses([])
     } finally {
       setBusesLoading(false)
     }
+  }
+
+  // Form validation
+  const validateForm = () => {
+    const errors = {}
+
+    if (!busForm.busNumber.trim()) {
+      errors.busNumber = 'Bus number is required'
+    } else if (busForm.busNumber.trim().length < 3) {
+      errors.busNumber = 'Bus number must be at least 3 characters'
+    }
+
+    if (!busForm.busName.trim()) {
+      errors.busName = 'Bus name is required'
+    } else if (busForm.busName.trim().length < 2) {
+      errors.busName = 'Bus name must be at least 2 characters'
+    }
+
+    if (!busForm.totalSeats || busForm.totalSeats === '') {
+      errors.totalSeats = 'Total seats is required'
+    } else if (isNaN(busForm.totalSeats) || parseInt(busForm.totalSeats) < 1 || parseInt(busForm.totalSeats) > 100) {
+      errors.totalSeats = 'Total seats must be between 1 and 100'
+    }
+
+    if (!busForm.fuelCapacity || busForm.fuelCapacity === '') {
+      errors.fuelCapacity = 'Fuel capacity is required'
+    } else if (isNaN(busForm.fuelCapacity) || parseFloat(busForm.fuelCapacity) <= 0) {
+      errors.fuelCapacity = 'Fuel capacity must be a positive number'
+    }
+
+    setFormErrors(errors)
+    return Object.keys(errors).length === 0
   }
 
   useEffect(() => {
@@ -87,72 +194,178 @@ const BusManagement = () => {
   }, [])
 
   const handleBusInputChange = (e) => {
-    const { name, value } = e.target
+    const { name, value, type, checked } = e.target
+    
+    if (name.startsWith('features.')) {
+      const featureName = name.split('.')[1]
+      setBusForm(prev => ({
+        ...prev,
+        features: {
+          ...prev.features,
+          [featureName]: checked
+        }
+      }))
+    } else if (name === 'amenities') {
+      // Handle amenities selection
+      const amenityValue = e.target.value
+      setBusForm(prev => ({
+        ...prev,
+        amenities: checked 
+          ? [...prev.amenities, amenityValue]
+          : prev.amenities.filter(a => a !== amenityValue)
+      }))
+    } else {
     setBusForm(prev => ({
       ...prev,
-      [name]: value
-    }))
+        [name]: type === 'checkbox' ? checked : value
+      }))
+    }
+    
+    // Clear form errors when user starts typing
+    if (formErrors[name]) {
+      setFormErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }))
+    }
   }
 
   const handleCreateBus = async (e) => {
     e.preventDefault()
+
+    if (!validateForm()) {
+      showToast.error('Please fix the form errors before submitting')
+      return
+    }
+
+    setIsSubmitting(true)
+
     try {
-      const response = await preventDuplicateRequest('create-bus', () => busAPI.createBus(busForm))
+      const busData = {
+        busNumber: busForm.busNumber.toUpperCase(),
+        busName: busForm.busName,
+        type: busForm.type,
+        totalSeats: parseInt(busForm.totalSeats),
+        availableSeats: parseInt(busForm.availableSeats) || parseInt(busForm.totalSeats),
+        amenities: busForm.amenities,
+        status: busForm.status,
+        features: busForm.features,
+        fuelCapacity: parseFloat(busForm.fuelCapacity),
+        currentFuel: parseFloat(busForm.currentFuel) || 0,
+        totalKm: parseFloat(busForm.totalKm) || 0,
+        lastServiceKm: parseFloat(busForm.lastServiceKm) || 0,
+        fastTagNumber: busForm.fastTagNumber
+      }
+
+      console.log('Creating bus with data:', busData)
+
+      const response = await preventDuplicateRequest('create-bus', () => busAPI.createBus(busData))
+
+      console.log('Create bus response:', response)
+
+      // Backend returns: { success: true, data: { bus: {...} }, message: "...", timestamp: "..." }
       if (response.success) {
-        showToast('Bus created successfully', 'success')
-        setShowAddModal(false)
-        setBusForm({
-          number: '',
-          model: '',
-          capacity: '',
-          type: 'sleeper',
-          fuelType: 'diesel',
-          status: 'active',
-          description: ''
-        })
+        showToast.success(response.message || 'Bus created successfully')
+        closeModals()
         fetchBusesData()
+      } else {
+        console.log('Create bus failed:', response)
+        showToast.error(response.message || 'Failed to create bus')
       }
     } catch (error) {
       console.error('Error creating bus:', error)
-      showToast('Failed to create bus', 'error')
+      
+      // Handle specific error cases
+      if (error.message.includes('401') || error.message.includes('403')) {
+        showToast.error('Authentication failed. Please login again.')
+      } else if (error.message.includes('422')) {
+        showToast.error('Bus number already exists or invalid data provided')
+      } else if (error.message.includes('400')) {
+        showToast.error('Invalid request data. Please check all fields.')
+      } else if (error.message.includes('Network Error')) {
+        showToast.error('Network error. Please check your connection.')
+      } else {
+        showToast.error(error.message || 'Failed to create bus')
+      }
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
   const handleUpdateBus = async (e) => {
     e.preventDefault()
+
+    if (!validateForm()) {
+      showToast.error('Please fix the form errors before submitting')
+      return
+    }
+
+    if (!editingBus) return
+
+    setIsSubmitting(true)
+
     try {
-      const response = await preventDuplicateRequest('update-bus', () => busAPI.updateBus(editingBus.id, busForm))
+      const busId = editingBus._id || editingBus.id
+      const updateData = {
+        busNumber: busForm.busNumber.toUpperCase(),
+        busName: busForm.busName,
+        type: busForm.type,
+        totalSeats: parseInt(busForm.totalSeats),
+        availableSeats: parseInt(busForm.availableSeats),
+        amenities: busForm.amenities,
+        status: busForm.status,
+        features: busForm.features,
+        fuelCapacity: parseFloat(busForm.fuelCapacity),
+        currentFuel: parseFloat(busForm.currentFuel) || 0,
+        totalKm: parseFloat(busForm.totalKm) || 0,
+        lastServiceKm: parseFloat(busForm.lastServiceKm) || 0,
+        fastTagNumber: busForm.fastTagNumber
+      }
+
+      console.log('Updating bus with ID:', busId)
+      console.log('Update data:', updateData)
+
+      const response = await preventDuplicateRequest(`update-bus-${busId}`, () => busAPI.updateBus(busId, updateData))
+
+      console.log('Update bus response:', response)
+
+      // Backend returns: { success: true, data: { bus: {...} }, message: "...", timestamp: "..." }
       if (response.success) {
-        showToast('Bus updated successfully', 'success')
-        setEditingBus(null)
-        setBusForm({
-          number: '',
-          model: '',
-          capacity: '',
-          type: 'sleeper',
-          fuelType: 'diesel',
-          status: 'active',
-          description: ''
-        })
+        showToast.success(response.message || 'Bus updated successfully')
+        closeModals()
         fetchBusesData()
+      } else {
+        console.log('Update bus failed:', response)
+        showToast.error(response.message || 'Failed to update bus')
       }
     } catch (error) {
       console.error('Error updating bus:', error)
-      showToast('Failed to update bus', 'error')
+      showToast.error(error.message || 'Failed to update bus')
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
   const handleDeleteBus = async (busId) => {
-    if (window.confirm('Are you sure you want to delete this bus?')) {
+    if (window.confirm('Are you sure you want to delete this bus? This action cannot be undone.')) {
       try {
+        console.log('Deleting bus with ID:', busId)
+        
         const response = await busAPI.deleteBus(busId)
+        
+        console.log('Delete bus response:', response)
+        
+        // Backend returns: { success: true, data: null, message: "...", timestamp: "..." }
         if (response.success) {
-          showToast('Bus deleted successfully', 'success')
+          showToast.success(response.message || 'Bus deleted successfully')
           fetchBusesData()
+        } else {
+          console.log('Delete bus failed:', response)
+          showToast.error(response.message || 'Failed to delete bus')
         }
       } catch (error) {
         console.error('Error deleting bus:', error)
-        showToast('Failed to delete bus', 'error')
+        showToast.error(error.message || 'Failed to delete bus')
       }
     }
   }
@@ -160,12 +373,26 @@ const BusManagement = () => {
   const openEditBus = (bus) => {
     setEditingBus(bus)
     setBusForm({
-      number: bus.number || bus.busNumber || '',
-      model: bus.model || '',
-      capacity: bus.capacity || bus.seats || '',
-      type: bus.type || 'sleeper',
-      fuelType: bus.fuelType || 'diesel',
+      busNumber: bus.number || bus.busNumber || '',
+      busName: bus.busName || bus.name || '',
+      type: bus.type || 'AC',
+      totalSeats: bus.totalSeats || bus.seats?.toString() || '',
+      availableSeats: bus.availableSeats?.toString() || bus.totalSeats?.toString() || '',
+      amenities: bus.amenities || [],
       status: bus.status || 'active',
+      images: bus.images || [],
+      features: bus.features || {
+        wifi: false,
+        charging: false,
+        blankets: false,
+        water: false,
+        snacks: false
+      },
+      fuelCapacity: bus.fuelCapacity?.toString() || '',
+      currentFuel: bus.currentFuel?.toString() || '',
+      totalKm: bus.totalKm?.toString() || '',
+      lastServiceKm: bus.lastServiceKm?.toString() || '',
+      fastTagNumber: bus.fastTagNumber || '',
       description: bus.description || ''
     })
     setShowAddModal(true)
@@ -175,247 +402,736 @@ const BusManagement = () => {
     setShowAddModal(false)
     setEditingBus(null)
     setBusForm({
-      number: '',
-      model: '',
-      capacity: '',
-      type: 'sleeper',
-      fuelType: 'diesel',
+      busNumber: '',
+      busName: '',
+      type: 'AC',
+      totalSeats: '',
+      availableSeats: '',
+      amenities: [],
       status: 'active',
+      images: [],
+      features: {
+        wifi: false,
+        charging: false,
+        blankets: false,
+        water: false,
+        snacks: false
+      },
+      fuelCapacity: '',
+      currentFuel: '',
+      totalKm: '',
+      lastServiceKm: '',
+      fastTagNumber: '',
       description: ''
     })
+    setFormErrors({})
+    setIsSubmitting(false)
   }
 
-  const getStatusColor = (status) => {
+  // Filter and sort buses
+  const filteredAndSortedBuses = () => {
+    if (!Array.isArray(buses)) {
+      return []
+    }
+    
+    let filtered = buses.filter(bus => {
+      const numberMatch = bus.busNumber?.toLowerCase().includes(searchTerm.toLowerCase()) || bus.number?.toLowerCase().includes(searchTerm.toLowerCase()) || false
+      const nameMatch = bus.busName?.toLowerCase().includes(searchTerm.toLowerCase()) || bus.name?.toLowerCase().includes(searchTerm.toLowerCase()) || false
+      const typeMatch = bus.type?.toLowerCase().includes(searchTerm.toLowerCase()) || false
+      
+      const matchesSearch = searchTerm === '' || numberMatch || nameMatch || typeMatch
+      
+      const matchesStatus = filterStatus === 'all' || bus.status === filterStatus
+      const matchesType = filterType === 'all' || bus.type === filterType
+      
+      return matchesSearch && matchesStatus && matchesType
+    })
+
+    // Sort buses
+    filtered.sort((a, b) => {
+      switch (sortBy) {
+        case 'number':
+          return (a.busNumber || a.number || '').localeCompare(b.busNumber || b.number || '')
+        case 'type':
+          return (a.type || '').localeCompare(b.type || '')
+        case 'seats':
+          return (b.totalSeats || b.seats || 0) - (a.totalSeats || a.seats || 0)
+        case 'latest':
+          return new Date(b.createdAt) - new Date(a.createdAt)
+        case 'oldest':
+          return new Date(a.createdAt) - new Date(b.createdAt)
+        default:
+          return 0
+      }
+    })
+
+    return filtered
+  }
+
+  const getStatusBadgeClass = (status) => {
     switch (status) {
-      case 'active': return 'bg-green-100 text-green-800'
-      case 'inactive': return 'bg-red-100 text-red-800'
-      case 'maintenance': return 'bg-yellow-100 text-yellow-800'
-      default: return 'bg-gray-100 text-gray-800'
+      case 'active': 
+        return 'bg-green-100 text-green-800 border-green-200'
+      case 'inactive': 
+        return 'bg-red-100 text-red-800 border-red-200'
+      case 'maintenance': 
+        return 'bg-yellow-100 text-yellow-800 border-yellow-200'
+      default: 
+        return 'bg-gray-100 text-gray-800 border-gray-200'
     }
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-4 sm:py-8">
+    <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header with Navigation */}
-        <div className="mb-6 sm:mb-8">
-          <div className="flex flex-col gap-4">
+        {/* Header */}
+        <div className="mb-8">
+          <div className="bg-white shadow-lg rounded-lg p-6">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                  <Bus className="h-8 w-8 text-blue-600" />
+                </div>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Bus Management</h1>
-              <p className="text-gray-600 text-sm sm:text-base">
-                Manage your bus fleet and vehicle details
+                  <h1 className="text-3xl font-bold text-gray-900 mb-1">
+                    Bus Fleet Management
+                  </h1>
+                  <p className="text-gray-600">
+                    Manage your bus fleet, schedules, and maintenance records
               </p>
             </div>
           </div>
-        </div>
-
-        {/* Content */}
-        <div className="space-y-4">
-          <div className="flex justify-between items-center">
-            <h3 className="text-lg font-semibold">Bus Fleet Management</h3>
+              <div className="flex items-center space-x-4">
+                <button
+                  onClick={fetchBusesData}
+                  disabled={busesLoading}
+                  className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors flex items-center"
+                >
+                  <RefreshCw className={`h-4 w-4 mr-2 ${busesLoading ? 'animate-spin' : ''}`} />
+                  Refresh
+                </button>
             <button
               onClick={() => {
                 setEditingBus(null)
+                    setBusForm({
+                      busNumber: '',
+                      busName: '',
+                      type: 'AC',
+                      totalSeats: '',
+                      availableSeats: '',
+                      amenities: [],
+                      status: 'active',
+                      images: [],
+                      features: {
+                        wifi: false,
+                        charging: false,
+                        blankets: false,
+                        water: false,
+                        snacks: false
+                      },
+                      fuelCapacity: '',
+                      currentFuel: '',
+                      totalKm: '',
+                      lastServiceKm: '',
+                      fastTagNumber: '',
+                      description: ''
+                    })
+                    setFormErrors({})
                 setShowAddModal(true)
               }}
-              className="btn-primary flex items-center"
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center"
             >
               <Plus className="h-4 w-4 mr-2" />
               Add New Bus
             </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Search and Filter Section */}
+        <div className="bg-white shadow-lg rounded-lg p-6 mb-6">
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-gray-700 mb-2">Search</label>
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <input
+                  type="text"
+                  placeholder="Search by bus number, name, or type..."
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="md:w-48">
+              <label className="block text-sm font-medium text-gray-700 mb-2">Status</label>
+              <select
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                value={filterStatus}
+                onChange={(e) => setFilterStatus(e.target.value)}
+              >
+                <option value="all">All Status</option>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+                <option value="maintenance">Maintenance</option>
+              </select>
+            </div>
+            <div className="md:w-48">
+              <label className="block text-sm font-medium text-gray-700 mb-2">Type</label>
+              <select
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                value={filterType}
+                onChange={(e) => setFilterType(e.target.value)}
+              >
+                <option value="all">All Types</option>
+                <option value="AC">AC</option>
+                <option value="Non-AC">Non-AC</option>
+                <option value="Sleeper">Sleeper</option>
+                <option value="Semi-Sleeper">Semi-Sleeper</option>
+                <option value="Volvo">Volvo</option>
+                <option value="Luxury">Luxury</option>
+              </select>
+            </div>
+            <div className="md:w-48">
+              <label className="block text-sm font-medium text-gray-700 mb-2">Sort By</label>
+              <select
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+              >
+                <option value="latest">Latest First</option>
+                <option value="oldest">Oldest First</option>
+                <option value="number">Bus Number</option>
+                <option value="type">Bus Type</option>
+                <option value="seats">Seats</option>
+              </select>
+            </div>
+          </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {busesLoading ? (
-              <div className="col-span-3 text-center py-8">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-                <p className="mt-2 text-gray-600">Loading buses...</p>
+        {/* Stats Section */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+          <div className="bg-white p-6 rounded-lg shadow">
+            <div className="flex items-center">
+              <div className="p-2 bg-blue-100 rounded-lg">
+                <Bus className="h-6 w-6 text-blue-600" />
               </div>
-            ) : buses.length === 0 ? (
-              <div className="col-span-3 text-center py-8">
-                <Bus className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-600">No buses found</p>
-                <p className="text-sm text-gray-500 mt-2">Add buses to your fleet</p>
+              <div className="ml-4">
+                <p className="text-sm font-medium text-gray-600">Total Buses</p>
+                <p className="text-2xl font-bold text-gray-900">{Array.isArray(buses) ? buses.length : 0}</p>
+              </div>
+            </div>
+          </div>
+          <div className="bg-white p-6 rounded-lg shadow">
+            <div className="flex items-center">
+              <div className="p-2 bg-green-100 rounded-lg">
+                <CheckCircle className="h-6 w-6 text-green-600" />
+              </div>
+              <div className="ml-4">
+                <p className="text-sm font-medium text-gray-600">Active Buses</p>
+                <p className="text-2xl font-bold text-gray-900">
+                  {Array.isArray(buses) ? buses.filter(b => b.status === 'active').length : 0}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="bg-white p-6 rounded-lg shadow">
+            <div className="flex items-center">
+              <div className="p-2 bg-purple-100 rounded-lg">
+                <Users className="h-6 w-6 text-purple-600" />
+              </div>
+              <div className="ml-4">
+                <p className="text-sm font-medium text-gray-600">Total Seats</p>
+                <p className="text-2xl font-bold text-gray-900">
+                  {Array.isArray(buses) && buses.length > 0 
+                    ? buses.reduce((sum, b) => sum + (b.totalSeats || b.seats || 0), 0)
+                    : 0
+                  }
+                </p>
+                    </div>
+                    </div>
+                  </div>
+          <div className="bg-white p-6 rounded-lg shadow">
+            <div className="flex items-center">
+              <div className="p-2 bg-orange-100 rounded-lg">
+                <TrendingUp className="h-6 w-6 text-orange-600" />
+              </div>
+              <div className="ml-4">
+                <p className="text-sm font-medium text-gray-600">Avg Capacity</p>
+                <p className="text-2xl font-bold text-gray-900">
+                  {Array.isArray(buses) && buses.length > 0 
+                    ? Math.round(buses.reduce((sum, b) => sum + (b.totalSeats || b.seats || 0), 0) / buses.length)
+                    : 0
+                  } seats
+                </p>
+                  </div>
+                </div>
+          </div>
+        </div>
+
+        {/* Buses List */}
+        <div className="bg-white shadow-lg rounded-lg">
+          <div className="px-6 py-4 border-b border-gray-200">
+            <div className="flex items-center justify-between">
+              <h2 className="text-lg font-semibold text-gray-900">Buses</h2>
+              {(searchTerm || filterStatus !== 'all' || filterType !== 'all') && (
+                <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">
+                  {filteredAndSortedBuses().length} result{(filteredAndSortedBuses().length !== 1 ? 's' : '')} found
+                </span>
+            )}
+            </div>
+          </div>
+          
+          {busesLoading ? (
+            <div className="p-6">
+              <div className="animate-pulse text-center py-8">
+                <div className="inline-flex items-center">
+                  <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mr-3"></div>
+                  <span className="text-gray-600">Loading buses...</span>
+                </div>
+              </div>
+            </div>
+          ) : filteredAndSortedBuses().length === 0 ? (
+            <div className="p-12 text-center">
+              <Bus className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-gray-900 mb-2">No buses found</h3>
+              <p className="text-gray-600 mb-6">{searchTerm || filterStatus !== 'all' || filterType !== 'all' ? 'Try adjusting your search or filters.' : 'Get started by adding your first bus to the fleet.'}</p>
+              {!searchTerm && filterStatus === 'all' && filterType === 'all' && (
+                <button
+                  onClick={() => {
+                    setEditingBus(null)
+                    setBusForm({
+                      busNumber: '',
+                      busName: '',
+                      type: 'AC',
+                      totalSeats: '',
+                      availableSeats: '',
+                      amenities: [],
+                      status: 'active',
+                      images: [],
+                      features: {
+                        wifi: false,
+                        charging: false,
+                        blankets: false,
+                        water: false,
+                        snacks: false
+                      },
+                      fuelCapacity: '',
+                      currentFuel: '',
+                      totalKm: '',
+                      lastServiceKm: '',
+                      fastTagNumber: '',
+                      description: ''
+                    })
+                    setFormErrors({})
+                    setShowAddModal(true)
+                  }}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  Add New Bus
+                </button>
+              )}
               </div>
             ) : (
-              buses.map((bus) => (
-                <div key={bus._id || bus.id} className="bg-white rounded-lg shadow p-4">
-                  <div className="flex justify-between items-start mb-3">
-                    <div>
-                      <h4 className="font-medium text-gray-900">{bus.number || bus.busNumber}</h4>
-                      <p className="text-sm text-gray-600">{bus.model || 'Model not specified'}</p>
-                      <p className="text-sm text-gray-600">{bus.capacity || bus.seats || 'Capacity not specified'} seats</p>
-                      <p className="text-sm text-gray-600">{bus.type || 'Type not specified'}</p>
-                      <p className="text-sm text-gray-600">{bus.fuelType || 'Fuel type not specified'}</p>
-                      {bus.description && (
-                        <p className="text-sm text-gray-500 italic">{bus.description}</p>
-                      )}
+            <div className="divide-y divide-gray-200">
+              {filteredAndSortedBuses().map((bus) => (
+                <div key={bus._id || bus.id} className="p-6 hover:bg-gray-50 transition-colors">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center flex-1">
+                      <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                        <Bus className="h-6 w-6 text-blue-600" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between mb-2">
+                          <h3 className="text-lg font-semibold text-gray-900">{bus.busNumber || bus.number}</h3>
+                          <span className={`px-3 py-1 rounded-full text-xs font-medium border ${getStatusBadgeClass(bus.status)}`}>
+                            {bus.status || 'Active'}
+                          </span>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm text-gray-600 mb-2">
+                          <div className="flex items-center">
+                            <span className="font-medium mr-2">Name:</span>
+                            {bus.busName || bus.name || 'Not specified'}
+                          </div>
+                          <div className="flex items-center">
+                            <span className="font-medium mr-2">Type:</span>
+                            {bus.type || 'Not specified'}
+                          </div>
+                          <div className="flex items-center">
+                            <Users className="h-4 w-4 mr-1 text-gray-400" />
+                            {bus.totalSeats || bus.seats || 0} seats
+                          </div>
+                          <div className="flex items-center">
+                            <Fuel className="h-4 w-4 mr-1 text-gray-400" />
+                            {bus.fuelCapacity || 0}L capacity
+                          </div>
+                        </div>
+                        {(bus.features && Object.values(bus.features).some(Boolean)) && (
+                          <div className="flex items-center gap-3 text-sm text-gray-500 mb-2">
+                            <span className="font-medium">Features:</span>
+                            {bus.features.wifi && <span className="flex items-center gap-1"><Wifi className="h-3 w-3" />WiFi</span>}
+                            {bus.features.charging && <span className="flex items-center gap-1"><Battery className="h-3 w-3" />Charging</span>}
+                            {bus.features.blankets && <span className="flex items-center gap-1"><Droplets className="h-3 w-3" />Blankets</span>}
+                            {bus.features.water && <span className="flex items-center gap-1"><Coffee className="h-3 w-3" />Water</span>}
+                            {bus.features.snacks && <span className="flex items-center gap-1"><Star className="h-3 w-3" />Snacks</span>}
+                          </div>
+                        )}
+                        {bus.fastTagNumber && (
+                          <div className="text-sm text-gray-500">
+                            <span className="font-medium">FastTag:</span> {bus.fastTagNumber}
+                          </div>
+                        )}
+                      </div>
                     </div>
-                    <div className="flex space-x-2">
+                    <div className="flex items-center space-x-2 ml-4">
                       <button
                         onClick={() => openEditBus(bus)}
-                        className="text-blue-600 hover:text-blue-900"
+                        className="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors"
+                        title="Edit bus"
                       >
                         <Edit className="h-4 w-4" />
                       </button>
                       <button
                         onClick={() => handleDeleteBus(bus._id || bus.id)}
-                        className="text-red-600 hover:text-red-900"
+                        className="p-2 text-red-600 hover:bg-red-100 rounded-lg transition-colors"
+                        title="Delete bus"
                       >
                         <Trash2 className="h-4 w-4" />
                       </button>
                     </div>
                   </div>
-                  <div className="mt-2">
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(bus.status || 'active')}`}>
-                      {bus.status || 'Active'}
-                    </span>
-                  </div>
+                </div>))}
                 </div>
-              ))
             )}
-          </div>
         </div>
 
         {/* Add/Edit Modal */}
         {showAddModal && (
-          <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-            <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
-              <div className="mt-3">
-                <h3 className="text-lg font-medium text-gray-900 mb-4">
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+            <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+              <div className="px-6 py-4 border-b border-gray-200">
+                <h2 className="text-xl font-semibold text-gray-900">
                   {editingBus ? 'Edit Bus' : 'Add New Bus'}
-                </h3>
-                
-                <form onSubmit={editingBus ? handleUpdateBus : handleCreateBus} className="space-y-4">
+                </h2>
+              </div>
+              
+              <form onSubmit={editingBus ? handleUpdateBus : handleCreateBus}>
+                <div className="px-6 py-6 space-y-6">
+                  {/* Basic Information Grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Bus Number */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Bus Number <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        name="busNumber"
+                        value={busForm.busNumber}
+                        onChange={handleBusInputChange}
+                        className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                          formErrors.busNumber ? 'border-red-500' : 'border-gray-300'
+                        }`}
+                        placeholder="e.g., KA-01-AB-1234"
+                      />
+                      {formErrors.busNumber && (
+                        <p className="mt-1 text-sm text-red-600">{formErrors.busNumber}</p>
+                      )}
+                    </div>
+
+                    {/* Bus Name */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Bus Name <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        name="busName"
+                        value={busForm.busName}
+                        onChange={handleBusInputChange}
+                        className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                          formErrors.busName ? 'border-red-500' : 'border-gray-300'
+                        }`}
+                        placeholder="e.g., Express Deluxe"
+                      />
+                      {formErrors.busName && (
+                        <p className="mt-1 text-sm text-red-600">{formErrors.busName}</p>
+                      )}
+                    </div>
+
+                    {/* Bus Type */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Bus Type <span className="text-red-500">*</span>
+                      </label>
+                      <select
+                        name="type"
+                        value={busForm.type}
+                        onChange={handleBusInputChange}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      >
+                        <option value="AC">AC</option>
+                        <option value="Non-AC">Non-AC</option>
+                        <option value="Sleeper">Sleeper</option>
+                        <option value="Semi-Sleeper">Semi-Sleeper</option>
+                        <option value="Volvo">Volvo</option>
+                        <option value="Luxury">Luxury</option>
+                      </select>
+                    </div>
+
+                    {/* Status */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Status <span className="text-red-500">*</span>
+                      </label>
+                      <select
+                        name="status"
+                        value={busForm.status}
+                        onChange={handleBusInputChange}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      >
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                        <option value="maintenance">Maintenance</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Seating Information */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Total Seats <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="number"
+                        name="totalSeats"
+                        value={busForm.totalSeats}
+                        onChange={handleBusInputChange}
+                        min="1"
+                        max="100"
+                        className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                          formErrors.totalSeats ? 'border-red-500' : 'border-gray-300'
+                        }`}
+                        placeholder="e.g., 40"
+                      />
+                      {formErrors.totalSeats && (
+                        <p className="mt-1 text-sm text-red-600">{formErrors.totalSeats}</p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Available Seats
+                      </label>
+                      <input
+                        type="number"
+                        name="availableSeats"
+                        value={busForm.availableSeats}
+                        onChange={handleBusInputChange}
+                        min="0"
+                        max={busForm.totalSeats || 100}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        placeholder="Defaults to total seats"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Features */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Bus Number
+                    <label className="block text-sm font-medium text-gray-700 mb-3">
+                      Bus Features
+                    </label>
+                    <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+                      <label className="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          name="features.wifi"
+                          checked={busForm.features.wifi}
+                          onChange={handleBusInputChange}
+                          className="mr-2"
+                        />
+                        <Wifi className="h-4 w-4 mr-2 text-blue-600" />
+                        WiFi
+                      </label>
+                      <label className="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          name="features.charging"
+                          checked={busForm.features.charging}
+                          onChange={handleBusInputChange}
+                          className="mr-2"
+                        />
+                        <Battery className="h-4 w-4 mr-2 text-green-600" />
+                        Charging
+                      </label>
+                      <label className="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          name="features.blankets"
+                          checked={busForm.features.blankets}
+                          onChange={handleBusInputChange}
+                          className="mr-2"
+                        />
+                        <Droplets className="h-4 w-4 mr-2 text-orange-600" />
+                        Blankets
+                      </label>
+                      <label className="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          name="features.water"
+                          checked={busForm.features.water}
+                          onChange={handleBusInputChange}
+                          className="mr-2"
+                        />
+                        <Coffee className="h-4 w-4 mr-2 text-blue-600" />
+                        Water
+                      </label>
+                      <label className="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          name="features.snacks"
+                          checked={busForm.features.snacks}
+                          onChange={handleBusInputChange}
+                          className="mr-2"
+                        />
+                        <Star className="h-4 w-4 mr-2 text-yellow-600" />
+                        Snacks
+                      </label>
+                    </div>
+                  </div>
+
+                  {/* Fuel Information */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Fuel Capacity (Liters) <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="number"
+                        name="fuelCapacity"
+                        value={busForm.fuelCapacity}
+                        onChange={handleBusInputChange}
+                        min="0"
+                        step="0.1"
+                        className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                          formErrors.fuelCapacity ? 'border-red-500' : 'border-gray-300'
+                        }`}
+                        placeholder="e.g., 100"
+                      />
+                      {formErrors.fuelCapacity && (
+                        <p className="mt-1 text-sm text-red-600">{formErrors.fuelCapacity}</p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Current Fuel (Liters)
+                      </label>
+                      <input
+                        type="number"
+                        name="currentFuel"
+                        value={busForm.currentFuel}
+                        onChange={handleBusInputChange}
+                        min="0"
+                        max={busForm.fuelCapacity || 1000}
+                        step="0.1"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        placeholder="e.g., 50"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Mileage Information */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Total Kilometers
+                      </label>
+                      <input
+                        type="number"
+                        name="totalKm"
+                        value={busForm.totalKm}
+                        onChange={handleBusInputChange}
+                        min="0"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        placeholder="e.g., 50000"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Last Service (Km)
+                      </label>
+                      <input
+                        type="number"
+                        name="lastServiceKm"
+                        value={busForm.lastServiceKm}
+                        onChange={handleBusInputChange}
+                        min="0"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        placeholder="e.g., 45000"
+                      />
+                    </div>
+                  </div>
+
+                  {/* FastTag */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      FastTag Number
                     </label>
                     <input
                       type="text"
-                      name="number"
-                      value={busForm.number}
+                      name="fastTagNumber"
+                      value={busForm.fastTagNumber}
                       onChange={handleBusInputChange}
-                      className="input-field"
-                      required
-                      placeholder="e.g., KA-01-AB-1234"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="e.g., FT123456789"
                     />
                   </div>
 
+                  {/* Description */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Model
-                    </label>
-                    <input
-                      type="text"
-                      name="model"
-                      value={busForm.model}
-                      onChange={handleBusInputChange}
-                      className="input-field"
-                      required
-                      placeholder="e.g., Volvo B9R"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Capacity (Seats)
-                    </label>
-                    <input
-                      type="number"
-                      name="capacity"
-                      value={busForm.capacity}
-                      onChange={handleBusInputChange}
-                      className="input-field"
-                      min="1"
-                      required
-                      placeholder="e.g., 40"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Type
-                    </label>
-                    <select
-                      name="type"
-                      value={busForm.type}
-                      onChange={handleBusInputChange}
-                      className="input-field"
-                    >
-                      <option value="sleeper">Sleeper</option>
-                      <option value="semi-sleeper">Semi Sleeper</option>
-                      <option value="seater">Seater</option>
-                      <option value="ac">AC</option>
-                      <option value="non-ac">Non AC</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Fuel Type
-                    </label>
-                    <select
-                      name="fuelType"
-                      value={busForm.fuelType}
-                      onChange={handleBusInputChange}
-                      className="input-field"
-                    >
-                      <option value="diesel">Diesel</option>
-                      <option value="petrol">Petrol</option>
-                      <option value="cng">CNG</option>
-                      <option value="electric">Electric</option>
-                      <option value="hybrid">Hybrid</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Status
-                    </label>
-                    <select
-                      name="status"
-                      value={busForm.status}
-                      onChange={handleBusInputChange}
-                      className="input-field"
-                    >
-                      <option value="active">Active</option>
-                      <option value="inactive">Inactive</option>
-                      <option value="maintenance">Maintenance</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Description (Optional)
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Description
                     </label>
                     <textarea
                       name="description"
                       value={busForm.description}
                       onChange={handleBusInputChange}
-                      className="input-field"
-                      rows="2"
-                      placeholder="Additional details..."
+                      rows={3}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="Additional details about the bus..."
                     />
                   </div>
+                </div>
 
-                  <div className="flex justify-end space-x-3 pt-4">
-                    <button
-                      type="button"
-                      onClick={closeModals}
-                      className="btn-secondary"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      type="submit"
-                      className="btn-primary"
-                    >
-                      {editingBus ? 'Update' : 'Add'} Bus
-                    </button>
-                  </div>
-                </form>
-              </div>
+                <div className="px-6 py-4 border-t border-gray-200 flex justify-end space-x-3">
+                  <button
+                    type="button"
+                    onClick={closeModals}
+                    className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                        {editingBus ? 'Updating...' : 'Creating...'}
+                      </>
+                    ) : (
+                      editingBus ? 'Update Bus' : 'Create Bus'
+                    )}
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         )}

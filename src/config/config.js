@@ -103,7 +103,6 @@ const config = {
     BUS_ADMIN: 'BUS_ADMIN',
     BOOKING_MAN: 'BOOKING_MAN',
     BUS_EMPLOYEE: 'BUS_EMPLOYEE',
-    CUSTOMER: 'CUSTOMER',
   },
   
   // Bus Employee Subroles
@@ -119,7 +118,6 @@ const config = {
     'BUS_ADMIN': ['BOOKING_MAN', 'BUS_EMPLOYEE'],
     'BOOKING_MAN': [],
     'BUS_EMPLOYEE': [],
-    'CUSTOMER': [],
   },
   
   // Role Limits
@@ -135,7 +133,6 @@ const config = {
     'BUS_ADMIN': '/bus-admin',
     'BOOKING_MAN': '/booking-man',
     'BUS_EMPLOYEE': '/bus-employee',
-    'CUSTOMER': '/customer',
   },
   
   // Status Options

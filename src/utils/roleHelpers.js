@@ -10,7 +10,6 @@ export const getRoleLabel = (role) => {
     [ROLES.BUS_ADMIN]: 'Bus Admin',
     [ROLES.BOOKING_MAN]: 'Booking Manager',
     [ROLES.BUS_EMPLOYEE]: 'Bus Employee',
-    [ROLES.CUSTOMER]: 'Customer',
   };
   return roleLabels[role] || role;
 };
@@ -36,7 +35,6 @@ export const getRoleBadgeColor = (role) => {
     [ROLES.BUS_ADMIN]: 'bg-green-100 text-green-800',
     [ROLES.BOOKING_MAN]: 'bg-purple-100 text-purple-800',
     [ROLES.BUS_EMPLOYEE]: 'bg-orange-100 text-orange-800',
-    [ROLES.CUSTOMER]: 'bg-gray-100 text-gray-800',
   };
   return colors[role] || 'bg-gray-100 text-gray-800';
 };

@@ -18,7 +18,6 @@ export const DASHBOARD_ROUTES = {
   [ROLES.BUS_ADMIN]: '/bus-admin',
   [ROLES.BOOKING_MAN]: '/booking-manager',
   [ROLES.BUS_EMPLOYEE]: '/bus-employee',
-  [ROLES.CUSTOMER]: '/customer',
 }
 
 // Role-based feature routes
@@ -71,13 +70,6 @@ export const FEATURE_ROUTES = {
     trips: '/bus-employee/trips',
     profile: '/bus-employee/profile',
   },
-  
-  // Customer routes
-  [ROLES.CUSTOMER]: {
-    dashboard: '/customer',
-    bookings: '/dashboard/customer/bookings',
-    profile: '/dashboard/customer/profile',
-  },
 }
 
 // Route access permissions
@@ -126,11 +118,6 @@ export const ROUTE_PERMISSIONS = {
   [FEATURE_ROUTES[ROLES.BUS_EMPLOYEE].dashboard]: [ROLES.BUS_EMPLOYEE, ROLES.BUS_ADMIN, ROLES.BUS_OWNER, ROLES.MASTER_ADMIN],
   [FEATURE_ROUTES[ROLES.BUS_EMPLOYEE].trips]: [ROLES.BUS_EMPLOYEE, ROLES.BUS_ADMIN, ROLES.BUS_OWNER, ROLES.MASTER_ADMIN],
   [FEATURE_ROUTES[ROLES.BUS_EMPLOYEE].profile]: [ROLES.BUS_EMPLOYEE, ROLES.BUS_ADMIN, ROLES.BUS_OWNER, ROLES.MASTER_ADMIN],
-  
-  // Customer routes
-  [FEATURE_ROUTES[ROLES.CUSTOMER].dashboard]: [ROLES.CUSTOMER],
-  [FEATURE_ROUTES[ROLES.CUSTOMER].bookings]: [ROLES.CUSTOMER],
-  [FEATURE_ROUTES[ROLES.CUSTOMER].profile]: [ROLES.CUSTOMER],
 }
 
 // Helper functions
@@ -209,12 +196,6 @@ export const NAVIGATION_MENU = {
     { label: 'Dashboard', path: FEATURE_ROUTES[ROLES.BUS_EMPLOYEE].dashboard, icon: 'dashboard' },
     { label: 'My Trips', path: FEATURE_ROUTES[ROLES.BUS_EMPLOYEE].trips, icon: 'trips' },
     { label: 'Profile', path: FEATURE_ROUTES[ROLES.BUS_EMPLOYEE].profile, icon: 'profile' },
-  ],
-  
-  [ROLES.CUSTOMER]: [
-    { label: 'Dashboard', path: FEATURE_ROUTES[ROLES.CUSTOMER].dashboard, icon: 'dashboard' },
-    { label: 'My Bookings', path: FEATURE_ROUTES[ROLES.CUSTOMER].bookings, icon: 'bookings' },
-    { label: 'Profile', path: FEATURE_ROUTES[ROLES.CUSTOMER].profile, icon: 'profile' },
   ],
 }
 

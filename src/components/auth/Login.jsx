@@ -39,7 +39,6 @@ const Login = () => {
         'BUS_ADMIN': '/bus-admin',
         'BOOKING_MAN': '/booking-man',
         'BUS_EMPLOYEE': '/bus-employee',
-        'CUSTOMER': '/customer'
       }
       
       const redirectTo = dashboardRoutes[result.user.role] || '/'
