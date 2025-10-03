@@ -487,6 +487,14 @@ export const tripAPI = {
     });
   },
 
+  // Get trips by bus admin
+  getTripsByBusAdmin: async (params = {}) => {
+    return apiRequest('/trips/bus-admin', {
+      method: 'GET',
+      params,
+    });
+  },
+
   // Get trip by ID
   getTripById: async (tripId) => {
     return apiRequest(`/trips/${tripId}`);
@@ -524,8 +532,8 @@ export const tripAPI = {
   },
 
   // Get trip statistics
-  getTripStatistics: async (tripId) => {
-    return apiRequest(`/trips/${tripId}/statistics`);
+  getTripStatistics: async () => {
+    return apiRequest('/trips/statistics');
   },
 
   // Get trips by route
@@ -541,6 +549,38 @@ export const tripAPI = {
     return apiRequest(`/trips/bus/${busId}`, {
       method: 'GET',
       params,
+    });
+  },
+
+  // Get available drivers for a specific date
+  getAvailableDrivers: async (date) => {
+    return apiRequest('/trips/available/drivers', {
+      method: 'GET',
+      params: { date },
+    });
+  },
+
+  // Get available helpers for a specific date
+  getAvailableHelpers: async (date) => {
+    return apiRequest('/trips/available/helpers', {
+      method: 'GET',
+      params: { date },
+    });
+  },
+
+  // Get available buses for a specific date
+  getAvailableBuses: async (date) => {
+    return apiRequest('/trips/available/buses', {
+      method: 'GET',
+      params: { date },
+    });
+  },
+
+  // Bulk update trip status
+  bulkUpdateTripStatus: async (tripIds, status) => {
+    return apiRequest('/trips/bulk/status', {
+      method: 'PUT',
+      data: { tripIds, status },
     });
   },
 
