@@ -11,7 +11,8 @@ import {
   Calendar,
   Users,
   DollarSign,
-  RefreshCw
+  RefreshCw,
+  Clock
 } from 'lucide-react'
 
 const BusAnalytics = () => {

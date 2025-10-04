@@ -20,7 +20,11 @@ import {
   ChevronDown,
   ChevronUp,
   Eye,
-  EyeOff
+  EyeOff,
+  PlayCircle,
+  AlertCircle,
+  CheckCircle,
+  XCircle
 } from 'lucide-react'
 
 const TripAnalytics = () => {
