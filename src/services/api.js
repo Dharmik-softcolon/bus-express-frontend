@@ -2,6 +2,7 @@
 import config from '../config/config.js'
 import axios from 'axios'
 import { handleApiError } from '../utils/toast.js'
+import { enhancedBookingAPI } from './enhancedBookingAPI.js'
 
 // Create axios instance with default configuration
 const apiClient = axios.create({
@@ -252,11 +253,11 @@ export const authAPI = {
     return apiRequest(`/auth/bus-admins${queryParams ? `?${queryParams}` : ''}`);
   },
 
-  // Create booking manager
-  createBookingManager: async (bookingManagerData) => {
-    return apiRequest('/auth/booking-managers', {
+  // Create booking man
+  createBookingMan: async (bookingManData) => {
+    return apiRequest('/auth/booking-men', {
       method: 'POST',
-      data: bookingManagerData,
+      data: bookingManData,
     });
   },
 
@@ -586,9 +587,9 @@ export const tripAPI = {
 
 };
 
-// Booking API
+// Enhanced Booking API - combines original and enhanced functionality
 export const bookingAPI = {
-  // Get all bookings
+  // Original booking API methods (for backward compatibility)
   getAllBookings: async (params = {}) => {
     return apiRequest('/bookings', {
       method: 'GET',
@@ -596,12 +597,10 @@ export const bookingAPI = {
     });
   },
 
-  // Get booking by ID
   getBookingById: async (bookingId) => {
     return apiRequest(`/bookings/${bookingId}`);
   },
 
-  // Create new booking
   createBooking: async (bookingData) => {
     return apiRequest('/bookings', {
       method: 'POST',
@@ -609,7 +608,6 @@ export const bookingAPI = {
     });
   },
 
-  // Update booking
   updateBooking: async (bookingId, bookingData) => {
     return apiRequest(`/bookings/${bookingId}`, {
       method: 'PUT',
@@ -617,14 +615,13 @@ export const bookingAPI = {
     });
   },
 
-  // Cancel booking
-  cancelBooking: async (bookingId) => {
+  cancelBooking: async (bookingId, cancelData = {}) => {
     return apiRequest(`/bookings/${bookingId}/cancel`, {
       method: 'PUT',
+      data: cancelData,
     });
   },
 
-  // Get booking statistics
   getBookingStatistics: async (params = {}) => {
     return apiRequest('/bookings/statistics', {
       method: 'GET',
@@ -632,7 +629,6 @@ export const bookingAPI = {
     });
   },
 
-  // Get bookings by user
   getBookingsByUser: async (userId, params = {}) => {
     return apiRequest(`/bookings/user/${userId}`, {
       method: 'GET',
@@ -640,7 +636,6 @@ export const bookingAPI = {
     });
   },
 
-  // Get bookings by trip
   getBookingsByTrip: async (tripId, params = {}) => {
     return apiRequest(`/bookings/trip/${tripId}`, {
       method: 'GET',
@@ -648,7 +643,6 @@ export const bookingAPI = {
     });
   },
 
-  // Download ticket
   downloadTicket: async (bookingId) => {
     return apiRequest(`/bookings/${bookingId}/ticket`, {
       method: 'GET',
@@ -656,12 +650,32 @@ export const bookingAPI = {
     });
   },
 
-  // Email ticket
   emailTicket: async (bookingId) => {
     return apiRequest(`/bookings/${bookingId}/email`, {
       method: 'POST',
     });
   },
+
+  updateBookingStatus: async (bookingId, statusData) => {
+    return apiRequest(`/bookings/${bookingId}/status`, {
+      method: 'PUT',
+      data: statusData,
+    });
+  },
+
+  getBookingByReference: async (reference) => {
+    return apiRequest(`/bookings/reference/${reference}`);
+  },
+
+  getCustomers: async (params = {}) => {
+    return apiRequest('/booking-men/customers', {
+      method: 'GET',
+      params,
+    });
+  },
+
+  // Enhanced booking API methods
+  ...enhancedBookingAPI
 };
 
 // Analytics API
@@ -825,48 +839,85 @@ export const busEmployeeAPI = {
 };
 
 // Booking Manager API
-export const bookingManagerAPI = {
-  // Get all booking managers
-  getAllBookingManagers: async (params = {}) => {
-    return apiRequest('/bus-admin/booking-managers', {
+export const bookingManAPI = {
+  // Get all booking men (for admin)
+  getAllBookingMen: async (params = {}) => {
+    return apiRequest('/bus-admin/booking-men', {
       method: 'GET',
       params,
     });
   },
 
-  // Get booking manager by ID
-  getBookingManagerById: async (managerId) => {
-    return apiRequest(`/bus-admin/booking-managers/${managerId}`);
+  // Get booking man by ID (for admin)
+  getBookingManById: async (manId) => {
+    return apiRequest(`/bus-admin/booking-men/${manId}`);
   },
 
-  // Create new booking manager
-  createBookingManager: async (managerData) => {
-    return apiRequest('/bus-admin/booking-managers', {
+  // Create new booking man (for admin)
+  createBookingMan: async (manData) => {
+    return apiRequest('/bus-admin/booking-men', {
       method: 'POST',
-      data: managerData,
+      data: manData,
     });
   },
 
-  // Update booking manager
-  updateBookingManager: async (managerId, managerData) => {
-    return apiRequest(`/bus-admin/booking-managers/${managerId}`, {
+  // Update booking man (for admin)
+  updateBookingMan: async (manId, manData) => {
+    return apiRequest(`/bus-admin/booking-men/${manId}`, {
       method: 'PUT',
-      data: managerData,
+      data: manData,
     });
   },
 
-  // Delete booking manager
-  deleteBookingManager: async (managerId) => {
-    return apiRequest(`/bus-admin/booking-managers/${managerId}`, {
+  // Delete booking man (for admin)
+  deleteBookingMan: async (manId) => {
+    return apiRequest(`/bus-admin/booking-men/${manId}`, {
       method: 'DELETE',
     });
   },
 
-  // Get booking manager statistics
-  getBookingManagerStatistics: async (params = {}) => {
-    return apiRequest('/bus-admin/booking-managers', {
+  // Get booking man statistics (for admin)
+  getBookingManStatistics: async (params = {}) => {
+    return apiRequest('/bus-admin/booking-men', {
       method: 'GET',
       params: { ...params, statistics: true },
+    });
+  },
+
+  // Booking Man Dashboard API
+  getDashboard: async () => {
+    return apiRequest('/booking-man/dashboard');
+  },
+
+  // Get bookings for booking man
+  getBookings: async (params = {}) => {
+    return apiRequest('/booking-man/bookings', {
+      method: 'GET',
+      params,
+    });
+  },
+
+  // Get customers for booking man
+  getCustomers: async (params = {}) => {
+    return apiRequest('/booking-man/customers', {
+      method: 'GET',
+      params,
+    });
+  },
+
+  // Update booking status
+  updateBookingStatus: async (bookingId, data) => {
+    return apiRequest(`/booking-man/bookings/${bookingId}/status`, {
+      method: 'PUT',
+      data,
+    });
+  },
+
+  // Cancel booking
+  cancelBooking: async (bookingId, data) => {
+    return apiRequest(`/booking-man/bookings/${bookingId}/cancel`, {
+      method: 'PUT',
+      data,
     });
   },
 };
@@ -937,9 +988,9 @@ export const dashboardAPI = {
     });
   },
 
-  // Get Booking Manager Dashboard
-  getBookingManagerDashboard: async () => {
-    return apiRequest('/booking-manager/dashboard', {
+  // Get Booking Man Dashboard
+  getBookingManDashboard: async () => {
+    return apiRequest('/booking-man/dashboard', {
       method: 'GET',
     });
   },

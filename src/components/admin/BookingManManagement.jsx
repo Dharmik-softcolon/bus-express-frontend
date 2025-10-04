@@ -297,10 +297,10 @@ const BookingManManagement = () => {
 
   // Load booking managers on component mount
   useEffect(() => {
-    loadBookingManagers()
+    loadBookingMen()
   }, [])
 
-  const loadBookingManagers = async () => {
+  const loadBookingMen = async () => {
     try {
       setLoading(true)
       setError(null)
@@ -349,7 +349,7 @@ const BookingManManagement = () => {
       const response = await bookingAPI.createBooking(bookingData)
       
       // Update booking managers list
-      await loadBookingManagers()
+      await loadBookingMen()
       
       return response
     } catch (err) {
@@ -369,7 +369,7 @@ const BookingManManagement = () => {
       const response = await bookingAPI.cancelBooking(bookingId)
       
       // Update booking managers list
-      await loadBookingManagers()
+      await loadBookingMen()
       
       return response
     } catch (err) {

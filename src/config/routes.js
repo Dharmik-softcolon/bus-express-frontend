@@ -16,7 +16,7 @@ export const DASHBOARD_ROUTES = {
   [ROLES.MASTER_ADMIN]: '/master-admin',
   [ROLES.BUS_OWNER]: '/bus-owner',
   [ROLES.BUS_ADMIN]: '/bus-admin',
-  [ROLES.BOOKING_MAN]: '/booking-manager',
+  [ROLES.BOOKING_MAN]: '/booking-man',
   [ROLES.BUS_EMPLOYEE]: '/bus-employee',
 }
 
@@ -57,11 +57,14 @@ export const FEATURE_ROUTES = {
     expenses: '/bus-admin/expenses',
   },
   
-  // Booking Manager routes
+  // Booking Man routes
   [ROLES.BOOKING_MAN]: {
-    dashboard: '/booking-manager',
-    bookings: '/booking-manager/bookings',
-    customers: '/booking-manager/customers',
+    dashboard: '/booking-man',
+    overview: '/booking-man/overview',
+    bookings: '/booking-man/bookings',
+    createBooking: '/booking-man/create-booking',
+    customers: '/booking-man/customers',
+    analytics: '/booking-man/analytics',
   },
   
   // Bus Employee routes
@@ -111,8 +114,11 @@ export const ROUTE_PERMISSIONS = {
 
   // Booking Manager routes
   [FEATURE_ROUTES[ROLES.BOOKING_MAN].dashboard]: [ROLES.BOOKING_MAN, ROLES.BUS_ADMIN, ROLES.BUS_OWNER, ROLES.MASTER_ADMIN],
+  [FEATURE_ROUTES[ROLES.BOOKING_MAN].overview]: [ROLES.BOOKING_MAN, ROLES.BUS_ADMIN, ROLES.BUS_OWNER, ROLES.MASTER_ADMIN],
   [FEATURE_ROUTES[ROLES.BOOKING_MAN].bookings]: [ROLES.BOOKING_MAN, ROLES.BUS_ADMIN, ROLES.BUS_OWNER, ROLES.MASTER_ADMIN],
+  [FEATURE_ROUTES[ROLES.BOOKING_MAN].createBooking]: [ROLES.BOOKING_MAN, ROLES.BUS_ADMIN, ROLES.BUS_OWNER, ROLES.MASTER_ADMIN],
   [FEATURE_ROUTES[ROLES.BOOKING_MAN].customers]: [ROLES.BOOKING_MAN, ROLES.BUS_ADMIN, ROLES.BUS_OWNER, ROLES.MASTER_ADMIN],
+  [FEATURE_ROUTES[ROLES.BOOKING_MAN].analytics]: [ROLES.BOOKING_MAN, ROLES.BUS_ADMIN, ROLES.BUS_OWNER, ROLES.MASTER_ADMIN],
   
   // Bus Employee routes
   [FEATURE_ROUTES[ROLES.BUS_EMPLOYEE].dashboard]: [ROLES.BUS_EMPLOYEE, ROLES.BUS_ADMIN, ROLES.BUS_OWNER, ROLES.MASTER_ADMIN],
@@ -187,9 +193,11 @@ export const NAVIGATION_MENU = {
   ],
   
   [ROLES.BOOKING_MAN]: [
-    { label: 'Dashboard', path: FEATURE_ROUTES[ROLES.BOOKING_MAN].dashboard, icon: 'dashboard' },
+    { label: 'Overview', path: FEATURE_ROUTES[ROLES.BOOKING_MAN].overview, icon: 'overview' },
     { label: 'Bookings', path: FEATURE_ROUTES[ROLES.BOOKING_MAN].bookings, icon: 'bookings' },
+    { label: 'Create Booking', path: FEATURE_ROUTES[ROLES.BOOKING_MAN].createBooking, icon: 'booking' },
     { label: 'Customers', path: FEATURE_ROUTES[ROLES.BOOKING_MAN].customers, icon: 'customers' },
+    { label: 'Analytics', path: FEATURE_ROUTES[ROLES.BOOKING_MAN].analytics, icon: 'analytics' },
   ],
   
   [ROLES.BUS_EMPLOYEE]: [

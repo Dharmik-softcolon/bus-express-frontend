@@ -36,10 +36,17 @@ import { ROLES } from './config/config'
 import { PUBLIC_ROUTES, getDefaultRoute } from './config/routes'
 import BusManagement from "./components/pages/BusManagement.jsx";
 import BookingManManagement from "./components/admin/BookingManManagement.jsx";
-import BookingManagersManagement from "./components/pages/BookingManagersManagement.jsx";
+import BookingMenManagement from "./components/pages/BookingMenManagement.jsx";
 import BusAdminOverview from "./components/pages/BusAdminOverview.jsx";
 import BusApiTest from "./components/debug/BusApiTest.jsx";
 import BusEmployeeDashboard from "./components/admin/BusEmployeeDashboard.jsx";
+import BookingManagerDashboard from "./components/role-dashboards/BookingManagerDashboard.jsx";
+import BookingManagement from "./components/booking/BookingManagement.jsx";
+import BookingManagerOverview from "./components/booking/BookingManagerOverview.jsx";
+import BookingManagerBookings from "./components/booking/BookingManagerBookings.jsx";
+import BookingManagerCreateBooking from "./components/booking/BookingManagerCreateBooking.jsx";
+import BookingManagerCustomers from "./components/booking/BookingManagerCustomers.jsx";
+import BookingManagerAnalytics from "./components/booking/BookingManagerAnalytics.jsx";
 
 // Component to handle home page with auto-redirect for logged-in users
 const HomePageWrapper = ({ onSearch }) => {
@@ -159,7 +166,7 @@ function App() {
             } />
             <Route path="/bus-admin/booking-men" element={
               <ProtectedRoute requiredRoles={[ROLES.BUS_ADMIN, ROLES.MASTER_ADMIN]}>
-                <BookingManagersManagement />
+                <BookingMenManagement />
               </ProtectedRoute>
             } />
             <Route path="/bus-admin/bus-analytics" element={
@@ -195,6 +202,45 @@ function App() {
               </ProtectedRoute>
             } />
 
+            {/* Booking Man Routes */}
+            <Route path="/booking-man" element={
+              <ProtectedRoute requiredRoles={[ROLES.BOOKING_MAN, ROLES.BUS_ADMIN, ROLES.BUS_OWNER, ROLES.MASTER_ADMIN]}>
+                <BookingManagerDashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/booking-man/overview" element={
+              <ProtectedRoute requiredRoles={[ROLES.BOOKING_MAN, ROLES.BUS_ADMIN, ROLES.BUS_OWNER, ROLES.MASTER_ADMIN]}>
+                <BookingManagerOverview />
+              </ProtectedRoute>
+            } />
+            <Route path="/booking-man/bookings" element={
+              <ProtectedRoute requiredRoles={[ROLES.BOOKING_MAN, ROLES.BUS_ADMIN, ROLES.BUS_OWNER, ROLES.MASTER_ADMIN]}>
+                <BookingManagerBookings />
+              </ProtectedRoute>
+            } />
+            <Route path="/booking-man/create-booking" element={
+              <ProtectedRoute requiredRoles={[ROLES.BOOKING_MAN, ROLES.BUS_ADMIN, ROLES.BUS_OWNER, ROLES.MASTER_ADMIN]}>
+                <BookingManagerCreateBooking />
+              </ProtectedRoute>
+            } />
+            <Route path="/booking-man/customers" element={
+              <ProtectedRoute requiredRoles={[ROLES.BOOKING_MAN, ROLES.BUS_ADMIN, ROLES.BUS_OWNER, ROLES.MASTER_ADMIN]}>
+                <BookingManagerCustomers />
+              </ProtectedRoute>
+            } />
+            <Route path="/booking-man/analytics" element={
+              <ProtectedRoute requiredRoles={[ROLES.BOOKING_MAN, ROLES.BUS_ADMIN, ROLES.BUS_OWNER, ROLES.MASTER_ADMIN]}>
+                <BookingManagerAnalytics />
+              </ProtectedRoute>
+            } />
+
+            {/* Booking Management Route */}
+            <Route path="/booking-management" element={
+              <ProtectedRoute requiredRoles={[ROLES.BOOKING_MAN, ROLES.BUS_ADMIN, ROLES.BUS_OWNER, ROLES.MASTER_ADMIN]}>
+                <BookingManagement />
+              </ProtectedRoute>
+            } />
+
             
             {/* Debug/Test Routes */}
             <Route path="/debug/bus-api" element={<BusApiTest />} />
@@ -202,7 +248,7 @@ function App() {
             {/* Legacy route redirects for backward compatibility */}
             <Route path="/admin/*" element={<Navigate to="/bus-admin" replace />} />
             <Route path="/dashboard/admin" element={<Navigate to="/bus-admin" replace />} />
-            <Route path="/dashboard/booking" element={<Navigate to="/booking-manager" replace />} />
+            <Route path="/dashboard/booking" element={<Navigate to="/booking-man" replace />} />
             <Route path="/dashboard/employee" element={<Navigate to="/bus-employee" replace />} />
             
             {/* Catch all route - redirect to home */}
