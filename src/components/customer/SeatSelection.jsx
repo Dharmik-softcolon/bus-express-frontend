@@ -163,39 +163,39 @@ const SeatSelection = ({ selectedSeats, onBooking }) => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50">
+      <div className="dashboard-content">
         {/* Header */}
-        <div className="mb-8">
+        <div className="mb-8 sm:mb-12">
           <button
             onClick={() => navigate('/search')}
-            className="flex items-center text-blue-600 hover:text-blue-700 mb-4"
+            className="flex items-center text-navy hover:text-navy-dark mb-4 sm:mb-6 transition-colors group"
           >
-            <ArrowLeft className="h-4 w-4 mr-1" />
-            Back to Search Results
+            <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5 mr-2 group-hover:-translate-x-1 transition-transform" />
+            <span className="text-sm sm:text-base font-medium">Back to Search Results</span>
           </button>
           
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-responsive-xl font-bold text-gray-900 mb-4 sm:mb-6">
             Select Your Seats
           </h1>
           
-          <div className="card">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="card-elevated">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               <div className="flex items-center">
-                <MapPin className="h-4 w-4 text-gray-400 mr-2" />
-                <span className="text-sm text-gray-600">
+                <MapPin className="h-4 w-4 sm:h-5 sm:w-5 text-navy mr-2 flex-shrink-0" />
+                <span className="text-sm sm:text-base text-gray-700 font-medium">
                   {bus.from} → {bus.to}
                 </span>
               </div>
               <div className="flex items-center">
-                <Clock className="h-4 w-4 text-gray-400 mr-2" />
-                <span className="text-sm text-gray-600">
+                <Clock className="h-4 w-4 sm:h-5 sm:w-5 text-navy mr-2 flex-shrink-0" />
+                <span className="text-sm sm:text-base text-gray-700 font-medium">
                   {bus.departureTime} - {bus.arrivalTime}
                 </span>
               </div>
               <div className="flex items-center">
-                <User className="h-4 w-4 text-gray-400 mr-2" />
-                <span className="text-sm text-gray-600">
+                <User className="h-4 w-4 sm:h-5 sm:w-5 text-navy mr-2 flex-shrink-0" />
+                <span className="text-sm sm:text-base text-gray-700 font-medium">
                   {bus.operator} • {bus.busType}
                 </span>
               </div>
@@ -203,48 +203,48 @@ const SeatSelection = ({ selectedSeats, onBooking }) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
           {/* Seat Selection */}
           <div className="lg:col-span-2">
-            <div className="card">
-              <h2 className="text-xl font-semibold mb-6">Choose Your Seats</h2>
+            <div className="card-elevated">
+              <h2 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6 text-gray-900">Choose Your Seats</h2>
               
               {/* Seat Legend */}
-              <div className="flex justify-center mb-6">
-                <div className="flex space-x-6 text-sm">
+              <div className="flex justify-center mb-6 sm:mb-8">
+                <div className="flex flex-wrap justify-center gap-4 sm:gap-6 text-xs sm:text-sm">
                   <div className="flex items-center">
-                    <div className="w-6 h-6 rounded border-2 border-green-300 bg-green-100 mr-2"></div>
-                    <span>Available</span>
+                    <div className="w-6 h-6 sm:w-7 sm:h-7 rounded border-2 border-green-300 bg-green-100 mr-2"></div>
+                    <span className="font-medium">Available</span>
                   </div>
                   <div className="flex items-center">
-                    <div className="w-6 h-6 rounded border-2 border-blue-300 bg-blue-100 mr-2"></div>
-                    <span>Selected</span>
+                    <div className="w-6 h-6 sm:w-7 sm:h-7 rounded border-2 border-blue-300 bg-blue-100 mr-2"></div>
+                    <span className="font-medium">Selected</span>
                   </div>
                   <div className="flex items-center">
-                    <div className="w-6 h-6 rounded border-2 border-gray-300 bg-gray-100 mr-2"></div>
-                    <span>Occupied</span>
+                    <div className="w-6 h-6 sm:w-7 sm:h-7 rounded border-2 border-gray-300 bg-gray-100 mr-2"></div>
+                    <span className="font-medium">Occupied</span>
                   </div>
                 </div>
               </div>
 
               {/* Bus Layout */}
-              <div className="flex justify-center">
-                <div className="bg-gray-100 p-6 rounded-lg">
+              <div className="flex justify-center overflow-x-auto">
+                <div className="bg-gradient-to-b from-gray-100 to-gray-200 p-4 sm:p-6 rounded-lg shadow-inner">
                   {/* Driver */}
-                  <div className="text-center mb-4">
-                    <div className="w-8 h-8 bg-gray-400 rounded mx-auto mb-2"></div>
-                    <span className="text-xs text-gray-600">Driver</span>
+                  <div className="text-center mb-4 sm:mb-6">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gray-400 rounded mx-auto mb-2 shadow-sm"></div>
+                    <span className="text-xs sm:text-sm text-gray-600 font-medium">Driver</span>
                   </div>
 
                   {/* Seats */}
-                  <div className="space-y-2">
+                  <div className="space-y-2 sm:space-y-3">
                     {seats.map((row, rowIndex) => (
-                      <div key={rowIndex} className="flex justify-center space-x-2">
+                      <div key={rowIndex} className="flex justify-center space-x-1 sm:space-x-2">
                         {row.map((seat, seatIndex) => (
                           <button
                             key={seat.number}
                             onClick={() => !seat.occupied && handleSeatClick(seat.number)}
-                            className={`w-8 h-8 rounded border-2 text-xs font-medium ${getSeatClass(seat)}`}
+                            className={`w-8 h-8 sm:w-10 sm:h-10 rounded border-2 text-xs sm:text-sm font-bold transition-all duration-200 hover:scale-105 ${getSeatClass(seat)}`}
                             disabled={seat.occupied}
                           >
                             {seat.number}
@@ -256,8 +256,14 @@ const SeatSelection = ({ selectedSeats, onBooking }) => {
                 </div>
               </div>
 
-              <div className="mt-6 text-center text-sm text-gray-600">
-                Selected Seats: {selectedSeatNumbers.length > 0 ? selectedSeatNumbers.join(', ') : 'None'}
+              <div className="mt-6 sm:mt-8 text-center">
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 sm:p-4">
+                  <p className="text-sm sm:text-base text-gray-700 font-medium">
+                    Selected Seats: <span className="text-navy font-bold">
+                      {selectedSeatNumbers.length > 0 ? selectedSeatNumbers.join(', ') : 'None'}
+                    </span>
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -326,37 +332,46 @@ const SeatSelection = ({ selectedSeats, onBooking }) => {
             </div>
 
             {/* Booking Summary */}
-            <div className="card">
-              <h2 className="text-xl font-semibold mb-4">Booking Summary</h2>
+            <div className="card-elevated">
+              <h2 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6 text-gray-900">Booking Summary</h2>
               
-              <div className="space-y-3 mb-6">
-                <div className="flex justify-between">
-                  <span>Base Fare ({selectedSeatNumbers.length} × ${bus.price})</span>
-                  <span>${bus.price * selectedSeatNumbers.length}</span>
+              <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm sm:text-base text-gray-600">Base Fare ({selectedSeatNumbers.length} × ₹{bus.price})</span>
+                  <span className="text-sm sm:text-base font-semibold text-gray-900">₹{bus.price * selectedSeatNumbers.length}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span>Service Fee</span>
-                  <span>$2.00</span>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm sm:text-base text-gray-600">Service Fee</span>
+                  <span className="text-sm sm:text-base font-semibold text-gray-900">₹2.00</span>
                 </div>
-                <div className="flex justify-between">
-                  <span>Taxes</span>
-                  <span>$3.50</span>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm sm:text-base text-gray-600">Taxes</span>
+                  <span className="text-sm sm:text-base font-semibold text-gray-900">₹3.50</span>
                 </div>
-                <div className="border-t pt-3">
-                  <div className="flex justify-between font-semibold text-lg">
-                    <span>Total</span>
-                    <span>${(bus.price * selectedSeatNumbers.length + 5.5).toFixed(2)}</span>
+                <div className="border-t border-gray-200 pt-3 sm:pt-4">
+                  <div className="flex justify-between items-center">
+                    <span className="text-base sm:text-lg font-bold text-gray-900">Total</span>
+                    <span className="text-lg sm:text-xl font-bold text-navy">₹{(bus.price * selectedSeatNumbers.length + 5.5).toFixed(2)}</span>
                   </div>
                 </div>
               </div>
 
               <button
                 onClick={handleProceedToPayment}
-                className="btn-primary w-full flex items-center justify-center"
-                disabled={selectedSeatNumbers.length === 0}
+                className="btn-primary btn-lg w-full flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={selectedSeatNumbers.length === 0 || loading}
               >
-                Proceed to Payment
-                <ArrowRight className="h-4 w-4 ml-2" />
+                {loading ? (
+                  <>
+                    <div className="loading-spinner h-4 w-4 sm:h-5 sm:w-5 mr-2"></div>
+                    Processing...
+                  </>
+                ) : (
+                  <>
+                    Proceed to Payment
+                    <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 ml-2" />
+                  </>
+                )}
               </button>
             </div>
           </div>

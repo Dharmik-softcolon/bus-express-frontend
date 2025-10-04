@@ -70,7 +70,7 @@ const MasterAdminDashboard = () => {
                       onClick={() => setActiveTab(tab.id)}
                       className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors ${
                           activeTab === tab.id
-                              ? 'bg-blue-600 text-white'
+                              ? 'bg-navy text-white'
                               : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
                       }`}
                   >
@@ -85,7 +85,7 @@ const MasterAdminDashboard = () => {
           <div className="bg-white rounded-lg shadow p-6">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                <div className="w-8 h-8 bg-navy rounded-full flex items-center justify-center">
                   <Users className="w-5 h-5 text-white" />
                 </div>
               </div>
@@ -263,7 +263,7 @@ const MasterAdminDashboard = () => {
           <div className="p-6">
             <div className="space-y-4">
               <div className="flex items-center space-x-4">
-                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                <div className="w-2 h-2 bg-navy rounded-full"></div>
                 <div className="flex-1">
                   <p className="text-sm text-gray-900">New bus owner registered: ABC Transport</p>
                   <p className="text-xs text-gray-500">2 minutes ago</p>

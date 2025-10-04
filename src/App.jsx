@@ -68,7 +68,7 @@ function App() {
 
   return (
     <UserProvider>
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col bg-white">
         <Header />
         <main className="flex-grow">
           <Routes>
@@ -144,6 +144,11 @@ function App() {
                 <BusAdminOverview />
               </ProtectedRoute>
             } />
+            <Route path="/bus-admin/overview" element={
+              <ProtectedRoute requiredRoles={[ROLES.BUS_ADMIN, ROLES.MASTER_ADMIN]}>
+                <BusAdminOverview />
+              </ProtectedRoute>
+            } />
             <Route path="/bus-admin/buses" element={
               <ProtectedRoute requiredRoles={[ROLES.BUS_ADMIN, ROLES.MASTER_ADMIN]}>
                 <BusManagement />
@@ -167,21 +172,6 @@ function App() {
             <Route path="/bus-admin/booking-men" element={
               <ProtectedRoute requiredRoles={[ROLES.BUS_ADMIN, ROLES.MASTER_ADMIN]}>
                 <BookingMenManagement />
-              </ProtectedRoute>
-            } />
-            <Route path="/bus-admin/bus-analytics" element={
-              <ProtectedRoute requiredRoles={[ROLES.BUS_ADMIN, ROLES.MASTER_ADMIN]}>
-                <BusAnalytics />
-              </ProtectedRoute>
-            } />
-            <Route path="/bus-admin/route-analytics" element={
-              <ProtectedRoute requiredRoles={[ROLES.BUS_ADMIN, ROLES.MASTER_ADMIN]}>
-                <RouteAnalytics />
-              </ProtectedRoute>
-            } />
-            <Route path="/bus-admin/trip-analytics" element={
-              <ProtectedRoute requiredRoles={[ROLES.BUS_ADMIN, ROLES.MASTER_ADMIN]}>
-                <TripAnalytics />
               </ProtectedRoute>
             } />
             <Route path="/bus-admin/revenue" element={

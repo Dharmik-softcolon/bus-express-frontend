@@ -67,7 +67,7 @@ const Login = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-navy to-navy-dark flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-6 sm:space-y-8">
         {/* Header */}
         <div className="text-center">
@@ -164,7 +164,7 @@ const Login = () => {
           <div className="mt-6 text-center">
             <button
               onClick={() => navigate('/')}
-              className="text-blue-600 hover:text-blue-700 text-sm font-medium"
+              className="text-navy hover:text-navy-dark text-sm font-medium"
             >
               ← Back to Home
             </button>

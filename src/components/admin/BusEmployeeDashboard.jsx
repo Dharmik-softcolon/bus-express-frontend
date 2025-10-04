@@ -610,7 +610,7 @@ const BusEmployeeDashboard = () => {
                         </button>
                         <button
                           onClick={() => handleSMS(customer.phone, customer.name)}
-                          className="inline-flex items-center px-2 py-1 bg-blue-500 text-white rounded-md text-xs font-medium hover:bg-blue-600 transition-colors duration-200"
+                          className="inline-flex items-center px-2 py-1 bg-navy text-white rounded-md text-xs font-medium hover:bg-navy-light transition-colors duration-200"
                           title={`Send SMS to ${customer.name}`}
                         >
                           <MessageSquare className="h-3 w-3 mr-1" />
@@ -674,7 +674,7 @@ const BusEmployeeDashboard = () => {
                     {expense.evidence && (
                       <button
                         onClick={() => setSelectedExpense(expense)}
-                        className="p-1 text-blue-600 hover:text-blue-800"
+                        className="p-1 text-navy hover:text-navy-dark"
                         title="View Evidence"
                       >
                         <Eye className="h-4 w-4" />
@@ -783,7 +783,7 @@ const BusEmployeeDashboard = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="bg-blue-50 p-4 rounded-lg">
-            <div className="text-2xl font-bold text-blue-600">${earnings.monthly[0].earnings}</div>
+            <div className="text-2xl font-bold text-navy">${earnings.monthly[0].earnings}</div>
             <div className="text-sm text-gray-600">This Month</div>
           </div>
           <div className="bg-green-50 p-4 rounded-lg">
@@ -830,7 +830,7 @@ const BusEmployeeDashboard = () => {
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mr-4">
-                  <User className="h-8 w-8 text-blue-600" />
+                  <User className="h-8 w-8 text-navy" />
                 </div>
                 <div>
                   <div className="flex items-center mb-1">
@@ -839,7 +839,7 @@ const BusEmployeeDashboard = () => {
                     </h1>
                     <button
                       onClick={() => setShowWelcomeModal(true)}
-                      className="px-3 py-1 text-xs bg-blue-100 text-blue-700 rounded-full hover:bg-blue-200 transition-colors"
+                      className="px-3 py-1 text-xs bg-blue-100 text-navy rounded-full hover:bg-blue-200 transition-colors"
                       title="Show onboarding guide"
                     >
                       Help & Tour
@@ -889,7 +889,7 @@ const BusEmployeeDashboard = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                   activeTab === tab.id
-                    ? 'bg-blue-600 text-white'
+                    ? 'bg-navy text-white'
                     : 'bg-white text-gray-700 hover:bg-gray-50'
                 }`}
               >
@@ -903,9 +903,9 @@ const BusEmployeeDashboard = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
           <div className="card bg-blue-50 p-4">
             <div className="flex items-center">
-              <Users className="h-8 w-8 text-blue-600 mr-3" />
+              <Users className="h-8 w-8 text-navy mr-3" />
               <div>
-                <div className="text-2xl font-bold text-blue-600">{currentTrip.customers.length}</div>
+                <div className="text-2xl font-bold text-navy">{currentTrip.customers.length}</div>
                 <div className="text-sm text-gray-600">Passengers Today</div>
               </div>
             </div>

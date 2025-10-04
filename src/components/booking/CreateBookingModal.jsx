@@ -470,7 +470,7 @@ const CreateBookingModal = ({ isOpen, onClose }) => {
                   value={searchFilters.from}
                   onChange={handleSearchInputChange}
                   placeholder="Pickup location"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy focus:border-transparent"
                 />
               </div>
               <div>
@@ -483,7 +483,7 @@ const CreateBookingModal = ({ isOpen, onClose }) => {
                   value={searchFilters.to}
                   onChange={handleSearchInputChange}
                   placeholder="Drop location"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy focus:border-transparent"
                 />
               </div>
               <div>
@@ -496,7 +496,7 @@ const CreateBookingModal = ({ isOpen, onClose }) => {
                   value={searchFilters.date}
                   onChange={handleSearchInputChange}
                   min={new Date().toISOString().split('T')[0]}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy focus:border-transparent"
                 />
               </div>
               <div>
@@ -510,14 +510,14 @@ const CreateBookingModal = ({ isOpen, onClose }) => {
                   onChange={handleSearchInputChange}
                   min="1"
                   max="10"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-navy focus:border-transparent"
                 />
               </div>
             </div>
             <button
               onClick={handleSearch}
               disabled={loading}
-              className="mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center gap-2"
+              className="mt-4 bg-navy text-white px-6 py-2 rounded-lg hover:bg-navy-light transition-colors disabled:opacity-50 flex items-center gap-2"
             >
               {loading ? <RefreshCw className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
               Search Buses
@@ -546,7 +546,7 @@ const CreateBookingModal = ({ isOpen, onClose }) => {
                           </div>
                         </div>
                         <div className="text-right">
-                          <div className="text-2xl font-bold text-blue-600">
+                          <div className="text-2xl font-bold text-navy">
                             ₹{bus.price}
                           </div>
                           <div className="text-sm text-gray-500">
@@ -589,7 +589,7 @@ const CreateBookingModal = ({ isOpen, onClose }) => {
                         {bus.amenities.map((amenity, index) => (
                           <span
                             key={index}
-                            className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
+                            className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-navy"
                           >
                             {amenity}
                           </span>
@@ -616,7 +616,7 @@ const CreateBookingModal = ({ isOpen, onClose }) => {
 
                       <button
                         onClick={() => handleSeatSelection(bus)}
-                        className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+                        className="bg-navy text-white px-4 py-2 rounded-lg hover:bg-navy-light transition-colors flex items-center justify-center gap-2"
                         disabled={bus.availableSeats === 0}
                       >
                         {bus.availableSeats === 0 ? 'Sold Out' : 'Book Seats'}
@@ -665,7 +665,7 @@ const CreateBookingModal = ({ isOpen, onClose }) => {
                           </div>
                           <div className="flex items-center">
                             <div className="w-6 h-6 rounded border-2 border-blue-500 bg-blue-200 mr-2 flex items-center justify-center">
-                              <User className="h-3 w-3 text-blue-800" />
+                              <User className="h-3 w-3 text-navy" />
                             </div>
                             <span>Selected</span>
                           </div>
@@ -716,7 +716,7 @@ const CreateBookingModal = ({ isOpen, onClose }) => {
                                                 ? 'border-pink-300 bg-pink-100 text-pink-600 cursor-not-allowed'
                                                 : 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed'
                                               : selectedSeats.includes(row[0].number)
-                                                ? 'border-blue-500 bg-blue-200 text-blue-800 shadow-md'
+                                                ? 'border-blue-500 bg-blue-200 text-navy shadow-md'
                                                 : 'border-green-300 bg-green-100 text-green-800 hover:bg-green-200 hover:border-green-400'
                                           }`}
                                           disabled={row[0].occupied}
@@ -747,7 +747,7 @@ const CreateBookingModal = ({ isOpen, onClose }) => {
                                                 ? 'border-pink-300 bg-pink-100 text-pink-600 cursor-not-allowed'
                                                 : 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed'
                                               : selectedSeats.includes(row[1].number)
-                                                ? 'border-blue-500 bg-blue-200 text-blue-800 shadow-md'
+                                                ? 'border-blue-500 bg-blue-200 text-navy shadow-md'
                                                 : 'border-green-300 bg-green-100 text-green-800 hover:bg-green-200 hover:border-green-400'
                                           }`}
                                           disabled={row[1].occupied}
@@ -772,7 +772,7 @@ const CreateBookingModal = ({ isOpen, onClose }) => {
                                                 ? 'border-pink-300 bg-pink-100 text-pink-600 cursor-not-allowed'
                                                 : 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed'
                                               : selectedSeats.includes(row[2].number)
-                                                ? 'border-blue-500 bg-blue-200 text-blue-800 shadow-md'
+                                                ? 'border-blue-500 bg-blue-200 text-navy shadow-md'
                                                 : 'border-green-300 bg-green-100 text-green-800 hover:bg-green-200 hover:border-green-400'
                                           }`}
                                           disabled={row[2].occupied}
@@ -921,7 +921,7 @@ const CreateBookingModal = ({ isOpen, onClose }) => {
                         <div className="border-t pt-2">
                           <div className="flex justify-between font-semibold text-lg">
                             <span>Total Amount:</span>
-                            <span className="text-blue-600">₹{selectedBus.price * selectedSeats.length}</span>
+                            <span className="text-navy">₹{selectedBus.price * selectedSeats.length}</span>
                           </div>
                         </div>
                       </div>

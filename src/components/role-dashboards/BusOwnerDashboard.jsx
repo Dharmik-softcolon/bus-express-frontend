@@ -265,7 +265,7 @@ const BusOwnerDashboard = () => {
                   onClick={() => handleQuickAction('bus-analytics')}
                   className="text-center p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors cursor-pointer"
                 >
-                  <Bus className="w-8 h-8 text-blue-600 mx-auto mb-2" />
+                  <Bus className="w-8 h-8 text-navy mx-auto mb-2" />
                   <p className="text-sm font-medium text-gray-900">Bus Analytics</p>
                 </div>
                 <div 

@@ -290,7 +290,7 @@ const BookingManagerDashboard = () => {
       case 'cancelled':
         return 'bg-red-100 text-red-800'
       case 'completed':
-        return 'bg-blue-100 text-blue-800'
+        return 'bg-blue-100 text-navy'
       default:
         return 'bg-gray-100 text-gray-800'
     }
@@ -305,7 +305,7 @@ const BookingManagerDashboard = () => {
       case 'failed':
         return 'bg-red-100 text-red-800'
       case 'refunded':
-        return 'bg-blue-100 text-blue-800'
+        return 'bg-blue-100 text-navy'
       default:
         return 'bg-gray-100 text-gray-800'
     }
@@ -348,7 +348,7 @@ const BookingManagerDashboard = () => {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <RefreshCw className="h-8 w-8 animate-spin mx-auto mb-4 text-blue-600" />
+          <RefreshCw className="h-8 w-8 animate-spin mx-auto mb-4 text-navy" />
           <p className="text-gray-600">Loading dashboard...</p>
         </div>
       </div>
@@ -384,7 +384,7 @@ const BookingManagerDashboard = () => {
           <div className="bg-white rounded-lg shadow p-6">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <Calendar className="h-8 w-8 text-blue-600" />
+                <Calendar className="h-8 w-8 text-navy" />
               </div>
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-500">Total Bookings</p>
@@ -448,7 +448,7 @@ const BookingManagerDashboard = () => {
                     onClick={() => handleTabChange(tab.id)}
                     className={`py-2 px-1 border-b-2 font-medium text-sm flex items-center ${
                       activeTab === tab.id
-                        ? 'border-blue-500 text-blue-600'
+                        ? 'border-navy text-navy'
                         : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                     }`}
                   >
@@ -511,7 +511,7 @@ const BookingManagerDashboard = () => {
                               setSelectedBooking(booking)
                               setShowBookingDetails(true)
                             }}
-                            className="text-blue-600 hover:text-blue-900 mr-3"
+                            className="text-navy hover:text-navy-dark mr-3"
                           >
                             <Eye className="h-4 w-4" />
                           </button>
@@ -555,7 +555,7 @@ const BookingManagerDashboard = () => {
                           )}
                           <div className="relative flex space-x-3">
                             <div>
-                              <span className="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center ring-8 ring-white">
+                              <span className="h-8 w-8 rounded-full bg-navy flex items-center justify-center ring-8 ring-white">
                                 <Activity className="h-4 w-4 text-white" />
                               </span>
                             </div>
@@ -586,7 +586,7 @@ const BookingManagerDashboard = () => {
                 <div className="flex space-x-4">
                   <button
                     onClick={() => setShowCreateBookingModal(true)}
-                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+                    className="bg-navy text-white px-4 py-2 rounded-lg hover:bg-navy-light transition-colors flex items-center gap-2"
                   >
                     <Plus className="h-4 w-4" />
                     Create New Booking
@@ -598,13 +598,13 @@ const BookingManagerDashboard = () => {
                       placeholder="Search bookings..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                      className="pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-navy focus:border-navy"
                     />
                   </div>
                   <select
                     value={filterStatus}
                     onChange={(e) => setFilterStatus(e.target.value)}
-                    className="px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                    className="px-3 py-2 border border-gray-300 rounded-md focus:ring-navy focus:border-navy"
                   >
                     <option value="all">All Status</option>
                     <option value="pending">Pending</option>
@@ -677,7 +677,7 @@ const BookingManagerDashboard = () => {
                               setSelectedBooking(booking)
                               setShowBookingDetails(true)
                             }}
-                            className="text-blue-600 hover:text-blue-900"
+                            className="text-navy hover:text-navy-dark"
                             title="View Details"
                           >
                             <Eye className="h-4 w-4" />
@@ -776,7 +776,7 @@ const BookingManagerDashboard = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <button
                   onClick={() => setShowCreateBookingModal(true)}
-                  className="bg-blue-600 text-white p-4 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+                  className="bg-navy text-white p-4 rounded-lg hover:bg-navy-light transition-colors flex items-center justify-center gap-2"
                 >
                   <Plus className="h-5 w-5" />
                   Create New Booking
@@ -805,7 +805,7 @@ const BookingManagerDashboard = () => {
                   <h3 className="text-lg font-medium text-gray-900">Recent Bookings</h3>
                   <button
                     onClick={() => setActiveTab('bookings')}
-                    className="text-blue-600 hover:text-blue-900 text-sm font-medium"
+                    className="text-navy hover:text-navy-dark text-sm font-medium"
                   >
                     View All
                   </button>
@@ -863,7 +863,7 @@ const BookingManagerDashboard = () => {
                                 setSelectedBooking(booking)
                                 setShowBookingDetails(true)
                               }}
-                              className="text-blue-600 hover:text-blue-900"
+                              className="text-navy hover:text-navy-dark"
                               title="View Details"
                             >
                               <Eye className="h-4 w-4" />
@@ -900,7 +900,7 @@ const BookingManagerDashboard = () => {
               <div className="bg-white shadow rounded-lg p-6">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
-                    <Calendar className="h-8 w-8 text-blue-600" />
+                    <Calendar className="h-8 w-8 text-navy" />
                   </div>
                   <div className="ml-4">
                     <p className="text-sm font-medium text-gray-500">Total Bookings</p>
@@ -962,7 +962,7 @@ const BookingManagerDashboard = () => {
               {/* Quick Analytics Summary */}
               <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
                 <div className="bg-blue-50 rounded-lg p-4 text-center">
-                  <div className="text-2xl font-bold text-blue-600 mb-1">{stats.totalBookings}</div>
+                  <div className="text-2xl font-bold text-navy mb-1">{stats.totalBookings}</div>
                   <div className="text-sm text-gray-600">Total Bookings</div>
                 </div>
                 <div className="bg-green-50 rounded-lg p-4 text-center">

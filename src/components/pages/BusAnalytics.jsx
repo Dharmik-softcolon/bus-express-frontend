@@ -96,10 +96,10 @@ const BusAnalytics = () => {
                 <p className="text-sm font-medium text-gray-600">Occupancy Rate</p>
                 <p className="text-2xl font-bold text-gray-900">{analyticsData.occupancyRate}%</p>
               </div>
-              <Users className="h-8 w-8 text-blue-600" />
+              <Users className="h-8 w-8 text-navy" />
             </div>
             <div className="mt-4">
-              <span className="text-blue-600 text-sm font-medium">+3.2% from last month</span>
+              <span className="text-navy text-sm font-medium">+3.2% from last month</span>
             </div>
           </div>
 
@@ -186,7 +186,7 @@ const BusAnalytics = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {analyticsData.peakHours.map((hour, index) => (
               <div key={index} className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg">
-                <Clock className="h-5 w-5 text-blue-600" />
+                <Clock className="h-5 w-5 text-navy" />
                 <div>
                   <div className="text-sm font-medium text-gray-900">{hour}</div>
                   <div className="text-sm text-gray-600">High demand period</div>

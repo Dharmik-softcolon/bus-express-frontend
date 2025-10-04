@@ -166,7 +166,7 @@ const MasterAdminDashboard = () => {
     if (loading) {
       return (
         <div className="flex justify-center items-center py-8">
-          <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+          <Loader2 className="h-8 w-8 animate-spin text-navy" />
           <span className="ml-2 text-gray-600">Loading bus owners...</span>
         </div>
       )
@@ -222,7 +222,7 @@ const MasterAdminDashboard = () => {
                 </button>
                 <button
                   onClick={() => handleEdit(owner)}
-                  className="text-blue-600 hover:text-blue-900"
+                  className="text-navy hover:text-navy-dark"
                 >
                   <Edit className="h-4 w-4" />
                 </button>
@@ -298,7 +298,7 @@ const MasterAdminDashboard = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                   activeTab === tab.id
-                    ? 'bg-blue-600 text-white'
+                    ? 'bg-navy text-white'
                     : 'bg-white text-gray-700 hover:bg-gray-50'
                 }`}
               >

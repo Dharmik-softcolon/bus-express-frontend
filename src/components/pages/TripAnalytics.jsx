@@ -336,7 +336,7 @@ const TripAnalytics = () => {
             <div className="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
               <div className="flex items-center">
                 <div className="p-2 bg-blue-100 rounded-full mr-3">
-                  <Calendar className="h-4 w-4 text-blue-600" />
+                  <Calendar className="h-4 w-4 text-navy" />
                 </div>
                 <div>
                   <p className="text-sm font-medium text-gray-600">Scheduled</p>

@@ -9,7 +9,10 @@ import {
   DollarSign, 
   TrendingUp, 
   AlertCircle,
-  CheckCircle
+  CheckCircle,
+  BarChart3,
+  PieChart,
+  Activity
 } from 'lucide-react'
 
 const BusAdminOverview = () => {
@@ -32,6 +35,36 @@ const BusAdminOverview = () => {
   const [buses, setBuses] = useState([])
   const [routesLoading, setRoutesLoading] = useState(true)
   const [busesLoading, setBusesLoading] = useState(true)
+
+  // Analytics data
+  const [analyticsData] = useState({
+    busAnalytics: {
+      totalRevenue: 125000,
+      occupancyRate: 78.5,
+      averageRating: 4.2,
+      maintenanceCost: 15000,
+      fuelEfficiency: 8.5
+    },
+    routeAnalytics: {
+      popularRoutes: [
+        { name: 'Mumbai - Delhi', bookings: 450, revenue: 45000 },
+        { name: 'Pune - Mumbai', bookings: 320, revenue: 32000 },
+        { name: 'Bangalore - Chennai', bookings: 280, revenue: 28000 }
+      ],
+      routePerformance: [
+        { name: 'Mumbai - Delhi', efficiency: 92, onTimeRate: 88 },
+        { name: 'Pune - Mumbai', efficiency: 85, onTimeRate: 95 },
+        { name: 'Bangalore - Chennai', efficiency: 78, onTimeRate: 82 }
+      ]
+    },
+    tripAnalytics: {
+      totalTrips: 120,
+      completedTrips: 115,
+      cancelledTrips: 5,
+      averageDelay: 12,
+      customerSatisfaction: 4.1
+    }
+  })
 
   useEffect(() => {
     // Mock data for demonstration
@@ -105,127 +138,172 @@ const BusAdminOverview = () => {
   }, [])
 
   return (
-    <div className="min-h-screen bg-gray-50 py-4 sm:py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 py-3 sm:py-4">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-5">
         {/* Header with Navigation */}
-        <div className="mb-6 sm:mb-8">
-          <div className="flex flex-col gap-4">
+        <div className="mb-4 sm:mb-6">
+          <div className="flex flex-col gap-3">
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Bus Admin Overview</h1>
-              <p className="text-gray-600 text-sm sm:text-base">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Bus Admin Overview</h1>
+              <p className="text-gray-600 text-xs sm:text-sm">
                 Fleet management dashboard and operational insights
               </p>
+            </div>
+            
+            {/* Tab Navigation */}
+            <div className="flex space-x-1 bg-gray-100/50 p-1 rounded-md w-fit">
+              <button
+                onClick={() => setActiveTab('overview')}
+                className={`px-3 py-1.5 text-xs font-medium rounded-sm transition-all duration-200 ${
+                  activeTab === 'overview'
+                    ? 'bg-blue-500/20 text-navy'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200/50'
+                }`}
+              >
+                Overview
+              </button>
+              <button
+                onClick={() => setActiveTab('bus-analytics')}
+                className={`px-3 py-1.5 text-xs font-medium rounded-sm transition-all duration-200 ${
+                  activeTab === 'bus-analytics'
+                    ? 'bg-blue-500/20 text-navy'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200/50'
+                }`}
+              >
+                Bus Analytics
+              </button>
+              <button
+                onClick={() => setActiveTab('route-analytics')}
+                className={`px-3 py-1.5 text-xs font-medium rounded-sm transition-all duration-200 ${
+                  activeTab === 'route-analytics'
+                    ? 'bg-blue-500/20 text-navy'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200/50'
+                }`}
+              >
+                Route Analytics
+              </button>
+              <button
+                onClick={() => setActiveTab('trip-analytics')}
+                className={`px-3 py-1.5 text-xs font-medium rounded-sm transition-all duration-200 ${
+                  activeTab === 'trip-analytics'
+                    ? 'bg-blue-500/20 text-navy'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200/50'
+                }`}
+              >
+                Trip Analytics
+              </button>
             </div>
           </div>
         </div>
 
-        {/* Overview Content */}
-        <div className="space-y-6">
-          {/* Quick Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            <div className="bg-white rounded-lg shadow p-6">
+        {/* Tab Content */}
+        {activeTab === 'overview' && (
+          <div className="space-y-4">
+            {/* Quick Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <div className="bg-white rounded-lg shadow p-4">
               <div className="flex items-center">
-                <div className="p-3 rounded-full bg-blue-100">
-                  <Bus className="h-6 w-6 text-blue-600" />
+                <div className="p-2 rounded-full bg-blue-100">
+                  <Bus className="h-5 w-5 text-navy" />
                 </div>
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Total Buses</p>
-                  <p className="text-2xl font-bold text-gray-900">{mockStats.totalBuses}</p>
+                <div className="ml-3">
+                  <p className="text-xs font-medium text-gray-600">Total Buses</p>
+                  <p className="text-lg font-bold text-gray-900">{mockStats.totalBuses}</p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow p-6">
+            <div className="bg-white rounded-lg shadow p-4">
               <div className="flex items-center">
-                <div className="p-3 rounded-full bg-green-100">
-                  <MapPin className="h-6 w-6 text-green-600" />
+                <div className="p-2 rounded-full bg-green-100">
+                  <MapPin className="h-5 w-5 text-green-600" />
                 </div>
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Active Routes</p>
-                  <p className="text-2xl font-bold text-gray-900">{mockStats.activeRoutes}</p>
+                <div className="ml-3">
+                  <p className="text-xs font-medium text-gray-600">Active Routes</p>
+                  <p className="text-lg font-bold text-gray-900">{mockStats.activeRoutes}</p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow p-6">
+            <div className="bg-white rounded-lg shadow p-4">
               <div className="flex items-center">
-                <div className="p-3 rounded-full bg-purple-100">
-                  <Users className="h-6 w-6 text-purple-600" />
+                <div className="p-2 rounded-full bg-purple-100">
+                  <Users className="h-5 w-5 text-purple-600" />
                 </div>
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Bus Employees</p>
-                  <p className="text-2xl font-bold text-gray-900">{mockStats.totalEmployees}</p>
+                <div className="ml-3">
+                  <p className="text-xs font-medium text-gray-600">Bus Employees</p>
+                  <p className="text-lg font-bold text-gray-900">{mockStats.totalEmployees}</p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow p-6">
+            <div className="bg-white rounded-lg shadow p-4">
               <div className="flex items-center">
-                <div className="p-3 rounded-full bg-yellow-100">
-                  <Users className="h-6 w-6 text-yellow-600" />
+                <div className="p-2 rounded-full bg-yellow-100">
+                  <Users className="h-5 w-5 text-yellow-600" />
                 </div>
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Booking Managers</p>
-                  <p className="text-2xl font-bold text-gray-900">{mockStats.totalBookingMen}</p>
-                </div>
-              </div>
-          </div>
-
-            <div className="bg-white rounded-lg shadow p-6">
-              <div className="flex items-center">
-                <div className="p-3 rounded-full bg-indigo-100">
-                  <Calendar className="h-6 w-6 text-indigo-600" />
-                </div>
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Total Trips</p>
-                  <p className="text-2xl font-bold text-gray-900">{mockStats.totalTrips}</p>
+                <div className="ml-3">
+                  <p className="text-xs font-medium text-gray-600">Booking Managers</p>
+                  <p className="text-lg font-bold text-gray-900">{mockStats.totalBookingMen}</p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow p-6">
+            <div className="bg-white rounded-lg shadow p-4">
               <div className="flex items-center">
-                <div className="p-3 rounded-full bg-orange-100">
-                  <DollarSign className="h-6 w-6 text-orange-600" />
+                <div className="p-2 rounded-full bg-indigo-100">
+                  <Calendar className="h-5 w-5 text-indigo-600" />
                 </div>
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Monthly Revenue</p>
-                  <p className="text-2xl font-bold text-gray-900">₹{mockStats.monthlyRevenue.toLocaleString()}</p>
+                <div className="ml-3">
+                  <p className="text-xs font-medium text-gray-600">Total Trips</p>
+                  <p className="text-lg font-bold text-gray-900">{mockStats.totalTrips}</p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow p-6">
+            <div className="bg-white rounded-lg shadow p-4">
               <div className="flex items-center">
-                <div className="p-3 rounded-full bg-pink-100">
-                  <TrendingUp className="h-6 w-6 text-pink-600" />
+                <div className="p-2 rounded-full bg-orange-100">
+                  <DollarSign className="h-5 w-5 text-orange-600" />
                 </div>
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Total Bookings</p>
-                  <p className="text-2xl font-bold text-gray-900">{mockStats.totalBookings.toLocaleString()}</p>
+                <div className="ml-3">
+                  <p className="text-xs font-medium text-gray-600">Monthly Revenue</p>
+                  <p className="text-lg font-bold text-gray-900">₹{mockStats.monthlyRevenue.toLocaleString()}</p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow p-6">
+            <div className="bg-white rounded-lg shadow p-4">
               <div className="flex items-center">
-                <div className="p-3 rounded-full bg-red-100">
-                  <AlertCircle className="h-6 w-6 text-red-600" />
+                <div className="p-2 rounded-full bg-pink-100">
+                  <TrendingUp className="h-5 w-5 text-pink-600" />
                 </div>
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Maintenance Due</p>
-                  <p className="text-2xl font-bold text-gray-900">{mockStats.maintenanceDue}</p>
+                <div className="ml-3">
+                  <p className="text-xs font-medium text-gray-600">Total Bookings</p>
+                  <p className="text-lg font-bold text-gray-900">{mockStats.totalBookings.toLocaleString()}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-lg shadow p-4">
+              <div className="flex items-center">
+                <div className="p-2 rounded-full bg-red-100">
+                  <AlertCircle className="h-5 w-5 text-red-600" />
+                </div>
+                <div className="ml-3">
+                  <p className="text-xs font-medium text-gray-600">Maintenance Due</p>
+                  <p className="text-lg font-bold text-gray-900">{mockStats.maintenanceDue}</p>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Route-Bus Assignments */}
-          <div className="bg-white rounded-lg shadow p-6">
-            <h3 className="text-lg font-semibold mb-4">Route-Bus Assignments</h3>
+          <div className="bg-white rounded-lg shadow p-4">
+            <h3 className="text-base font-semibold mb-3">Route-Bus Assignments</h3>
             {routesLoading ? (
               <div className="text-center py-8">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-navy mx-auto"></div>
                 <p className="mt-2 text-gray-600">Loading routes...</p>
               </div>
             ) : routes.length === 0 ? (
@@ -246,7 +324,7 @@ const BusAdminOverview = () => {
                           {route.totalTrips || 0} trips/day
                         </p>
                       </div>
-                      <span className="text-sm font-medium text-blue-600">
+                      <span className="text-sm font-medium text-navy">
                         {route.assignedBuses ? route.assignedBuses.length : 0} bus(es)
                       </span>
                     </div>
@@ -277,11 +355,11 @@ const BusAdminOverview = () => {
           </div>
 
           {/* Fleet Status */}
-          <div className="bg-white rounded-lg shadow p-6">
-            <h3 className="text-lg font-semibold mb-4">Fleet Status</h3>
+          <div className="bg-white rounded-lg shadow p-4">
+            <h3 className="text-base font-semibold mb-3">Fleet Status</h3>
             {busesLoading ? (
               <div className="text-center py-8">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-navy mx-auto"></div>
                 <p className="mt-2 text-gray-600">Loading buses...</p>
               </div>
             ) : buses.length === 0 ? (
@@ -320,6 +398,210 @@ const BusAdminOverview = () => {
             )}
           </div>
         </div>
+        )}
+
+        {/* Bus Analytics Tab */}
+        {activeTab === 'bus-analytics' && (
+          <div className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="bg-white rounded-lg shadow p-4">
+                <div className="flex items-center">
+                  <div className="p-2 rounded-full bg-green-100">
+                    <DollarSign className="h-5 w-5 text-green-600" />
+                  </div>
+                  <div className="ml-3">
+                    <p className="text-xs font-medium text-gray-600">Total Revenue</p>
+                    <p className="text-lg font-bold text-gray-900">₹{analyticsData.busAnalytics.totalRevenue.toLocaleString()}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow p-6">
+                <div className="flex items-center">
+                  <div className="p-3 rounded-full bg-blue-100">
+                    <BarChart3 className="h-6 w-6 text-navy" />
+                  </div>
+                  <div className="ml-4">
+                    <p className="text-sm font-medium text-gray-600">Occupancy Rate</p>
+                    <p className="text-2xl font-bold text-gray-900">{analyticsData.busAnalytics.occupancyRate}%</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow p-6">
+                <div className="flex items-center">
+                  <div className="p-3 rounded-full bg-yellow-100">
+                    <TrendingUp className="h-6 w-6 text-yellow-600" />
+                  </div>
+                  <div className="ml-4">
+                    <p className="text-sm font-medium text-gray-600">Average Rating</p>
+                    <p className="text-2xl font-bold text-gray-900">{analyticsData.busAnalytics.averageRating}/5</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow p-6">
+                <div className="flex items-center">
+                  <div className="p-3 rounded-full bg-red-100">
+                    <AlertCircle className="h-6 w-6 text-red-600" />
+                  </div>
+                  <div className="ml-4">
+                    <p className="text-sm font-medium text-gray-600">Maintenance Cost</p>
+                    <p className="text-2xl font-bold text-gray-900">₹{analyticsData.busAnalytics.maintenanceCost.toLocaleString()}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow p-6">
+                <div className="flex items-center">
+                  <div className="p-3 rounded-full bg-purple-100">
+                    <Activity className="h-6 w-6 text-purple-600" />
+                  </div>
+                  <div className="ml-4">
+                    <p className="text-sm font-medium text-gray-600">Fuel Efficiency</p>
+                    <p className="text-2xl font-bold text-gray-900">{analyticsData.busAnalytics.fuelEfficiency} km/L</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-lg shadow p-6">
+              <h3 className="text-lg font-semibold mb-4">Bus Performance Overview</h3>
+              <div className="text-center py-8">
+                <BarChart3 className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                <p className="text-gray-600">Detailed bus performance charts and metrics will be displayed here</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Route Analytics Tab */}
+        {activeTab === 'route-analytics' && (
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="bg-white rounded-lg shadow p-6">
+                <h3 className="text-lg font-semibold mb-4">Popular Routes</h3>
+                <div className="space-y-4">
+                  {analyticsData.routeAnalytics.popularRoutes.map((route, index) => (
+                    <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                      <div>
+                        <p className="font-medium text-gray-900">{route.name}</p>
+                        <p className="text-sm text-gray-600">{route.bookings} bookings</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="font-semibold text-green-600">₹{route.revenue.toLocaleString()}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow p-6">
+                <h3 className="text-lg font-semibold mb-4">Route Performance</h3>
+                <div className="space-y-4">
+                  {analyticsData.routeAnalytics.routePerformance.map((route, index) => (
+                    <div key={index} className="p-3 bg-gray-50 rounded-lg">
+                      <p className="font-medium text-gray-900 mb-2">{route.name}</p>
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-sm">
+                          <span className="text-gray-600">Efficiency</span>
+                          <span className="font-medium">{route.efficiency}%</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span className="text-gray-600">On-time Rate</span>
+                          <span className="font-medium">{route.onTimeRate}%</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-lg shadow p-6">
+              <h3 className="text-lg font-semibold mb-4">Route Analytics Charts</h3>
+              <div className="text-center py-8">
+                <PieChart className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                <p className="text-gray-600">Route performance charts and analytics will be displayed here</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Trip Analytics Tab */}
+        {activeTab === 'trip-analytics' && (
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="bg-white rounded-lg shadow p-6">
+                <div className="flex items-center">
+                  <div className="p-3 rounded-full bg-blue-100">
+                    <Calendar className="h-6 w-6 text-navy" />
+                  </div>
+                  <div className="ml-4">
+                    <p className="text-sm font-medium text-gray-600">Total Trips</p>
+                    <p className="text-2xl font-bold text-gray-900">{analyticsData.tripAnalytics.totalTrips}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow p-6">
+                <div className="flex items-center">
+                  <div className="p-3 rounded-full bg-green-100">
+                    <CheckCircle className="h-6 w-6 text-green-600" />
+                  </div>
+                  <div className="ml-4">
+                    <p className="text-sm font-medium text-gray-600">Completed Trips</p>
+                    <p className="text-2xl font-bold text-gray-900">{analyticsData.tripAnalytics.completedTrips}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow p-6">
+                <div className="flex items-center">
+                  <div className="p-3 rounded-full bg-red-100">
+                    <AlertCircle className="h-6 w-6 text-red-600" />
+                  </div>
+                  <div className="ml-4">
+                    <p className="text-sm font-medium text-gray-600">Cancelled Trips</p>
+                    <p className="text-2xl font-bold text-gray-900">{analyticsData.tripAnalytics.cancelledTrips}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow p-6">
+                <div className="flex items-center">
+                  <div className="p-3 rounded-full bg-yellow-100">
+                    <Activity className="h-6 w-6 text-yellow-600" />
+                  </div>
+                  <div className="ml-4">
+                    <p className="text-sm font-medium text-gray-600">Average Delay</p>
+                    <p className="text-2xl font-bold text-gray-900">{analyticsData.tripAnalytics.averageDelay} min</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg shadow p-6">
+                <div className="flex items-center">
+                  <div className="p-3 rounded-full bg-purple-100">
+                    <TrendingUp className="h-6 w-6 text-purple-600" />
+                  </div>
+                  <div className="ml-4">
+                    <p className="text-sm font-medium text-gray-600">Customer Satisfaction</p>
+                    <p className="text-2xl font-bold text-gray-900">{analyticsData.tripAnalytics.customerSatisfaction}/5</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-lg shadow p-6">
+              <h3 className="text-lg font-semibold mb-4">Trip Analytics Charts</h3>
+              <div className="text-center py-8">
+                <BarChart3 className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                <p className="text-gray-600">Trip performance charts and analytics will be displayed here</p>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )

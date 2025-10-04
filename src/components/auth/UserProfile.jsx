@@ -26,7 +26,7 @@ const UserProfile = () => {
   const getRoleColor = (role) => {
     const colors = {
       'MASTER_ADMIN': 'bg-red-100 text-red-800',
-      'BUS_OWNER': 'bg-blue-100 text-blue-800',
+      'BUS_OWNER': 'bg-blue-100 text-navy',
       'BUS_ADMIN': 'bg-green-100 text-green-800',
       'BOOKING_MAN': 'bg-purple-100 text-purple-800',
       'BUS_EMPLOYEE': 'bg-orange-100 text-orange-800',
@@ -41,68 +41,68 @@ const UserProfile = () => {
     <div className="relative">
       <button
         onClick={() => setShowDropdown(!showDropdown)}
-        className="flex items-center space-x-1 sm:space-x-2 px-2 sm:px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors"
+        className="flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-navy-light transition-colors"
       >
-        <div className="w-6 h-6 sm:w-8 sm:h-8 bg-blue-600 rounded-full flex items-center justify-center">
-          <User className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
+        <div className="w-7 h-7 bg-white rounded-full flex items-center justify-center">
+          <User className="h-4 w-4 text-navy" />
         </div>
-        <span className="hidden sm:inline max-w-24 lg:max-w-none truncate">{user.name}</span>
+        <span className="hidden sm:inline max-w-24 lg:max-w-none truncate font-medium font-roboto">{user.name}</span>
       </button>
 
       {showDropdown && (
-        <div className="absolute right-0 mt-2 w-72 sm:w-80 bg-white rounded-lg shadow-lg border z-50">
-          <div className="p-4">
+        <div className="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-xl border border-gray-200 z-50 overflow-hidden">
+          <div className="p-6">
             {/* User Info */}
-            <div className="flex items-center space-x-3 mb-4">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
-                <User className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
+            <div className="flex items-center space-x-4 mb-6">
+              <div className="w-12 h-12 bg-gradient-to-br from-navy to-navy-light rounded-full flex items-center justify-center flex-shrink-0">
+                <User className="h-6 w-6 text-white" />
               </div>
               <div className="flex-1 min-w-0">
-                <h3 className="font-semibold text-gray-900 truncate">{user.name}</h3>
-                <span className={`px-2 py-1 rounded-full text-xs font-medium ${getRoleColor(user.role)}`}>
+                <h3 className="font-semibold text-gray-900 text-lg truncate font-roboto">{user.name}</h3>
+                <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium mt-1 ${getRoleColor(user.role)}`}>
                   {getRoleDisplayName(user.role)}
                 </span>
               </div>
             </div>
 
             {/* User Details */}
-            <div className="space-y-2 mb-4 text-sm">
-              <div className="flex items-center text-gray-600">
-                <Mail className="h-4 w-4 mr-2 flex-shrink-0" />
+            <div className="space-y-3 mb-6 text-sm">
+              <div className="flex items-center text-gray-600 p-2 rounded-lg bg-gray-50">
+                <Mail className="h-4 w-4 mr-3 flex-shrink-0 text-navy" />
                 <span className="truncate">{user.email}</span>
               </div>
               {user.company && (
-                <div className="flex items-center text-gray-600">
-                  <Building className="h-4 w-4 mr-2 flex-shrink-0" />
+                <div className="flex items-center text-gray-600 p-2 rounded-lg bg-gray-50">
+                  <Building className="h-4 w-4 mr-3 flex-shrink-0 text-navy" />
                   <span className="truncate">{user.company}</span>
                 </div>
               )}
               {user.position && (
-                <div className="flex items-center text-gray-600">
-                  <User className="h-4 w-4 mr-2 flex-shrink-0" />
+                <div className="flex items-center text-gray-600 p-2 rounded-lg bg-gray-50">
+                  <User className="h-4 w-4 mr-3 flex-shrink-0 text-navy" />
                   <span className="truncate">{user.position}</span>
                 </div>
               )}
             </div>
 
             {/* Actions */}
-            <div className="border-t pt-4">
+            <div className="border-t border-gray-200 pt-4">
               <button
                 onClick={() => {
                   setShowDropdown(false)
                   // Add profile settings functionality here
                 }}
-                className="w-full flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors"
+                className="w-full flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 rounded-lg transition-colors font-medium"
               >
-                <Settings className="h-4 w-4 mr-2 flex-shrink-0" />
+                <Settings className="h-4 w-4 mr-3 flex-shrink-0 text-navy" />
                 <span className="truncate">Profile Settings</span>
               </button>
               
               <button
                 onClick={handleLogout}
-                className="w-full flex items-center px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded-md transition-colors mt-2"
+                className="w-full flex items-center px-4 py-3 text-sm text-red-600 hover:bg-red-50 rounded-lg transition-colors mt-2 font-medium"
               >
-                <LogOut className="h-4 w-4 mr-2 flex-shrink-0" />
+                <LogOut className="h-4 w-4 mr-3 flex-shrink-0" />
                 <span className="truncate">Sign Out</span>
               </button>
             </div>
