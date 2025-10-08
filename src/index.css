@@ -90,11 +90,11 @@
   input[type="week"],
   textarea,
   select {
-    border: 1px solid #6A0066 !important;
+    border: 1px solid #B99750 !important;
      border-radius: 0.1rem !important;
     padding: 0.5rem 0.75rem !important;
     background-color: white !important;
-    color: #6A0066 !important;
+    color: #B99750 !important;
     font-size: 0.875rem !important;
     line-height: 1.25rem !important;
     transition: all 0.2s !important;
@@ -165,7 +165,7 @@
   }
   
   body {
-    @apply bg-background text-[#6A0066];
+    @apply bg-background text-[#B99750];
     line-height: 1.6;
   }
 
@@ -368,11 +368,11 @@
   }
   
   .btn-secondary {
-    @apply bg-button/20 hover:bg-button/30 active:bg-button/40 text-primary font-medium py-2 px-4 transition-all duration-200 text-sm sm:text-base shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-sm border-0 hover:border-0 active:border-0 focus:border-0;
+    @apply bg-button/20 hover:bg-button/30 active:bg-button/40 text-[#B99750] font-medium py-2 px-4 transition-all duration-200 text-sm sm:text-base shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-sm border-0 hover:border-0 active:border-0 focus:border-0;
   }
   
   .btn-outline {
-    @apply border border-primary text-primary hover:bg-hover hover:text-white active:bg-navy-light font-medium py-2 px-4 transition-all duration-200 text-sm sm:text-base shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-sm hover:border-0 active:border-0 focus:border-0;
+    @apply border border-primary text-[#B99750] hover:bg-hover hover:text-white active:bg-navy-light font-medium py-2 px-4 transition-all duration-200 text-sm sm:text-base shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-sm hover:border-0 active:border-0 focus:border-0;
   }
 
   .btn-sm {
@@ -402,7 +402,7 @@
   
   /* Enhanced Input Components */
   .input-field {
-    @apply w-full px-3 py-2 border border-[#6A0066] focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-sm sm:text-base transition-colors duration-200 bg-white text-[#6A0066];
+    @apply w-full px-3 py-2 border border-[#B99750] focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-sm sm:text-base transition-colors duration-200 bg-white text-[#B99750];
   }
 
   .input-field-sm {
@@ -415,7 +415,7 @@
 
   /* Enhanced Seat Components */
   .seat-available {
-    @apply bg-button border-hover text-primary hover:bg-hover cursor-pointer transition-colors duration-150;
+    @apply bg-button border-hover text-[#B99750] hover:bg-hover cursor-pointer transition-colors duration-150;
   }
   
   .seat-selected {
@@ -423,7 +423,7 @@
   }
   
   .seat-occupied {
-    @apply bg-gray-100 border-gray-300 text-gray-500 cursor-not-allowed;
+    @apply bg-gray-100 border-gray-300 text-[#B99750] cursor-not-allowed;
   }
 
   /* Responsive Grid Components */
@@ -523,19 +523,19 @@
 
   /* Status Indicators */
   .status-success {
-    @apply bg-button text-primary border border-hover;
+    @apply bg-button text-[#B99750] border border-hover;
   }
 
   .status-warning {
-    @apply bg-hover text-primary border border-primary;
+    @apply bg-hover text-[#B99750] border border-primary;
   }
 
   .status-error {
-    @apply bg-gray-100 text-[#6A0066] border border-[#6A0066];
+    @apply bg-gray-100 text-[#B99750] border border-[#B99750];
   }
 
   .status-info {
-    @apply bg-button text-primary border border-hover;
+    @apply bg-button text-[#B99750] border border-hover;
   }
 
   /* Responsive Modal */
@@ -566,11 +566,11 @@
   }
 
   .dashboard-card-title {
-    @apply text-base sm:text-lg lg:text-xl font-bold text-[#6A0066] mb-1;
+    @apply text-base sm:text-lg lg:text-xl font-bold text-[#B99750] mb-1;
   }
 
   .dashboard-card-subtitle {
-    @apply text-xs sm:text-sm text-gray-600;
+    @apply text-xs sm:text-sm text-[#B99750];
   }
 
   .dashboard-stat {
@@ -586,11 +586,11 @@
   }
 
   .dashboard-stat-value {
-    @apply text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold text-[#6A0066] mb-1;
+    @apply text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold text-[#B99750] mb-1;
   }
 
   .dashboard-stat-label {
-    @apply text-xs font-medium text-gray-500 uppercase tracking-wide;
+    @apply text-xs font-medium text-[#B99750] uppercase tracking-wide;
   }
 
   .dashboard-stat-change {
@@ -602,7 +602,7 @@
   }
 
   .dashboard-stat-change.negative {
-    @apply text-gray-600;
+    @apply text-[#B99750];
   }
 
   /* Dashboard Grid Systems */
@@ -692,15 +692,15 @@
   }
 
   .dashboard-metric-title {
-    @apply text-xs sm:text-sm font-semibold text-[#6A0066];
+    @apply text-xs sm:text-sm font-semibold text-[#B99750];
   }
 
   .dashboard-metric-value {
-    @apply text-lg sm:text-xl lg:text-2xl font-bold text-[#6A0066];
+    @apply text-lg sm:text-xl lg:text-2xl font-bold text-[#B99750];
   }
 
   .dashboard-metric-subtitle {
-    @apply text-xs text-gray-500 mt-1;
+    @apply text-xs text-[#B99750] mt-1;
   }
 }
 
@@ -743,6 +743,32 @@
 
   .visible-tablet-desktop {
     @apply hidden sm:block;
+  }
+}
+
+/* Global Color Scheme */
+@layer base {
+  /* All headings should be golden brown */
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-[#B99750];
+  }
+  
+  /* All paragraphs and normal text should be gray */
+  p, span, div, label, td, th, li {
+    @apply text-gray-600;
+  }
+  
+  /* Override any existing text colors for consistency */
+  .text-primary {
+    @apply text-[#B99750];
+  }
+  
+  .text-heading {
+    @apply text-[#B99750];
+  }
+  
+  .text-body {
+    @apply text-gray-600;
   }
 }
 

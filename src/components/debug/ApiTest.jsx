@@ -65,7 +65,7 @@ const ApiTest = () => {
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white shadow-lg rounded-lg p-6">
-          <h1 className="text-2xl font-bold text-[#6A0066] mb-6">API Test Console</h1>
+          <h1 className="text-2xl font-bold text-gray-600 mb-6">API Test Console</h1>
           
           <div className="mb-6 p-4 bg-gray-100 rounded-lg">
             <h3 className="font-semibold mb-2">Current User:</h3>
@@ -108,7 +108,7 @@ const ApiTest = () => {
             <h3 className="text-lg font-semibold">Test Results:</h3>
             
             {testResults.length === 0 ? (
-              <p className="text-gray-500">No tests run yet</p>
+              <p className="text-gray-600">No tests run yet</p>
             ) : (
               testResults.map((result, index) => (
                 <div key={index} className={`p-4 rounded-lg border ${
@@ -119,7 +119,7 @@ const ApiTest = () => {
                       <div className={`w-3 h-3 rounded-full ${result.success ? 'bg-green-500' : 'bg-red-500'}`}></div>
                       <h4 className="font-semibold">{result.test}</h4>
                     </div>
-                    <span className="text-sm text-gray-500">{result.timestamp}</span>
+                    <span className="text-sm text-gray-600">{result.timestamp}</span>
                   </div>
                   <p className={`mt-1 text-sm ${result.success ? 'text-green-700' : 'text-red-700'}`}>
                     {result.message}

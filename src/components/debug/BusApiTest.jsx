@@ -154,7 +154,7 @@ const BusApiTest = () => {
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white shadow-lg rounded-lg p-6">
-          <h1 className="text-2xl font-bold text-[#6A0066] mb-6">Bus API Test Console</h1>
+          <h1 className="text-2xl font-bold text-gray-600 mb-6">Bus API Test Console</h1>
           
           {/* User Info */}
           <div className="mb-6 p-4 bg-gray-100 rounded-lg">
@@ -226,7 +226,7 @@ const BusApiTest = () => {
             <h3 className="text-lg font-semibold">Test Results:</h3>
             
             {results.length === 0 ? (
-              <p className="text-gray-500">No tests run yet. Click "Run All Tests" to start.</p>
+              <p className="text-gray-600">No tests run yet. Click "Run All Tests" to start.</p>
             ) : (
               results.map((result, index) => (
                 <div key={index} className={`p-4 rounded-lg border ${
@@ -237,7 +237,7 @@ const BusApiTest = () => {
                       <div className={`w-3 h-3 rounded-full ${result.success ? 'bg-green-500' : 'bg-red-500'}`}></div>
                       <h4 className="font-semibold">{result.test}</h4>
                     </div>
-                    <span className="text-sm text-gray-500">
+                    <span className="text-sm text-gray-600">
                       {result.timestamp.split('T')[1].split('.')[0]}
                     </span>
                   </div>

@@ -70,7 +70,7 @@ const BookingConfirmation = ({ bookingData }) => {
           <div className="flex justify-center mb-4">
             <CheckCircle className="h-16 w-16 text-green-500" />
           </div>
-          <h1 className="text-3xl font-bold text-[#6A0066] mb-2">
+          <h1 className="text-3xl font-bold text-gray-600 mb-2">
             Booking Confirmed!
           </h1>
           <p className="text-gray-600">
@@ -85,29 +85,29 @@ const BookingConfirmation = ({ bookingData }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Journey Information */}
             <div>
-              <h3 className="font-semibold text-[#6A0066] mb-4">Journey Information</h3>
+              <h3 className="font-semibold text-gray-600 mb-4">Journey Information</h3>
               <div className="space-y-3">
                 <div className="flex items-center">
-                  <MapPin className="h-4 w-4 text-gray-400 mr-3" />
+                  <MapPin className="h-4 w-4 text-gray-600 mr-3" />
                   <span className="text-sm">
                     <span className="font-medium">{booking.bus.from}</span> → <span className="font-medium">{booking.bus.to}</span>
                   </span>
                 </div>
                 
                 <div className="flex items-center">
-                  <Calendar className="h-4 w-4 text-gray-400 mr-3" />
+                  <Calendar className="h-4 w-4 text-gray-600 mr-3" />
                   <span className="text-sm">Departure Date: {booking.departureDate}</span>
                 </div>
                 
                 <div className="flex items-center">
-                  <Clock className="h-4 w-4 text-gray-400 mr-3" />
+                  <Clock className="h-4 w-4 text-gray-600 mr-3" />
                   <span className="text-sm">
                     {booking.bus.departureTime} - {booking.bus.arrivalTime} ({booking.bus.duration})
                   </span>
                 </div>
                 
                 <div className="flex items-center">
-                  <User className="h-4 w-4 text-gray-400 mr-3" />
+                  <User className="h-4 w-4 text-gray-600 mr-3" />
                   <span className="text-sm">{booking.bus.operator} • {booking.bus.busType}</span>
                 </div>
               </div>
@@ -115,7 +115,7 @@ const BookingConfirmation = ({ bookingData }) => {
 
             {/* Passenger Information */}
             <div>
-              <h3 className="font-semibold text-[#6A0066] mb-4">Passenger Information</h3>
+              <h3 className="font-semibold text-gray-600 mb-4">Passenger Information</h3>
               <div className="space-y-3">
                 {booking.passengerDetails.map((passenger, index) => (
                   <div key={index} className="p-3 bg-gray-50 rounded-lg">
@@ -216,7 +216,7 @@ const BookingConfirmation = ({ bookingData }) => {
         </div>
 
         {/* Contact Information */}
-        <div className="text-center mt-8 text-sm text-gray-500">
+        <div className="text-center mt-8 text-sm text-gray-600">
           <p>Need help? Contact our customer support at <span className="text-blue-600">+1 (555) 123-4567</span></p>
           <p>or email us at <span className="text-blue-600">support@busexpress.com</span></p>
         </div>

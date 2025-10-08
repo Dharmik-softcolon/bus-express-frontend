@@ -187,7 +187,7 @@ const BusOwnerDashboard = () => {
       case 'active': return 'bg-green-100 text-green-800'
       case 'inactive': return 'bg-red-100 text-red-800'
       case 'pending': return 'bg-yellow-100 text-yellow-800'
-      default: return 'bg-gray-100 text-gray-800'
+      default: return 'bg-gray-100 text-gray-600'
     }
   }
 
@@ -202,7 +202,7 @@ const BusOwnerDashboard = () => {
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Total Buses</p>
-              <p className="text-2xl font-bold text-gray-900">{ownerStats.totalBuses}</p>
+              <p className="text-2xl font-bold text-gray-600">{ownerStats.totalBuses}</p>
             </div>
           </div>
         </div>
@@ -214,7 +214,7 @@ const BusOwnerDashboard = () => {
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Bus Admins</p>
-              <p className="text-2xl font-bold text-gray-900">{ownerStats.totalAdmins}/2</p>
+              <p className="text-2xl font-bold text-gray-600">{ownerStats.totalAdmins}/2</p>
             </div>
           </div>
         </div>
@@ -226,7 +226,7 @@ const BusOwnerDashboard = () => {
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Total Routes</p>
-              <p className="text-2xl font-bold text-gray-900">{ownerStats.totalRoutes}</p>
+              <p className="text-2xl font-bold text-gray-600">{ownerStats.totalRoutes}</p>
             </div>
           </div>
         </div>
@@ -238,7 +238,7 @@ const BusOwnerDashboard = () => {
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Bus Employees</p>
-              <p className="text-2xl font-bold text-gray-900">{ownerStats.totalEmployees}</p>
+              <p className="text-2xl font-bold text-gray-600">{ownerStats.totalEmployees}</p>
             </div>
           </div>
         </div>
@@ -250,7 +250,7 @@ const BusOwnerDashboard = () => {
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Booking Men</p>
-              <p className="text-2xl font-bold text-gray-900">{ownerStats.totalBookingMen}</p>
+              <p className="text-2xl font-bold text-gray-600">{ownerStats.totalBookingMen}</p>
             </div>
           </div>
         </div>
@@ -262,7 +262,7 @@ const BusOwnerDashboard = () => {
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Monthly Revenue</p>
-              <p className="text-2xl font-bold text-gray-900">₹{ownerStats.monthlyRevenue.toLocaleString()}</p>
+              <p className="text-2xl font-bold text-gray-600">₹{ownerStats.monthlyRevenue.toLocaleString()}</p>
             </div>
           </div>
         </div>
@@ -274,7 +274,7 @@ const BusOwnerDashboard = () => {
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Net Profit</p>
-              <p className="text-2xl font-bold text-gray-900">₹{ownerStats.netProfit.toLocaleString()}</p>
+              <p className="text-2xl font-bold text-gray-600">₹{ownerStats.netProfit.toLocaleString()}</p>
             </div>
           </div>
         </div>
@@ -288,7 +288,7 @@ const BusOwnerDashboard = () => {
             <div key={route.id} className="border rounded-lg p-4">
               <div className="flex justify-between items-start mb-2">
                 <div>
-                  <h4 className="font-semibold text-gray-900">{route.name}</h4>
+                  <h4 className="font-semibold text-gray-600">{route.name}</h4>
                   <p className="text-sm text-gray-600">{route.distance} • {route.duration} • {route.totalTrips} trips/day</p>
                 </div>
                 <span className="text-sm font-medium text-blue-600">{route.buses.length} bus(es)</span>
@@ -324,7 +324,7 @@ const BusOwnerDashboard = () => {
             <div key={employee.id} className="border rounded-lg p-3">
               <div className="flex justify-between items-start mb-2">
                 <div>
-                  <h4 className="font-medium text-gray-900">{employee.name}</h4>
+                  <h4 className="font-medium text-gray-600">{employee.name}</h4>
                   <p className="text-sm text-gray-600">{employee.role}</p>
                   <p className="text-sm text-gray-600">Bus: {employee.assignedBus}</p>
                 </div>
@@ -351,7 +351,7 @@ const BusOwnerDashboard = () => {
             <div key={bm.id} className="border rounded-lg p-3">
               <div className="flex justify-between items-start mb-2">
                 <div>
-                  <h4 className="font-medium text-gray-900">{bm.name}</h4>
+                  <h4 className="font-medium text-gray-600">{bm.name}</h4>
                   <p className="text-sm text-gray-600">{bm.email}</p>
                   <p className="text-sm text-gray-600">Commission: {bm.commission}%</p>
                 </div>
@@ -403,7 +403,7 @@ const BusOwnerDashboard = () => {
                 <span className="font-medium">{activity.action}</span>
                 <p className="text-sm text-gray-600">by {activity.admin}</p>
               </div>
-              <span className="text-sm text-gray-500">{activity.time}</span>
+              <span className="text-sm text-gray-600">{activity.time}</span>
             </div>
           ))}
         </div>
@@ -431,7 +431,7 @@ const BusOwnerDashboard = () => {
         <div key={admin.id} className="card">
           <div className="flex justify-between items-start mb-4">
             <div>
-              <h3 className="text-xl font-semibold text-gray-900">{admin.name}</h3>
+              <h3 className="text-xl font-semibold text-gray-600">{admin.name}</h3>
               <p className="text-gray-600">{admin.email}</p>
               <p className="text-gray-600">{admin.phone}</p>
               <p className="text-gray-600">Aadhaar: {admin.aadhaarCard}</p>
@@ -493,8 +493,8 @@ const BusOwnerDashboard = () => {
 
       {busAdmins.length === 0 && (
         <div className="text-center py-8">
-          <Users className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">No Bus Admins</h3>
+          <Users className="h-12 w-12 text-gray-600 mx-auto mb-4" />
+          <h3 className="text-lg font-medium text-gray-600 mb-2">No Bus Admins</h3>
           <p className="text-gray-600 mb-4">You haven't created any Bus Admins yet.</p>
           <button
             onClick={() => setShowAddModal(true)}
@@ -545,7 +545,7 @@ const BusOwnerDashboard = () => {
                 className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors ${
                   activeTab === tab.id
                     ? 'bg-blue-600 text-white'
-                    : 'bg-white text-gray-700 hover:bg-gray-50'
+                    : 'bg-white text-gray-600 hover:bg-gray-50'
                 }`}
               >
                 <span className="hidden sm:inline">{tab.name}</span>
@@ -586,13 +586,13 @@ const BusOwnerDashboard = () => {
           <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
             <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
               <div className="mt-3">
-                <h3 className="text-lg font-medium text-gray-900 mb-4">
+                <h3 className="text-lg font-medium text-gray-600 mb-4">
                   {editingAdmin ? 'Edit Bus Admin' : 'Add New Bus Admin'}
                 </h3>
                 
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-600 mb-1">
                       Full Name
                     </label>
                     <input
@@ -606,7 +606,7 @@ const BusOwnerDashboard = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-600 mb-1">
                       Email
                     </label>
                     <input
@@ -620,7 +620,7 @@ const BusOwnerDashboard = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-600 mb-1">
                       Password
                     </label>
                     <input
@@ -635,7 +635,7 @@ const BusOwnerDashboard = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-600 mb-1">
                       Phone
                     </label>
                     <input
@@ -649,7 +649,7 @@ const BusOwnerDashboard = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-600 mb-1">
                       Aadhaar Card
                     </label>
                     <input
@@ -664,7 +664,7 @@ const BusOwnerDashboard = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-600 mb-1">
                       Driving License
                     </label>
                     <input
@@ -678,7 +678,7 @@ const BusOwnerDashboard = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-600 mb-1">
                       Address
                     </label>
                     <textarea
@@ -693,7 +693,7 @@ const BusOwnerDashboard = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-600 mb-1">
                       Status
                     </label>
                     <select

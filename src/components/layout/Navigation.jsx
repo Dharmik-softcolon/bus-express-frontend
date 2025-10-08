@@ -72,7 +72,7 @@ const Navigation = () => {
                     className={`inline-flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors border-0 hover:border-0 active:border-0 focus:border-0 ${
                       isActiveRoute(item.path)
                         ? 'bg-primary text-white'
-                        : 'text-gray-600 hover:bg-button/20 hover:text-primary'
+                        : 'text-gray-600 hover:bg-button/20 hover:text-gray-600'
                     }`}
                   >
                     <IconComponent className="w-4 h-4 mr-2" />
@@ -97,7 +97,7 @@ const Navigation = () => {
                 className={`flex items-center pl-3 pr-4 py-2 text-base font-medium transition-colors border-0 hover:border-0 active:border-0 focus:border-0 ${
                   isActiveRoute(item.path)
                     ? 'bg-primary text-white'
-                    : 'text-gray-600 hover:bg-button/20 hover:text-primary'
+                    : 'text-gray-600 hover:bg-button/20 hover:text-gray-600'
                 }`}
               >
                 <IconComponent className="w-5 h-5 mr-3" />

@@ -150,7 +150,7 @@ const BookingManagerBookings = () => {
       case 'completed':
         return 'bg-blue-100 text-blue-800'
       default:
-        return 'bg-gray-100 text-gray-800'
+        return 'bg-gray-100 text-gray-600'
     }
   }
 
@@ -165,7 +165,7 @@ const BookingManagerBookings = () => {
       case 'refunded':
         return 'bg-blue-100 text-blue-800'
       default:
-        return 'bg-gray-100 text-gray-800'
+        return 'bg-gray-100 text-gray-600'
     }
   }
 
@@ -220,13 +220,13 @@ const BookingManagerBookings = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">All Bookings</h1>
+              <h1 className="text-2xl font-bold text-[#B99750]">All Bookings</h1>
               <p className="text-gray-600 mt-1">Manage and track all customer bookings</p>
             </div>
             <div className="flex items-center space-x-4">
               <button
                 onClick={fetchBookings}
-                className="inline-flex items-center px-4 py-2 border-0 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
+                className="inline-flex items-center px-4 py-2 border-0 rounded-md shadow-sm text-sm font-medium text-gray-600 bg-white hover:bg-gray-50"
               >
                 <RefreshCw className="h-4 w-4 mr-2" />
                 Refresh
@@ -243,13 +243,13 @@ const BookingManagerBookings = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               <div className="flex-1">
                 <div className="relative">
-                  <Search className="h-5 w-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                  <Search className="h-5 w-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600" />
                   <input
                     type="text"
                     placeholder="Search bookings..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 pr-4 py-2 border border-[#6A0066] rounded-md focus:ring-primary focus:border-primary w-full"
+                    className="pl-10 pr-4 py-2 border border-[#B99750] rounded-md focus:ring-primary focus:border-primary w-full"
                   />
                 </div>
               </div>
@@ -257,7 +257,7 @@ const BookingManagerBookings = () => {
                 <select
                   value={filterStatus}
                   onChange={(e) => setFilterStatus(e.target.value)}
-                  className="px-3 py-2 border border-[#6A0066] rounded-md focus:ring-primary focus:border-primary"
+                  className="px-3 py-2 border border-[#B99750] rounded-md focus:ring-primary focus:border-primary"
                 >
                   <option value="all">All Status</option>
                   <option value="pending">Pending</option>
@@ -269,12 +269,12 @@ const BookingManagerBookings = () => {
                   type="date"
                   value={filterDate}
                   onChange={(e) => setFilterDate(e.target.value)}
-                  className="px-3 py-2 border border-[#6A0066] rounded-md focus:ring-primary focus:border-primary"
+                  className="px-3 py-2 border border-[#B99750] rounded-md focus:ring-primary focus:border-primary"
                 />
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="px-3 py-2 border border-[#6A0066] rounded-md focus:ring-primary focus:border-primary"
+                  className="px-3 py-2 border border-[#B99750] rounded-md focus:ring-primary focus:border-primary"
                 >
                   <option value="latest">Latest First</option>
                   <option value="oldest">Oldest First</option>
@@ -289,7 +289,7 @@ const BookingManagerBookings = () => {
         {/* Bookings Table */}
         <div className="bg-white shadow rounded-lg">
           <div className="px-6 py-4 border-b border-gray-200">
-            <h3 className="text-lg font-medium text-gray-900">
+            <h3 className="text-lg font-medium text-gray-600">
               Bookings ({filteredBookings.length})
             </h3>
           </div>
@@ -297,45 +297,45 @@ const BookingManagerBookings = () => {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Booking ID</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Route</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Seats</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Payment</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Booking ID</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Customer</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Route</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Date</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Seats</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Amount</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Status</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Payment</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Actions</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {filteredBookings.map((booking) => (
                   <tr key={booking._id}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-600">
                       {booking.bookingReference}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                       <div>
                         <div className="font-medium">{booking.user?.name || 'N/A'}</div>
-                        <div className="text-gray-500">{booking.user?.phone || 'N/A'}</div>
+                        <div className="text-gray-600">{booking.user?.phone || 'N/A'}</div>
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                       <div>
                         <div className="font-medium">{booking.route?.name || 'N/A'}</div>
-                        <div className="text-gray-500">{booking.bus?.busNumber || 'N/A'}</div>
+                        <div className="text-gray-600">{booking.bus?.busNumber || 'N/A'}</div>
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                       <div>
                         <div>{formatDate(booking.journeyDate)}</div>
-                        <div className="text-gray-500">{formatTime(booking.trip?.departureTime)}</div>
+                        <div className="text-gray-600">{formatTime(booking.trip?.departureTime)}</div>
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                       {booking.seats?.length || 0} seats
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                       {formatCurrency(booking.totalAmount)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -394,10 +394,10 @@ const BookingManagerBookings = () => {
           <div className="relative top-20 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-white">
             <div className="mt-3">
               <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-medium text-gray-900">Booking Details</h3>
+                <h3 className="text-lg font-medium text-gray-600">Booking Details</h3>
                 <button
                   onClick={() => setShowBookingDetails(false)}
-                  className="text-gray-400 hover:text-gray-600"
+                  className="text-gray-600 hover:text-gray-600"
                 >
                   <XCircle className="h-6 w-6" />
                 </button>
@@ -406,11 +406,11 @@ const BookingManagerBookings = () => {
               <div className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Booking Reference</label>
-                    <p className="mt-1 text-sm text-gray-900">{selectedBooking.bookingReference}</p>
+                    <label className="block text-sm font-medium text-gray-600">Booking Reference</label>
+                    <p className="mt-1 text-sm text-gray-600">{selectedBooking.bookingReference}</p>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Status</label>
+                    <label className="block text-sm font-medium text-gray-600">Status</label>
                     <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(selectedBooking.bookingStatus)}`}>
                       {selectedBooking.bookingStatus}
                     </span>
@@ -419,39 +419,39 @@ const BookingManagerBookings = () => {
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Customer Name</label>
-                    <p className="mt-1 text-sm text-gray-900">{selectedBooking.user?.name}</p>
+                    <label className="block text-sm font-medium text-gray-600">Customer Name</label>
+                    <p className="mt-1 text-sm text-gray-600">{selectedBooking.user?.name}</p>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Phone</label>
-                    <p className="mt-1 text-sm text-gray-900">{selectedBooking.user?.phone}</p>
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Route</label>
-                    <p className="mt-1 text-sm text-gray-900">{selectedBooking.route?.name}</p>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Bus</label>
-                    <p className="mt-1 text-sm text-gray-900">{selectedBooking.bus?.busNumber}</p>
+                    <label className="block text-sm font-medium text-gray-600">Phone</label>
+                    <p className="mt-1 text-sm text-gray-600">{selectedBooking.user?.phone}</p>
                   </div>
                 </div>
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Journey Date</label>
-                    <p className="mt-1 text-sm text-gray-900">{formatDate(selectedBooking.journeyDate)}</p>
+                    <label className="block text-sm font-medium text-gray-600">Route</label>
+                    <p className="mt-1 text-sm text-gray-600">{selectedBooking.route?.name}</p>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Departure Time</label>
-                    <p className="mt-1 text-sm text-gray-900">{formatTime(selectedBooking.trip?.departureTime)}</p>
+                    <label className="block text-sm font-medium text-gray-600">Bus</label>
+                    <p className="mt-1 text-sm text-gray-600">{selectedBooking.bus?.busNumber}</p>
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-600">Journey Date</label>
+                    <p className="mt-1 text-sm text-gray-600">{formatDate(selectedBooking.journeyDate)}</p>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-600">Departure Time</label>
+                    <p className="mt-1 text-sm text-gray-600">{formatTime(selectedBooking.trip?.departureTime)}</p>
                   </div>
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Seats</label>
+                  <label className="block text-sm font-medium text-gray-600">Seats</label>
                   <div className="mt-1">
                     {selectedBooking.seats?.map((seat, index) => (
                       <span key={index} className="inline-block bg-gray-100 rounded px-2 py-1 text-sm mr-2 mb-2">
@@ -463,11 +463,11 @@ const BookingManagerBookings = () => {
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Total Amount</label>
-                    <p className="mt-1 text-sm text-gray-900">{formatCurrency(selectedBooking.totalAmount)}</p>
+                    <label className="block text-sm font-medium text-gray-600">Total Amount</label>
+                    <p className="mt-1 text-sm text-gray-600">{formatCurrency(selectedBooking.totalAmount)}</p>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Payment Status</label>
+                    <label className="block text-sm font-medium text-gray-600">Payment Status</label>
                     <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getPaymentStatusColor(selectedBooking.paymentStatus)}`}>
                       {selectedBooking.paymentStatus}
                     </span>
@@ -478,7 +478,7 @@ const BookingManagerBookings = () => {
               <div className="mt-6 flex justify-end space-x-3">
                 <button
                   onClick={() => setShowBookingDetails(false)}
-                  className="px-4 py-2 border-0 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50"
+                  className="px-4 py-2 border-0 rounded-md text-sm font-medium text-gray-600 hover:bg-gray-50"
                 >
                   Close
                 </button>

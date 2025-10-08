@@ -26,13 +26,13 @@ const UserProfile = () => {
   const getRoleColor = (role) => {
     const colors = {
       'MASTER_ADMIN': 'bg-red-100 text-red-800',
-      'BUS_OWNER': 'bg-button text-primary',
+      'BUS_OWNER': 'bg-button text-gray-600',
       'BUS_ADMIN': 'bg-green-100 text-green-800',
       'BOOKING_MAN': 'bg-purple-100 text-purple-800',
       'BUS_EMPLOYEE': 'bg-orange-100 text-orange-800',
-      'customer': 'bg-gray-100 text-gray-800'
+      'customer': 'bg-gray-100 text-gray-600'
     }
-    return colors[role] || 'bg-gray-100 text-gray-800'
+    return colors[role] || 'bg-gray-100 text-gray-600'
   }
 
   if (!user) return null
@@ -58,7 +58,7 @@ const UserProfile = () => {
                 <User className="h-6 w-6 text-white" />
               </div>
               <div className="flex-1 min-w-0">
-                <h3 className="font-semibold text-gray-900 text-lg truncate">{user.name}</h3>
+                <h3 className="font-semibold text-gray-600 text-lg truncate">{user.name}</h3>
                 <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium mt-1 ${getRoleColor(user.role)}`}>
                   {getRoleDisplayName(user.role)}
                 </span>
@@ -92,7 +92,7 @@ const UserProfile = () => {
                   setShowDropdown(false)
                   // Add profile settings functionality here
                 }}
-                className="w-full flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 rounded-lg transition-colors font-medium"
+                className="w-full flex items-center px-4 py-3 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors font-medium"
               >
                 <Settings className="h-4 w-4 mr-3 flex-shrink-0 text-icon" />
                 <span className="truncate">Profile Settings</span>

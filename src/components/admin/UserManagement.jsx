@@ -95,7 +95,7 @@ const UserManagement = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-3xl font-bold text-gray-600 mb-2">
             User Management
           </h1>
           <p className="text-gray-600">
@@ -108,7 +108,7 @@ const UserManagement = () => {
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1">
               <div className="relative">
-                <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                <Search className="absolute left-3 top-3 h-4 w-4 text-gray-600" />
                 <input
                   type="text"
                   placeholder="Search users by name or email..."
@@ -120,7 +120,7 @@ const UserManagement = () => {
             </div>
             <div className="flex gap-4">
               <div className="relative">
-                <Filter className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                <Filter className="absolute left-3 top-3 h-4 w-4 text-gray-600" />
                 <select
                   value={filterStatus}
                   onChange={(e) => setFilterStatus(e.target.value)}
@@ -141,25 +141,25 @@ const UserManagement = () => {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
                     User
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
                     Contact
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
                     Role
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
                     Status
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
                     Join Date
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
                     Bookings
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
@@ -175,18 +175,18 @@ const UserManagement = () => {
                           </div>
                         </div>
                         <div className="ml-4">
-                          <div className="text-sm font-medium text-gray-900">
+                          <div className="text-sm font-medium text-gray-600">
                             {user.name}
                           </div>
-                          <div className="text-sm text-gray-500">
+                          <div className="text-sm text-gray-600">
                             ID: {user.id}
                           </div>
                         </div>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{user.email}</div>
-                      <div className="text-sm text-gray-500">{user.phone}</div>
+                      <div className="text-sm text-gray-600">{user.email}</div>
+                      <div className="text-sm text-gray-600">{user.phone}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${getRoleColor(user.role)}`}>
@@ -198,10 +198,10 @@ const UserManagement = () => {
                         {user.status}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                       {user.joinDate}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                       {user.totalBookings}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
@@ -248,7 +248,7 @@ const UserManagement = () => {
               </div>
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">Total Users</p>
-                <p className="text-2xl font-bold text-gray-900">{users.length}</p>
+                <p className="text-2xl font-bold text-gray-600">{users.length}</p>
               </div>
             </div>
           </div>
@@ -260,7 +260,7 @@ const UserManagement = () => {
               </div>
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">Active Users</p>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-2xl font-bold text-gray-600">
                   {users.filter(u => u.status === 'active').length}
                 </p>
               </div>
@@ -274,7 +274,7 @@ const UserManagement = () => {
               </div>
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">Admins</p>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-2xl font-bold text-gray-600">
                   {users.filter(u => u.role === 'admin').length}
                 </p>
               </div>
@@ -288,7 +288,7 @@ const UserManagement = () => {
               </div>
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">Customers</p>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-2xl font-bold text-gray-600">
                   {users.filter(u => u.role === 'customer').length}
                 </p>
               </div>

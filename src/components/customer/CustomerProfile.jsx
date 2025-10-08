@@ -59,7 +59,7 @@ const CustomerProfile = () => {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">My Profile</h1>
+          <h1 className="text-3xl font-bold text-[#B99750]">My Profile</h1>
           <p className="mt-2 text-gray-600">
             Manage your personal information and preferences.
           </p>
@@ -75,11 +75,11 @@ const CustomerProfile = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
                 </div>
-                <h3 className="mt-4 text-lg font-medium text-gray-900">
+                <h3 className="mt-4 text-lg font-medium text-gray-600">
                   {user?.name || 'Customer'}
                 </h3>
-                <p className="text-sm text-gray-500">{user?.email}</p>
-                <button className="mt-4 px-4 py-2 text-sm text-primary hover:text-hover rounded hover:bg-button/20 border-0 hover:border-0">
+                <p className="text-sm text-gray-600">{user?.email}</p>
+                <button className="mt-4 px-4 py-2 text-sm text-gray-600 hover:text-hover rounded hover:bg-button/20 border-0 hover:border-0">
                   Change Photo
                 </button>
               </div>
@@ -90,7 +90,7 @@ const CustomerProfile = () => {
           <div className="lg:col-span-2">
             <div className="bg-white rounded-lg shadow">
               <div className="px-6 py-4 border-b border-gray-200">
-                <h2 className="text-lg font-medium text-gray-900">Personal Information</h2>
+                <h2 className="text-lg font-medium text-gray-600">Personal Information</h2>
               </div>
               
               <form onSubmit={handleSubmit} className="p-6 space-y-6">
@@ -106,7 +106,7 @@ const CustomerProfile = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-600">
                       Full Name
                     </label>
                     <input
@@ -115,13 +115,13 @@ const CustomerProfile = () => {
                       id="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className="mt-1 block w-full border-[#6A0066] rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                      className="mt-1 block w-full border-[#B99750] rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                       required
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-600">
                       Email Address
                     </label>
                     <input
@@ -130,13 +130,13 @@ const CustomerProfile = () => {
                       id="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className="mt-1 block w-full border-[#6A0066] rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                      className="mt-1 block w-full border-[#B99750] rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                       required
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="phone" className="block text-sm font-medium text-gray-600">
                       Phone Number
                     </label>
                     <input
@@ -145,12 +145,12 @@ const CustomerProfile = () => {
                       id="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="mt-1 block w-full border-[#6A0066] rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                      className="mt-1 block w-full border-[#B99750] rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="emergencyContact" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="emergencyContact" className="block text-sm font-medium text-gray-600">
                       Emergency Contact
                     </label>
                     <input
@@ -159,12 +159,12 @@ const CustomerProfile = () => {
                       id="emergencyContact"
                       value={formData.emergencyContact}
                       onChange={handleChange}
-                      className="mt-1 block w-full border-[#6A0066] rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                      className="mt-1 block w-full border-[#B99750] rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="emergencyPhone" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="emergencyPhone" className="block text-sm font-medium text-gray-600">
                       Emergency Phone
                     </label>
                     <input
@@ -173,13 +173,13 @@ const CustomerProfile = () => {
                       id="emergencyPhone"
                       value={formData.emergencyPhone}
                       onChange={handleChange}
-                      className="mt-1 block w-full border-[#6A0066] rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                      className="mt-1 block w-full border-[#B99750] rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="address" className="block text-sm font-medium text-gray-700">
+                  <label htmlFor="address" className="block text-sm font-medium text-gray-600">
                     Address
                   </label>
                   <textarea
@@ -195,7 +195,7 @@ const CustomerProfile = () => {
                 <div className="flex justify-end space-x-3">
                   <button
                     type="button"
-                    className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-600 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                   >
                     Cancel
                   </button>
@@ -213,35 +213,35 @@ const CustomerProfile = () => {
             {/* Account Settings */}
             <div className="mt-8 bg-white rounded-lg shadow">
               <div className="px-6 py-4 border-b border-gray-200">
-                <h2 className="text-lg font-medium text-gray-900">Account Settings</h2>
+                <h2 className="text-lg font-medium text-gray-600">Account Settings</h2>
               </div>
               <div className="p-6 space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="text-sm font-medium text-gray-900">Change Password</h3>
-                    <p className="text-sm text-gray-500">Update your account password</p>
+                    <h3 className="text-sm font-medium text-gray-600">Change Password</h3>
+                    <p className="text-sm text-gray-600">Update your account password</p>
                   </div>
-                  <button className="px-4 py-2 text-sm text-primary hover:text-hover rounded hover:bg-button/20 border-0 hover:border-0">
+                  <button className="px-4 py-2 text-sm text-gray-600 hover:text-hover rounded hover:bg-button/20 border-0 hover:border-0">
                     Change
                   </button>
                 </div>
                 
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="text-sm font-medium text-gray-900">Notification Preferences</h3>
-                    <p className="text-sm text-gray-500">Manage your notification settings</p>
+                    <h3 className="text-sm font-medium text-gray-600">Notification Preferences</h3>
+                    <p className="text-sm text-gray-600">Manage your notification settings</p>
                   </div>
-                  <button className="px-4 py-2 text-sm text-primary hover:text-hover rounded hover:bg-button/20 border-0 hover:border-0">
+                  <button className="px-4 py-2 text-sm text-gray-600 hover:text-hover rounded hover:bg-button/20 border-0 hover:border-0">
                     Manage
                   </button>
                 </div>
                 
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="text-sm font-medium text-gray-900">Privacy Settings</h3>
-                    <p className="text-sm text-gray-500">Control your privacy and data</p>
+                    <h3 className="text-sm font-medium text-gray-600">Privacy Settings</h3>
+                    <p className="text-sm text-gray-600">Control your privacy and data</p>
                   </div>
-                  <button className="px-4 py-2 text-sm text-primary hover:text-hover rounded hover:bg-button/20 border-0 hover:border-0">
+                  <button className="px-4 py-2 text-sm text-gray-600 hover:text-hover rounded hover:bg-button/20 border-0 hover:border-0">
                     Manage
                   </button>
                 </div>

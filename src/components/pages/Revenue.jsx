@@ -72,7 +72,7 @@ const Revenue = () => {
         <div className="mb-6 sm:mb-8">
           <div className="flex flex-col gap-4">
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Revenue Analytics</h1>
+              <h1 className="text-2xl sm:text-3xl font-bold text-[#B99750]">Revenue Analytics</h1>
               <p className="text-gray-600 text-sm sm:text-base">
                 Revenue insights and financial performance tracking
               </p>

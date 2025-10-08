@@ -67,12 +67,12 @@ const BookingAnalytics = ({ bookingManager, isOpen, onClose }) => {
         <div className="p-6 border-b border-gray-200">
           <div className="flex justify-between items-center">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">Booking Analytics & Commission</h2>
+              <h2 className="text-2xl font-bold text-[#B99750]">Booking Analytics & Commission</h2>
               <p className="text-gray-600 mt-1">Detailed performance metrics and earnings analysis</p>
             </div>
             <button
               onClick={onClose}
-              className="text-gray-400 hover:text-gray-600"
+              className="text-gray-600 hover:text-gray-600"
             >
               <XCircle className="h-6 w-6" />
             </button>
@@ -86,7 +86,7 @@ const BookingAnalytics = ({ bookingManager, isOpen, onClose }) => {
             <div className="bg-blue-50 rounded-lg p-6 text-center">
               <div className="text-3xl font-bold text-blue-600 mb-2">{bookingManager.totalBookings}</div>
               <div className="text-sm text-gray-600">Total Bookings</div>
-              <div className="text-xs text-gray-500 mt-1">
+              <div className="text-xs text-gray-600 mt-1">
                 {confirmedBookings.length} confirmed, {cancelledBookings.length} cancelled
               </div>
             </div>
@@ -94,7 +94,7 @@ const BookingAnalytics = ({ bookingManager, isOpen, onClose }) => {
             <div className="bg-green-50 rounded-lg p-6 text-center">
               <div className="text-3xl font-bold text-green-600 mb-2">₹{totalRevenue.toFixed(2)}</div>
               <div className="text-sm text-gray-600">Total Revenue</div>
-              <div className="text-xs text-gray-500 mt-1">
+              <div className="text-xs text-gray-600 mt-1">
                 From {confirmedBookings.length} confirmed bookings
               </div>
             </div>
@@ -102,7 +102,7 @@ const BookingAnalytics = ({ bookingManager, isOpen, onClose }) => {
             <div className="bg-purple-50 rounded-lg p-6 text-center">
               <div className="text-3xl font-bold text-purple-600 mb-2">₹{totalCommission.toFixed(2)}</div>
               <div className="text-sm text-gray-600">Total Commission</div>
-              <div className="text-xs text-gray-500 mt-1">
+              <div className="text-xs text-gray-600 mt-1">
                 {bookingManager.commission}% commission rate
               </div>
             </div>
@@ -110,7 +110,7 @@ const BookingAnalytics = ({ bookingManager, isOpen, onClose }) => {
             <div className="bg-orange-50 rounded-lg p-6 text-center">
               <div className="text-3xl font-bold text-orange-600 mb-2">{successRate}%</div>
               <div className="text-sm text-gray-600">Success Rate</div>
-              <div className="text-xs text-gray-500 mt-1">
+              <div className="text-xs text-gray-600 mt-1">
                 {cancellationRate}% cancellation rate
               </div>
             </div>
@@ -177,21 +177,21 @@ const BookingAnalytics = ({ bookingManager, isOpen, onClose }) => {
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Route</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Bookings</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Revenue</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Commission</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Avg per Booking</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Route</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Bookings</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Revenue</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Commission</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Avg per Booking</th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {Object.entries(routePerformance).map(([route, data]) => (
                     <tr key={route}>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{route}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{data.bookings}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">₹{data.revenue.toFixed(2)}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-600">{route}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{data.bookings}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">₹{data.revenue.toFixed(2)}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-medium">₹{data.commission.toFixed(2)}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">₹{(data.revenue / data.bookings).toFixed(2)}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">₹{(data.revenue / data.bookings).toFixed(2)}</td>
                     </tr>
                   ))}
                 </tbody>

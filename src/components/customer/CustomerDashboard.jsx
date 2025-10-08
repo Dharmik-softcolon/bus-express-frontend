@@ -31,7 +31,7 @@ const CustomerDashboard = () => {
         {/* Dashboard Header */}
         <div className="dashboard-action-bar">
           <div>
-            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#6A0066] mb-1">
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-600 mb-1">
               Welcome back, {user?.name || 'Customer'}!
             </h1>
             <p className="text-xs sm:text-sm lg:text-base text-gray-600">
@@ -164,17 +164,17 @@ const CustomerDashboard = () => {
             {loading ? (
               <div className="text-center py-12 sm:py-16">
                 <div className="loading-spinner h-10 w-10 sm:h-12 sm:w-12 mx-auto mb-4"></div>
-                <p className="text-sm sm:text-base text-gray-500">Loading bookings...</p>
+                <p className="text-sm sm:text-base text-gray-600">Loading bookings...</p>
               </div>
             ) : recentBookings.length === 0 ? (
               <div className="text-center py-12 sm:py-16">
                 <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <svg className="w-10 h-10 sm:w-12 sm:h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-10 h-10 sm:w-12 sm:h-12 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                   </svg>
                 </div>
-                <h3 className="text-lg sm:text-xl font-semibold text-[#6A0066] mb-2">No bookings yet</h3>
-                <p className="text-sm sm:text-base text-gray-500 mb-6">Get started by making your first booking.</p>
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-600 mb-2">No bookings yet</h3>
+                <p className="text-sm sm:text-base text-gray-600 mb-6">Get started by making your first booking.</p>
                 <a
                   href="/"
                   className="btn-primary btn-lg"
@@ -185,7 +185,7 @@ const CustomerDashboard = () => {
             ) : (
               <div className="dashboard-table">
                 <div className="dashboard-table-header">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs sm:text-sm font-semibold text-[#6A0066] uppercase tracking-wide">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs sm:text-sm font-semibold text-gray-600 uppercase tracking-wide">
                     <div>Route</div>
                     <div>Date & Time</div>
                     <div>Status</div>
@@ -197,18 +197,18 @@ const CustomerDashboard = () => {
                     <div key={booking.id} className="dashboard-table-row">
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-center">
                         <div>
-                          <div className="font-semibold text-[#6A0066] text-sm sm:text-base">
+                          <div className="font-semibold text-gray-600 text-sm sm:text-base">
                             {booking.route?.from} → {booking.route?.to}
                           </div>
-                          <div className="text-xs sm:text-sm text-gray-500">
+                          <div className="text-xs sm:text-sm text-gray-600">
                             {booking.operator || 'BusExpress'}
                           </div>
                         </div>
                         <div>
-                          <div className="text-sm sm:text-base text-[#6A0066]">
+                          <div className="text-sm sm:text-base text-gray-600">
                             {new Date(booking.travelDate).toLocaleDateString()}
                           </div>
-                          <div className="text-xs sm:text-sm text-gray-500">
+                          <div className="text-xs sm:text-sm text-gray-600">
                             {booking.departureTime}
                           </div>
                         </div>
@@ -224,10 +224,10 @@ const CustomerDashboard = () => {
                           </span>
                         </div>
                         <div>
-                          <div className="text-sm sm:text-base font-semibold text-gray-900">
+                          <div className="text-sm sm:text-base font-semibold text-gray-600">
                             ₹{booking.totalAmount}
                           </div>
-                          <div className="text-xs sm:text-sm text-gray-500">
+                          <div className="text-xs sm:text-sm text-gray-600">
                             {booking.seats?.length || 1} seat{(booking.seats?.length || 1) > 1 ? 's' : ''}
                           </div>
                         </div>
@@ -258,10 +258,10 @@ const CustomerDashboard = () => {
                   </svg>
                 </div>
                 <div className="flex-1">
-                  <div className="text-sm sm:text-base font-semibold text-[#6A0066] group-hover:text-navy transition-colors">Book New Trip</div>
-                  <div className="text-xs sm:text-sm text-gray-500">Find and book your next journey</div>
+                  <div className="text-sm sm:text-base font-semibold text-gray-600 group-hover:text-navy transition-colors">Book New Trip</div>
+                  <div className="text-xs sm:text-sm text-gray-600">Find and book your next journey</div>
                 </div>
-                <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 group-hover:text-navy transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 group-hover:text-navy transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </a>
@@ -276,10 +276,10 @@ const CustomerDashboard = () => {
                   </svg>
                 </div>
                 <div className="flex-1">
-                  <div className="text-sm sm:text-base font-semibold text-[#6A0066] group-hover:text-green-600 transition-colors">View All Bookings</div>
-                  <div className="text-xs sm:text-sm text-gray-500">Manage your travel history</div>
+                  <div className="text-sm sm:text-base font-semibold text-gray-600 group-hover:text-green-600 transition-colors">View All Bookings</div>
+                  <div className="text-xs sm:text-sm text-gray-600">Manage your travel history</div>
                 </div>
-                <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 group-hover:text-green-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 group-hover:text-green-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </a>
@@ -294,10 +294,10 @@ const CustomerDashboard = () => {
                   </svg>
                 </div>
                 <div className="flex-1">
-                  <div className="text-sm sm:text-base font-semibold text-[#6A0066] group-hover:text-purple-600 transition-colors">Update Profile</div>
-                  <div className="text-xs sm:text-sm text-gray-500">Manage your account settings</div>
+                  <div className="text-sm sm:text-base font-semibold text-gray-600 group-hover:text-purple-600 transition-colors">Update Profile</div>
+                  <div className="text-xs sm:text-sm text-gray-600">Manage your account settings</div>
                 </div>
-                <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 group-hover:text-purple-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 group-hover:text-purple-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </a>
@@ -317,7 +317,7 @@ const CustomerDashboard = () => {
                   </svg>
                 </div>
                 <div className="flex-1">
-                  <div className="text-sm sm:text-base font-semibold text-gray-900">Customer Support</div>
+                  <div className="text-sm sm:text-base font-semibold text-gray-600">Customer Support</div>
                   <div className="text-xs sm:text-sm text-gray-600">Get help with your bookings</div>
                 </div>
                 <div className="text-xs sm:text-sm text-navy font-medium">24/7</div>
@@ -330,7 +330,7 @@ const CustomerDashboard = () => {
                   </svg>
                 </div>
                 <div className="flex-1">
-                  <div className="text-sm sm:text-base font-semibold text-gray-900">Email Support</div>
+                  <div className="text-sm sm:text-base font-semibold text-gray-600">Email Support</div>
                   <div className="text-xs sm:text-sm text-gray-600">support@busexpress.com</div>
                 </div>
                 <div className="text-xs sm:text-sm text-green-600 font-medium">Fast</div>
@@ -343,7 +343,7 @@ const CustomerDashboard = () => {
                   </svg>
                 </div>
                 <div className="flex-1">
-                  <div className="text-sm sm:text-base font-semibold text-gray-900">FAQ</div>
+                  <div className="text-sm sm:text-base font-semibold text-gray-600">FAQ</div>
                   <div className="text-xs sm:text-sm text-gray-600">Find answers to common questions</div>
                 </div>
                 <div className="text-xs sm:text-sm text-orange-600 font-medium">Self-help</div>

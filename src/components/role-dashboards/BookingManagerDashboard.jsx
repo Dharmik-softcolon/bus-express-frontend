@@ -292,7 +292,7 @@ const BookingManagerDashboard = () => {
       case 'completed':
         return 'bg-blue-100 text-navy'
       default:
-        return 'bg-gray-100 text-[#6A0066]'
+        return 'bg-gray-100 text-gray-600'
     }
   }
 
@@ -307,7 +307,7 @@ const BookingManagerDashboard = () => {
       case 'refunded':
         return 'bg-blue-100 text-navy'
       default:
-        return 'bg-gray-100 text-[#6A0066]'
+        return 'bg-gray-100 text-gray-600'
     }
   }
 
@@ -362,13 +362,13 @@ const BookingManagerDashboard = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
             <div>
-              <h1 className="text-2xl font-bold text-[#6A0066]">Booking Manager Dashboard</h1>
+              <h1 className="text-2xl font-bold text-[#B99750]">Booking Manager Dashboard</h1>
               <p className="text-gray-600 mt-1">Welcome back, {user?.name}</p>
             </div>
             <div className="flex items-center space-x-4">
               <button
                 onClick={fetchDashboardData}
-                className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium text-[#6A0066] bg-white hover:bg-gray-50"
+                className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium text-gray-600 bg-white hover:bg-gray-50"
               >
                 <RefreshCw className="h-4 w-4 mr-2" />
                 Refresh
@@ -387,8 +387,8 @@ const BookingManagerDashboard = () => {
                 <Calendar className="h-8 w-8" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-500">Total Bookings</p>
-                <p className="text-2xl font-semibold text-gray-900">{stats.totalBookings}</p>
+                <p className="text-sm font-medium text-gray-600">Total Bookings</p>
+                <p className="text-2xl font-semibold text-gray-600">{stats.totalBookings}</p>
               </div>
             </div>
           </div>
@@ -399,8 +399,8 @@ const BookingManagerDashboard = () => {
                 <CheckCircle className="h-8 w-8" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-500">Confirmed</p>
-                <p className="text-2xl font-semibold text-gray-900">{stats.confirmedBookings}</p>
+                <p className="text-sm font-medium text-gray-600">Confirmed</p>
+                <p className="text-2xl font-semibold text-gray-600">{stats.confirmedBookings}</p>
               </div>
             </div>
           </div>
@@ -411,8 +411,8 @@ const BookingManagerDashboard = () => {
                 <DollarSign className="h-8 w-8" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-500">Total Revenue</p>
-                <p className="text-2xl font-semibold text-gray-900">{formatCurrency(stats.totalRevenue)}</p>
+                <p className="text-sm font-medium text-gray-600">Total Revenue</p>
+                <p className="text-2xl font-semibold text-gray-600">{formatCurrency(stats.totalRevenue)}</p>
               </div>
             </div>
           </div>
@@ -423,8 +423,8 @@ const BookingManagerDashboard = () => {
                 <TrendingUp className="h-8 w-8" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-500">Commission Earned</p>
-                <p className="text-2xl font-semibold text-gray-900">{formatCurrency(stats.commissionEarned)}</p>
+                <p className="text-sm font-medium text-gray-600">Commission Earned</p>
+                <p className="text-2xl font-semibold text-gray-600">{formatCurrency(stats.commissionEarned)}</p>
               </div>
             </div>
           </div>
@@ -449,7 +449,7 @@ const BookingManagerDashboard = () => {
                     className={`py-2 px-1 border-b-2 font-medium text-sm flex items-center ${
                       activeTab === tab.id
                         ? 'border-navy text-navy'
-                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                        : 'border-transparent text-gray-600 hover:text-gray-600 hover:border-gray-300'
                     }`}
                   >
                     <Icon className="h-4 w-4 mr-2" />
@@ -467,37 +467,37 @@ const BookingManagerDashboard = () => {
             {/* Recent Bookings */}
             <div className="bg-white shadow rounded-md">
               <div className="px-6 py-4 border-b border-gray-200">
-                <h3 className="text-lg font-medium text-gray-900">Recent Bookings</h3>
+                <h3 className="text-lg font-medium text-gray-600">Recent Bookings</h3>
               </div>
               <div className="overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Booking ID</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Route</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Booking ID</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Customer</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Route</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Date</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Amount</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Status</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Actions</th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                     {filteredBookings.slice(0, 10).map((booking) => (
                       <tr key={booking._id}>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-600">
                           {booking.bookingReference}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                           {booking.user?.name || 'N/A'}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                           {booking.route?.name || 'N/A'}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                           {formatDate(booking.journeyDate)}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                           {formatCurrency(booking.totalAmount)}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
@@ -542,7 +542,7 @@ const BookingManagerDashboard = () => {
             {/* Recent Activities */}
             <div className="bg-white shadow rounded-md">
               <div className="px-6 py-4 border-b border-gray-200">
-                <h3 className="text-lg font-medium text-gray-900">Recent Activities</h3>
+                <h3 className="text-lg font-medium text-gray-600">Recent Activities</h3>
               </div>
               <div className="px-6 py-4">
                 <div className="flow-root">
@@ -561,9 +561,9 @@ const BookingManagerDashboard = () => {
                             </div>
                             <div className="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
                               <div>
-                                <p className="text-sm text-gray-500">{activity.message}</p>
+                                <p className="text-sm text-gray-600">{activity.message}</p>
                               </div>
-                              <div className="text-right text-sm whitespace-nowrap text-gray-500">
+                              <div className="text-right text-sm whitespace-nowrap text-gray-600">
                                 {formatTime(activity.timestamp)}
                               </div>
                             </div>
@@ -582,7 +582,7 @@ const BookingManagerDashboard = () => {
           <div className="bg-white shadow rounded-md">
             <div className="px-6 py-4 border-b border-gray-200">
               <div className="flex justify-between items-center">
-                <h3 className="text-lg font-medium text-gray-900">All Bookings</h3>
+                <h3 className="text-lg font-medium text-gray-600">All Bookings</h3>
                 <div className="flex space-x-4">
                   <button
                     onClick={() => setShowCreateBookingModal(true)}
@@ -619,45 +619,45 @@ const BookingManagerDashboard = () => {
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Booking ID</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Route</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Seats</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Payment</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Booking ID</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Customer</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Route</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Date</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Seats</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Amount</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Status</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Payment</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {filteredBookings.map((booking) => (
                     <tr key={booking._id}>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-600">
                         {booking.bookingReference}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                         <div>
                           <div className="font-medium">{booking.user?.name || 'N/A'}</div>
-                          <div className="text-gray-500">{booking.user?.phone || 'N/A'}</div>
+                          <div className="text-gray-600">{booking.user?.phone || 'N/A'}</div>
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                         <div>
                           <div className="font-medium">{booking.route?.name || 'N/A'}</div>
-                          <div className="text-gray-500">{booking.bus?.busNumber || 'N/A'}</div>
+                          <div className="text-gray-600">{booking.bus?.busNumber || 'N/A'}</div>
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                         <div>
                           <div>{formatDate(booking.journeyDate)}</div>
-                          <div className="text-gray-500">{formatTime(booking.trip?.departureTime)}</div>
+                          <div className="text-gray-600">{formatTime(booking.trip?.departureTime)}</div>
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                         {booking.seats?.length || 0} seats
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                         {formatCurrency(booking.totalAmount)}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
@@ -713,40 +713,40 @@ const BookingManagerDashboard = () => {
         {activeTab === 'customers' && (
           <div className="bg-white shadow rounded-md">
             <div className="px-6 py-4 border-b border-gray-200">
-              <h3 className="text-lg font-medium text-gray-900">Customers</h3>
+              <h3 className="text-lg font-medium text-gray-600">Customers</h3>
             </div>
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Bookings</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Spent</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Booking</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Name</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Email</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Phone</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Total Bookings</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Total Spent</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Last Booking</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {customers.map((customer) => (
                     <tr key={customer._id}>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-600">
                         {customer.name}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                         {customer.email}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                         {customer.phone}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                         {customer.totalBookings || 0}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                         {formatCurrency(customer.totalSpent || 0)}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                         {customer.lastBooking ? formatDate(customer.lastBooking) : 'N/A'}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
@@ -772,7 +772,7 @@ const BookingManagerDashboard = () => {
           <div className="space-y-6">
             {/* Quick Actions */}
             <div className="bg-white shadow rounded-md p-6">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">Quick Actions</h3>
+              <h3 className="text-lg font-medium text-gray-600 mb-4">Quick Actions</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <button
                   onClick={() => setShowCreateBookingModal(true)}
@@ -802,7 +802,7 @@ const BookingManagerDashboard = () => {
             <div className="bg-white shadow rounded-md">
               <div className="px-6 py-4 border-b border-gray-200">
                 <div className="flex justify-between items-center">
-                  <h3 className="text-lg font-medium text-gray-900">Recent Bookings</h3>
+                  <h3 className="text-lg font-medium text-gray-600">Recent Bookings</h3>
                   <button
                     onClick={() => setActiveTab('bookings')}
                     className="text-navy hover:text-navy-dark text-sm font-medium"
@@ -815,40 +815,40 @@ const BookingManagerDashboard = () => {
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Booking ID</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Route</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Booking ID</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Customer</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Route</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Date</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Amount</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Status</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Actions</th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                     {bookings.slice(0, 5).map((booking) => (
                       <tr key={booking._id}>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-600">
                           {booking.bookingReference}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                           <div>
                             <div className="font-medium">{booking.user?.name || 'N/A'}</div>
-                            <div className="text-gray-500">{booking.user?.phone || 'N/A'}</div>
+                            <div className="text-gray-600">{booking.user?.phone || 'N/A'}</div>
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                           <div>
                             <div className="font-medium">{booking.route?.name || 'N/A'}</div>
-                            <div className="text-gray-500">{booking.bus?.busNumber || 'N/A'}</div>
+                            <div className="text-gray-600">{booking.bus?.busNumber || 'N/A'}</div>
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                           <div>
                             <div>{formatDate(booking.journeyDate)}</div>
-                            <div className="text-gray-500">{formatTime(booking.trip?.departureTime)}</div>
+                            <div className="text-gray-600">{formatTime(booking.trip?.departureTime)}</div>
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                           {formatCurrency(booking.totalAmount)}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
@@ -903,8 +903,8 @@ const BookingManagerDashboard = () => {
                     <Calendar className="h-8 w-8" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-500">Total Bookings</p>
-                    <p className="text-2xl font-semibold text-gray-900">{stats.totalBookings}</p>
+                    <p className="text-sm font-medium text-gray-600">Total Bookings</p>
+                    <p className="text-2xl font-semibold text-gray-600">{stats.totalBookings}</p>
                   </div>
                 </div>
               </div>
@@ -914,8 +914,8 @@ const BookingManagerDashboard = () => {
                     <Clock className="h-8 w-8" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-500">Pending</p>
-                    <p className="text-2xl font-semibold text-gray-900">{stats.pendingBookings}</p>
+                    <p className="text-sm font-medium text-gray-600">Pending</p>
+                    <p className="text-2xl font-semibold text-gray-600">{stats.pendingBookings}</p>
                   </div>
                 </div>
               </div>
@@ -925,8 +925,8 @@ const BookingManagerDashboard = () => {
                     <CheckCircle className="h-8 w-8" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-500">Confirmed</p>
-                    <p className="text-2xl font-semibold text-gray-900">{stats.confirmedBookings}</p>
+                    <p className="text-sm font-medium text-gray-600">Confirmed</p>
+                    <p className="text-2xl font-semibold text-gray-600">{stats.confirmedBookings}</p>
                   </div>
                 </div>
               </div>
@@ -936,8 +936,8 @@ const BookingManagerDashboard = () => {
                     <DollarSign className="h-8 w-8" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-500">Revenue</p>
-                    <p className="text-2xl font-semibold text-gray-900">{formatCurrency(stats.totalRevenue)}</p>
+                    <p className="text-sm font-medium text-gray-600">Revenue</p>
+                    <p className="text-2xl font-semibold text-gray-600">{formatCurrency(stats.totalRevenue)}</p>
                   </div>
                 </div>
               </div>
@@ -949,7 +949,7 @@ const BookingManagerDashboard = () => {
           <div className="space-y-6">
             <div className="bg-white shadow rounded-md p-6">
               <div className="flex justify-between items-center mb-6">
-                <h3 className="text-lg font-medium text-gray-900">Booking Analytics & Commission</h3>
+                <h3 className="text-lg font-medium text-gray-600">Booking Analytics & Commission</h3>
                 <button
                   onClick={() => setShowAnalyticsModal(true)}
                   className="btn-primary px-4 py-2 rounded-md flex items-center gap-2"
@@ -982,7 +982,7 @@ const BookingManagerDashboard = () => {
               {/* Performance Metrics */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div className="bg-gray-50 rounded-md p-4">
-                  <h4 className="font-medium text-gray-900 mb-3">Performance Metrics</h4>
+                  <h4 className="font-medium text-gray-600 mb-3">Performance Metrics</h4>
                   <div className="space-y-2">
                     <div className="flex justify-between">
                       <span className="text-gray-600">Success Rate:</span>
@@ -1006,7 +1006,7 @@ const BookingManagerDashboard = () => {
                 </div>
                 
                 <div className="bg-gray-50 rounded-md p-4">
-                  <h4 className="font-medium text-gray-900 mb-3">Commission Summary</h4>
+                  <h4 className="font-medium text-gray-600 mb-3">Commission Summary</h4>
                   <div className="space-y-2">
                     <div className="flex justify-between">
                       <span className="text-gray-600">Commission Rate:</span>
@@ -1034,10 +1034,10 @@ const BookingManagerDashboard = () => {
           <div className="relative top-20 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-white">
             <div className="mt-3">
               <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-medium text-gray-900">Booking Details</h3>
+                <h3 className="text-lg font-medium text-gray-600">Booking Details</h3>
                 <button
                   onClick={() => setShowBookingDetails(false)}
-                  className="text-gray-400 hover:text-gray-600"
+                  className="text-gray-600 hover:text-gray-600"
                 >
                   <XCircle className="h-6 w-6" />
                 </button>
@@ -1046,11 +1046,11 @@ const BookingManagerDashboard = () => {
               <div className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Booking Reference</label>
-                    <p className="mt-1 text-sm text-gray-900">{selectedBooking.bookingReference}</p>
+                    <label className="block text-sm font-medium text-gray-600">Booking Reference</label>
+                    <p className="mt-1 text-sm text-gray-600">{selectedBooking.bookingReference}</p>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Status</label>
+                    <label className="block text-sm font-medium text-gray-600">Status</label>
                     <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(selectedBooking.bookingStatus)}`}>
                       {selectedBooking.bookingStatus}
                     </span>
@@ -1059,39 +1059,39 @@ const BookingManagerDashboard = () => {
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Customer Name</label>
-                    <p className="mt-1 text-sm text-gray-900">{selectedBooking.user?.name}</p>
+                    <label className="block text-sm font-medium text-gray-600">Customer Name</label>
+                    <p className="mt-1 text-sm text-gray-600">{selectedBooking.user?.name}</p>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Phone</label>
-                    <p className="mt-1 text-sm text-gray-900">{selectedBooking.user?.phone}</p>
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Route</label>
-                    <p className="mt-1 text-sm text-gray-900">{selectedBooking.route?.name}</p>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Bus</label>
-                    <p className="mt-1 text-sm text-gray-900">{selectedBooking.bus?.busNumber}</p>
+                    <label className="block text-sm font-medium text-gray-600">Phone</label>
+                    <p className="mt-1 text-sm text-gray-600">{selectedBooking.user?.phone}</p>
                   </div>
                 </div>
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Journey Date</label>
-                    <p className="mt-1 text-sm text-gray-900">{formatDate(selectedBooking.journeyDate)}</p>
+                    <label className="block text-sm font-medium text-gray-600">Route</label>
+                    <p className="mt-1 text-sm text-gray-600">{selectedBooking.route?.name}</p>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Departure Time</label>
-                    <p className="mt-1 text-sm text-gray-900">{formatTime(selectedBooking.trip?.departureTime)}</p>
+                    <label className="block text-sm font-medium text-gray-600">Bus</label>
+                    <p className="mt-1 text-sm text-gray-600">{selectedBooking.bus?.busNumber}</p>
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-600">Journey Date</label>
+                    <p className="mt-1 text-sm text-gray-600">{formatDate(selectedBooking.journeyDate)}</p>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-600">Departure Time</label>
+                    <p className="mt-1 text-sm text-gray-600">{formatTime(selectedBooking.trip?.departureTime)}</p>
                   </div>
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Seats</label>
+                  <label className="block text-sm font-medium text-gray-600">Seats</label>
                   <div className="mt-1">
                     {selectedBooking.seats?.map((seat, index) => (
                       <span key={index} className="inline-block bg-gray-100 rounded px-2 py-1 text-sm mr-2 mb-2">
@@ -1103,11 +1103,11 @@ const BookingManagerDashboard = () => {
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Total Amount</label>
-                    <p className="mt-1 text-sm text-gray-900">{formatCurrency(selectedBooking.totalAmount)}</p>
+                    <label className="block text-sm font-medium text-gray-600">Total Amount</label>
+                    <p className="mt-1 text-sm text-gray-600">{formatCurrency(selectedBooking.totalAmount)}</p>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Payment Status</label>
+                    <label className="block text-sm font-medium text-gray-600">Payment Status</label>
                     <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getPaymentStatusColor(selectedBooking.paymentStatus)}`}>
                       {selectedBooking.paymentStatus}
                     </span>
@@ -1118,7 +1118,7 @@ const BookingManagerDashboard = () => {
               <div className="mt-6 flex justify-end space-x-3">
                 <button
                   onClick={() => setShowBookingDetails(false)}
-                  className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50"
+                  className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-600 hover:bg-gray-50"
                 >
                   Close
                 </button>

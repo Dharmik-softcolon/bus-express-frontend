@@ -67,7 +67,7 @@ const CustomerDashboard = () => {
       case 'cancelled':
         return 'bg-red-100 text-red-800'
       default:
-        return 'bg-gray-100 text-gray-800'
+        return 'bg-gray-100 text-gray-600'
     }
   }
 
@@ -78,7 +78,7 @@ const CustomerDashboard = () => {
         <div className="mb-6 sm:mb-8">
           <div className="flex flex-col gap-4">
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Customer Dashboard</h1>
+              <h1 className="text-2xl sm:text-3xl font-bold text-[#B99750]">Customer Dashboard</h1>
               <p className="text-gray-600 text-sm sm:text-base">
                 Manage your bookings and travel history
               </p>
@@ -97,7 +97,7 @@ const CustomerDashboard = () => {
                   className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors border-0 hover:border-0 active:border-0 focus:border-0 ${
                     activeTab === tab.id
                       ? 'bg-primary text-white'
-                      : 'bg-white text-gray-700 hover:bg-gray-50'
+                      : 'bg-white text-gray-600 hover:bg-gray-50'
                   }`}
                 >
                   {tab.name}
@@ -116,8 +116,8 @@ const CustomerDashboard = () => {
                 </div>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-500">Total Bookings</p>
-                <p className="text-2xl font-semibold text-gray-900">
+                <p className="text-sm font-medium text-gray-600">Total Bookings</p>
+                <p className="text-2xl font-semibold text-gray-600">
                   {loading ? '...' : stats.totalBookings}
                 </p>
               </div>
@@ -132,8 +132,8 @@ const CustomerDashboard = () => {
                 </div>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-500">Upcoming Trips</p>
-                <p className="text-2xl font-semibold text-gray-900">
+                <p className="text-sm font-medium text-gray-600">Upcoming Trips</p>
+                <p className="text-2xl font-semibold text-gray-600">
                   {loading ? '...' : stats.upcomingTrips}
                 </p>
               </div>
@@ -148,8 +148,8 @@ const CustomerDashboard = () => {
                 </div>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-500">Completed Trips</p>
-                <p className="text-2xl font-semibold text-gray-900">
+                <p className="text-sm font-medium text-gray-600">Completed Trips</p>
+                <p className="text-2xl font-semibold text-gray-600">
                   {loading ? '...' : stats.completedTrips}
                 </p>
               </div>
@@ -164,8 +164,8 @@ const CustomerDashboard = () => {
                 </div>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-500">Total Spent</p>
-                <p className="text-2xl font-semibold text-gray-900">
+                <p className="text-sm font-medium text-gray-600">Total Spent</p>
+                <p className="text-2xl font-semibold text-gray-600">
                   {loading ? '...' : `₹${stats.totalSpent.toLocaleString()}`}
                 </p>
               </div>
@@ -179,7 +179,7 @@ const CustomerDashboard = () => {
             {/* Quick Actions */}
             <div className="bg-white rounded-lg shadow">
               <div className="px-6 py-4 border-b border-gray-200">
-                <h2 className="text-lg font-medium text-gray-900">Quick Actions</h2>
+                <h2 className="text-lg font-medium text-gray-600">Quick Actions</h2>
               </div>
               <div className="p-6">
                 <div className="space-y-4">
@@ -191,8 +191,8 @@ const CustomerDashboard = () => {
                       <Search className="w-4 h-4 text-blue-600" />
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-gray-900">Book New Trip</p>
-                      <p className="text-xs text-gray-500">Search and book your next journey</p>
+                      <p className="text-sm font-medium text-gray-600">Book New Trip</p>
+                      <p className="text-xs text-gray-600">Search and book your next journey</p>
                     </div>
                   </a>
                   
@@ -204,8 +204,8 @@ const CustomerDashboard = () => {
                       <Calendar className="w-4 h-4 text-green-600" />
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-gray-900">My Bookings</p>
-                      <p className="text-xs text-gray-500">View and manage your bookings</p>
+                      <p className="text-sm font-medium text-gray-600">My Bookings</p>
+                      <p className="text-xs text-gray-600">View and manage your bookings</p>
                     </div>
                   </a>
                   
@@ -217,8 +217,8 @@ const CustomerDashboard = () => {
                       <Plus className="w-4 h-4 text-purple-600" />
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-gray-900">Update Profile</p>
-                      <p className="text-xs text-gray-500">Manage your personal information</p>
+                      <p className="text-sm font-medium text-gray-600">Update Profile</p>
+                      <p className="text-xs text-gray-600">Manage your personal information</p>
                     </div>
                   </a>
                 </div>
@@ -228,19 +228,19 @@ const CustomerDashboard = () => {
             {/* Upcoming Trips */}
             <div className="bg-white rounded-lg shadow">
               <div className="px-6 py-4 border-b border-gray-200">
-                <h2 className="text-lg font-medium text-gray-900">Upcoming Trips</h2>
+                <h2 className="text-lg font-medium text-gray-600">Upcoming Trips</h2>
               </div>
               <div className="p-6">
                 {loading ? (
                   <div className="text-center py-4">
                     <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mx-auto"></div>
-                    <p className="text-sm text-gray-500 mt-2">Loading...</p>
+                    <p className="text-sm text-gray-600 mt-2">Loading...</p>
                   </div>
                 ) : recentBookings.length === 0 ? (
                   <div className="text-center py-8">
-                    <Calendar className="mx-auto h-12 w-12 text-gray-400" />
-                    <h3 className="mt-2 text-sm font-medium text-gray-900">No upcoming trips</h3>
-                    <p className="mt-1 text-sm text-gray-500">Book your next journey to get started.</p>
+                    <Calendar className="mx-auto h-12 w-12 text-gray-600" />
+                    <h3 className="mt-2 text-sm font-medium text-gray-600">No upcoming trips</h3>
+                    <p className="mt-1 text-sm text-gray-600">Book your next journey to get started.</p>
                     <div className="mt-4">
                       <a
                         href="/search"
@@ -256,10 +256,10 @@ const CustomerDashboard = () => {
                       <div key={booking.id} className="border border-gray-200 rounded-lg p-4">
                         <div className="flex items-center justify-between">
                           <div>
-                            <h3 className="text-sm font-medium text-gray-900">
+                            <h3 className="text-sm font-medium text-gray-600">
                               {booking.route}
                             </h3>
-                            <p className="text-sm text-gray-500">
+                            <p className="text-sm text-gray-600">
                               {booking.bus} • {booking.date} at {booking.time}
                             </p>
                           </div>
@@ -267,7 +267,7 @@ const CustomerDashboard = () => {
                             <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(booking.status)}`}>
                               {booking.status}
                             </span>
-                            <p className="text-sm font-medium text-gray-900 mt-1">
+                            <p className="text-sm font-medium text-gray-600 mt-1">
                               ₹{booking.amount}
                             </p>
                           </div>
@@ -283,24 +283,24 @@ const CustomerDashboard = () => {
         
         {activeTab === 'bookings' && (
           <div className="text-center py-12">
-            <Calendar className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+            <Calendar className="h-12 w-12 text-gray-600 mx-auto mb-4" />
             <p className="text-gray-600">Booking management feature coming soon</p>
-            <p className="text-sm text-gray-500 mt-2">This will include booking history, cancellation, and modification</p>
+            <p className="text-sm text-gray-600 mt-2">This will include booking history, cancellation, and modification</p>
           </div>
         )}
         
         {activeTab === 'profile' && (
           <div className="text-center py-12">
-            <Plus className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+            <Plus className="h-12 w-12 text-gray-600 mx-auto mb-4" />
             <p className="text-gray-600">Profile management feature coming soon</p>
-            <p className="text-sm text-gray-500 mt-2">This will include personal information, preferences, and account settings</p>
+            <p className="text-sm text-gray-600 mt-2">This will include personal information, preferences, and account settings</p>
           </div>
         )}
 
         {/* Travel Tips */}
         <div className="bg-white rounded-lg shadow">
           <div className="px-6 py-4 border-b border-gray-200">
-            <h2 className="text-lg font-medium text-gray-900">Travel Tips</h2>
+            <h2 className="text-lg font-medium text-gray-600">Travel Tips</h2>
           </div>
           <div className="p-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -309,8 +309,8 @@ const CustomerDashboard = () => {
                   <CheckCircle className="w-4 h-4 text-blue-600" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-medium text-gray-900">Arrive Early</h3>
-                  <p className="text-sm text-gray-500">Reach the bus stop 15 minutes before departure time.</p>
+                  <h3 className="text-sm font-medium text-gray-600">Arrive Early</h3>
+                  <p className="text-sm text-gray-600">Reach the bus stop 15 minutes before departure time.</p>
                 </div>
               </div>
               <div className="flex items-start space-x-3">
@@ -318,8 +318,8 @@ const CustomerDashboard = () => {
                   <CheckCircle className="w-4 h-4 text-green-600" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-medium text-gray-900">Keep Documents Ready</h3>
-                  <p className="text-sm text-gray-500">Have your ID and booking confirmation ready for verification.</p>
+                  <h3 className="text-sm font-medium text-gray-600">Keep Documents Ready</h3>
+                  <p className="text-sm text-gray-600">Have your ID and booking confirmation ready for verification.</p>
                 </div>
               </div>
               <div className="flex items-start space-x-3">
@@ -327,8 +327,8 @@ const CustomerDashboard = () => {
                   <AlertCircle className="w-4 h-4 text-yellow-600" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-medium text-gray-900">Check Weather</h3>
-                  <p className="text-sm text-gray-500">Monitor weather conditions for your travel date.</p>
+                  <h3 className="text-sm font-medium text-gray-600">Check Weather</h3>
+                  <p className="text-sm text-gray-600">Monitor weather conditions for your travel date.</p>
                 </div>
               </div>
               <div className="flex items-start space-x-3">
@@ -336,8 +336,8 @@ const CustomerDashboard = () => {
                   <CheckCircle className="w-4 h-4 text-purple-600" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-medium text-gray-900">Pack Light</h3>
-                  <p className="text-sm text-gray-500">Travel with essential items to ensure comfort during the journey.</p>
+                  <h3 className="text-sm font-medium text-gray-600">Pack Light</h3>
+                  <p className="text-sm text-gray-600">Travel with essential items to ensure comfort during the journey.</p>
                 </div>
               </div>
             </div>

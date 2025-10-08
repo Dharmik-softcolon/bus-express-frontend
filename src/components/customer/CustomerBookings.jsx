@@ -38,7 +38,7 @@ const CustomerBookings = () => {
       case 'completed':
         return 'bg-blue-100 text-blue-800'
       default:
-        return 'bg-gray-100 text-gray-800'
+        return 'bg-gray-100 text-gray-600'
     }
   }
 
@@ -47,7 +47,7 @@ const CustomerBookings = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">My Bookings</h1>
+          <h1 className="text-3xl font-bold text-[#B99750]">My Bookings</h1>
           <p className="mt-2 text-gray-600">
             View and manage all your bus bookings.
           </p>
@@ -63,7 +63,7 @@ const CustomerBookings = () => {
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                   filter === status
                     ? 'bg-blue-600 text-white'
-                    : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300'
+                    : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-300'
                 }`}
               >
                 {status.charAt(0).toUpperCase() + status.slice(1)}
@@ -77,15 +77,15 @@ const CustomerBookings = () => {
           {loading ? (
             <div className="p-8 text-center">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-              <p className="mt-2 text-gray-500">Loading bookings...</p>
+              <p className="mt-2 text-gray-600">Loading bookings...</p>
             </div>
           ) : filteredBookings.length === 0 ? (
             <div className="p-8 text-center">
-              <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="mx-auto h-12 w-12 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
               </svg>
-              <h3 className="mt-2 text-sm font-medium text-gray-900">No bookings found</h3>
-              <p className="mt-1 text-sm text-gray-500">
+              <h3 className="mt-2 text-sm font-medium text-gray-600">No bookings found</h3>
+              <p className="mt-1 text-sm text-gray-600">
                 {filter === 'all' 
                   ? 'You haven\'t made any bookings yet.'
                   : `No ${filter} bookings found.`
@@ -110,18 +110,18 @@ const CustomerBookings = () => {
                     <div className="flex-1">
                       <div className="flex items-center space-x-4">
                         <div>
-                          <h3 className="text-lg font-medium text-gray-900">
+                          <h3 className="text-lg font-medium text-gray-600">
                             {booking.route?.from} → {booking.route?.to}
                           </h3>
-                          <p className="text-sm text-gray-500">
+                          <p className="text-sm text-gray-600">
                             Bus: {booking.bus?.name} • Seat: {booking.seats?.join(', ')}
                           </p>
                         </div>
                         <div className="text-right">
-                          <p className="text-sm text-gray-500">
+                          <p className="text-sm text-gray-600">
                             {new Date(booking.travelDate).toLocaleDateString()}
                           </p>
-                          <p className="text-sm text-gray-500">
+                          <p className="text-sm text-gray-600">
                             {booking.departureTime} - {booking.arrivalTime}
                           </p>
                         </div>
@@ -129,7 +129,7 @@ const CustomerBookings = () => {
                     </div>
                     <div className="flex items-center space-x-4">
                       <div className="text-right">
-                        <p className="text-lg font-semibold text-gray-900">
+                        <p className="text-lg font-semibold text-gray-600">
                           ₹{booking.totalAmount}
                         </p>
                         <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(booking.status)}`}>
@@ -142,7 +142,7 @@ const CustomerBookings = () => {
                             Cancel
                           </button>
                         )}
-                        <button className="px-3 py-1 text-sm text-primary hover:text-hover rounded hover:bg-button/20 border-0 hover:border-0">
+                        <button className="px-3 py-1 text-sm text-gray-600 hover:text-hover rounded hover:bg-button/20 border-0 hover:border-0">
                           View Details
                         </button>
                       </div>

@@ -443,7 +443,7 @@ const RouteManagement = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center py-6">
               <div>
-                <h1 className="text-3xl font-bold text-[#6A0066]">Route Management</h1>
+                <h1 className="text-3xl font-bold text-[#B99750]">Route Management</h1>
                 <p className="mt-2 text-gray-600">Manage bus routes, stops, and schedules</p>
               </div>
               <button
@@ -467,7 +467,7 @@ const RouteManagement = () => {
                 </div>
                 <div className="ml-4">
                   <p className="text-sm font-medium text-gray-600">Total Routes</p>
-                  <p className="text-2xl font-bold text-[#6A0066]">{stats.total}</p>
+                  <p className="text-2xl font-bold text-gray-600">{stats.total}</p>
                 </div>
               </div>
             </div>
@@ -479,7 +479,7 @@ const RouteManagement = () => {
                 </div>
                 <div className="ml-4">
                   <p className="text-sm font-medium text-gray-600">Pickup Points</p>
-                  <p className="text-2xl font-bold text-gray-900">{stats.totalPickupPoints}</p>
+                  <p className="text-2xl font-bold text-gray-600">{stats.totalPickupPoints}</p>
                 </div>
               </div>
             </div>
@@ -491,7 +491,7 @@ const RouteManagement = () => {
                 </div>
                 <div className="ml-4">
                   <p className="text-sm font-medium text-gray-600">Drop Points</p>
-                  <p className="text-2xl font-bold text-gray-900">{stats.totalDropPoints}</p>
+                  <p className="text-2xl font-bold text-gray-600">{stats.totalDropPoints}</p>
                 </div>
               </div>
             </div>
@@ -503,7 +503,7 @@ const RouteManagement = () => {
                 </div>
                 <div className="ml-4">
                   <p className="text-sm font-medium text-gray-600">Avg Fare</p>
-                  <p className="text-2xl font-bold text-gray-900">₹{stats.averageFare.toFixed(0)}</p>
+                  <p className="text-2xl font-bold text-gray-600">₹{stats.averageFare.toFixed(0)}</p>
                 </div>
               </div>
             </div>
@@ -513,20 +513,20 @@ const RouteManagement = () => {
           <div className="bg-white p-6 rounded-lg shadow mb-6">
             <div className="flex flex-col md:flex-row gap-4">
               <div className="flex-1 relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-600" />
                 <input
                     type="text"
                     placeholder="Search routes by name, start city, end city..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 border border-[#6A0066] rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                    className="w-full pl-10 pr-4 py-2 border border-[#B99750] rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
                 />
               </div>
 
               <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="px-4 py-2 border border-[#6A0066] rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                  className="px-4 py-2 border border-[#B99750] rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
               >
                 <option value="newest">Newest First</option>
                 <option value="name">Name A-Z</option>
@@ -544,8 +544,8 @@ const RouteManagement = () => {
               </div>
           ) : filteredAndSortedRoutes().length === 0 ? (
               <div className="bg-white rounded-lg shadow p-12 text-center">
-                <MapPin className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-[#6A0066] mb-2">No routes found</h3>
+                <MapPin className="h-12 w-12 text-gray-600 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-gray-600 mb-2">No routes found</h3>
                 <p className="text-gray-600 mb-6">
                   {searchTerm ? 'No routes match your search criteria.' : 'Get started by creating your first route.'}
                 </p>
@@ -566,7 +566,7 @@ const RouteManagement = () => {
                       <div className="p-6">
                         <div className="flex justify-between items-start mb-4">
                           <div>
-                            <h3 className="text-lg font-semibold text-[#6A0066] mb-1">
+                            <h3 className="text-lg font-semibold text-gray-600 mb-1">
                               {route.routeName || 'Unnamed Route'}
                             </h3>
                             <div className="flex items-center text-sm text-gray-600 mb-2">
@@ -579,7 +579,7 @@ const RouteManagement = () => {
                           </div>
                           <div className="flex items-center space-x-2">
                             <div className="relative">
-                              <button className="p-1 text-gray-400 hover:text-gray-600">
+                              <button className="p-1 text-gray-600 hover:text-gray-600">
                                 <MoreVertical className="h-5 w-5" />
                               </button>
                             </div>
@@ -637,12 +637,12 @@ const RouteManagement = () => {
               <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
                 <div className="p-6">
                   <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-2xl font-bold text-[#6A0066]">
+                    <h2 className="text-2xl font-bold text-gray-600">
                       {editingRoute ? 'Edit Route' : 'Add New Route'}
                     </h2>
                     <button
                         onClick={closeModals}
-                        className="text-gray-400 hover:text-gray-600"
+                        className="text-gray-600 hover:text-gray-600"
                     >
                       ×
                     </button>
@@ -652,7 +652,7 @@ const RouteManagement = () => {
                     <div className="space-y-6">
                       {/* Route Name */}
                       <div>
-                        <label className="block text-sm font-medium text-[#6A0066] mb-2">
+                        <label className="block text-sm font-medium text-gray-600 mb-2">
                           Route Name *
                         </label>
                         <input
@@ -660,7 +660,7 @@ const RouteManagement = () => {
                             value={routeForm.routeName}
                             onChange={(e) => handleRouteInputChange('routeName', e.target.value)}
                             className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary ${
-                                formErrors.routeName ? 'border-red-500' : 'border-[#6A0066]'
+                                formErrors.routeName ? 'border-red-500' : 'border-[#B99750]'
                             }`}
                             placeholder="Enter route name"
                         />
@@ -671,10 +671,10 @@ const RouteManagement = () => {
 
                       {/* From Location */}
                       <div>
-                        <h3 className="text-lg font-medium text-[#6A0066] mb-4">From</h3>
+                        <h3 className="text-lg font-medium text-gray-600 mb-4">From</h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <div>
-                            <label className="block text-sm font-medium text-[#6A0066] mb-2">
+                            <label className="block text-sm font-medium text-gray-600 mb-2">
                               City *
                             </label>
                             <input
@@ -682,7 +682,7 @@ const RouteManagement = () => {
                                 value={routeForm.from.city}
                                 onChange={(e) => handleRouteInputChange('from.city', e.target.value)}
                                 className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary ${
-                                    formErrors['from.city'] ? 'border-red-500' : 'border-[#6A0066]'
+                                    formErrors['from.city'] ? 'border-red-500' : 'border-[#B99750]'
                                 }`}
                                 placeholder="Enter from city"
                             />
@@ -691,7 +691,7 @@ const RouteManagement = () => {
                             )}
                           </div>
                           <div>
-                            <label className="block text-sm font-medium text-[#6A0066] mb-2">
+                            <label className="block text-sm font-medium text-gray-600 mb-2">
                               State *
                             </label>
                             <input
@@ -699,7 +699,7 @@ const RouteManagement = () => {
                                 value={routeForm.from.state}
                                 onChange={(e) => handleRouteInputChange('from.state', e.target.value)}
                                 className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary ${
-                                    formErrors['from.state'] ? 'border-red-500' : 'border-[#6A0066]'
+                                    formErrors['from.state'] ? 'border-red-500' : 'border-[#B99750]'
                                 }`}
                                 placeholder="Enter from state"
                             />
@@ -712,10 +712,10 @@ const RouteManagement = () => {
 
                       {/* To Location */}
                       <div>
-                        <h3 className="text-lg font-medium text-[#6A0066] mb-4">To</h3>
+                        <h3 className="text-lg font-medium text-gray-600 mb-4">To</h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <div>
-                            <label className="block text-sm font-medium text-[#6A0066] mb-2">
+                            <label className="block text-sm font-medium text-gray-600 mb-2">
                               City *
                             </label>
                             <input
@@ -723,7 +723,7 @@ const RouteManagement = () => {
                                 value={routeForm.to.city}
                                 onChange={(e) => handleRouteInputChange('to.city', e.target.value)}
                                 className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary ${
-                                    formErrors['to.city'] ? 'border-red-500' : 'border-[#6A0066]'
+                                    formErrors['to.city'] ? 'border-red-500' : 'border-[#B99750]'
                                 }`}
                                 placeholder="Enter to city"
                             />
@@ -732,7 +732,7 @@ const RouteManagement = () => {
                             )}
                           </div>
                           <div>
-                            <label className="block text-sm font-medium text-[#6A0066] mb-2">
+                            <label className="block text-sm font-medium text-gray-600 mb-2">
                               State *
                             </label>
                             <input
@@ -740,7 +740,7 @@ const RouteManagement = () => {
                                 value={routeForm.to.state}
                                 onChange={(e) => handleRouteInputChange('to.state', e.target.value)}
                                 className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary ${
-                                    formErrors['to.state'] ? 'border-red-500' : 'border-[#6A0066]'
+                                    formErrors['to.state'] ? 'border-red-500' : 'border-[#B99750]'
                                 }`}
                                 placeholder="Enter to state"
                             />
@@ -754,7 +754,7 @@ const RouteManagement = () => {
                       {/* Distance, Time, and Fare */}
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div>
-                          <label className="block text-sm font-medium text-[#6A0066] mb-2">
+                          <label className="block text-sm font-medium text-gray-600 mb-2">
                             Distance (km) *
                           </label>
                           <input
@@ -762,7 +762,7 @@ const RouteManagement = () => {
                               value={routeForm.distance}
                               onChange={(e) => handleRouteInputChange('distance', e.target.value)}
                               className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary ${
-                                  formErrors.distance ? 'border-red-500' : 'border-[#6A0066]'
+                                  formErrors.distance ? 'border-red-500' : 'border-[#B99750]'
                               }`}
                               placeholder="Enter distance in km"
                               min="0"
@@ -773,7 +773,7 @@ const RouteManagement = () => {
                           )}
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-[#6A0066] mb-2">
+                          <label className="block text-sm font-medium text-gray-600 mb-2">
                             Time (minutes) *
                           </label>
                           <input
@@ -781,7 +781,7 @@ const RouteManagement = () => {
                               value={routeForm.time}
                               onChange={(e) => handleRouteInputChange('time', e.target.value)}
                               className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary ${
-                                  formErrors.time ? 'border-red-500' : 'border-[#6A0066]'
+                                  formErrors.time ? 'border-red-500' : 'border-[#B99750]'
                               }`}
                               placeholder="Enter time in minutes"
                               min="0"
@@ -791,7 +791,7 @@ const RouteManagement = () => {
                           )}
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-[#6A0066] mb-2">
+                          <label className="block text-sm font-medium text-gray-600 mb-2">
                             Fare (₹) *
                           </label>
                           <input
@@ -799,7 +799,7 @@ const RouteManagement = () => {
                               value={routeForm.fare}
                               onChange={(e) => handleRouteInputChange('fare', e.target.value)}
                               className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary ${
-                                  formErrors.fare ? 'border-red-500' : 'border-[#6A0066]'
+                                  formErrors.fare ? 'border-red-500' : 'border-[#B99750]'
                               }`}
                               placeholder="Enter fare amount"
                               min="0"
@@ -813,20 +813,20 @@ const RouteManagement = () => {
 
                       {/* Pickup Points */}
                       <div>
-                        <h3 className="text-lg font-medium text-[#6A0066] mb-4">Pickup Points</h3>
+                        <h3 className="text-lg font-medium text-gray-600 mb-4">Pickup Points</h3>
                         
                         {/* Add Pickup Point Form */}
                         <div className="bg-gray-50 p-4 rounded-lg mb-4">
                           <div className="flex gap-4">
                             <div className="flex-1">
-                              <label className="block text-sm font-medium text-[#6A0066] mb-1">
+                              <label className="block text-sm font-medium text-gray-600 mb-1">
                                 Pickup Point Name
                               </label>
                               <input
                                   type="text"
                                   value={currentPickupPoint.name}
                                   onChange={(e) => setCurrentPickupPoint({ name: e.target.value })}
-                                  className="w-full px-3 py-2 border border-[#6A0066] rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                                  className="w-full px-3 py-2 border border-[#B99750] rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
                                   placeholder="Enter pickup point name"
                               />
                             </div>
@@ -847,7 +847,7 @@ const RouteManagement = () => {
                         <div className="space-y-2">
                           {routeForm.pickupPoints.map((point, index) => (
                               <div key={index} className="flex items-center justify-between bg-white border border-gray-200 rounded-lg p-3">
-                                <span className="text-sm font-medium text-[#6A0066]">{point.name}</span>
+                                <span className="text-sm font-medium text-gray-600">{point.name}</span>
                                 <button
                                     type="button"
                                     onClick={() => removePickupPoint(index)}
@@ -862,20 +862,20 @@ const RouteManagement = () => {
 
                       {/* Drop Points */}
                       <div>
-                        <h3 className="text-lg font-medium text-[#6A0066] mb-4">Drop Points</h3>
+                        <h3 className="text-lg font-medium text-gray-600 mb-4">Drop Points</h3>
                         
                         {/* Add Drop Point Form */}
                         <div className="bg-gray-50 p-4 rounded-lg mb-4">
                           <div className="flex gap-4">
                             <div className="flex-1">
-                              <label className="block text-sm font-medium text-[#6A0066] mb-1">
+                              <label className="block text-sm font-medium text-gray-600 mb-1">
                                 Drop Point Name
                               </label>
                               <input
                                   type="text"
                                   value={currentDropPoint.name}
                                   onChange={(e) => setCurrentDropPoint({ name: e.target.value })}
-                                  className="w-full px-3 py-2 border border-[#6A0066] rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                                  className="w-full px-3 py-2 border border-[#B99750] rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
                                   placeholder="Enter drop point name"
                               />
                             </div>
@@ -896,7 +896,7 @@ const RouteManagement = () => {
                         <div className="space-y-2">
                           {routeForm.dropPoints.map((point, index) => (
                               <div key={index} className="flex items-center justify-between bg-white border border-gray-200 rounded-lg p-3">
-                                <span className="text-sm font-medium text-[#6A0066]">{point.name}</span>
+                                <span className="text-sm font-medium text-gray-600">{point.name}</span>
                                 <button
                                     type="button"
                                     onClick={() => removeDropPoint(index)}
@@ -915,7 +915,7 @@ const RouteManagement = () => {
                       <button
                           type="button"
                           onClick={closeModals}
-                          className="px-6 py-2 border-0 rounded-lg text-[#6A0066] hover:bg-gray-50 transition-colors"
+                          className="px-6 py-2 border-0 rounded-lg text-gray-600 hover:bg-gray-50 transition-colors"
                       >
                         Cancel
                       </button>

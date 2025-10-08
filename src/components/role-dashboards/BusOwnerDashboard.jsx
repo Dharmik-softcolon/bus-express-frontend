@@ -67,7 +67,7 @@ const BusOwnerDashboard = () => {
         {/* Header */}
         <div className="mb-6 sm:mb-8">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Bus Owner Dashboard</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold text-[#B99750]">Bus Owner Dashboard</h1>
             <p className="text-gray-600 text-sm sm:text-base">
               Monitor fleet performance and analytics
             </p>
@@ -83,8 +83,8 @@ const BusOwnerDashboard = () => {
                 </div>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-500">Total Buses</p>
-                <p className="text-2xl font-semibold text-gray-900">
+                <p className="text-sm font-medium text-gray-600">Total Buses</p>
+                <p className="text-2xl font-semibold text-gray-600">
                   {loading ? '...' : stats.totalBuses}
                 </p>
               </div>
@@ -99,8 +99,8 @@ const BusOwnerDashboard = () => {
                 </div>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-500">Active Routes</p>
-                <p className="text-2xl font-semibold text-gray-900">
+                <p className="text-sm font-medium text-gray-600">Active Routes</p>
+                <p className="text-2xl font-semibold text-gray-600">
                   {loading ? '...' : stats.activeRoutes}
                 </p>
               </div>
@@ -115,8 +115,8 @@ const BusOwnerDashboard = () => {
                 </div>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-500">Total Trips</p>
-                <p className="text-2xl font-semibold text-gray-900">
+                <p className="text-sm font-medium text-gray-600">Total Trips</p>
+                <p className="text-2xl font-semibold text-gray-600">
                   {loading ? '...' : stats.totalTrips}
                 </p>
               </div>
@@ -131,8 +131,8 @@ const BusOwnerDashboard = () => {
                 </div>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-500">Monthly Revenue</p>
-                <p className="text-2xl font-semibold text-gray-900">
+                <p className="text-sm font-medium text-gray-600">Monthly Revenue</p>
+                <p className="text-2xl font-semibold text-gray-600">
                   {loading ? '...' : `₹${stats.monthlyRevenue.toLocaleString()}`}
                 </p>
               </div>
@@ -147,8 +147,8 @@ const BusOwnerDashboard = () => {
                 </div>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-500">Total Bookings</p>
-                <p className="text-2xl font-semibold text-gray-900">
+                <p className="text-sm font-medium text-gray-600">Total Bookings</p>
+                <p className="text-2xl font-semibold text-gray-600">
                   {loading ? '...' : stats.totalBookings.toLocaleString()}
                 </p>
               </div>
@@ -163,8 +163,8 @@ const BusOwnerDashboard = () => {
                 </div>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-500">Maintenance Due</p>
-                <p className="text-2xl font-semibold text-gray-900">
+                <p className="text-sm font-medium text-gray-600">Maintenance Due</p>
+                <p className="text-2xl font-semibold text-gray-600">
                   {loading ? '...' : stats.maintenanceDue}
                 </p>
               </div>
@@ -177,35 +177,35 @@ const BusOwnerDashboard = () => {
           {/* Fleet Status */}
           <div className="bg-white rounded-lg shadow">
             <div className="px-6 py-4 border-b border-gray-200">
-              <h2 className="text-lg font-medium text-gray-900">Fleet Status</h2>
+              <h2 className="text-lg font-medium text-gray-600">Fleet Status</h2>
             </div>
             <div className="p-6">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
                     <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
-                    <span className="text-sm text-gray-900">Bus-001 (Mumbai-Delhi)</span>
+                    <span className="text-sm text-gray-600">Bus-001 (Mumbai-Delhi)</span>
                   </div>
                   <span className="text-sm text-green-600 font-medium">On Route</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
                     <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
-                    <span className="text-sm text-gray-900">Bus-002 (Delhi-Bangalore)</span>
+                    <span className="text-sm text-gray-600">Bus-002 (Delhi-Bangalore)</span>
                   </div>
                   <span className="text-sm text-green-600 font-medium">On Route</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
                     <Clock className="w-5 h-5 text-yellow-500 mr-2" />
-                    <span className="text-sm text-gray-900">Bus-003 (Chennai-Hyderabad)</span>
+                    <span className="text-sm text-gray-600">Bus-003 (Chennai-Hyderabad)</span>
                   </div>
                   <span className="text-sm text-yellow-600 font-medium">Scheduled</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
                     <AlertCircle className="w-5 h-5 text-red-500 mr-2" />
-                    <span className="text-sm text-gray-900">Bus-004 (Pune-Goa)</span>
+                    <span className="text-sm text-gray-600">Bus-004 (Pune-Goa)</span>
                   </div>
                   <span className="text-sm text-red-600 font-medium">Maintenance</span>
                 </div>
@@ -216,38 +216,38 @@ const BusOwnerDashboard = () => {
           {/* Recent Bookings */}
           <div className="bg-white rounded-lg shadow">
             <div className="px-6 py-4 border-b border-gray-200">
-              <h2 className="text-lg font-medium text-gray-900">Recent Bookings</h2>
+              <h2 className="text-lg font-medium text-gray-600">Recent Bookings</h2>
             </div>
             <div className="p-6">
               <div className="space-y-4">
                 <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                   <div>
-                    <p className="text-sm font-medium text-gray-900">Mumbai → Delhi</p>
-                    <p className="text-xs text-gray-500">Bus-001 • Seat 12A, 12B</p>
+                    <p className="text-sm font-medium text-gray-600">Mumbai → Delhi</p>
+                    <p className="text-xs text-gray-600">Bus-001 • Seat 12A, 12B</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-sm font-medium text-gray-900">₹2,500</p>
-                    <p className="text-xs text-gray-500">Today, 6:00 AM</p>
+                    <p className="text-sm font-medium text-gray-600">₹2,500</p>
+                    <p className="text-xs text-gray-600">Today, 6:00 AM</p>
                   </div>
                 </div>
                 <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                   <div>
-                    <p className="text-sm font-medium text-gray-900">Delhi → Bangalore</p>
-                    <p className="text-xs text-gray-500">Bus-002 • Seat 8C, 8D</p>
+                    <p className="text-sm font-medium text-gray-600">Delhi → Bangalore</p>
+                    <p className="text-xs text-gray-600">Bus-002 • Seat 8C, 8D</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-sm font-medium text-gray-900">₹3,200</p>
-                    <p className="text-xs text-gray-500">Tomorrow, 8:00 PM</p>
+                    <p className="text-sm font-medium text-gray-600">₹3,200</p>
+                    <p className="text-xs text-gray-600">Tomorrow, 8:00 PM</p>
                   </div>
                 </div>
                 <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                   <div>
-                    <p className="text-sm font-medium text-gray-900">Chennai → Hyderabad</p>
-                    <p className="text-xs text-gray-500">Bus-003 • Seat 15A</p>
+                    <p className="text-sm font-medium text-gray-600">Chennai → Hyderabad</p>
+                    <p className="text-xs text-gray-600">Bus-003 • Seat 15A</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-sm font-medium text-gray-900">₹1,800</p>
-                    <p className="text-xs text-gray-500">Dec 25, 10:00 AM</p>
+                    <p className="text-sm font-medium text-gray-600">₹1,800</p>
+                    <p className="text-xs text-gray-600">Dec 25, 10:00 AM</p>
                   </div>
                 </div>
               </div>
@@ -257,7 +257,7 @@ const BusOwnerDashboard = () => {
           {/* Quick Actions */}
           <div className="bg-white rounded-lg shadow">
             <div className="px-6 py-4 border-b border-gray-200">
-              <h2 className="text-lg font-medium text-gray-900">Quick Actions</h2>
+              <h2 className="text-lg font-medium text-gray-600">Quick Actions</h2>
             </div>
             <div className="p-6">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
@@ -266,35 +266,35 @@ const BusOwnerDashboard = () => {
                   className="text-center p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors cursor-pointer"
                 >
                   <Bus className="w-8 h-8 text-navy mx-auto mb-2" />
-                  <p className="text-sm font-medium text-gray-900">Bus Analytics</p>
+                  <p className="text-sm font-medium text-gray-600">Bus Analytics</p>
                 </div>
                 <div 
                   onClick={() => handleQuickAction('route-analytics')}
                   className="text-center p-4 bg-green-50 rounded-lg hover:bg-green-100 transition-colors cursor-pointer"
                 >
                   <MapPin className="w-8 h-8 text-green-600 mx-auto mb-2" />
-                  <p className="text-sm font-medium text-gray-900">Route Analytics</p>
+                  <p className="text-sm font-medium text-gray-600">Route Analytics</p>
                 </div>
                 <div 
                   onClick={() => handleQuickAction('trip-analytics')}
                   className="text-center p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors cursor-pointer"
                 >
                   <Calendar className="w-8 h-8 text-purple-600 mx-auto mb-2" />
-                  <p className="text-sm font-medium text-gray-900">Trip Analytics</p>
+                  <p className="text-sm font-medium text-gray-600">Trip Analytics</p>
                 </div>
                 <div 
                   onClick={() => handleQuickAction('revenue')}
                   className="text-center p-4 bg-yellow-50 rounded-lg hover:bg-yellow-100 transition-colors cursor-pointer"
                 >
                   <DollarSign className="w-8 h-8 text-yellow-600 mx-auto mb-2" />
-                  <p className="text-sm font-medium text-gray-900">Revenue</p>
+                  <p className="text-sm font-medium text-gray-600">Revenue</p>
                 </div>
                 <div 
                   onClick={() => handleQuickAction('expenses')}
                   className="text-center p-4 bg-red-50 rounded-lg hover:bg-red-100 transition-colors cursor-pointer"
                 >
                   <TrendingUp className="w-8 h-8 text-red-600 mx-auto mb-2" />
-                  <p className="text-sm font-medium text-gray-900">Expenses</p>
+                  <p className="text-sm font-medium text-gray-600">Expenses</p>
                 </div>
               </div>
             </div>

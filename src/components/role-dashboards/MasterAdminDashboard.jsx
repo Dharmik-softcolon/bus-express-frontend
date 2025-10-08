@@ -50,7 +50,7 @@ const MasterAdminDashboard = () => {
         <div className="mb-6 sm:mb-8">
           <div className="flex flex-col gap-4">
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-[#6A0066]">Master Admin Dashboard</h1>
+              <h1 className="text-2xl sm:text-3xl font-bold text-[#B99750]">Master Admin Dashboard</h1>
               <p className="text-gray-600 text-sm sm:text-base">
                 System administration and management
               </p>
@@ -71,7 +71,7 @@ const MasterAdminDashboard = () => {
                       className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors border-0 hover:border-0 active:border-0 focus:border-0 ${
                           activeTab === tab.id
                               ? 'bg-primary text-white'
-                              : 'bg-white text-[#6A0066] hover:bg-gray-50'
+                              : 'bg-white text-gray-600 hover:bg-gray-50'
                       }`}
                   >
                     {tab.name}
@@ -90,8 +90,8 @@ const MasterAdminDashboard = () => {
                 </div>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-500">Total Users</p>
-                <p className="text-2xl font-semibold text-[#6A0066]">
+                <p className="text-sm font-medium text-gray-600">Total Users</p>
+                <p className="text-2xl font-semibold text-gray-600">
                   {loading ? '...' : stats.totalUsers.toLocaleString()}
                 </p>
               </div>
@@ -106,8 +106,8 @@ const MasterAdminDashboard = () => {
                 </div>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-500">Total Buses</p>
-                <p className="text-2xl font-semibold text-[#6A0066]">
+                <p className="text-sm font-medium text-gray-600">Total Buses</p>
+                <p className="text-2xl font-semibold text-gray-600">
                   {loading ? '...' : stats.totalBuses}
                 </p>
               </div>
@@ -122,8 +122,8 @@ const MasterAdminDashboard = () => {
                 </div>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-500">Total Routes</p>
-                <p className="text-2xl font-semibold text-[#6A0066]">
+                <p className="text-sm font-medium text-gray-600">Total Routes</p>
+                <p className="text-2xl font-semibold text-gray-600">
                   {loading ? '...' : stats.totalRoutes}
                 </p>
               </div>
@@ -138,8 +138,8 @@ const MasterAdminDashboard = () => {
                 </div>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-500">Total Bookings</p>
-                <p className="text-2xl font-semibold text-[#6A0066]">
+                <p className="text-sm font-medium text-gray-600">Total Bookings</p>
+                <p className="text-2xl font-semibold text-gray-600">
                   {loading ? '...' : stats.totalBookings.toLocaleString()}
                 </p>
               </div>
@@ -154,8 +154,8 @@ const MasterAdminDashboard = () => {
                 </div>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-500">Active Users</p>
-                <p className="text-2xl font-semibold text-[#6A0066]">
+                <p className="text-sm font-medium text-gray-600">Active Users</p>
+                <p className="text-2xl font-semibold text-gray-600">
                   {loading ? '...' : stats.activeUsers.toLocaleString()}
                 </p>
               </div>
@@ -170,8 +170,8 @@ const MasterAdminDashboard = () => {
                 </div>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-500">Pending</p>
-                <p className="text-2xl font-semibold text-[#6A0066]">
+                <p className="text-sm font-medium text-gray-600">Pending</p>
+                <p className="text-2xl font-semibold text-gray-600">
                   {loading ? '...' : stats.pendingApprovals}
                 </p>
               </div>
@@ -185,35 +185,35 @@ const MasterAdminDashboard = () => {
             {/* System Status */}
             <div className="bg-white rounded-lg shadow">
               <div className="px-6 py-4 border-b border-gray-200">
-                <h2 className="text-lg font-medium text-[#6A0066]">System Status</h2>
+                <h2 className="text-lg font-medium text-gray-600">System Status</h2>
               </div>
               <div className="p-6">
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center">
                       <CheckCircle className="w-5 h-5" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} mr-2 />
-                      <span className="text-sm text-[#6A0066]">Database</span>
+                      <span className="text-sm text-gray-600">Database</span>
                     </div>
                     <span className="text-sm text-green-600 font-medium">Online</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center">
                       <CheckCircle className="w-5 h-5" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} mr-2 />
-                      <span className="text-sm text-[#6A0066]">API Services</span>
+                      <span className="text-sm text-gray-600">API Services</span>
                     </div>
                     <span className="text-sm text-green-600 font-medium">Online</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center">
                       <CheckCircle className="w-5 h-5" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} mr-2 />
-                      <span className="text-sm text-[#6A0066]">Payment Gateway</span>
+                      <span className="text-sm text-gray-600">Payment Gateway</span>
                     </div>
                     <span className="text-sm text-green-600 font-medium">Online</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center">
                       <Clock className="w-5 h-5" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} mr-2 />
-                      <span className="text-sm text-[#6A0066]">Email Service</span>
+                      <span className="text-sm text-gray-600">Email Service</span>
                     </div>
                     <span className="text-sm text-yellow-600 font-medium">Maintenance</span>
                   </div>
@@ -227,7 +227,7 @@ const MasterAdminDashboard = () => {
           <div className="text-center py-12">
             <Users className="h-12 w-12" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} mx-auto mb-4 />
             <p className="text-gray-600">User management feature coming soon</p>
-            <p className="text-sm text-gray-500 mt-2">This will include user creation, editing, and role management</p>
+            <p className="text-sm text-gray-600 mt-2">This will include user creation, editing, and role management</p>
           </div>
         )}
         
@@ -235,7 +235,7 @@ const MasterAdminDashboard = () => {
           <div className="text-center py-12">
             <BarChart3 className="h-12 w-12" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} mx-auto mb-4 />
             <p className="text-gray-600">System analytics feature coming soon</p>
-            <p className="text-sm text-gray-500 mt-2">This will include system-wide analytics and reporting</p>
+            <p className="text-sm text-gray-600 mt-2">This will include system-wide analytics and reporting</p>
           </div>
         )}
         
@@ -243,7 +243,7 @@ const MasterAdminDashboard = () => {
           <div className="text-center py-12">
             <Shield className="h-12 w-12" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} mx-auto mb-4 />
             <p className="text-gray-600">Role management feature coming soon</p>
-            <p className="text-sm text-gray-500 mt-2">This will include role creation, permissions, and hierarchy management</p>
+            <p className="text-sm text-gray-600 mt-2">This will include role creation, permissions, and hierarchy management</p>
           </div>
         )}
         
@@ -251,43 +251,43 @@ const MasterAdminDashboard = () => {
           <div className="text-center py-12">
             <Settings className="h-12 w-12" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} mx-auto mb-4 />
             <p className="text-gray-600">System settings feature coming soon</p>
-            <p className="text-sm text-gray-500 mt-2">This will include system configuration and preferences</p>
+            <p className="text-sm text-gray-600 mt-2">This will include system configuration and preferences</p>
           </div>
         )}
 
         {/* Recent Activity */}
         <div className="bg-white rounded-lg shadow">
           <div className="px-6 py-4 border-b border-gray-200">
-            <h2 className="text-lg font-medium text-[#6A0066]">Recent Activity</h2>
+            <h2 className="text-lg font-medium text-gray-600">Recent Activity</h2>
           </div>
           <div className="p-6">
             <div className="space-y-4">
               <div className="flex items-center space-x-4">
                 <div className="w-2 h-2 bg-navy rounded-full"></div>
                 <div className="flex-1">
-                  <p className="text-sm text-[#6A0066]">New bus owner registered: ABC Transport</p>
-                  <p className="text-xs text-gray-500">2 minutes ago</p>
+                  <p className="text-sm text-gray-600">New bus owner registered: ABC Transport</p>
+                  <p className="text-xs text-gray-600">2 minutes ago</p>
                 </div>
               </div>
               <div className="flex items-center space-x-4">
                 <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                 <div className="flex-1">
-                  <p className="text-sm text-[#6A0066]">Route updated: Mumbai to Delhi</p>
-                  <p className="text-xs text-gray-500">15 minutes ago</p>
+                  <p className="text-sm text-gray-600">Route updated: Mumbai to Delhi</p>
+                  <p className="text-xs text-gray-600">15 minutes ago</p>
                 </div>
               </div>
               <div className="flex items-center space-x-4">
                 <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
                 <div className="flex-1">
-                  <p className="text-sm text-[#6A0066]">System backup completed</p>
-                  <p className="text-xs text-gray-500">1 hour ago</p>
+                  <p className="text-sm text-gray-600">System backup completed</p>
+                  <p className="text-xs text-gray-600">1 hour ago</p>
                 </div>
               </div>
               <div className="flex items-center space-x-4">
                 <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
                 <div className="flex-1">
-                  <p className="text-sm text-[#6A0066]">New user role created: Fleet Manager</p>
-                  <p className="text-xs text-gray-500">2 hours ago</p>
+                  <p className="text-sm text-gray-600">New user role created: Fleet Manager</p>
+                  <p className="text-xs text-gray-600">2 hours ago</p>
                 </div>
               </div>
             </div>

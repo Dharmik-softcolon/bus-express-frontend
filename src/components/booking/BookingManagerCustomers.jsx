@@ -150,11 +150,11 @@ const BookingManagerCustomers = () => {
       case 'active':
         return 'bg-green-100 text-green-800'
       case 'inactive':
-        return 'bg-gray-100 text-gray-800'
+        return 'bg-gray-100 text-gray-600'
       case 'blocked':
         return 'bg-red-100 text-red-800'
       default:
-        return 'bg-gray-100 text-gray-800'
+        return 'bg-gray-100 text-gray-600'
     }
   }
 
@@ -217,13 +217,13 @@ const BookingManagerCustomers = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Customer Management</h1>
+              <h1 className="text-2xl font-bold text-[#B99750]">Customer Management</h1>
               <p className="text-gray-600 mt-1">Manage customer information and booking history</p>
             </div>
             <div className="flex items-center space-x-4">
               <button
                 onClick={fetchCustomers}
-                className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
+                className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-600 bg-white hover:bg-gray-50"
               >
                 <RefreshCw className="h-4 w-4 mr-2" />
                 Refresh
@@ -246,8 +246,8 @@ const BookingManagerCustomers = () => {
                 <Users className="h-8 w-8 text-blue-600" />
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-500">Total Customers</p>
-                <p className="text-2xl font-semibold text-gray-900">{stats.totalCustomers}</p>
+                <p className="text-sm font-medium text-gray-600">Total Customers</p>
+                <p className="text-2xl font-semibold text-gray-600">{stats.totalCustomers}</p>
               </div>
             </div>
           </div>
@@ -258,8 +258,8 @@ const BookingManagerCustomers = () => {
                 <CheckCircle className="h-8 w-8 text-green-600" />
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-500">Active Customers</p>
-                <p className="text-2xl font-semibold text-gray-900">{stats.activeCustomers}</p>
+                <p className="text-sm font-medium text-gray-600">Active Customers</p>
+                <p className="text-2xl font-semibold text-gray-600">{stats.activeCustomers}</p>
               </div>
             </div>
           </div>
@@ -270,8 +270,8 @@ const BookingManagerCustomers = () => {
                 <DollarSign className="h-8 w-8 text-green-600" />
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-500">Total Revenue</p>
-                <p className="text-2xl font-semibold text-gray-900">{formatCurrency(stats.totalRevenue)}</p>
+                <p className="text-sm font-medium text-gray-600">Total Revenue</p>
+                <p className="text-2xl font-semibold text-gray-600">{formatCurrency(stats.totalRevenue)}</p>
               </div>
             </div>
           </div>
@@ -282,8 +282,8 @@ const BookingManagerCustomers = () => {
                 <TrendingUp className="h-8 w-8 text-purple-600" />
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-500">Average Spent</p>
-                <p className="text-2xl font-semibold text-gray-900">{formatCurrency(stats.averageSpent)}</p>
+                <p className="text-sm font-medium text-gray-600">Average Spent</p>
+                <p className="text-2xl font-semibold text-gray-600">{formatCurrency(stats.averageSpent)}</p>
               </div>
             </div>
           </div>
@@ -295,13 +295,13 @@ const BookingManagerCustomers = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               <div className="flex-1">
                 <div className="relative">
-                  <Search className="h-5 w-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                  <Search className="h-5 w-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600" />
                   <input
                     type="text"
                     placeholder="Search customers..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 pr-4 py-2 border border-[#6A0066] rounded-md focus:ring-primary focus:border-primary w-full"
+                    className="pl-10 pr-4 py-2 border border-[#B99750] rounded-md focus:ring-primary focus:border-primary w-full"
                   />
                 </div>
               </div>
@@ -309,7 +309,7 @@ const BookingManagerCustomers = () => {
                 <select
                   value={filterBy}
                   onChange={(e) => setFilterBy(e.target.value)}
-                  className="px-3 py-2 border border-[#6A0066] rounded-md focus:ring-primary focus:border-primary"
+                  className="px-3 py-2 border border-[#B99750] rounded-md focus:ring-primary focus:border-primary"
                 >
                   <option value="all">All Customers</option>
                   <option value="active">Active</option>
@@ -324,7 +324,7 @@ const BookingManagerCustomers = () => {
         {/* Customers Table */}
         <div className="bg-white shadow rounded-lg">
           <div className="px-6 py-4 border-b border-gray-200">
-            <h3 className="text-lg font-medium text-gray-900">
+            <h3 className="text-lg font-medium text-gray-600">
               Customers ({filteredCustomers.length})
             </h3>
           </div>
@@ -332,34 +332,34 @@ const BookingManagerCustomers = () => {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Bookings</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Spent</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Booking</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Name</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Contact</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Total Bookings</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Total Spent</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Last Booking</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Status</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Actions</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {filteredCustomers.map((customer) => (
                   <tr key={customer._id}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-600">
                       {customer.name}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                       <div>
                         <div className="font-medium">{customer.email}</div>
-                        <div className="text-gray-500">{customer.phone}</div>
+                        <div className="text-gray-600">{customer.phone}</div>
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                       {customer.totalBookings || 0}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                       {formatCurrency(customer.totalSpent || 0)}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                       {customer.lastBooking ? formatDate(customer.lastBooking) : 'N/A'}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -393,10 +393,10 @@ const BookingManagerCustomers = () => {
           <div className="relative top-20 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-white">
             <div className="mt-3">
               <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-medium text-gray-900">Customer Details</h3>
+                <h3 className="text-lg font-medium text-gray-600">Customer Details</h3>
                 <button
                   onClick={() => setShowCustomerDetails(false)}
-                  className="text-gray-400 hover:text-gray-600"
+                  className="text-gray-600 hover:text-gray-600"
                 >
                   <XCircle className="h-6 w-6" />
                 </button>
@@ -405,11 +405,11 @@ const BookingManagerCustomers = () => {
               <div className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Customer Name</label>
-                    <p className="mt-1 text-sm text-gray-900">{selectedCustomer.name}</p>
+                    <label className="block text-sm font-medium text-gray-600">Customer Name</label>
+                    <p className="mt-1 text-sm text-gray-600">{selectedCustomer.name}</p>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Status</label>
+                    <label className="block text-sm font-medium text-gray-600">Status</label>
                     <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(selectedCustomer.status)}`}>
                       {selectedCustomer.status}
                     </span>
@@ -418,44 +418,44 @@ const BookingManagerCustomers = () => {
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Email</label>
-                    <p className="mt-1 text-sm text-gray-900">{selectedCustomer.email}</p>
+                    <label className="block text-sm font-medium text-gray-600">Email</label>
+                    <p className="mt-1 text-sm text-gray-600">{selectedCustomer.email}</p>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Phone</label>
-                    <p className="mt-1 text-sm text-gray-900">{selectedCustomer.phone}</p>
+                    <label className="block text-sm font-medium text-gray-600">Phone</label>
+                    <p className="mt-1 text-sm text-gray-600">{selectedCustomer.phone}</p>
                   </div>
                 </div>
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Join Date</label>
-                    <p className="mt-1 text-sm text-gray-900">{formatDate(selectedCustomer.joinDate)}</p>
+                    <label className="block text-sm font-medium text-gray-600">Join Date</label>
+                    <p className="mt-1 text-sm text-gray-600">{formatDate(selectedCustomer.joinDate)}</p>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Last Booking</label>
-                    <p className="mt-1 text-sm text-gray-900">{formatDate(selectedCustomer.lastBooking)}</p>
+                    <label className="block text-sm font-medium text-gray-600">Last Booking</label>
+                    <p className="mt-1 text-sm text-gray-600">{formatDate(selectedCustomer.lastBooking)}</p>
                   </div>
                 </div>
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Total Bookings</label>
-                    <p className="mt-1 text-sm text-gray-900">{selectedCustomer.totalBookings}</p>
+                    <label className="block text-sm font-medium text-gray-600">Total Bookings</label>
+                    <p className="mt-1 text-sm text-gray-600">{selectedCustomer.totalBookings}</p>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Total Spent</label>
-                    <p className="mt-1 text-sm text-gray-900">{formatCurrency(selectedCustomer.totalSpent)}</p>
+                    <label className="block text-sm font-medium text-gray-600">Total Spent</label>
+                    <p className="mt-1 text-sm text-gray-600">{formatCurrency(selectedCustomer.totalSpent)}</p>
                   </div>
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Average Booking Value</label>
-                  <p className="mt-1 text-sm text-gray-900">{formatCurrency(selectedCustomer.averageBookingValue)}</p>
+                  <label className="block text-sm font-medium text-gray-600">Average Booking Value</label>
+                  <p className="mt-1 text-sm text-gray-600">{formatCurrency(selectedCustomer.averageBookingValue)}</p>
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Preferred Routes</label>
+                  <label className="block text-sm font-medium text-gray-600">Preferred Routes</label>
                   <div className="mt-1">
                     {selectedCustomer.preferredRoutes?.map((route, index) => (
                       <span key={index} className="inline-block bg-gray-100 rounded px-2 py-1 text-sm mr-2 mb-2">
@@ -469,7 +469,7 @@ const BookingManagerCustomers = () => {
               <div className="mt-6 flex justify-end space-x-3">
                 <button
                   onClick={() => setShowCustomerDetails(false)}
-                  className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50"
+                  className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-600 hover:bg-gray-50"
                 >
                   Close
                 </button>

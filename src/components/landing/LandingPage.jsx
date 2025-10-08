@@ -9,9 +9,9 @@ const LandingPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="text-center lg:text-left">
-              <h1 className="text-4xl md:text-6xl font-bold text-[#6A0066] mb-6">
+              <h1 className="text-4xl md:text-6xl font-bold text-gray-600 mb-6">
                 Modern Bus Management
-                <span className="text-primary"> System</span>
+                <span className="text-gray-600"> System</span>
               </h1>
               <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto lg:mx-0">
                 Streamline your bus operations with our comprehensive management platform. 
@@ -26,7 +26,7 @@ const LandingPage = () => {
                 </Link>
                 <Link
                   to="/search"
-                  className="border-2 border-primary text-primary px-8 py-4 rounded-lg hover:bg-button/20 hover:border-0 transition-colors font-medium text-lg"
+                  className="border-2 border-primary text-gray-600 px-8 py-4 rounded-lg hover:bg-button/20 hover:border-0 transition-colors font-medium text-lg"
                 >
                   Book a Trip
                 </Link>
@@ -42,7 +42,7 @@ const LandingPage = () => {
                 <div className="absolute -bottom-4 -right-4 bg-white rounded-lg shadow-lg p-4">
                   <div className="flex items-center space-x-2">
                     <div className="w-3 h-3 bg-button rounded-full"></div>
-                    <span className="text-sm font-medium text-[#6A0066]">Live Tracking</span>
+                    <span className="text-sm font-medium text-gray-600">Live Tracking</span>
                   </div>
                 </div>
               </div>
@@ -55,7 +55,7 @@ const LandingPage = () => {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-[#6A0066] mb-4">
+            <h2 className="text-3xl font-bold text-gray-600 mb-4">
               Everything You Need to Manage Your Bus Business
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -76,7 +76,7 @@ const LandingPage = () => {
               <div className="w-16 h-16 bg-button rounded-full flex items-center justify-center mx-auto mb-4">
                 <Bus className="h-8 w-8" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
               </div>
-              <h3 className="text-xl font-semibold text-[#6A0066] mb-2">Fleet Management</h3>
+              <h3 className="text-xl font-semibold text-gray-600 mb-2">Fleet Management</h3>
               <p className="text-gray-600">
                 Manage your entire bus fleet with real-time tracking, maintenance schedules, and performance analytics.
               </p>
@@ -94,7 +94,7 @@ const LandingPage = () => {
               <div className="w-16 h-16 bg-button rounded-full flex items-center justify-center mx-auto mb-4">
                 <MapPin className="h-8 w-8" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Route Planning</h3>
+              <h3 className="text-xl font-semibold text-gray-600 mb-2">Route Planning</h3>
               <p className="text-gray-600">
                 Optimize routes, manage stops, and track real-time location data for better service delivery.
               </p>
@@ -112,7 +112,7 @@ const LandingPage = () => {
               <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Users className="h-8 w-8" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Customer Management</h3>
+              <h3 className="text-xl font-semibold text-gray-600 mb-2">Customer Management</h3>
               <p className="text-gray-600">
                 Handle bookings, customer profiles, and provide excellent customer service with our integrated tools.
               </p>
@@ -130,7 +130,7 @@ const LandingPage = () => {
               <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <BarChart3 className="h-8 w-8" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Analytics & Reports</h3>
+              <h3 className="text-xl font-semibold text-gray-600 mb-2">Analytics & Reports</h3>
               <p className="text-gray-600">
                 Get detailed insights into your business performance with comprehensive analytics and reporting.
               </p>
@@ -148,7 +148,7 @@ const LandingPage = () => {
               <div className="w-16 h-16 bg-button rounded-full flex items-center justify-center mx-auto mb-4">
                 <Shield className="h-8 w-8" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Role-Based Access</h3>
+              <h3 className="text-xl font-semibold text-gray-600 mb-2">Role-Based Access</h3>
               <p className="text-gray-600">
                 Secure access control with different permission levels for admins, employees, and customers.
               </p>
@@ -166,7 +166,7 @@ const LandingPage = () => {
               <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Clock className="h-8 w-8" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Real-Time Updates</h3>
+              <h3 className="text-xl font-semibold text-gray-600 mb-2">Real-Time Updates</h3>
               <p className="text-gray-600">
                 Stay updated with real-time notifications, schedule changes, and instant booking confirmations.
               </p>
@@ -179,7 +179,7 @@ const LandingPage = () => {
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-[#6A0066] mb-4">
+            <h2 className="text-3xl font-bold text-gray-600 mb-4">
               Designed for Every Role
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -194,13 +194,13 @@ const LandingPage = () => {
                 <div className="w-12 h-12 bg-button rounded-full flex items-center justify-center mx-auto mb-4">
                   <Shield className="h-6 w-6" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Master Admin</h3>
+                <h3 className="text-lg font-semibold text-gray-600 mb-2">Master Admin</h3>
                 <p className="text-gray-600 text-sm mb-4">
                   Full system control, user management, and global analytics.
                 </p>
                 <Link
                   to="/login"
-                  className="text-primary hover:text-hover font-medium text-sm"
+                  className="text-gray-600 hover:text-hover font-medium text-sm"
                 >
                   Access Dashboard →
                 </Link>
@@ -213,7 +213,7 @@ const LandingPage = () => {
                 <div className="w-12 h-12 bg-button rounded-full flex items-center justify-center mx-auto mb-4">
                   <Bus className="h-6 w-6" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Bus Owner</h3>
+                <h3 className="text-lg font-semibold text-gray-600 mb-2">Bus Owner</h3>
                 <p className="text-gray-600 text-sm mb-4">
                   Manage your fleet, routes, and business operations.
                 </p>
@@ -232,7 +232,7 @@ const LandingPage = () => {
                 <div className="w-12 h-12 bg-button rounded-full flex items-center justify-center mx-auto mb-4">
                   <Users className="h-6 w-6" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Bus Admin</h3>
+                <h3 className="text-lg font-semibold text-gray-600 mb-2">Bus Admin</h3>
                 <p className="text-gray-600 text-sm mb-4">
                   Daily operations, trip management, and team coordination.
                 </p>
@@ -251,7 +251,7 @@ const LandingPage = () => {
                 <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <BarChart3 className="h-6 w-6" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Booking Manager</h3>
+                <h3 className="text-lg font-semibold text-gray-600 mb-2">Booking Manager</h3>
                 <p className="text-gray-600 text-sm mb-4">
                   Handle reservations, customer service, and booking analytics.
                 </p>
@@ -270,7 +270,7 @@ const LandingPage = () => {
                 <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Clock className="h-6 w-6" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Bus Employee</h3>
+                <h3 className="text-lg font-semibold text-gray-600 mb-2">Bus Employee</h3>
                 <p className="text-gray-600 text-sm mb-4">
                   View schedules, update trip status, and manage daily tasks.
                 </p>
@@ -289,13 +289,13 @@ const LandingPage = () => {
                 <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Users className="h-6 w-6" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Customer</h3>
+                <h3 className="text-lg font-semibold text-gray-600 mb-2">Customer</h3>
                 <p className="text-gray-600 text-sm mb-4">
                   Book trips, manage reservations, and track your travel history.
                 </p>
                 <Link
                   to="/search"
-                  className="text-gray-600 hover:text-gray-700 font-medium text-sm"
+                  className="text-gray-600 hover:text-gray-600 font-medium text-sm"
                 >
                   Start Booking →
                 </Link>
@@ -309,7 +309,7 @@ const LandingPage = () => {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-[#6A0066] mb-4">
+            <h2 className="text-3xl font-bold text-gray-600 mb-4">
               What Our Customers Say
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -327,11 +327,11 @@ const LandingPage = () => {
                   className="w-12 h-12 rounded-full mr-4"
                 />
                 <div>
-                  <h4 className="font-semibold text-gray-900">John Smith</h4>
+                  <h4 className="font-semibold text-gray-600">John Smith</h4>
                   <p className="text-sm text-gray-600">Bus Owner, City Transport</p>
                 </div>
               </div>
-              <p className="text-gray-700 italic">
+              <p className="text-gray-600 italic">
                 "BusExpress has revolutionized our operations. The real-time tracking and analytics have helped us increase efficiency by 40%."
               </p>
             </div>
@@ -345,11 +345,11 @@ const LandingPage = () => {
                   className="w-12 h-12 rounded-full mr-4"
                 />
                 <div>
-                  <h4 className="font-semibold text-gray-900">Sarah Johnson</h4>
+                  <h4 className="font-semibold text-gray-600">Sarah Johnson</h4>
                   <p className="text-sm text-gray-600">Booking Manager, Metro Lines</p>
                 </div>
               </div>
-              <p className="text-gray-700 italic">
+              <p className="text-gray-600 italic">
                 "The booking management system is incredibly user-friendly. Our customers love the seamless experience."
               </p>
             </div>
@@ -363,11 +363,11 @@ const LandingPage = () => {
                   className="w-12 h-12 rounded-full mr-4"
                 />
                 <div>
-                  <h4 className="font-semibold text-gray-900">Mike Chen</h4>
+                  <h4 className="font-semibold text-gray-600">Mike Chen</h4>
                   <p className="text-sm text-gray-600">Bus Admin, Express Transit</p>
                 </div>
               </div>
-              <p className="text-gray-700 italic">
+              <p className="text-gray-600 italic">
                 "The role-based access control gives us perfect security while maintaining operational flexibility."
               </p>
             </div>

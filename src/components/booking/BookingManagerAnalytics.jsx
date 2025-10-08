@@ -221,13 +221,13 @@ const BookingManagerAnalytics = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Analytics & Commission</h1>
+              <h1 className="text-2xl font-bold text-[#B99750]">Analytics & Commission</h1>
               <p className="text-gray-600 mt-1">Track performance, earnings, and commission details</p>
             </div>
             <div className="flex items-center space-x-4">
               <button
                 onClick={fetchAnalyticsData}
-                className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
+                className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-600 bg-white hover:bg-gray-50"
               >
                 <RefreshCw className="h-4 w-4 mr-2" />
                 Refresh
@@ -250,7 +250,7 @@ const BookingManagerAnalytics = () => {
           <div className="bg-blue-50 rounded-lg p-6 text-center">
             <div className="text-3xl font-bold text-blue-600 mb-2">{stats.totalBookings}</div>
             <div className="text-sm text-gray-600">Total Bookings</div>
-            <div className="text-xs text-gray-500 mt-1">
+            <div className="text-xs text-gray-600 mt-1">
               {stats.confirmedBookings} confirmed, {stats.cancelledBookings} cancelled
             </div>
           </div>
@@ -258,7 +258,7 @@ const BookingManagerAnalytics = () => {
           <div className="bg-green-50 rounded-lg p-6 text-center">
             <div className="text-3xl font-bold text-green-600 mb-2">{formatCurrency(stats.totalRevenue)}</div>
             <div className="text-sm text-gray-600">Total Revenue</div>
-            <div className="text-xs text-gray-500 mt-1">
+            <div className="text-xs text-gray-600 mt-1">
               From {stats.confirmedBookings} confirmed bookings
             </div>
           </div>
@@ -266,7 +266,7 @@ const BookingManagerAnalytics = () => {
           <div className="bg-purple-50 rounded-lg p-6 text-center">
             <div className="text-3xl font-bold text-purple-600 mb-2">{formatCurrency(stats.commissionEarned)}</div>
             <div className="text-sm text-gray-600">Total Commission</div>
-            <div className="text-xs text-gray-500 mt-1">
+            <div className="text-xs text-gray-600 mt-1">
               5% commission rate
             </div>
           </div>
@@ -274,7 +274,7 @@ const BookingManagerAnalytics = () => {
           <div className="bg-orange-50 rounded-lg p-6 text-center">
             <div className="text-3xl font-bold text-orange-600 mb-2">{successRate}%</div>
             <div className="text-sm text-gray-600">Success Rate</div>
-            <div className="text-xs text-gray-500 mt-1">
+            <div className="text-xs text-gray-600 mt-1">
               {cancellationRate}% cancellation rate
             </div>
           </div>
@@ -341,21 +341,21 @@ const BookingManagerAnalytics = () => {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Route</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Bookings</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Revenue</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Commission</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Avg per Booking</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Route</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Bookings</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Revenue</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Commission</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Avg per Booking</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {Object.entries(routePerformance).map(([route, data]) => (
                   <tr key={route}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{route}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{data.bookings}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{formatCurrency(data.revenue)}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-600">{route}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{data.bookings}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{formatCurrency(data.revenue)}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-medium">{formatCurrency(data.commission)}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{formatCurrency(data.revenue / data.bookings)}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{formatCurrency(data.revenue / data.bookings)}</td>
                   </tr>
                 ))}
               </tbody>
