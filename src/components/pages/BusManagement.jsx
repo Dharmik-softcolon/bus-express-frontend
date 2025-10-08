@@ -37,7 +37,6 @@ const BusManagement = () => {
   const [editingBus, setEditingBus] = useState(null)
   
   const [buses, setBuses] = useState([])
-  const [busesLoading, setBusesLoading] = useState(true)
   const [ongoingRequests, setOngoingRequests] = useState(new Set())
 
   // Search and filter states
@@ -110,7 +109,6 @@ const BusManagement = () => {
   // Fetch buses data
   const fetchBusesData = async () => {
     try {
-      setBusesLoading(true)
       console.log('Fetching buses...')
       
       const response = await preventDuplicateRequest('buses', () => busAPI.getAllBuses({ limit: 50 }))
@@ -152,8 +150,6 @@ const BusManagement = () => {
       console.error('Error fetching buses data:', error)
       showToast.error(`Failed to load buses data: ${error.message}`)
       setBuses([])
-    } finally {
-      setBusesLoading(false)
     }
   }
 
@@ -482,75 +478,67 @@ const BusManagement = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="mb-8">
-          <div className="bg-white shadow-lg rounded-lg p-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mr-4">
-                  <Bus className="h-8 w-8 text-blue-600" />
-                </div>
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-6">
             <div>
-                  <h1 className="text-3xl font-bold text-gray-900 mb-1">
-                    Bus Fleet Management
-                  </h1>
-                  <p className="text-gray-600">
-                    Manage your bus fleet, schedules, and maintenance records
-              </p>
+              <h1 className="text-2xl font-bold" style={{color: "#B99750"}}>Bus Fleet Management</h1>
+              <p className="text-gray-600 mt-1">Manage your bus fleet, schedules, and maintenance records</p>
             </div>
-          </div>
-              <div className="flex items-center space-x-4">
-                <button
-                  onClick={fetchBusesData}
-                  disabled={busesLoading}
-                  className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors flex items-center"
-                >
-                  <RefreshCw className={`h-4 w-4 mr-2 ${busesLoading ? 'animate-spin' : ''}`} />
-                  Refresh
-                </button>
-            <button
-              onClick={() => {
-                setEditingBus(null)
-                    setBusForm({
-                      busNumber: '',
-                      busName: '',
-                      type: 'AC',
-                      totalSeats: '',
-                      availableSeats: '',
-                      amenities: [],
-                      status: 'active',
-                      images: [],
-                      features: {
-                        wifi: false,
-                        charging: false,
-                        blankets: false,
-                        water: false,
-                        snacks: false
-                      },
-                      fuelCapacity: '',
-                      currentFuel: '',
-                      totalKm: '',
-                      lastServiceKm: '',
-                      fastTagNumber: '',
-                      description: ''
-                    })
-                    setFormErrors({})
-                setShowAddModal(true)
-              }}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center"
-            >
-              <Plus className="h-4 w-4 mr-2" />
-              Add New Bus
-            </button>
-              </div>
+            <div className="flex items-center space-x-4">
+              <button
+                onClick={fetchBusesData}
+                disabled={false}
+                className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors flex items-center"
+              >
+                <RefreshCw className="h-4 w-4 mr-2" />
+                Refresh
+              </button>
+              <button
+                onClick={() => {
+                  setEditingBus(null)
+                  setBusForm({
+                    busNumber: '',
+                    busName: '',
+                    type: 'AC',
+                    totalSeats: '',
+                    availableSeats: '',
+                    amenities: [],
+                    status: 'active',
+                    images: [],
+                    features: {
+                      wifi: false,
+                      charging: false,
+                      blankets: false,
+                      water: false,
+                      snacks: false
+                    },
+                    fuelCapacity: '',
+                    currentFuel: '',
+                    totalKm: '',
+                    lastServiceKm: '',
+                    fastTagNumber: '',
+                    description: ''
+                  })
+                  setFormErrors({})
+                  setShowAddModal(true)
+                }}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center"
+              >
+                <Plus className="h-4 w-4 mr-2" />
+                Add New Bus
+              </button>
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
         {/* Search and Filter Section */}
-        <div className="bg-white shadow-lg rounded-lg p-6 mb-6">
+        <div className="bg-white rounded-lg shadow-sm border p-6 mb-6">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1">
               <label className="block text-sm font-medium text-gray-700 mb-2">Search</label>
@@ -613,7 +601,7 @@ const BusManagement = () => {
 
         {/* Stats Section */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-          <div className="bg-white p-6 rounded-lg shadow">
+          <div className="bg-white rounded-lg shadow-sm border p-6">
             <div className="flex items-center">
               <div className="p-2 bg-blue-100 rounded-lg">
                 <Bus className="h-6 w-6 text-blue-600" />
@@ -624,7 +612,7 @@ const BusManagement = () => {
               </div>
             </div>
           </div>
-          <div className="bg-white p-6 rounded-lg shadow">
+          <div className="bg-white rounded-lg shadow-sm border p-6">
             <div className="flex items-center">
               <div className="p-2 bg-green-100 rounded-lg">
                 <CheckCircle className="h-6 w-6 text-green-600" />
@@ -637,7 +625,7 @@ const BusManagement = () => {
               </div>
             </div>
           </div>
-          <div className="bg-white p-6 rounded-lg shadow">
+          <div className="bg-white rounded-lg shadow-sm border p-6">
             <div className="flex items-center">
               <div className="p-2 bg-purple-100 rounded-lg">
                 <Users className="h-6 w-6 text-purple-600" />
@@ -650,10 +638,10 @@ const BusManagement = () => {
                     : 0
                   }
                 </p>
-                    </div>
-                    </div>
-                  </div>
-          <div className="bg-white p-6 rounded-lg shadow">
+              </div>
+            </div>
+          </div>
+          <div className="bg-white rounded-lg shadow-sm border p-6">
             <div className="flex items-center">
               <div className="p-2 bg-orange-100 rounded-lg">
                 <TrendingUp className="h-6 w-6 text-orange-600" />
@@ -666,13 +654,13 @@ const BusManagement = () => {
                     : 0
                   } seats
                 </p>
-                  </div>
-                </div>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Buses List */}
-        <div className="bg-white shadow-lg rounded-lg">
+        <div className="bg-white rounded-lg shadow-sm border">
           <div className="px-6 py-4 border-b border-gray-200">
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-semibold text-gray-900">Buses</h2>
@@ -684,16 +672,7 @@ const BusManagement = () => {
             </div>
           </div>
           
-          {busesLoading ? (
-            <div className="p-6">
-              <div className="animate-pulse text-center py-8">
-                <div className="inline-flex items-center">
-                  <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mr-3"></div>
-                  <span className="text-gray-600">Loading buses...</span>
-                </div>
-              </div>
-            </div>
-          ) : filteredAndSortedBuses().length === 0 ? (
+          {filteredAndSortedBuses().length === 0 ? (
             <div className="p-12 text-center">
               <Bus className="h-12 w-12 text-gray-400 mx-auto mb-4" />
               <h3 className="text-lg font-medium text-gray-900 mb-2">No buses found</h3>

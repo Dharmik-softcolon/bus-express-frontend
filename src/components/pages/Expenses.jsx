@@ -16,7 +16,6 @@ const Expenses = () => {
   const { user } = useUser()
   const navigationItems = getNavigationMenu(user?.role)
   const [activeTab, setActiveTab] = useState('expenses')
-  const [loading, setLoading] = useState(true)
   const [expenseData] = useState({
     totalExpenses: 845000,
     monthlyExpenses: 142000,
@@ -29,7 +28,7 @@ const Expenses = () => {
       { category: 'Insurance', amount: 85000, percentage: 10.1 },
       { category: 'Other', amount: 35000, percentage: 4.1 }
     ],
-    monthlyExpenses: [
+    monthlyExpensesData: [
       { month: 'Jan', expenses: 125000, budget: 150000 },
       { month: 'Feb', expenses: 142000, budget: 180000 },
       { month: 'Mar', expenses: 138000, budget: 185000 },
@@ -53,19 +52,8 @@ const Expenses = () => {
   })
 
   useEffect(() => {
-    setTimeout(() => setLoading(false), 1000)
+    // Component ready
   }, [])
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-2 text-gray-600">Loading expense data...</p>
-        </div>
-      </div>
-    )
-  }
 
   const getCategoryIcon = (category) => {
     switch (category) {
@@ -96,8 +84,20 @@ const Expenses = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-4 sm:py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-6">
+            <div>
+              <h1 className="text-2xl font-bold" style={{color: "#B99750"}}>Expense Management</h1>
+              <p className="text-gray-600 mt-1">Track and manage fleet expenses</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header with Navigation */}
         <div className="mb-6 sm:mb-8">
           <div className="flex flex-col gap-4">
@@ -216,7 +216,7 @@ const Expenses = () => {
           <div className="bg-white rounded-lg shadow p-6">
             <h3 className="text-lg font-medium text-gray-900 mb-4">Monthly Expense Trend</h3>
             <div className="space-y-4">
-              {expenseData.monthlyExpenses.map((month, index) => (
+              {expenseData.monthlyExpensesData.map((month, index) => (
                 <div key={index} className="flex items-center justify-between">
                   <div className="text-sm font-medium text-gray-600">{month.month}</div>
                   <div className="flex items-center space-x-4">

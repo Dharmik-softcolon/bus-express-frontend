@@ -96,7 +96,7 @@ const RevenueAnalytics = () => {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold text-[#B99750]">Revenue Analytics</h1>
+          <h1 className="text-2xl font-bold" style={{color: "#B99750"}}>Revenue Analytics</h1>
           <p className="text-gray-600">Detailed revenue analysis by route and time period</p>
         </div>
         <button className="btn-primary flex items-center space-x-2">

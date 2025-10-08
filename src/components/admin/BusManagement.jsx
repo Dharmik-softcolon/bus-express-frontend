@@ -6,7 +6,6 @@ const BusManagement = () => {
   const [showAddModal, setShowAddModal] = useState(false)
   const [editingBus, setEditingBus] = useState(null)
   const [activeTab, setActiveTab] = useState('buses')
-  const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   
   const [buses, setBuses] = useState([])
@@ -416,28 +415,27 @@ const BusManagement = () => {
   )
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="mb-8">
-          <div className="flex justify-between items-center">
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-6">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                Bus Management
-              </h1>
-              <p className="text-gray-600">
-                Manage buses, routes, employees, fuel, and expenses
-              </p>
+              <h1 className="text-2xl font-bold" style={{color: "#B99750"}}>Bus Management</h1>
+              <p className="text-gray-600 mt-1">Manage buses, routes, employees, fuel, and expenses</p>
             </div>
             <button
               onClick={() => setShowAddModal(true)}
-              className="btn-primary flex items-center"
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
             >
-              <Plus className="h-4 w-4 mr-2" />
+              <Plus className="h-4 w-4" />
               Add New Bus
             </button>
           </div>
         </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
         {/* Tabs */}
         <div className="mb-6">

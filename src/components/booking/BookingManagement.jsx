@@ -41,7 +41,6 @@ const BookingManagement = () => {
   
   // State management
   const [activeTab, setActiveTab] = useState('search')
-  const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   
   // Search and booking states
@@ -106,8 +105,7 @@ const BookingManagement = () => {
 
   // Fetch bookings
   const fetchBookings = async () => {
-    try {
-      setLoading(true)
+      try {
       const response = await bookingAPI.getAllBookings({
         bookingMan: user.id,
         page: pagination.page,
@@ -126,8 +124,6 @@ const BookingManagement = () => {
     } catch (error) {
       console.error('Error fetching bookings:', error)
       showToast.error('Failed to load bookings')
-    } finally {
-      setLoading(false)
     }
   }
 
@@ -138,8 +134,7 @@ const BookingManagement = () => {
       return
     }
 
-    try {
-      setLoading(true)
+      try {
       const response = await searchAPI.searchTrips({
         from: searchFilters.from,
         to: searchFilters.to,
@@ -157,8 +152,6 @@ const BookingManagement = () => {
       console.error('Error searching trips:', error)
       showToast.error('Failed to search trips')
       setAvailableTrips([])
-    } finally {
-      setLoading(false)
     }
   }
 
@@ -170,8 +163,7 @@ const BookingManagement = () => {
 
   // Confirm booking
   const handleConfirmBooking = async (bookingData) => {
-    try {
-      setLoading(true)
+      try {
       const response = await bookingAPI.createBooking(bookingData)
       
       if (response.success) {
@@ -186,8 +178,6 @@ const BookingManagement = () => {
     } catch (error) {
       console.error('Error creating booking:', error)
       showToast.error('Failed to create booking')
-    } finally {
-      setLoading(false)
     }
   }
 
@@ -358,23 +348,21 @@ const BookingManagement = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+      {/* Header */}
+      <div className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-6">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Booking Management</h1>
-              <p className="text-gray-600 mt-2">
-                Search trips, book seats, and manage customer bookings
-              </p>
+              <h1 className="text-2xl font-bold" style={{color: "#B99750"}}>Booking Management</h1>
+              <p className="text-gray-600 mt-1">Search trips, book seats, and manage customer bookings</p>
             </div>
-            <div className="mt-4 sm:mt-0 flex space-x-3">
+            <div className="flex space-x-3">
               <button
                 onClick={() => {
                   fetchBookingStats()
                   fetchBookings()
                 }}
-                className="btn-secondary flex items-center"
+                className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors flex items-center"
               >
                 <RefreshCw className="h-4 w-4 mr-2" />
                 Refresh
@@ -382,6 +370,9 @@ const BookingManagement = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
         {/* Statistics */}
         {user?.role === 'booking_manager' && (
@@ -500,14 +491,10 @@ const BookingManagement = () => {
               </div>
               <button
                 onClick={searchTrips}
-                disabled={loading}
+                disabled={false}
                 className="btn-primary mt-4 flex items-center"
               >
-                {loading ? (
-                  <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
-                ) : (
-                  <Search className="h-4 w-4 mr-2" />
-                )}
+                <Search className="h-4 w-4 mr-2" />
                 Search Trips
               </button>
             </div>

@@ -33,8 +33,6 @@ const BusAdminOverview = () => {
 
   const [routes, setRoutes] = useState([])
   const [buses, setBuses] = useState([])
-  const [routesLoading, setRoutesLoading] = useState(true)
-  const [busesLoading, setBusesLoading] = useState(true)
 
   // Analytics data
   const [analyticsData] = useState({
@@ -132,62 +130,58 @@ const BusAdminOverview = () => {
         }
       ])
       
-      setRoutesLoading(false)
-      setBusesLoading(false)
     }, 1000)
   }, [])
 
   return (
-    <div className="min-h-screen bg-gray-50 py-3 sm:py-4">
-      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-5">
-        {/* Header with Navigation */}
-        <div className="mb-4 sm:mb-6">
-          <div className="flex flex-col gap-3">
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-6">
             <div>
-              <h1 className="text-xl sm:text-2xl font-bold text-[#B99750]">Bus Admin Overview</h1>
-              <p className="text-gray-600 text-xs sm:text-sm">
-                Fleet management dashboard and operational insights
-              </p>
+                  <h1 className="text-2xl font-bold" style={{color: "#B99750"}}>Bus Admin Overview</h1>
+              <p className="text-gray-600 mt-1">Fleet management dashboard and operational insights</p>
             </div>
             
             {/* Tab Navigation */}
-            <div className="flex space-x-1 bg-gray-100/50 p-1 rounded-md w-fit">
+            <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg">
               <button
                 onClick={() => setActiveTab('overview')}
-                className={`px-3 py-1.5 text-xs font-medium rounded-sm transition-all duration-200 border-0 hover:border-0 active:border-0 focus:border-0 ${
+                className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
                   activeTab === 'overview'
-                    ? 'bg-button/20 text-gray-600'
-                    : 'text-gray-600 hover:text-gray-600 hover:bg-gray-200/50'
+                    ? 'bg-blue-600 text-white'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200'
                 }`}
               >
                 Overview
               </button>
               <button
                 onClick={() => setActiveTab('bus-analytics')}
-                className={`px-3 py-1.5 text-xs font-medium rounded-sm transition-all duration-200 border-0 hover:border-0 active:border-0 focus:border-0 ${
+                className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
                   activeTab === 'bus-analytics'
-                    ? 'bg-button/20 text-gray-600'
-                    : 'text-gray-600 hover:text-gray-600 hover:bg-gray-200/50'
+                    ? 'bg-blue-600 text-white'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200'
                 }`}
               >
                 Bus Analytics
               </button>
               <button
                 onClick={() => setActiveTab('route-analytics')}
-                className={`px-3 py-1.5 text-xs font-medium rounded-sm transition-all duration-200 border-0 hover:border-0 active:border-0 focus:border-0 ${
+                className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
                   activeTab === 'route-analytics'
-                    ? 'bg-button/20 text-gray-600'
-                    : 'text-gray-600 hover:text-gray-600 hover:bg-gray-200/50'
+                    ? 'bg-blue-600 text-white'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200'
                 }`}
               >
                 Route Analytics
               </button>
               <button
                 onClick={() => setActiveTab('trip-analytics')}
-                className={`px-3 py-1.5 text-xs font-medium rounded-sm transition-all duration-200 border-0 hover:border-0 active:border-0 focus:border-0 ${
+                className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
                   activeTab === 'trip-analytics'
-                    ? 'bg-button/20 text-gray-600'
-                    : 'text-gray-600 hover:text-gray-600 hover:bg-gray-200/50'
+                    ? 'bg-blue-600 text-white'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200'
                 }`}
               >
                 Trip Analytics
@@ -195,13 +189,16 @@ const BusAdminOverview = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
         {/* Tab Content */}
         {activeTab === 'overview' && (
-          <div className="space-y-4">
+          <div className="space-y-6">
             {/* Quick Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            <div className="bg-white rounded-lg shadow p-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="bg-white rounded-lg shadow-sm border p-6">
               <div className="flex items-center">
                 <div className="p-2 rounded-full bg-blue-100">
                   <Bus className="h-5 w-5" style={{color: "rgb(59 130 246 / var(--tw-text-opacity, 1))"}} />
@@ -213,102 +210,97 @@ const BusAdminOverview = () => {
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow p-4">
+            <div className="bg-white rounded-lg shadow-sm border p-6">
               <div className="flex items-center">
                 <div className="p-2 rounded-full bg-green-100">
-                  <MapPin className="h-5 w-5" style={{color: "rgb(34 197 94 / var(--tw-text-opacity, 1))"}} />
+                  <MapPin className="h-5 w-5 text-green-600" />
                 </div>
                 <div className="ml-3">
-                  <p className="text-xs font-medium text-gray-600">Active Routes</p>
-                  <p className="text-lg font-bold text-gray-600">{mockStats.activeRoutes}</p>
+                  <p className="text-sm font-medium text-gray-600">Active Routes</p>
+                  <p className="text-2xl font-bold text-gray-900">{mockStats.activeRoutes}</p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow p-4">
+            <div className="bg-white rounded-lg shadow-sm border p-6">
               <div className="flex items-center">
                 <div className="p-2 rounded-full bg-purple-100">
-                  <Users className="h-5 w-5" style={{color: "rgb(147 51 234 / var(--tw-text-opacity, 1))"}} />
+                  <Users className="h-5 w-5 text-purple-600" />
                 </div>
                 <div className="ml-3">
-                  <p className="text-xs font-medium text-gray-600">Bus Employees</p>
-                  <p className="text-lg font-bold text-gray-600">{mockStats.totalEmployees}</p>
+                  <p className="text-sm font-medium text-gray-600">Bus Employees</p>
+                  <p className="text-2xl font-bold text-gray-900">{mockStats.totalEmployees}</p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow p-4">
+            <div className="bg-white rounded-lg shadow-sm border p-6">
               <div className="flex items-center">
                 <div className="p-2 rounded-full bg-yellow-100">
                   <Users className="h-5 w-5 text-yellow-600" />
                 </div>
                 <div className="ml-3">
-                  <p className="text-xs font-medium text-gray-600">Booking Managers</p>
-                  <p className="text-lg font-bold text-gray-600">{mockStats.totalBookingMen}</p>
+                  <p className="text-sm font-medium text-gray-600">Booking Managers</p>
+                  <p className="text-2xl font-bold text-gray-900">{mockStats.totalBookingMen}</p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow p-4">
+            <div className="bg-white rounded-lg shadow-sm border p-6">
               <div className="flex items-center">
                 <div className="p-2 rounded-full bg-indigo-100">
-                  <Calendar className="h-5 w-5" style={{color: "rgb(99 102 241 / var(--tw-text-opacity, 1))"}} />
+                  <Calendar className="h-5 w-5 text-indigo-600" />
                 </div>
                 <div className="ml-3">
-                  <p className="text-xs font-medium text-gray-600">Total Trips</p>
-                  <p className="text-lg font-bold text-gray-600">{mockStats.totalTrips}</p>
+                  <p className="text-sm font-medium text-gray-600">Total Trips</p>
+                  <p className="text-2xl font-bold text-gray-900">{mockStats.totalTrips}</p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow p-4">
+            <div className="bg-white rounded-lg shadow-sm border p-6">
               <div className="flex items-center">
                 <div className="p-2 rounded-full bg-orange-100">
-                  <DollarSign className="h-5 w-5" style={{color: "rgb(249 115 22 / var(--tw-text-opacity, 1))"}} />
+                  <DollarSign className="h-5 w-5 text-orange-600" />
                 </div>
                 <div className="ml-3">
-                  <p className="text-xs font-medium text-gray-600">Monthly Revenue</p>
-                  <p className="text-lg font-bold text-gray-600">₹{mockStats.monthlyRevenue.toLocaleString()}</p>
+                  <p className="text-sm font-medium text-gray-600">Monthly Revenue</p>
+                  <p className="text-2xl font-bold text-gray-900">₹{mockStats.monthlyRevenue.toLocaleString()}</p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow p-4">
+            <div className="bg-white rounded-lg shadow-sm border p-6">
               <div className="flex items-center">
                 <div className="p-2 rounded-full bg-pink-100">
-                  <TrendingUp className="h-5 w-5" style={{color: "rgb(236 72 153 / var(--tw-text-opacity, 1))"}} />
+                  <TrendingUp className="h-5 w-5 text-pink-600" />
                 </div>
                 <div className="ml-3">
-                  <p className="text-xs font-medium text-gray-600">Total Bookings</p>
-                  <p className="text-lg font-bold text-gray-600">{mockStats.totalBookings.toLocaleString()}</p>
+                  <p className="text-sm font-medium text-gray-600">Total Bookings</p>
+                  <p className="text-2xl font-bold text-gray-900">{mockStats.totalBookings.toLocaleString()}</p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow p-4">
+            <div className="bg-white rounded-lg shadow-sm border p-6">
               <div className="flex items-center">
                 <div className="p-2 rounded-full bg-red-100">
-                  <AlertCircle className="h-5 w-5" style={{color: "rgb(239 68 68 / var(--tw-text-opacity, 1))"}} />
+                  <AlertCircle className="h-5 w-5 text-red-600" />
                 </div>
                 <div className="ml-3">
-                  <p className="text-xs font-medium text-gray-600">Maintenance Due</p>
-                  <p className="text-lg font-bold text-gray-600">{mockStats.maintenanceDue}</p>
+                  <p className="text-sm font-medium text-gray-600">Maintenance Due</p>
+                  <p className="text-2xl font-bold text-gray-900">{mockStats.maintenanceDue}</p>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Route-Bus Assignments */}
-          <div className="bg-white rounded-lg shadow p-4">
-            <h3 className="text-base font-semibold mb-3">Route-Bus Assignments</h3>
-            {routesLoading ? (
-              <div className="text-center py-8">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-navy mx-auto"></div>
-                <p className="mt-2 text-gray-600">Loading routes...</p>
-              </div>
-            ) : routes.length === 0 ? (
-              <div className="text-center py-8">
-                <MapPin className="h-12 w-12" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} mx-auto mb-4 />
+          <div className="bg-white rounded-lg shadow-sm border p-6">
+            <h3 className="text-xl font-semibold text-gray-900 mb-4">Route-Bus Assignments</h3>
+            {routes.length === 0 ? (
+              <div className="text-center py-12">
+                <MapPin className="h-12 w-12 text-gray-400 mx-auto mb-4" />
                 <p className="text-gray-600">No routes found</p>
               </div>
             ) : (
@@ -355,16 +347,11 @@ const BusAdminOverview = () => {
           </div>
 
           {/* Fleet Status */}
-          <div className="bg-white rounded-lg shadow p-4">
-            <h3 className="text-base font-semibold mb-3">Fleet Status</h3>
-            {busesLoading ? (
-              <div className="text-center py-8">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-navy mx-auto"></div>
-                <p className="mt-2 text-gray-600">Loading buses...</p>
-              </div>
-            ) : buses.length === 0 ? (
-              <div className="text-center py-8">
-                <Bus className="h-12 w-12" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} mx-auto mb-4 />
+          <div className="bg-white rounded-lg shadow-sm border p-6">
+            <h3 className="text-xl font-semibold text-gray-900 mb-4">Fleet Status</h3>
+            {buses.length === 0 ? (
+              <div className="text-center py-12">
+                <Bus className="h-12 w-12 text-gray-400 mx-auto mb-4" />
                 <p className="text-gray-600">No buses found</p>
               </div>
             ) : (

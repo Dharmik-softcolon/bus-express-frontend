@@ -23,8 +23,6 @@ const RouteManagement = () => {
 
   // State Management
   const [routes, setRoutes] = useState([])
-  const [routesLoading, setRoutesLoading] = useState(true)
-  const [formLoading, setFormLoading] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [editingRoute, setEditingRoute] = useState(null)
   const [searchTerm, setSearchTerm] = useState('')
@@ -76,7 +74,6 @@ const RouteManagement = () => {
   // Fetch routes data
   const fetchRoutesData = async () => {
     try {
-      setRoutesLoading(true)
       const response = await preventDuplicateRequest('fetch-routes', () => routeAPI.getAllRoutes())
       
       if (response.success && response.data?.routes) {
@@ -87,8 +84,6 @@ const RouteManagement = () => {
     } catch (error) {
       console.error('Error fetching routes:', error)
       showToast.error('Failed to fetch routes')
-    } finally {
-      setRoutesLoading(false)
     }
   }
 
@@ -212,7 +207,6 @@ const RouteManagement = () => {
     }
 
     try {
-      setFormLoading(true)
 
       // Prepare route data
       const routeData = {
@@ -254,7 +248,6 @@ const RouteManagement = () => {
 
       showToast.error(errorMessage)
     } finally {
-      setFormLoading(false)
     }
   }
 
@@ -266,7 +259,6 @@ const RouteManagement = () => {
     }
 
     try {
-      setFormLoading(true)
 
       // Prepare route data
       const routeData = {
@@ -308,7 +300,6 @@ const RouteManagement = () => {
 
       showToast.error(errorMessage)
     } finally {
-      setFormLoading(false)
     }
   }
 
@@ -438,79 +429,79 @@ const RouteManagement = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-        {/* Header */}
-        <div className="bg-white shadow">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center py-6">
-              <div>
-                <h1 className="text-3xl font-bold text-[#B99750]">Route Management</h1>
-                <p className="mt-2 text-gray-600">Manage bus routes, stops, and schedules</p>
+      {/* Header */}
+      <div className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-6">
+            <div>
+              <h1 className="text-2xl font-bold" style={{color: "#B99750"}}>Route Management</h1>
+              <p className="text-gray-600 mt-1">Manage bus routes, stops, and schedules</p>
+            </div>
+            <button
+              onClick={() => setShowModal(true)}
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+            >
+              <Plus className="h-4 w-4" />
+              Add New Route
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Stats Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+          <div className="bg-white rounded-lg shadow-sm border p-6">
+            <div className="flex items-center">
+              <div className="p-2 bg-blue-100 rounded-lg">
+                <MapPin className="h-6 w-6 text-blue-600" />
               </div>
-              <button
-                  onClick={() => setShowModal(true)}
-                  className="btn-primary px-6 py-3 rounded-lg flex items-center transition-colors"
-              >
-                <Plus className="h-5 w-5 mr-2" />
-                Add New Route
-              </button>
+              <div className="ml-4">
+                <p className="text-sm font-medium text-gray-600">Total Routes</p>
+                <p className="text-2xl font-bold text-gray-900">{stats.total}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-lg shadow-sm border p-6">
+            <div className="flex items-center">
+              <div className="p-2 bg-green-100 rounded-lg">
+                <Users className="h-6 w-6 text-green-600" />
+              </div>
+              <div className="ml-4">
+                <p className="text-sm font-medium text-gray-600">Pickup Points</p>
+                <p className="text-2xl font-bold text-gray-900">{stats.totalPickupPoints}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-lg shadow-sm border p-6">
+            <div className="flex items-center">
+              <div className="p-2 bg-purple-100 rounded-lg">
+                <MapPin className="h-6 w-6 text-purple-600" />
+              </div>
+              <div className="ml-4">
+                <p className="text-sm font-medium text-gray-600">Drop Points</p>
+                <p className="text-2xl font-bold text-gray-900">{stats.totalDropPoints}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-lg shadow-sm border p-6">
+            <div className="flex items-center">
+              <div className="p-2 bg-yellow-100 rounded-lg">
+                <TrendingUp className="h-6 w-6 text-yellow-600" />
+              </div>
+              <div className="ml-4">
+                <p className="text-sm font-medium text-gray-600">Avg Fare</p>
+                <p className="text-2xl font-bold text-gray-900">₹{stats.averageFare.toFixed(0)}</p>
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            <div className="bg-white p-6 rounded-lg shadow">
-              <div className="flex items-center">
-                <div className="p-2 bg-blue-100 rounded-lg">
-                  <MapPin className="h-6 w-6 text-blue-600" />
-                </div>
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Total Routes</p>
-                  <p className="text-2xl font-bold text-gray-600">{stats.total}</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white p-6 rounded-lg shadow">
-              <div className="flex items-center">
-                <div className="p-2 bg-green-100 rounded-lg">
-                  <Users className="h-6 w-6 text-green-600" />
-                </div>
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Pickup Points</p>
-                  <p className="text-2xl font-bold text-gray-600">{stats.totalPickupPoints}</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white p-6 rounded-lg shadow">
-              <div className="flex items-center">
-                <div className="p-2 bg-purple-100 rounded-lg">
-                  <MapPin className="h-6 w-6 text-purple-600" />
-                </div>
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Drop Points</p>
-                  <p className="text-2xl font-bold text-gray-600">{stats.totalDropPoints}</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white p-6 rounded-lg shadow">
-              <div className="flex items-center">
-                <div className="p-2 bg-yellow-100 rounded-lg">
-                  <TrendingUp className="h-6 w-6 text-yellow-600" />
-                </div>
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Avg Fare</p>
-                  <p className="text-2xl font-bold text-gray-600">₹{stats.averageFare.toFixed(0)}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Search and Filters */}
-          <div className="bg-white p-6 rounded-lg shadow mb-6">
+        {/* Search and Filters */}
+        <div className="bg-white rounded-lg shadow-sm border p-6 mb-6">
             <div className="flex flex-col md:flex-row gap-4">
               <div className="flex-1 relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-600" />
@@ -519,14 +510,14 @@ const RouteManagement = () => {
                     placeholder="Search routes by name, start city, end city..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 border border-[#B99750] rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               </div>
 
               <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="px-4 py-2 border border-[#B99750] rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                  className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="newest">Newest First</option>
                 <option value="name">Name A-Z</option>
@@ -537,12 +528,7 @@ const RouteManagement = () => {
           </div>
 
           {/* Routes List */}
-          {routesLoading ? (
-              <div className="bg-white rounded-lg shadow p-12 text-center">
-                <Loader className="h-8 w-8 text-blue-600 animate-spin mx-auto mb-4" />
-                <p className="text-gray-600">Loading routes...</p>
-              </div>
-          ) : filteredAndSortedRoutes().length === 0 ? (
+          {filteredAndSortedRoutes().length === 0 ? (
               <div className="bg-white rounded-lg shadow p-12 text-center">
                 <MapPin className="h-12 w-12 text-gray-600 mx-auto mb-4" />
                 <h3 className="text-lg font-medium text-gray-600 mb-2">No routes found</h3>
@@ -921,10 +907,9 @@ const RouteManagement = () => {
                       </button>
                       <button
                           type="submit"
-                          disabled={formLoading}
+                          disabled={false}
                           className="px-6 py-2 btn-primary rounded-lg flex items-center transition-colors disabled:opacity-50"
                       >
-                        {formLoading && <Loader className="h-4 w-4 mr-2 animate-spin" />}
                         {editingRoute ? 'Update Route' : 'Create Route'}
                       </button>
                     </div>

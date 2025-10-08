@@ -220,7 +220,7 @@ const BookingManagerBookings = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
             <div>
-              <h1 className="text-2xl font-bold text-[#B99750]">All Bookings</h1>
+              <h1 className="text-2xl font-bold" style={{color: "#B99750"}}>All Bookings</h1>
               <p className="text-gray-600 mt-1">Manage and track all customer bookings</p>
             </div>
             <div className="flex items-center space-x-4">

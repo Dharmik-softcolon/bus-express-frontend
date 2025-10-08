@@ -59,7 +59,6 @@ const TripManagement = () => {
   const [statistics, setStatistics] = useState(null)
   
   // Loading and error states
-  const [loading, setLoading] = useState(true)
   const [actionLoading, setActionLoading] = useState(false)
   const [error, setError] = useState(null)
   
@@ -96,7 +95,6 @@ const TripManagement = () => {
   // Fetch all data
   const fetchAllData = async () => {
     try {
-      setLoading(true)
       setError(null)
       
       console.log('Fetching trip data...')
@@ -177,8 +175,6 @@ const TripManagement = () => {
       console.error('Error fetching data:', error)
       setError('Failed to load data')
       showToast.error('Failed to load trip data')
-    } finally {
-      setLoading(false)
     }
   }
 
@@ -227,7 +223,6 @@ const TripManagement = () => {
   // Handle trip creation/update
   const handleSubmitTrip = async (e) => {
     e.preventDefault()
-    setActionLoading(true)
     
     try {
       const tripData = {
@@ -267,8 +262,6 @@ const TripManagement = () => {
     } catch (error) {
       console.error('Error submitting trip:', error)
       showToast.error('Failed to save trip')
-    } finally {
-      setActionLoading(false)
     }
   }
 
@@ -510,20 +503,18 @@ const TripManagement = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+      {/* Header */}
+      <div className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-6">
             <div>
-              <h1 className="text-3xl font-bold text-[#B99750]">Trip Management</h1>
-              <p className="text-gray-600 mt-2">
-                Manage bus trips, schedules, and staff assignments
-              </p>
+                  <h1 className="text-2xl font-bold" style={{color: "#B99750"}}>Trip Management</h1>
+              <p className="text-gray-600 mt-1">Manage bus trips, schedules, and staff assignments</p>
             </div>
-            <div className="mt-4 sm:mt-0 flex space-x-3">
+            <div className="flex space-x-3">
               <button
                 onClick={() => setShowFilters(!showFilters)}
-                className="btn-secondary flex items-center"
+                className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors flex items-center"
               >
                 <Filter className="h-4 w-4 mr-2" />
                 Filters
@@ -533,7 +524,7 @@ const TripManagement = () => {
                   setEditingTrip(null)
                   setShowAddModal(true)
                 }}
-                className="btn-primary flex items-center"
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center"
               >
                 <Plus className="h-4 w-4 mr-2" />
                 Create Trip
@@ -541,6 +532,9 @@ const TripManagement = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
         {/* Statistics */}
         {statistics && (
@@ -673,11 +667,7 @@ const TripManagement = () => {
         )}
 
         {/* Trips Grid */}
-        {loading ? (
-          <div className="flex justify-center items-center py-12">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-          </div>
-        ) : filteredTrips.length === 0 ? (
+        {filteredTrips.length === 0 ? (
           <div className="text-center py-12">
             <Calendar className="h-12 w-12 text-gray-400 mx-auto mb-4" />
             <h3 className="text-lg font-medium text-gray-900 mb-2">No trips found</h3>
@@ -914,12 +904,9 @@ const TripManagement = () => {
                     </button>
                     <button
                       type="submit"
-                      disabled={actionLoading}
+                      disabled={false}
                       className="btn-primary"
                     >
-                      {actionLoading ? (
-                        <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
-                      ) : null}
                       {editingTrip ? 'Update Trip' : 'Create Trip'}
                     </button>
                   </div>

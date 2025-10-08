@@ -63,108 +63,111 @@ const BusOwnerDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
-        <div className="mb-6 sm:mb-8">
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-[#B99750]">Bus Owner Dashboard</h1>
-            <p className="text-gray-600 text-sm sm:text-base">
-              Monitor fleet performance and analytics
-            </p>
+      {/* Header */}
+      <div className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-6">
+            <div>
+              <h1 className="text-2xl font-bold" style={{color: "#B99750"}}>Bus Owner Dashboard</h1>
+              <p className="text-gray-600 mt-1">Monitor fleet performance and analytics</p>
+            </div>
           </div>
         </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Quick Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 mb-8">
-          <div className="bg-white rounded-lg shadow p-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 mb-6">
+          <div className="bg-white rounded-lg shadow-sm border p-6">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
-                  <Bus className="w-5 h-5 text-white" />
+                <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                  <Bus className="w-5 h-5 text-blue-600" />
                 </div>
               </div>
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">Total Buses</p>
-                <p className="text-2xl font-semibold text-gray-600">
+                <p className="text-2xl font-bold text-gray-900">
                   {loading ? '...' : stats.totalBuses}
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="bg-white rounded-lg shadow-sm border p-6">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-                  <MapPin className="w-5 h-5 text-white" />
+                <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                  <MapPin className="w-5 h-5 text-green-600" />
                 </div>
               </div>
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">Active Routes</p>
-                <p className="text-2xl font-semibold text-gray-600">
+                <p className="text-2xl font-bold text-gray-900">
                   {loading ? '...' : stats.activeRoutes}
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="bg-white rounded-lg shadow-sm border p-6">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
-                  <Calendar className="w-5 h-5 text-white" />
+                <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                  <Calendar className="w-5 h-5 text-purple-600" />
                 </div>
               </div>
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">Total Trips</p>
-                <p className="text-2xl font-semibold text-gray-600">
+                <p className="text-2xl font-bold text-gray-900">
                   {loading ? '...' : stats.totalTrips}
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="bg-white rounded-lg shadow-sm border p-6">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
-                  <DollarSign className="w-5 h-5 text-white" />
+                <div className="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center">
+                  <DollarSign className="w-5 h-5 text-yellow-600" />
                 </div>
               </div>
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">Monthly Revenue</p>
-                <p className="text-2xl font-semibold text-gray-600">
+                <p className="text-2xl font-bold text-gray-900">
                   {loading ? '...' : `₹${stats.monthlyRevenue.toLocaleString()}`}
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="bg-white rounded-lg shadow-sm border p-6">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-indigo-500 rounded-full flex items-center justify-center">
-                  <TrendingUp className="w-5 h-5 text-white" />
+                <div className="w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center">
+                  <TrendingUp className="w-5 h-5 text-indigo-600" />
                 </div>
               </div>
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">Total Bookings</p>
-                <p className="text-2xl font-semibold text-gray-600">
+                <p className="text-2xl font-bold text-gray-900">
                   {loading ? '...' : stats.totalBookings.toLocaleString()}
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="bg-white rounded-lg shadow-sm border p-6">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">
-                  <AlertCircle className="w-5 h-5 text-white" />
+                <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
+                  <AlertCircle className="w-5 h-5 text-red-600" />
                 </div>
               </div>
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">Maintenance Due</p>
-                <p className="text-2xl font-semibold text-gray-600">
+                <p className="text-2xl font-bold text-gray-900">
                   {loading ? '...' : stats.maintenanceDue}
                 </p>
               </div>

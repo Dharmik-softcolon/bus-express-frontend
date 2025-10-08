@@ -933,58 +933,62 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-4 sm:py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="mb-6 sm:mb-8">
-          <p className="text-gray-600 text-sm sm:text-base">
-            Manage buses, routes, employees, and analyze operations
-          </p>
-        </div>
-
-        {/* Tabs */}
-        <div className="mb-4 sm:mb-6">
-          <div className="flex flex-wrap gap-2">
-            {[
-              { id: 'overview', name: 'Overview' },
-              { id: 'booking', name: 'Booking' },
-              { id: 'buses', name: 'Bus Management' },
-              { id: 'routes', name: 'Route Management' },
-              { id: 'employees', name: 'Employee Management' },
-              { id: 'booking-men', name: 'Booking Men' },
-              { id: 'trips', name: 'Trip Management' },
-              { id: 'expenses', name: 'Expense Management' },
-              { id: 'earnings', name: 'Earnings Analytics' },
-              { id: 'trip-analytics', name: 'Trip Analytics' },
-              { id: 'payroll', name: 'Payroll Management' }
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors ${
-                  activeTab === tab.id
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-white text-gray-700 hover:bg-gray-50'
-                }`}
-              >
-                <span className="hidden sm:inline">{tab.name}</span>
-                <span className="sm:hidden">
-                  {tab.id === 'overview' ? 'Overview' :
-                   tab.id === 'booking' ? 'Booking' :
-                   tab.id === 'buses' ? 'Buses' :
-                   tab.id === 'routes' ? 'Routes' :
-                   tab.id === 'employees' ? 'Employees' :
-                   tab.id === 'booking-men' ? 'Booking' :
-                   tab.id === 'trips' ? 'Trips' :
-                   tab.id === 'expenses' ? 'Expenses' :
-                   tab.id === 'earnings' ? 'Earnings' :
-                   tab.id === 'trip-analytics' ? 'Analytics' :
-                   tab.id === 'payroll' ? 'Payroll' : tab.name}
-                </span>
-              </button>
-            ))}
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-6">
+            <div>
+              <h1 className="text-2xl font-bold" style={{color: "#B99750"}}>Admin Dashboard</h1>
+              <p className="text-gray-600 mt-1">Manage buses, routes, employees, and analyze operations</p>
+            </div>
+            
+            {/* Tabs */}
+            <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg">
+              {[
+                { id: 'overview', name: 'Overview' },
+                { id: 'booking', name: 'Booking' },
+                { id: 'buses', name: 'Bus Management' },
+                { id: 'routes', name: 'Route Management' },
+                { id: 'employees', name: 'Employee Management' },
+                { id: 'booking-men', name: 'Booking Men' },
+                { id: 'trips', name: 'Trip Management' },
+                { id: 'expenses', name: 'Expense Management' },
+                { id: 'earnings', name: 'Earnings Analytics' },
+                { id: 'trip-analytics', name: 'Trip Analytics' },
+                { id: 'payroll', name: 'Payroll Management' }
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                    activeTab === tab.id
+                      ? 'bg-blue-600 text-white'
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200'
+                  }`}
+                >
+                  <span className="hidden sm:inline">{tab.name}</span>
+                  <span className="sm:hidden">
+                    {tab.id === 'overview' ? 'Overview' :
+                     tab.id === 'booking' ? 'Booking' :
+                     tab.id === 'buses' ? 'Buses' :
+                     tab.id === 'routes' ? 'Routes' :
+                     tab.id === 'employees' ? 'Employees' :
+                     tab.id === 'booking-men' ? 'Booking' :
+                     tab.id === 'trips' ? 'Trips' :
+                     tab.id === 'expenses' ? 'Expenses' :
+                     tab.id === 'earnings' ? 'Earnings' :
+                     tab.id === 'trip-analytics' ? 'Analytics' :
+                     tab.id === 'payroll' ? 'Payroll' : tab.name}
+                  </span>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
         {/* Content */}
         {activeTab === 'booking' && renderBookingInterface()}

@@ -126,7 +126,7 @@ const ExpenseAnalytics = () => {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold text-[#B99750]">Expense Analytics</h1>
+          <h1 className="text-2xl font-bold" style={{color: "#B99750"}}>Expense Analytics</h1>
           <p className="text-gray-600">Detailed expense analysis by bus and expense type</p>
         </div>
         <button className="btn-primary flex items-center space-x-2">

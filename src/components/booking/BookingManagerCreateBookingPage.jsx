@@ -568,7 +568,7 @@ const BookingManagerCreateBookingPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Create New Booking</h1>
+              <h1 className="text-2xl font-bold" style={{color: "#B99750"}}>Create New Booking</h1>
               <div className="flex items-center gap-4 mt-2 text-sm text-gray-600">
                 <span>Welcome, {bookingManager.name}</span>
                 <span>•</span>

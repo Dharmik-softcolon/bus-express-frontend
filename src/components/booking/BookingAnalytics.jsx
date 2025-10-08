@@ -67,7 +67,7 @@ const BookingAnalytics = ({ bookingManager, isOpen, onClose }) => {
         <div className="p-6 border-b border-gray-200">
           <div className="flex justify-between items-center">
             <div>
-              <h2 className="text-2xl font-bold text-[#B99750]">Booking Analytics & Commission</h2>
+              <h2 className="text-2xl font-bold" style={{color: "#B99750"}}>Booking Analytics & Commission</h2>
               <p className="text-gray-600 mt-1">Detailed performance metrics and earnings analysis</p>
             </div>
             <button

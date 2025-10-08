@@ -21,7 +21,6 @@ const CustomerDashboard = () => {
     totalSpent: 0
   })
   const [recentBookings, setRecentBookings] = useState([])
-  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     // TODO: Fetch customer dashboard data
@@ -52,7 +51,6 @@ const CustomerDashboard = () => {
           bus: 'Bus-002'
         }
       ])
-      setLoading(false)
     }, 1000)
   }, [])
 
@@ -73,19 +71,17 @@ const CustomerDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header with Navigation */}
-        <div className="mb-6 sm:mb-8">
-          <div className="flex flex-col gap-4">
+      {/* Header */}
+      <div className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-6">
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-[#B99750]">Customer Dashboard</h1>
-              <p className="text-gray-600 text-sm sm:text-base">
-                Manage your bookings and travel history
-              </p>
+              <h1 className="text-2xl font-bold" style={{color: "#B99750"}}>Customer Dashboard</h1>
+              <p className="text-gray-600 mt-1">Manage your bookings and travel history</p>
             </div>
             
             {/* Navigation Tabs */}
-            <div className="flex flex-wrap gap-2">
+            <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg">
               {[
                 { id: 'overview', name: 'Overview' },
                 { id: 'bookings', name: 'My Bookings' },
@@ -94,10 +90,10 @@ const CustomerDashboard = () => {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors border-0 hover:border-0 active:border-0 focus:border-0 ${
+                  className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
                     activeTab === tab.id
-                      ? 'bg-primary text-white'
-                      : 'bg-white text-gray-600 hover:bg-gray-50'
+                      ? 'bg-blue-600 text-white'
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200'
                   }`}
                 >
                   {tab.name}
@@ -106,67 +102,70 @@ const CustomerDashboard = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Quick Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-lg shadow p-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+          <div className="bg-white rounded-lg shadow-sm border p-6">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
-                  <Calendar className="w-5 h-5 text-white" />
+                <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                  <Calendar className="w-5 h-5 text-blue-600" />
                 </div>
               </div>
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">Total Bookings</p>
-                <p className="text-2xl font-semibold text-gray-600">
-                  {loading ? '...' : stats.totalBookings}
+                <p className="text-2xl font-bold text-gray-900">
+                  {stats.totalBookings}
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="bg-white rounded-lg shadow-sm border p-6">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-                  <Clock className="w-5 h-5 text-white" />
+                <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                  <Clock className="w-5 h-5 text-green-600" />
                 </div>
               </div>
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">Upcoming Trips</p>
-                <p className="text-2xl font-semibold text-gray-600">
-                  {loading ? '...' : stats.upcomingTrips}
+                <p className="text-2xl font-bold text-gray-900">
+                  {stats.upcomingTrips}
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="bg-white rounded-lg shadow-sm border p-6">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
-                  <CheckCircle className="w-5 h-5 text-white" />
+                <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                  <CheckCircle className="w-5 h-5 text-purple-600" />
                 </div>
               </div>
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">Completed Trips</p>
-                <p className="text-2xl font-semibold text-gray-600">
-                  {loading ? '...' : stats.completedTrips}
+                <p className="text-2xl font-bold text-gray-900">
+                  {stats.completedTrips}
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="bg-white rounded-lg shadow-sm border p-6">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
-                  <MapPin className="w-5 h-5 text-white" />
+                <div className="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center">
+                  <MapPin className="w-5 h-5 text-yellow-600" />
                 </div>
               </div>
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">Total Spent</p>
-                <p className="text-2xl font-semibold text-gray-600">
-                  {loading ? '...' : `₹${stats.totalSpent.toLocaleString()}`}
+                <p className="text-2xl font-bold text-gray-900">
+                  {`₹${stats.totalSpent.toLocaleString()}`}
                 </p>
               </div>
             </div>

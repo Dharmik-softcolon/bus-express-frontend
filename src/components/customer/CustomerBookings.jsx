@@ -44,14 +44,19 @@ const CustomerBookings = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-[#B99750]">My Bookings</h1>
-          <p className="mt-2 text-gray-600">
-            View and manage all your bus bookings.
-          </p>
+      {/* Header */}
+      <div className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-6">
+            <div>
+              <h1 className="text-2xl font-bold" style={{color: "#B99750"}}>My Bookings</h1>
+              <p className="text-gray-600 mt-1">View and manage all your bus bookings</p>
+            </div>
+          </div>
         </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
         {/* Filters */}
         <div className="mb-6">

@@ -28,7 +28,6 @@ const EmployeeManagement = () => {
   const [editingEmployee, setEditingEmployee] = useState(null)
   
   const [employees, setEmployees] = useState([])
-  const [loading, setLoading] = useState(true)
   const [ongoingRequests, setOngoingRequests] = useState(new Set())
   const [searchTerm, setSearchTerm] = useState('')
   const [filterStatus, setFilterStatus] = useState('all')
@@ -87,7 +86,6 @@ const EmployeeManagement = () => {
   // Fetch employees data
   const fetchEmployeesData = async () => {
     try {
-      setLoading(true)
       const response = await preventDuplicateRequest('employees', () => busEmployeeAPI.getAllEmployees({ limit: 50 }))
       if (response && response.success) {
         setEmployees(response.data.busEmployees || [])
@@ -95,8 +93,6 @@ const EmployeeManagement = () => {
     } catch (error) {
       console.error('Error fetching employees data:', error)
       showToast.error('Failed to load employees data')
-    } finally {
-      setLoading(false)
     }
   }
 
@@ -383,19 +379,27 @@ const EmployeeManagement = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-4 sm:py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header with Navigation */}
-        <div className="mb-6 sm:mb-8">
-          <div className="flex flex-col gap-4">
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-6">
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Employee Management</h1>
-              <p className="text-gray-600 text-sm sm:text-base">
-                Manage bus employees and staff
-              </p>
+              <h1 className="text-2xl font-bold" style={{color: "#B99750"}}>Employee Management</h1>
+              <p className="text-gray-600 mt-1">Manage bus employees and staff</p>
             </div>
+            <button
+              onClick={() => setShowAddModal(true)}
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+            >
+              <Plus className="w-4 h-4" />
+              Add Employee
+            </button>
           </div>
         </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
         {/* Content */}
         <div className="space-y-6">
@@ -414,9 +418,9 @@ const EmployeeManagement = () => {
               <button
                 onClick={fetchEmployeesData}
                 className="btn-secondary flex items-center"
-                disabled={loading}
+                disabled={false}
               >
-                <RefreshCw className={`h-4 w-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
+                <RefreshCw className="h-4 w-4 mr-2" />
                 Refresh
               </button>
               <button
@@ -474,12 +478,7 @@ const EmployeeManagement = () => {
 
           {/* Employee Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {loading ? (
-              <div className="col-span-3 text-center py-12">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-                <p className="mt-4 text-gray-600 font-medium">Loading employees...</p>
-              </div>
-            ) : filteredAndSortedEmployees().length === 0 ? (
+            {filteredAndSortedEmployees().length === 0 ? (
               <div className="col-span-3 text-center py-12">
                 <AlertCircle className="h-16 w-16 text-gray-400 mx-auto mb-4" />
                 <h3 className="text-lg font-medium text-gray-900 mb-2">

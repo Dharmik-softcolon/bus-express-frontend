@@ -156,7 +156,6 @@ const BusEmployeeDashboard = () => {
     reason: ''
   })
 
-  const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
   // Load employee data on component mount
@@ -174,7 +173,6 @@ const BusEmployeeDashboard = () => {
 
   const loadEmployeeData = async () => {
     try {
-      setLoading(true)
       setError(null)
       
       // Load assigned trips
@@ -200,13 +198,11 @@ const BusEmployeeDashboard = () => {
       setError(err.message || 'Failed to load employee data')
       console.error('Error loading employee data:', err)
     } finally {
-      setLoading(false)
     }
   }
 
   const handleCreateExpense = async (expenseData) => {
     try {
-      setLoading(true)
       setError(null)
       
       const response = await expenseAPI.createExpense(expenseData)
@@ -220,13 +216,11 @@ const BusEmployeeDashboard = () => {
       console.error('Error creating expense:', err)
       throw err
     } finally {
-      setLoading(false)
     }
   }
 
   const handleUpdateTripStatus = async (tripId, status) => {
     try {
-      setLoading(true)
       setError(null)
       
       const response = await tripAPI.updateTripStatus(tripId, status)
@@ -240,7 +234,6 @@ const BusEmployeeDashboard = () => {
       console.error('Error updating trip status:', err)
       throw err
     } finally {
-      setLoading(false)
     }
   }
 
@@ -278,7 +271,6 @@ const BusEmployeeDashboard = () => {
     e.preventDefault()
     
     try {
-      setLoading(true)
       
       const expenseData = {
         employeeId: user._id,
@@ -309,7 +301,6 @@ const BusEmployeeDashboard = () => {
       console.error('Error submitting expense:', error)
       showToast.error(error.message || 'Failed to submit expense')
     } finally {
-      setLoading(false)
     }
   }
 
@@ -317,7 +308,6 @@ const BusEmployeeDashboard = () => {
     e.preventDefault()
     
     try {
-      setLoading(true)
       
       // Validate dates
       if (new Date(leaveForm.startDate) >= new Date(leaveForm.endDate)) {
@@ -358,13 +348,11 @@ const BusEmployeeDashboard = () => {
       console.error('Error submitting leave request:', error)
       showToast.error(error.message || 'Failed to submit leave request')
     } finally {
-      setLoading(false)
     }
   }
 
   const togglePickupStatus = async (customerId) => {
     try {
-      setLoading(true)
       
       const customer = currentTrip.customers.find(c => c.id === customerId)
       if (!customer) return
@@ -425,7 +413,6 @@ const BusEmployeeDashboard = () => {
         })
       }))
     } finally {
-      setLoading(false)
     }
   }
 
@@ -574,19 +561,14 @@ const BusEmployeeDashboard = () => {
                       <div className="flex items-center space-x-2">
                         <button
                           onClick={() => togglePickupStatus(customer.id)} 
-                          disabled={loading}
+                          disabled={false}
                           className={`inline-flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed ${
                             customer.pickedUp
                               ? 'bg-red-500 text-white hover:bg-red-600 shadow-md hover:shadow-lg'
                               : 'bg-green-500 text-white hover:bg-green-600 shadow-md hover:shadow-lg'
                           }`}
                         >
-                          {loading ? (
-                            <>
-                              <Clock className="h-4 w-4 mr-2 animate-spin" />
-                              Updating...
-                            </>
-                          ) : customer.pickedUp ? (
+                          {customer.pickedUp ? (
                             <>
                               <UserX className="h-4 w-4 mr-2" />
                               Mark Not Picked
@@ -822,63 +804,64 @@ const BusEmployeeDashboard = () => {
   )
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="mb-8">
-          <div className="bg-white shadow-lg rounded-lg p-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mr-4">
-                  <User className="h-8 w-8 text-navy" />
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-6">
+            <div className="flex items-center">
+              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                <User className="h-6 w-6 text-blue-600" />
+              </div>
+              <div>
+                <div className="flex items-center mb-1">
+                  <h1 className="text-2xl font-bold" style={{color: "#B99750"}}>
+                    Welcome, {employeeInfo.name}
+                  </h1>
+                  <button
+                    onClick={() => setShowWelcomeModal(true)}
+                    className="px-3 py-1 text-xs bg-blue-100 text-blue-600 rounded-full hover:bg-blue-200 transition-colors"
+                    title="Show onboarding guide"
+                  >
+                    Help & Tour
+                  </button>
                 </div>
-                <div>
-                  <div className="flex items-center mb-1">
-                    <h1 className="text-3xl font-bold text-gray-900 mr-3">
-                      Welcome, {employeeInfo.name}
-                    </h1>
-                    <button
-                      onClick={() => setShowWelcomeModal(true)}
-                      className="px-3 py-1 text-xs bg-blue-100 text-navy rounded-full hover:bg-blue-200 transition-colors"
-                      title="Show onboarding guide"
-                    >
-                      Help & Tour
-                    </button>
-                  </div>
-                  <p className="text-gray-600 text-lg">
-                    {employeeInfo.role} Dashboard
-                  </p>
-                  <div className="flex items-center mt-2 space-x-4 text-sm text-gray-500">
+                <p className="text-gray-600">
+                  {employeeInfo.role} Dashboard
+                </p>
+                <div className="flex items-center mt-2 space-x-4 text-sm text-gray-500">
+                  <span className="flex items-center">
+                    <Phone className="h-4 w-4 mr-1" />
+                    {employeeInfo.phone}
+                  </span>
+                  <span className="flex items-center">
+                    <Shield className="h-4 w-4 mr-1" />
+                    License: {employeeInfo.license}
+                  </span>
+                  {employeeInfo.email && (
                     <span className="flex items-center">
-                      <Phone className="h-4 w-4 mr-1" />
-                      {employeeInfo.phone}
+                      <span className="mr-1">📧</span>
+                      {employeeInfo.email}
                     </span>
-                    <span className="flex items-center">
-                      <Shield className="h-4 w-4 mr-1" />
-                      License: {employeeInfo.license}
-                    </span>
-                    {employeeInfo.email && (
-                      <span className="flex items-center">
-                        <span className="mr-1">📧</span>
-                        {employeeInfo.email}
-                      </span>
-                    )}
-                  </div>
+                  )}
                 </div>
               </div>
-              <div className="text-right">
-                <div className="text-2xl font-bold text-green-600">
-                  ${employeeInfo.monthlyEarnings.toLocaleString()}
-                </div>
-                <div className="text-sm text-gray-500">Monthly Salary</div>
+            </div>
+            <div className="text-right">
+              <div className="text-2xl font-bold text-green-600">
+                ${employeeInfo.monthlyEarnings.toLocaleString()}
               </div>
+              <div className="text-sm text-gray-500">Monthly Salary</div>
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
         {/* Tabs */}
         <div className="mb-6">
-          <div className="flex space-x-2">
+          <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg">
             {[
               { id: 'trips', name: 'Current Trip' },
               { id: 'expenses', name: 'Expenses' },
@@ -887,10 +870,10 @@ const BusEmployeeDashboard = () => {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
                   activeTab === tab.id
-                    ? 'bg-navy text-white'
-                    : 'bg-white text-gray-700 hover:bg-gray-50'
+                    ? 'bg-blue-600 text-white'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200'
                 }`}
               >
                 {tab.name}
@@ -1040,20 +1023,13 @@ const BusEmployeeDashboard = () => {
                     </button>
                     <button
                       type="submit"
-                      disabled={loading}
+                      disabled={false}
                       className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
                     >
-                      {loading ? (
-                        <>
-                          <Clock className="h-4 w-4 mr-2 animate-spin" />
-                          Submitting...
-                        </>
-                      ) : (
-                        <>
-                          <Plus className="h-4 w-4 mr-2" />
-                          Add Expense
-                        </>
-                      )}
+                      <>
+                        <Plus className="h-4 w-4 mr-2" />
+                        Add Expense
+                      </>
                     </button>
                   </div>
                 </form>
@@ -1130,20 +1106,13 @@ const BusEmployeeDashboard = () => {
                     </button>
                     <button
                       type="submit"
-                      disabled={loading}
+                      disabled={false}
                       className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
                     >
-                      {loading ? (
-                        <>
-                          <Clock className="h-4 w-4 mr-2 animate-spin" />
-                          Submitting...
-                        </>
-                      ) : (
-                        <>
-                          <Calendar className="h-4 w-4 mr-2" />
-                          Submit Request
-                        </>
-                      )}
+                      <>
+                        <Calendar className="h-4 w-4 mr-2" />
+                        Submit Request
+                      </>
                     </button>
                   </div>
                 </form>
