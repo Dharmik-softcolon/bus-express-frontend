@@ -9,7 +9,7 @@ const Footer = () => {
           <div className="sm:col-span-2 lg:col-span-1">
             <div className="flex items-center space-x-2 mb-3">
               <Bus className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
-              <span className="text-base sm:text-lg font-bold font-roboto">BusExpress</span>
+              <span className="text-base sm:text-lg font-bold">BusExpress</span>
             </div>
             <p className="text-gray-300 mb-3 max-w-md text-xs sm:text-sm leading-relaxed">
               Your trusted partner for comfortable and reliable bus travel.

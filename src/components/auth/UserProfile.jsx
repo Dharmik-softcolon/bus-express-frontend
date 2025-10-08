@@ -46,7 +46,7 @@ const UserProfile = () => {
         <div className="w-7 h-7 bg-white rounded-full flex items-center justify-center">
           <User className="h-4 w-4 text-navy" />
         </div>
-        <span className="hidden sm:inline max-w-24 lg:max-w-none truncate font-medium font-roboto">{user.name}</span>
+        <span className="hidden sm:inline max-w-24 lg:max-w-none truncate font-medium">{user.name}</span>
       </button>
 
       {showDropdown && (
@@ -58,7 +58,7 @@ const UserProfile = () => {
                 <User className="h-6 w-6 text-white" />
               </div>
               <div className="flex-1 min-w-0">
-                <h3 className="font-semibold text-gray-900 text-lg truncate font-roboto">{user.name}</h3>
+                <h3 className="font-semibold text-gray-900 text-lg truncate">{user.name}</h3>
                 <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium mt-1 ${getRoleColor(user.role)}`}>
                   {getRoleDisplayName(user.role)}
                 </span>

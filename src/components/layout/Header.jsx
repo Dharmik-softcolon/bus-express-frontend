@@ -21,7 +21,7 @@ const Header = () => {
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-2 flex-shrink-0 group">
               <Bus className="h-5 w-5 sm:h-6 sm:w-6 text-white group-hover:text-blue-200 transition-colors" />
-              <span className="text-base sm:text-lg lg:text-xl font-bold text-white group-hover:text-blue-200 transition-colors font-roboto">
+              <span className="text-base sm:text-lg lg:text-xl font-bold text-white group-hover:text-blue-200 transition-colors">
                 BusExpress
               </span>
             </Link>

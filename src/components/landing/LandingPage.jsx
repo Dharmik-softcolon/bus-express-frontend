@@ -9,7 +9,7 @@ const LandingPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="text-center lg:text-left">
-              <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 font-roboto">
+              <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
                 Modern Bus Management
                 <span className="text-navy"> System</span>
               </h1>
@@ -20,13 +20,13 @@ const LandingPage = () => {
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Link
                   to="/login"
-                  className="bg-navy text-white px-8 py-4 rounded-lg hover:bg-navy-light transition-colors font-medium text-lg font-roboto"
+                  className="bg-navy text-white px-8 py-4 rounded-lg hover:bg-navy-light transition-colors font-medium text-lg"
                 >
                   Get Started
                 </Link>
                 <Link
                   to="/search"
-                  className="border-2 border-navy text-navy px-8 py-4 rounded-lg hover:bg-blue-50 transition-colors font-medium text-lg font-roboto"
+                  className="border-2 border-navy text-navy px-8 py-4 rounded-lg hover:bg-blue-50 transition-colors font-medium text-lg"
                 >
                   Book a Trip
                 </Link>
@@ -55,7 +55,7 @@ const LandingPage = () => {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4 font-roboto">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
               Everything You Need to Manage Your Bus Business
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -179,7 +179,7 @@ const LandingPage = () => {
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4 font-roboto">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
               Designed for Every Role
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -309,7 +309,7 @@ const LandingPage = () => {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4 font-roboto">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
               What Our Customers Say
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">

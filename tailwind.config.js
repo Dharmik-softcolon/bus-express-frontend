@@ -12,8 +12,8 @@ export default {
         'navy-dark': '#00022a',
       },
       fontFamily: {
-        sans: ['Roboto Condensed', 'Inter', 'system-ui', 'sans-serif'],
-        'roboto': ['Roboto Condensed', 'sans-serif'],
+        'sans': ['Barlow Semi Condensed', 'sans-serif'],
+        'barlow-semi': ['Barlow Semi Condensed', 'sans-serif'],
       },
       screens: {
         'xs': '475px',
