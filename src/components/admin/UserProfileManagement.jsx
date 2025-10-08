@@ -5,7 +5,6 @@ import { formatAadhaarCard } from '../../utils/formatters'
 
 const UserProfileManagement = () => {
   const [users, setUsers] = useState([])
-  const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   
   // Load users on component mount
@@ -14,7 +13,6 @@ const UserProfileManagement = () => {
   }, [])
   
   const loadUsers = async () => {
-    setLoading(true)
     setError(null)
     
     try {
@@ -29,8 +27,6 @@ const UserProfileManagement = () => {
       console.error('Error loading users:', error)
       setError('Failed to load users')
       setUsers([])
-    } finally {
-      setLoading(false)
     }
   }
   
