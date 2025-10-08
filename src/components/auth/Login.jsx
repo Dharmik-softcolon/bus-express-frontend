@@ -72,7 +72,7 @@ const Login = () => {
         {/* Header */}
         <div className="text-center">
           <div className="flex justify-center">
-            <Bus className="h-10 w-10 sm:h-12 sm:w-12 text-white" />
+            <Bus className="h-10 w-10 sm:h-12 sm:w-12" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
           </div>
           <h2 className="mt-4 sm:mt-6 text-2xl sm:text-3xl font-bold text-white">
             BusExpress Login
@@ -97,7 +97,7 @@ const Login = () => {
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <User className="h-5 w-5 text-icon" />
+                  <User className="h-5 w-5" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
                 </div>
                 <input
                   id="email"
@@ -118,7 +118,7 @@ const Login = () => {
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-icon" />
+                  <Lock className="h-5 w-5" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
                 </div>
                 <input
                   id="password"
@@ -136,9 +136,9 @@ const Login = () => {
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? (
-                    <EyeOff className="h-5 w-5 text-gray-400" />
+                    <EyeOff className="h-5 w-5" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
                   ) : (
-                    <Eye className="h-5 w-5 text-gray-400" />
+                    <Eye className="h-5 w-5" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
                   )}
                 </button>
               </div>

@@ -244,7 +244,7 @@ const UserManagement = () => {
           <div className="card">
             <div className="flex items-center">
               <div className="p-3 rounded-full bg-blue-100">
-                <Users className="h-6 w-6 text-blue-600" />
+                <Users className="h-6 w-6" style={{color: "rgb(59 130 246 / var(--tw-text-opacity, 1))"}} />
               </div>
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">Total Users</p>
@@ -256,7 +256,7 @@ const UserManagement = () => {
           <div className="card">
             <div className="flex items-center">
               <div className="p-3 rounded-full bg-green-100">
-                <UserCheck className="h-6 w-6 text-green-600" />
+                <UserCheck className="h-6 w-6" style={{color: "rgb(34 197 94 / var(--tw-text-opacity, 1))"}} />
               </div>
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">Active Users</p>
@@ -270,7 +270,7 @@ const UserManagement = () => {
           <div className="card">
             <div className="flex items-center">
               <div className="p-3 rounded-full bg-purple-100">
-                <Users className="h-6 w-6 text-purple-600" />
+                <Users className="h-6 w-6" style={{color: "rgb(147 51 234 / var(--tw-text-opacity, 1))"}} />
               </div>
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">Admins</p>
@@ -284,7 +284,7 @@ const UserManagement = () => {
           <div className="card">
             <div className="flex items-center">
               <div className="p-3 rounded-full bg-orange-100">
-                <Users className="h-6 w-6 text-orange-600" />
+                <Users className="h-6 w-6" style={{color: "rgb(249 115 22 / var(--tw-text-opacity, 1))"}} />
               </div>
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">Customers</p>

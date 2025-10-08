@@ -86,7 +86,7 @@ const MasterAdminDashboard = () => {
             <div className="flex items-center">
               <div className="flex-shrink-0">
                 <div className="w-8 h-8 bg-navy rounded-full flex items-center justify-center">
-                  <Users className="w-5 h-5 text-white" />
+                  <Users className="w-5 h-5" style={{color: "rgb(34 197 94 / var(--tw-text-opacity, 1))"}} />
                 </div>
               </div>
               <div className="ml-4">
@@ -102,7 +102,7 @@ const MasterAdminDashboard = () => {
             <div className="flex items-center">
               <div className="flex-shrink-0">
                 <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-                  <Bus className="w-5 h-5 text-white" />
+                  <Bus className="w-5 h-5" style={{color: "rgb(147 51 234 / var(--tw-text-opacity, 1))"}} />
                 </div>
               </div>
               <div className="ml-4">
@@ -118,7 +118,7 @@ const MasterAdminDashboard = () => {
             <div className="flex items-center">
               <div className="flex-shrink-0">
                 <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
-                  <BarChart3 className="w-5 h-5 text-white" />
+                  <BarChart3 className="w-5 h-5" style={{color: "rgb(234 179 8 / var(--tw-text-opacity, 1))"}} />
                 </div>
               </div>
               <div className="ml-4">
@@ -134,7 +134,7 @@ const MasterAdminDashboard = () => {
             <div className="flex items-center">
               <div className="flex-shrink-0">
                 <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
-                  <TrendingUp className="w-5 h-5 text-white" />
+                  <TrendingUp className="w-5 h-5" style={{color: "rgb(99 102 241 / var(--tw-text-opacity, 1))"}} />
                 </div>
               </div>
               <div className="ml-4">
@@ -150,7 +150,7 @@ const MasterAdminDashboard = () => {
             <div className="flex items-center">
               <div className="flex-shrink-0">
                 <div className="w-8 h-8 bg-indigo-500 rounded-full flex items-center justify-center">
-                  <CheckCircle className="w-5 h-5 text-white" />
+                  <CheckCircle className="w-5 h-5" style={{color: "rgb(239 68 68 / var(--tw-text-opacity, 1))"}} />
                 </div>
               </div>
               <div className="ml-4">
@@ -166,7 +166,7 @@ const MasterAdminDashboard = () => {
             <div className="flex items-center">
               <div className="flex-shrink-0">
                 <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">
-                  <AlertCircle className="w-5 h-5 text-white" />
+                  <AlertCircle className="w-5 h-5" style={{color: "rgb(234 179 8 / var(--tw-text-opacity, 1))"}} />
                 </div>
               </div>
               <div className="ml-4">
@@ -191,28 +191,28 @@ const MasterAdminDashboard = () => {
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center">
-                      <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
+                      <CheckCircle className="w-5 h-5" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} mr-2 />
                       <span className="text-sm text-[#6A0066]">Database</span>
                     </div>
                     <span className="text-sm text-green-600 font-medium">Online</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center">
-                      <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
+                      <CheckCircle className="w-5 h-5" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} mr-2 />
                       <span className="text-sm text-[#6A0066]">API Services</span>
                     </div>
                     <span className="text-sm text-green-600 font-medium">Online</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center">
-                      <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
+                      <CheckCircle className="w-5 h-5" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} mr-2 />
                       <span className="text-sm text-[#6A0066]">Payment Gateway</span>
                     </div>
                     <span className="text-sm text-green-600 font-medium">Online</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center">
-                      <Clock className="w-5 h-5 text-yellow-500 mr-2" />
+                      <Clock className="w-5 h-5" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} mr-2 />
                       <span className="text-sm text-[#6A0066]">Email Service</span>
                     </div>
                     <span className="text-sm text-yellow-600 font-medium">Maintenance</span>
@@ -225,7 +225,7 @@ const MasterAdminDashboard = () => {
         
         {activeTab === 'users' && (
           <div className="text-center py-12">
-            <Users className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+            <Users className="h-12 w-12" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} mx-auto mb-4 />
             <p className="text-gray-600">User management feature coming soon</p>
             <p className="text-sm text-gray-500 mt-2">This will include user creation, editing, and role management</p>
           </div>
@@ -233,7 +233,7 @@ const MasterAdminDashboard = () => {
         
         {activeTab === 'analytics' && (
           <div className="text-center py-12">
-            <BarChart3 className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+            <BarChart3 className="h-12 w-12" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} mx-auto mb-4 />
             <p className="text-gray-600">System analytics feature coming soon</p>
             <p className="text-sm text-gray-500 mt-2">This will include system-wide analytics and reporting</p>
           </div>
@@ -241,7 +241,7 @@ const MasterAdminDashboard = () => {
         
         {activeTab === 'roles' && (
           <div className="text-center py-12">
-            <Shield className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+            <Shield className="h-12 w-12" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} mx-auto mb-4 />
             <p className="text-gray-600">Role management feature coming soon</p>
             <p className="text-sm text-gray-500 mt-2">This will include role creation, permissions, and hierarchy management</p>
           </div>
@@ -249,7 +249,7 @@ const MasterAdminDashboard = () => {
         
         {activeTab === 'settings' && (
           <div className="text-center py-12">
-            <Settings className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+            <Settings className="h-12 w-12" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} mx-auto mb-4 />
             <p className="text-gray-600">System settings feature coming soon</p>
             <p className="text-sm text-gray-500 mt-2">This will include system configuration and preferences</p>
           </div>

@@ -228,7 +228,7 @@ const BookingManagerCustomers = () => {
                 <RefreshCw className="h-4 w-4 mr-2" />
                 Refresh
               </button>
-              <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2">
+              <button className="btn-primary px-4 py-2 rounded-lg flex items-center gap-2">
                 <Download className="h-4 w-4" />
                 Export
               </button>

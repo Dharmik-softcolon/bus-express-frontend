@@ -198,7 +198,7 @@ const BusOwnerDashboard = () => {
         <div className="card">
           <div className="flex items-center">
             <div className="p-3 rounded-full bg-blue-100">
-              <Bus className="h-6 w-6 text-blue-600" />
+              <Bus className="h-6 w-6" style={{color: "rgb(59 130 246 / var(--tw-text-opacity, 1))"}} />
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Total Buses</p>
@@ -210,7 +210,7 @@ const BusOwnerDashboard = () => {
         <div className="card">
           <div className="flex items-center">
             <div className="p-3 rounded-full bg-green-100">
-              <Users className="h-6 w-6 text-green-600" />
+              <Users className="h-6 w-6" style={{color: "rgb(34 197 94 / var(--tw-text-opacity, 1))"}} />
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Bus Admins</p>
@@ -222,7 +222,7 @@ const BusOwnerDashboard = () => {
         <div className="card">
           <div className="flex items-center">
             <div className="p-3 rounded-full bg-indigo-100">
-              <Bus className="h-6 w-6 text-indigo-600" />
+              <Bus className="h-6 w-6" style={{color: "rgb(99 102 241 / var(--tw-text-opacity, 1))"}} />
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Total Routes</p>
@@ -234,7 +234,7 @@ const BusOwnerDashboard = () => {
         <div className="card">
           <div className="flex items-center">
             <div className="p-3 rounded-full bg-yellow-100">
-              <Users className="h-6 w-6 text-yellow-600" />
+              <Users className="h-6 w-6" style={{color: "rgb(234 179 8 / var(--tw-text-opacity, 1))"}} />
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Bus Employees</p>
@@ -246,7 +246,7 @@ const BusOwnerDashboard = () => {
         <div className="card">
           <div className="flex items-center">
             <div className="p-3 rounded-full bg-pink-100">
-              <Users className="h-6 w-6 text-pink-600" />
+              <Users className="h-6 w-6" style={{color: "rgb(236 72 153 / var(--tw-text-opacity, 1))"}} />
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Booking Men</p>
@@ -258,7 +258,7 @@ const BusOwnerDashboard = () => {
         <div className="card">
           <div className="flex items-center">
             <div className="p-3 rounded-full bg-purple-100">
-              <DollarSign className="h-6 w-6 text-purple-600" />
+              <DollarSign className="h-6 w-6" style={{color: "rgb(147 51 234 / var(--tw-text-opacity, 1))"}} />
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Monthly Revenue</p>
@@ -270,7 +270,7 @@ const BusOwnerDashboard = () => {
         <div className="card">
           <div className="flex items-center">
             <div className="p-3 rounded-full bg-orange-100">
-              <TrendingUp className="h-6 w-6 text-orange-600" />
+              <TrendingUp className="h-6 w-6" style={{color: "rgb(249 115 22 / var(--tw-text-opacity, 1))"}} />
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Net Profit</p>
@@ -417,7 +417,7 @@ const BusOwnerDashboard = () => {
       {/* Bus Admin Limit Info */}
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
         <div className="flex items-center">
-          <Users className="h-5 w-5 text-blue-600 mr-2" />
+          <Users className="h-5 w-5" style={{color: "rgb(59 130 246 / var(--tw-text-opacity, 1))"}} mr-2 />
           <div>
             <h3 className="text-sm font-medium text-blue-800">Bus Admin Limit</h3>
             <p className="text-sm text-blue-600">

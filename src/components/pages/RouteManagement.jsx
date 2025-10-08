@@ -448,7 +448,7 @@ const RouteManagement = () => {
               </div>
               <button
                   onClick={() => setShowModal(true)}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg flex items-center transition-colors"
+                  className="btn-primary px-6 py-3 rounded-lg flex items-center transition-colors"
               >
                 <Plus className="h-5 w-5 mr-2" />
                 Add New Route
@@ -552,7 +552,7 @@ const RouteManagement = () => {
                 {!searchTerm && (
                     <button
                         onClick={() => setShowModal(true)}
-                        className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg flex items-center mx-auto transition-colors"
+                        className="btn-primary px-6 py-3 rounded-lg flex items-center mx-auto transition-colors"
                     >
                       <Plus className="h-5 w-5 mr-2" />
                       Add New Route
@@ -834,7 +834,7 @@ const RouteManagement = () => {
                               <button
                                   type="button"
                                   onClick={addPickupPoint}
-                                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center transition-colors"
+                                  className="btn-primary px-4 py-2 rounded-lg flex items-center transition-colors"
                               >
                                 <Plus className="h-4 w-4 mr-2" />
                                 Add
@@ -883,7 +883,7 @@ const RouteManagement = () => {
                               <button
                                   type="button"
                                   onClick={addDropPoint}
-                                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center transition-colors"
+                                  className="btn-primary px-4 py-2 rounded-lg flex items-center transition-colors"
                               >
                                 <Plus className="h-4 w-4 mr-2" />
                                 Add
@@ -922,7 +922,7 @@ const RouteManagement = () => {
                       <button
                           type="submit"
                           disabled={formLoading}
-                          className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg flex items-center transition-colors disabled:opacity-50"
+                          className="px-6 py-2 btn-primary rounded-lg flex items-center transition-colors disabled:opacity-50"
                       >
                         {formLoading && <Loader className="h-4 w-4 mr-2 animate-spin" />}
                         {editingRoute ? 'Update Route' : 'Create Route'}

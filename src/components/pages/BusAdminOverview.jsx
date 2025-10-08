@@ -204,7 +204,7 @@ const BusAdminOverview = () => {
             <div className="bg-white rounded-lg shadow p-4">
               <div className="flex items-center">
                 <div className="p-2 rounded-full bg-blue-100">
-                  <Bus className="h-5 w-5 text-navy" />
+                  <Bus className="h-5 w-5" style={{color: "rgb(59 130 246 / var(--tw-text-opacity, 1))"}} />
                 </div>
                 <div className="ml-3">
                   <p className="text-xs font-medium text-gray-600">Total Buses</p>
@@ -216,7 +216,7 @@ const BusAdminOverview = () => {
             <div className="bg-white rounded-lg shadow p-4">
               <div className="flex items-center">
                 <div className="p-2 rounded-full bg-green-100">
-                  <MapPin className="h-5 w-5 text-green-600" />
+                  <MapPin className="h-5 w-5" style={{color: "rgb(34 197 94 / var(--tw-text-opacity, 1))"}} />
                 </div>
                 <div className="ml-3">
                   <p className="text-xs font-medium text-gray-600">Active Routes</p>
@@ -228,7 +228,7 @@ const BusAdminOverview = () => {
             <div className="bg-white rounded-lg shadow p-4">
               <div className="flex items-center">
                 <div className="p-2 rounded-full bg-purple-100">
-                  <Users className="h-5 w-5 text-purple-600" />
+                  <Users className="h-5 w-5" style={{color: "rgb(147 51 234 / var(--tw-text-opacity, 1))"}} />
                 </div>
                 <div className="ml-3">
                   <p className="text-xs font-medium text-gray-600">Bus Employees</p>
@@ -252,7 +252,7 @@ const BusAdminOverview = () => {
             <div className="bg-white rounded-lg shadow p-4">
               <div className="flex items-center">
                 <div className="p-2 rounded-full bg-indigo-100">
-                  <Calendar className="h-5 w-5 text-indigo-600" />
+                  <Calendar className="h-5 w-5" style={{color: "rgb(99 102 241 / var(--tw-text-opacity, 1))"}} />
                 </div>
                 <div className="ml-3">
                   <p className="text-xs font-medium text-gray-600">Total Trips</p>
@@ -264,7 +264,7 @@ const BusAdminOverview = () => {
             <div className="bg-white rounded-lg shadow p-4">
               <div className="flex items-center">
                 <div className="p-2 rounded-full bg-orange-100">
-                  <DollarSign className="h-5 w-5 text-orange-600" />
+                  <DollarSign className="h-5 w-5" style={{color: "rgb(249 115 22 / var(--tw-text-opacity, 1))"}} />
                 </div>
                 <div className="ml-3">
                   <p className="text-xs font-medium text-gray-600">Monthly Revenue</p>
@@ -276,7 +276,7 @@ const BusAdminOverview = () => {
             <div className="bg-white rounded-lg shadow p-4">
               <div className="flex items-center">
                 <div className="p-2 rounded-full bg-pink-100">
-                  <TrendingUp className="h-5 w-5 text-pink-600" />
+                  <TrendingUp className="h-5 w-5" style={{color: "rgb(236 72 153 / var(--tw-text-opacity, 1))"}} />
                 </div>
                 <div className="ml-3">
                   <p className="text-xs font-medium text-gray-600">Total Bookings</p>
@@ -288,7 +288,7 @@ const BusAdminOverview = () => {
             <div className="bg-white rounded-lg shadow p-4">
               <div className="flex items-center">
                 <div className="p-2 rounded-full bg-red-100">
-                  <AlertCircle className="h-5 w-5 text-red-600" />
+                  <AlertCircle className="h-5 w-5" style={{color: "rgb(239 68 68 / var(--tw-text-opacity, 1))"}} />
                 </div>
                 <div className="ml-3">
                   <p className="text-xs font-medium text-gray-600">Maintenance Due</p>
@@ -308,7 +308,7 @@ const BusAdminOverview = () => {
               </div>
             ) : routes.length === 0 ? (
               <div className="text-center py-8">
-                <MapPin className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                <MapPin className="h-12 w-12" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} mx-auto mb-4 />
                 <p className="text-gray-600">No routes found</p>
               </div>
             ) : (
@@ -364,7 +364,7 @@ const BusAdminOverview = () => {
               </div>
             ) : buses.length === 0 ? (
               <div className="text-center py-8">
-                <Bus className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                <Bus className="h-12 w-12" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} mx-auto mb-4 />
                 <p className="text-gray-600">No buses found</p>
               </div>
             ) : (

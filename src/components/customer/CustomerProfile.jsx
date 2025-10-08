@@ -79,7 +79,7 @@ const CustomerProfile = () => {
                   {user?.name || 'Customer'}
                 </h3>
                 <p className="text-sm text-gray-500">{user?.email}</p>
-                <button className="mt-4 px-4 py-2 text-sm text-primary hover:text-hover rounded hover:bg-button border-0 hover:border-0">
+                <button className="mt-4 px-4 py-2 text-sm text-primary hover:text-hover rounded hover:bg-button/20 border-0 hover:border-0">
                   Change Photo
                 </button>
               </div>
@@ -221,7 +221,7 @@ const CustomerProfile = () => {
                     <h3 className="text-sm font-medium text-gray-900">Change Password</h3>
                     <p className="text-sm text-gray-500">Update your account password</p>
                   </div>
-                  <button className="px-4 py-2 text-sm text-primary hover:text-hover rounded hover:bg-button border-0 hover:border-0">
+                  <button className="px-4 py-2 text-sm text-primary hover:text-hover rounded hover:bg-button/20 border-0 hover:border-0">
                     Change
                   </button>
                 </div>
@@ -231,7 +231,7 @@ const CustomerProfile = () => {
                     <h3 className="text-sm font-medium text-gray-900">Notification Preferences</h3>
                     <p className="text-sm text-gray-500">Manage your notification settings</p>
                   </div>
-                  <button className="px-4 py-2 text-sm text-primary hover:text-hover rounded hover:bg-button border-0 hover:border-0">
+                  <button className="px-4 py-2 text-sm text-primary hover:text-hover rounded hover:bg-button/20 border-0 hover:border-0">
                     Manage
                   </button>
                 </div>
@@ -241,7 +241,7 @@ const CustomerProfile = () => {
                     <h3 className="text-sm font-medium text-gray-900">Privacy Settings</h3>
                     <p className="text-sm text-gray-500">Control your privacy and data</p>
                   </div>
-                  <button className="px-4 py-2 text-sm text-primary hover:text-hover rounded hover:bg-button border-0 hover:border-0">
+                  <button className="px-4 py-2 text-sm text-primary hover:text-hover rounded hover:bg-button/20 border-0 hover:border-0">
                     Manage
                   </button>
                 </div>

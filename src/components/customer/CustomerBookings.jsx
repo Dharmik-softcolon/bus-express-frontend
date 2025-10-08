@@ -142,7 +142,7 @@ const CustomerBookings = () => {
                             Cancel
                           </button>
                         )}
-                        <button className="px-3 py-1 text-sm text-primary hover:text-hover rounded hover:bg-button border-0 hover:border-0">
+                        <button className="px-3 py-1 text-sm text-primary hover:text-hover rounded hover:bg-button/20 border-0 hover:border-0">
                           View Details
                         </button>
                       </div>

@@ -20,7 +20,7 @@ const Header = () => {
           <div className="flex justify-between items-center h-10.5">
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-2 flex-shrink-0 group">
-              <Bus className="h-5 w-5 sm:h-6 sm:w-6 text-white group-hover:text-hover transition-colors" />
+              <Bus className="h-5 w-5 sm:h-6 sm:w-6 group-hover:text-hover transition-colors" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
               <span className="text-base sm:text-lg lg:text-xl font-bold text-white group-hover:text-hover transition-colors">
                 BusExpress
               </span>
@@ -92,7 +92,7 @@ const Header = () => {
                 {user ? (
                   <div className="flex items-center space-x-3">
                     <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
-                      <User className="h-4 w-4 text-gray-600" />
+                      <User className="h-4 w-4" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
                     </div>
                     <div>
                       <p className="text-sm font-medium text-[#6A0066]">{user.name || user.email}</p>

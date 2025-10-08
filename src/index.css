@@ -364,11 +364,11 @@
 
   /* Enhanced Button Components */
   .btn-primary {
-    @apply bg-button hover:bg-hover active:bg-primary text-white font-medium py-2 px-4 transition-all duration-200 text-sm sm:text-base shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-sm border-0 hover:border-0 active:border-0 focus:border-0;
+    @apply bg-primary hover:bg-hover active:bg-navy-dark text-white font-medium py-2 px-4 transition-all duration-200 text-sm sm:text-base shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-sm border-0 hover:border-0 active:border-0 focus:border-0;
   }
   
   .btn-secondary {
-    @apply bg-gray-100 hover:bg-hover active:bg-gray-300 text-[#6A0066] font-medium py-2 px-4 transition-all duration-200 text-sm sm:text-base shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-sm border-0 hover:border-0 active:border-0 focus:border-0;
+    @apply bg-button/20 hover:bg-button/30 active:bg-button/40 text-primary font-medium py-2 px-4 transition-all duration-200 text-sm sm:text-base shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-sm border-0 hover:border-0 active:border-0 focus:border-0;
   }
   
   .btn-outline {

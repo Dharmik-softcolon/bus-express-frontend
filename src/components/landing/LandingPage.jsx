@@ -26,7 +26,7 @@ const LandingPage = () => {
                 </Link>
                 <Link
                   to="/search"
-                  className="border-2 border-primary text-primary px-8 py-4 rounded-lg hover:bg-button hover:border-0 transition-colors font-medium text-lg"
+                  className="border-2 border-primary text-primary px-8 py-4 rounded-lg hover:bg-button/20 hover:border-0 transition-colors font-medium text-lg"
                 >
                   Book a Trip
                 </Link>
@@ -74,7 +74,7 @@ const LandingPage = () => {
                 />
               </div>
               <div className="w-16 h-16 bg-button rounded-full flex items-center justify-center mx-auto mb-4">
-                <Bus className="h-8 w-8 text-navy" />
+                <Bus className="h-8 w-8" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
               </div>
               <h3 className="text-xl font-semibold text-[#6A0066] mb-2">Fleet Management</h3>
               <p className="text-gray-600">
@@ -92,7 +92,7 @@ const LandingPage = () => {
                 />
               </div>
               <div className="w-16 h-16 bg-button rounded-full flex items-center justify-center mx-auto mb-4">
-                <MapPin className="h-8 w-8 text-icon" />
+                <MapPin className="h-8 w-8" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">Route Planning</h3>
               <p className="text-gray-600">
@@ -110,7 +110,7 @@ const LandingPage = () => {
                 />
               </div>
               <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users className="h-8 w-8 text-purple-600" />
+                <Users className="h-8 w-8" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">Customer Management</h3>
               <p className="text-gray-600">
@@ -128,7 +128,7 @@ const LandingPage = () => {
                 />
               </div>
               <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <BarChart3 className="h-8 w-8 text-yellow-600" />
+                <BarChart3 className="h-8 w-8" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">Analytics & Reports</h3>
               <p className="text-gray-600">
@@ -146,7 +146,7 @@ const LandingPage = () => {
                 />
               </div>
               <div className="w-16 h-16 bg-button rounded-full flex items-center justify-center mx-auto mb-4">
-                <Shield className="h-8 w-8 text-icon" />
+                <Shield className="h-8 w-8" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">Role-Based Access</h3>
               <p className="text-gray-600">
@@ -164,7 +164,7 @@ const LandingPage = () => {
                 />
               </div>
               <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Clock className="h-8 w-8 text-indigo-600" />
+                <Clock className="h-8 w-8" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">Real-Time Updates</h3>
               <p className="text-gray-600">
@@ -192,7 +192,7 @@ const LandingPage = () => {
             <div className="bg-white p-6 rounded-lg shadow-sm">
               <div className="text-center">
                 <div className="w-12 h-12 bg-button rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Shield className="h-6 w-6 text-icon" />
+                  <Shield className="h-6 w-6" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">Master Admin</h3>
                 <p className="text-gray-600 text-sm mb-4">
@@ -211,7 +211,7 @@ const LandingPage = () => {
             <div className="bg-white p-6 rounded-lg shadow-sm">
               <div className="text-center">
                 <div className="w-12 h-12 bg-button rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Bus className="h-6 w-6 text-navy" />
+                  <Bus className="h-6 w-6" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">Bus Owner</h3>
                 <p className="text-gray-600 text-sm mb-4">
@@ -230,7 +230,7 @@ const LandingPage = () => {
             <div className="bg-white p-6 rounded-lg shadow-sm">
               <div className="text-center">
                 <div className="w-12 h-12 bg-button rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Users className="h-6 w-6 text-icon" />
+                  <Users className="h-6 w-6" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">Bus Admin</h3>
                 <p className="text-gray-600 text-sm mb-4">
@@ -249,7 +249,7 @@ const LandingPage = () => {
             <div className="bg-white p-6 rounded-lg shadow-sm">
               <div className="text-center">
                 <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <BarChart3 className="h-6 w-6 text-purple-600" />
+                  <BarChart3 className="h-6 w-6" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">Booking Manager</h3>
                 <p className="text-gray-600 text-sm mb-4">
@@ -268,7 +268,7 @@ const LandingPage = () => {
             <div className="bg-white p-6 rounded-lg shadow-sm">
               <div className="text-center">
                 <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Clock className="h-6 w-6 text-orange-600" />
+                  <Clock className="h-6 w-6" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">Bus Employee</h3>
                 <p className="text-gray-600 text-sm mb-4">
@@ -287,7 +287,7 @@ const LandingPage = () => {
             <div className="bg-white p-6 rounded-lg shadow-sm">
               <div className="text-center">
                 <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Users className="h-6 w-6 text-gray-600" />
+                  <Users className="h-6 w-6" style={{color: "rgb(234 88 12 / var(--tw-text-opacity, 1))"}} />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">Customer</h3>
                 <p className="text-gray-600 text-sm mb-4">
