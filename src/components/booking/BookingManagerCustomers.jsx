@@ -301,7 +301,7 @@ const BookingManagerCustomers = () => {
                     placeholder="Search customers..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary w-full"
+                    className="pl-10 pr-4 py-2 border border-[#6A0066] rounded-md focus:ring-primary focus:border-primary w-full"
                   />
                 </div>
               </div>
@@ -309,7 +309,7 @@ const BookingManagerCustomers = () => {
                 <select
                   value={filterBy}
                   onChange={(e) => setFilterBy(e.target.value)}
-                  className="px-3 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
+                  className="px-3 py-2 border border-[#6A0066] rounded-md focus:ring-primary focus:border-primary"
                 >
                   <option value="all">All Customers</option>
                   <option value="active">Active</option>

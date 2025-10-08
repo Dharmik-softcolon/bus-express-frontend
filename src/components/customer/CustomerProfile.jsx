@@ -115,7 +115,7 @@ const CustomerProfile = () => {
                       id="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                      className="mt-1 block w-full border-[#6A0066] rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                       required
                     />
                   </div>
@@ -130,7 +130,7 @@ const CustomerProfile = () => {
                       id="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                      className="mt-1 block w-full border-[#6A0066] rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                       required
                     />
                   </div>
@@ -145,7 +145,7 @@ const CustomerProfile = () => {
                       id="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                      className="mt-1 block w-full border-[#6A0066] rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                     />
                   </div>
 
@@ -159,7 +159,7 @@ const CustomerProfile = () => {
                       id="emergencyContact"
                       value={formData.emergencyContact}
                       onChange={handleChange}
-                      className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                      className="mt-1 block w-full border-[#6A0066] rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                     />
                   </div>
 
@@ -173,7 +173,7 @@ const CustomerProfile = () => {
                       id="emergencyPhone"
                       value={formData.emergencyPhone}
                       onChange={handleChange}
-                      className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                      className="mt-1 block w-full border-[#6A0066] rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                     />
                   </div>
                 </div>

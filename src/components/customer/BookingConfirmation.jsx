@@ -70,7 +70,7 @@ const BookingConfirmation = ({ bookingData }) => {
           <div className="flex justify-center mb-4">
             <CheckCircle className="h-16 w-16 text-green-500" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-3xl font-bold text-[#6A0066] mb-2">
             Booking Confirmed!
           </h1>
           <p className="text-gray-600">
@@ -85,7 +85,7 @@ const BookingConfirmation = ({ bookingData }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Journey Information */}
             <div>
-              <h3 className="font-semibold text-gray-900 mb-4">Journey Information</h3>
+              <h3 className="font-semibold text-[#6A0066] mb-4">Journey Information</h3>
               <div className="space-y-3">
                 <div className="flex items-center">
                   <MapPin className="h-4 w-4 text-gray-400 mr-3" />
@@ -115,7 +115,7 @@ const BookingConfirmation = ({ bookingData }) => {
 
             {/* Passenger Information */}
             <div>
-              <h3 className="font-semibold text-gray-900 mb-4">Passenger Information</h3>
+              <h3 className="font-semibold text-[#6A0066] mb-4">Passenger Information</h3>
               <div className="space-y-3">
                 {booking.passengerDetails.map((passenger, index) => (
                   <div key={index} className="p-3 bg-gray-50 rounded-lg">

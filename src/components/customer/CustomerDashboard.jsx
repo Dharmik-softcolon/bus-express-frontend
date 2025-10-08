@@ -31,7 +31,7 @@ const CustomerDashboard = () => {
         {/* Dashboard Header */}
         <div className="dashboard-action-bar">
           <div>
-            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-1">
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#6A0066] mb-1">
               Welcome back, {user?.name || 'Customer'}!
             </h1>
             <p className="text-xs sm:text-sm lg:text-base text-gray-600">
@@ -173,7 +173,7 @@ const CustomerDashboard = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                   </svg>
                 </div>
-                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">No bookings yet</h3>
+                <h3 className="text-lg sm:text-xl font-semibold text-[#6A0066] mb-2">No bookings yet</h3>
                 <p className="text-sm sm:text-base text-gray-500 mb-6">Get started by making your first booking.</p>
                 <a
                   href="/"
@@ -185,7 +185,7 @@ const CustomerDashboard = () => {
             ) : (
               <div className="dashboard-table">
                 <div className="dashboard-table-header">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs sm:text-sm font-semibold text-gray-700 uppercase tracking-wide">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs sm:text-sm font-semibold text-[#6A0066] uppercase tracking-wide">
                     <div>Route</div>
                     <div>Date & Time</div>
                     <div>Status</div>
@@ -197,7 +197,7 @@ const CustomerDashboard = () => {
                     <div key={booking.id} className="dashboard-table-row">
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-center">
                         <div>
-                          <div className="font-semibold text-gray-900 text-sm sm:text-base">
+                          <div className="font-semibold text-[#6A0066] text-sm sm:text-base">
                             {booking.route?.from} → {booking.route?.to}
                           </div>
                           <div className="text-xs sm:text-sm text-gray-500">
@@ -205,7 +205,7 @@ const CustomerDashboard = () => {
                           </div>
                         </div>
                         <div>
-                          <div className="text-sm sm:text-base text-gray-900">
+                          <div className="text-sm sm:text-base text-[#6A0066]">
                             {new Date(booking.travelDate).toLocaleDateString()}
                           </div>
                           <div className="text-xs sm:text-sm text-gray-500">
@@ -258,7 +258,7 @@ const CustomerDashboard = () => {
                   </svg>
                 </div>
                 <div className="flex-1">
-                  <div className="text-sm sm:text-base font-semibold text-gray-900 group-hover:text-navy transition-colors">Book New Trip</div>
+                  <div className="text-sm sm:text-base font-semibold text-[#6A0066] group-hover:text-navy transition-colors">Book New Trip</div>
                   <div className="text-xs sm:text-sm text-gray-500">Find and book your next journey</div>
                 </div>
                 <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 group-hover:text-navy transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -276,7 +276,7 @@ const CustomerDashboard = () => {
                   </svg>
                 </div>
                 <div className="flex-1">
-                  <div className="text-sm sm:text-base font-semibold text-gray-900 group-hover:text-green-600 transition-colors">View All Bookings</div>
+                  <div className="text-sm sm:text-base font-semibold text-[#6A0066] group-hover:text-green-600 transition-colors">View All Bookings</div>
                   <div className="text-xs sm:text-sm text-gray-500">Manage your travel history</div>
                 </div>
                 <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 group-hover:text-green-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -294,7 +294,7 @@ const CustomerDashboard = () => {
                   </svg>
                 </div>
                 <div className="flex-1">
-                  <div className="text-sm sm:text-base font-semibold text-gray-900 group-hover:text-purple-600 transition-colors">Update Profile</div>
+                  <div className="text-sm sm:text-base font-semibold text-[#6A0066] group-hover:text-purple-600 transition-colors">Update Profile</div>
                   <div className="text-xs sm:text-sm text-gray-500">Manage your account settings</div>
                 </div>
                 <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 group-hover:text-purple-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">

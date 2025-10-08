@@ -249,7 +249,7 @@ const BookingManagerBookings = () => {
                     placeholder="Search bookings..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary w-full"
+                    className="pl-10 pr-4 py-2 border border-[#6A0066] rounded-md focus:ring-primary focus:border-primary w-full"
                   />
                 </div>
               </div>
@@ -257,7 +257,7 @@ const BookingManagerBookings = () => {
                 <select
                   value={filterStatus}
                   onChange={(e) => setFilterStatus(e.target.value)}
-                  className="px-3 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
+                  className="px-3 py-2 border border-[#6A0066] rounded-md focus:ring-primary focus:border-primary"
                 >
                   <option value="all">All Status</option>
                   <option value="pending">Pending</option>
@@ -269,12 +269,12 @@ const BookingManagerBookings = () => {
                   type="date"
                   value={filterDate}
                   onChange={(e) => setFilterDate(e.target.value)}
-                  className="px-3 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
+                  className="px-3 py-2 border border-[#6A0066] rounded-md focus:ring-primary focus:border-primary"
                 />
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="px-3 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
+                  className="px-3 py-2 border border-[#6A0066] rounded-md focus:ring-primary focus:border-primary"
                 >
                   <option value="latest">Latest First</option>
                   <option value="oldest">Oldest First</option>

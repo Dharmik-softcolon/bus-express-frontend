@@ -292,7 +292,7 @@ const BookingManagerDashboard = () => {
       case 'completed':
         return 'bg-blue-100 text-navy'
       default:
-        return 'bg-gray-100 text-gray-800'
+        return 'bg-gray-100 text-[#6A0066]'
     }
   }
 
@@ -307,7 +307,7 @@ const BookingManagerDashboard = () => {
       case 'refunded':
         return 'bg-blue-100 text-navy'
       default:
-        return 'bg-gray-100 text-gray-800'
+        return 'bg-gray-100 text-[#6A0066]'
     }
   }
 
@@ -362,13 +362,13 @@ const BookingManagerDashboard = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Booking Manager Dashboard</h1>
+              <h1 className="text-2xl font-bold text-[#6A0066]">Booking Manager Dashboard</h1>
               <p className="text-gray-600 mt-1">Welcome back, {user?.name}</p>
             </div>
             <div className="flex items-center space-x-4">
               <button
                 onClick={fetchDashboardData}
-                className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
+                className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium text-[#6A0066] bg-white hover:bg-gray-50"
               >
                 <RefreshCw className="h-4 w-4 mr-2" />
                 Refresh

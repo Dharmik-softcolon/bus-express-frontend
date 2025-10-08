@@ -144,7 +144,7 @@ const BusAdminOverview = () => {
         <div className="mb-4 sm:mb-6">
           <div className="flex flex-col gap-3">
             <div>
-              <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Bus Admin Overview</h1>
+              <h1 className="text-xl sm:text-2xl font-bold text-[#6A0066]">Bus Admin Overview</h1>
               <p className="text-gray-600 text-xs sm:text-sm">
                 Fleet management dashboard and operational insights
               </p>
@@ -157,7 +157,7 @@ const BusAdminOverview = () => {
                 className={`px-3 py-1.5 text-xs font-medium rounded-sm transition-all duration-200 border-0 hover:border-0 active:border-0 focus:border-0 ${
                   activeTab === 'overview'
                     ? 'bg-button/20 text-primary'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200/50'
+                    : 'text-gray-600 hover:text-[#6A0066] hover:bg-gray-200/50'
                 }`}
               >
                 Overview
@@ -167,7 +167,7 @@ const BusAdminOverview = () => {
                 className={`px-3 py-1.5 text-xs font-medium rounded-sm transition-all duration-200 border-0 hover:border-0 active:border-0 focus:border-0 ${
                   activeTab === 'bus-analytics'
                     ? 'bg-button/20 text-primary'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200/50'
+                    : 'text-gray-600 hover:text-[#6A0066] hover:bg-gray-200/50'
                 }`}
               >
                 Bus Analytics
@@ -177,7 +177,7 @@ const BusAdminOverview = () => {
                 className={`px-3 py-1.5 text-xs font-medium rounded-sm transition-all duration-200 border-0 hover:border-0 active:border-0 focus:border-0 ${
                   activeTab === 'route-analytics'
                     ? 'bg-button/20 text-primary'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200/50'
+                    : 'text-gray-600 hover:text-[#6A0066] hover:bg-gray-200/50'
                 }`}
               >
                 Route Analytics
@@ -187,7 +187,7 @@ const BusAdminOverview = () => {
                 className={`px-3 py-1.5 text-xs font-medium rounded-sm transition-all duration-200 border-0 hover:border-0 active:border-0 focus:border-0 ${
                   activeTab === 'trip-analytics'
                     ? 'bg-button/20 text-primary'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200/50'
+                    : 'text-gray-600 hover:text-[#6A0066] hover:bg-gray-200/50'
                 }`}
               >
                 Trip Analytics
@@ -208,7 +208,7 @@ const BusAdminOverview = () => {
                 </div>
                 <div className="ml-3">
                   <p className="text-xs font-medium text-gray-600">Total Buses</p>
-                  <p className="text-lg font-bold text-gray-900">{mockStats.totalBuses}</p>
+                  <p className="text-lg font-bold text-[#6A0066]">{mockStats.totalBuses}</p>
                 </div>
               </div>
             </div>
@@ -317,7 +317,7 @@ const BusAdminOverview = () => {
                   <div key={route._id || route.id} className="border rounded-lg p-4">
                     <div className="flex rounded-start justify-between items-start mb-2">
                       <div>
-                        <h4 className="font-semibold text-gray-900">{route.name || route.routeName}</h4>
+                        <h4 className="font-semibold text-[#6A0066]">{route.name || route.routeName}</h4>
                         <p className="text-sm text-gray-600">
                           {route.distance ? `${route.distance} km` : 'Distance not specified'} • 
                           {route.duration ? ` ${route.duration}` : ' Duration not specified'} • 
@@ -376,7 +376,7 @@ const BusAdminOverview = () => {
                         bus.status === 'active' ? 'text-green-500' : 'text-red-500'
                       }`} />
                       <div>
-                        <span className="text-sm font-medium text-gray-900">{bus.number || bus.busNumber}</span>
+                        <span className="text-sm font-medium text-[#6A0066]">{bus.number || bus.busNumber}</span>
                         <p className="text-xs text-gray-600">
                           {bus.route ? `${bus.route} • ` : ''}{bus.capacity || 'N/A'} seats
                         </p>
@@ -411,7 +411,7 @@ const BusAdminOverview = () => {
                   </div>
                   <div className="ml-3">
                     <p className="text-xs font-medium text-gray-600">Total Revenue</p>
-                    <p className="text-lg font-bold text-gray-900">₹{analyticsData.busAnalytics.totalRevenue.toLocaleString()}</p>
+                    <p className="text-lg font-bold text-[#6A0066]">₹{analyticsData.busAnalytics.totalRevenue.toLocaleString()}</p>
                   </div>
                 </div>
               </div>
@@ -423,7 +423,7 @@ const BusAdminOverview = () => {
                   </div>
                   <div className="ml-4">
                     <p className="text-sm font-medium text-gray-600">Occupancy Rate</p>
-                    <p className="text-2xl font-bold text-gray-900">{analyticsData.busAnalytics.occupancyRate}%</p>
+                    <p className="text-2xl font-bold text-[#6A0066]">{analyticsData.busAnalytics.occupancyRate}%</p>
                   </div>
                 </div>
               </div>
@@ -435,7 +435,7 @@ const BusAdminOverview = () => {
                   </div>
                   <div className="ml-4">
                     <p className="text-sm font-medium text-gray-600">Average Rating</p>
-                    <p className="text-2xl font-bold text-gray-900">{analyticsData.busAnalytics.averageRating}/5</p>
+                    <p className="text-2xl font-bold text-[#6A0066]">{analyticsData.busAnalytics.averageRating}/5</p>
                   </div>
                 </div>
               </div>
@@ -447,7 +447,7 @@ const BusAdminOverview = () => {
                   </div>
                   <div className="ml-4">
                     <p className="text-sm font-medium text-gray-600">Maintenance Cost</p>
-                    <p className="text-2xl font-bold text-gray-900">₹{analyticsData.busAnalytics.maintenanceCost.toLocaleString()}</p>
+                    <p className="text-2xl font-bold text-[#6A0066]">₹{analyticsData.busAnalytics.maintenanceCost.toLocaleString()}</p>
                   </div>
                 </div>
               </div>
@@ -459,7 +459,7 @@ const BusAdminOverview = () => {
                   </div>
                   <div className="ml-4">
                     <p className="text-sm font-medium text-gray-600">Fuel Efficiency</p>
-                    <p className="text-2xl font-bold text-gray-900">{analyticsData.busAnalytics.fuelEfficiency} km/L</p>
+                    <p className="text-2xl font-bold text-[#6A0066]">{analyticsData.busAnalytics.fuelEfficiency} km/L</p>
                   </div>
                 </div>
               </div>
@@ -485,7 +485,7 @@ const BusAdminOverview = () => {
                   {analyticsData.routeAnalytics.popularRoutes.map((route, index) => (
                     <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                       <div>
-                        <p className="font-medium text-gray-900">{route.name}</p>
+                        <p className="font-medium text-[#6A0066]">{route.name}</p>
                         <p className="text-sm text-gray-600">{route.bookings} bookings</p>
                       </div>
                       <div className="text-right">
@@ -501,7 +501,7 @@ const BusAdminOverview = () => {
                 <div className="space-y-4">
                   {analyticsData.routeAnalytics.routePerformance.map((route, index) => (
                     <div key={index} className="p-3 bg-gray-50 rounded-lg">
-                      <p className="font-medium text-gray-900 mb-2">{route.name}</p>
+                      <p className="font-medium text-[#6A0066] mb-2">{route.name}</p>
                       <div className="space-y-2">
                         <div className="flex justify-between text-sm">
                           <span className="text-gray-600">Efficiency</span>
@@ -539,7 +539,7 @@ const BusAdminOverview = () => {
                   </div>
                   <div className="ml-4">
                     <p className="text-sm font-medium text-gray-600">Total Trips</p>
-                    <p className="text-2xl font-bold text-gray-900">{analyticsData.tripAnalytics.totalTrips}</p>
+                    <p className="text-2xl font-bold text-[#6A0066]">{analyticsData.tripAnalytics.totalTrips}</p>
                   </div>
                 </div>
               </div>
@@ -551,7 +551,7 @@ const BusAdminOverview = () => {
                   </div>
                   <div className="ml-4">
                     <p className="text-sm font-medium text-gray-600">Completed Trips</p>
-                    <p className="text-2xl font-bold text-gray-900">{analyticsData.tripAnalytics.completedTrips}</p>
+                    <p className="text-2xl font-bold text-[#6A0066]">{analyticsData.tripAnalytics.completedTrips}</p>
                   </div>
                 </div>
               </div>
@@ -563,7 +563,7 @@ const BusAdminOverview = () => {
                   </div>
                   <div className="ml-4">
                     <p className="text-sm font-medium text-gray-600">Cancelled Trips</p>
-                    <p className="text-2xl font-bold text-gray-900">{analyticsData.tripAnalytics.cancelledTrips}</p>
+                    <p className="text-2xl font-bold text-[#6A0066]">{analyticsData.tripAnalytics.cancelledTrips}</p>
                   </div>
                 </div>
               </div>
@@ -575,7 +575,7 @@ const BusAdminOverview = () => {
                   </div>
                   <div className="ml-4">
                     <p className="text-sm font-medium text-gray-600">Average Delay</p>
-                    <p className="text-2xl font-bold text-gray-900">{analyticsData.tripAnalytics.averageDelay} min</p>
+                    <p className="text-2xl font-bold text-[#6A0066]">{analyticsData.tripAnalytics.averageDelay} min</p>
                   </div>
                 </div>
               </div>
@@ -587,7 +587,7 @@ const BusAdminOverview = () => {
                   </div>
                   <div className="ml-4">
                     <p className="text-sm font-medium text-gray-600">Customer Satisfaction</p>
-                    <p className="text-2xl font-bold text-gray-900">{analyticsData.tripAnalytics.customerSatisfaction}/5</p>
+                    <p className="text-2xl font-bold text-[#6A0066]">{analyticsData.tripAnalytics.customerSatisfaction}/5</p>
                   </div>
                 </div>
               </div>

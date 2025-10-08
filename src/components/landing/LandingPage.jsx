@@ -9,7 +9,7 @@ const LandingPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="text-center lg:text-left">
-              <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+              <h1 className="text-4xl md:text-6xl font-bold text-[#6A0066] mb-6">
                 Modern Bus Management
                 <span className="text-primary"> System</span>
               </h1>
@@ -42,7 +42,7 @@ const LandingPage = () => {
                 <div className="absolute -bottom-4 -right-4 bg-white rounded-lg shadow-lg p-4">
                   <div className="flex items-center space-x-2">
                     <div className="w-3 h-3 bg-button rounded-full"></div>
-                    <span className="text-sm font-medium text-gray-700">Live Tracking</span>
+                    <span className="text-sm font-medium text-[#6A0066]">Live Tracking</span>
                   </div>
                 </div>
               </div>
@@ -55,7 +55,7 @@ const LandingPage = () => {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-[#6A0066] mb-4">
               Everything You Need to Manage Your Bus Business
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -76,7 +76,7 @@ const LandingPage = () => {
               <div className="w-16 h-16 bg-button rounded-full flex items-center justify-center mx-auto mb-4">
                 <Bus className="h-8 w-8 text-navy" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Fleet Management</h3>
+              <h3 className="text-xl font-semibold text-[#6A0066] mb-2">Fleet Management</h3>
               <p className="text-gray-600">
                 Manage your entire bus fleet with real-time tracking, maintenance schedules, and performance analytics.
               </p>
@@ -179,7 +179,7 @@ const LandingPage = () => {
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-[#6A0066] mb-4">
               Designed for Every Role
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -309,7 +309,7 @@ const LandingPage = () => {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-[#6A0066] mb-4">
               What Our Customers Say
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">

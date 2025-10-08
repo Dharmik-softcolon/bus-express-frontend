@@ -515,7 +515,7 @@ const SeatBookingModal = ({
                           type="text"
                           value={passenger.passengerName}
                           onChange={(e) => handlePassengerInputChange(index, 'passengerName', e.target.value)}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                          className="w-full px-3 py-2 border border-[#6A0066] rounded-md focus:ring-blue-500 focus:border-blue-500"
                           placeholder="Enter full name"
                           required
                         />
@@ -529,7 +529,7 @@ const SeatBookingModal = ({
                           type="tel"
                           value={passenger.passengerPhone}
                           onChange={(e) => handlePassengerInputChange(index, 'passengerPhone', e.target.value)}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                          className="w-full px-3 py-2 border border-[#6A0066] rounded-md focus:ring-blue-500 focus:border-blue-500"
                           placeholder="Enter phone number"
                           required
                         />
@@ -543,7 +543,7 @@ const SeatBookingModal = ({
                           type="number"
                           value={passenger.passengerAge}
                           onChange={(e) => handlePassengerInputChange(index, 'passengerAge', e.target.value)}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                          className="w-full px-3 py-2 border border-[#6A0066] rounded-md focus:ring-blue-500 focus:border-blue-500"
                           placeholder="Age"
                           min="1"
                           max="120"
@@ -558,7 +558,7 @@ const SeatBookingModal = ({
                         <select
                           value={passenger.passengerGender}
                           onChange={(e) => handlePassengerInputChange(index, 'passengerGender', e.target.value)}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                          className="w-full px-3 py-2 border border-[#6A0066] rounded-md focus:ring-blue-500 focus:border-blue-500"
                           required
                         >
                           <option value="">Select Gender</option>
@@ -576,7 +576,7 @@ const SeatBookingModal = ({
                           type="email"
                           value={passenger.passengerEmail}
                           onChange={(e) => handlePassengerInputChange(index, 'passengerEmail', e.target.value)}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                          className="w-full px-3 py-2 border border-[#6A0066] rounded-md focus:ring-blue-500 focus:border-blue-500"
                           placeholder="Enter email address"
                         />
                       </div>

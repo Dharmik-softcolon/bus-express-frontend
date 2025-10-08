@@ -15,9 +15,9 @@ const Header = () => {
 
   return (
     <>
-      <header className="bg-primary shadow-sm border-b border-hover sticky top-0 z-40">
+      <header className="bg-primary border-b border-hover sticky top-0 z-40" style={{boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'}}>
         <div className="container-responsive">
-          <div className="flex justify-between items-center h-10">
+          <div className="flex justify-between items-center h-10.5">
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-2 flex-shrink-0 group">
               <Bus className="h-5 w-5 sm:h-6 sm:w-6 text-white group-hover:text-hover transition-colors" />
@@ -95,7 +95,7 @@ const Header = () => {
                       <User className="h-4 w-4 text-gray-600" />
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-gray-900">{user.name || user.email}</p>
+                      <p className="text-sm font-medium text-[#6A0066]">{user.name || user.email}</p>
                       <p className="text-xs text-gray-600">{user.email}</p>
                     </div>
                   </div>

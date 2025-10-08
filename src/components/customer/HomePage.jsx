@@ -114,7 +114,7 @@ const HomePage = ({ onSearch }) => {
               <form onSubmit={handleSearch} className="form-responsive">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                   <div className="space-y-2">
-                    <label className="block text-sm font-semibold text-gray-700">
+                    <label className="block text-sm font-semibold text-[#6A0066]">
                       From
                     </label>
                     <div className="relative">
@@ -132,7 +132,7 @@ const HomePage = ({ onSearch }) => {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="block text-sm font-semibold text-gray-700">
+                    <label className="block text-sm font-semibold text-[#6A0066]">
                       To
                     </label>
                     <div className="relative">
@@ -150,7 +150,7 @@ const HomePage = ({ onSearch }) => {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="block text-sm font-semibold text-gray-700">
+                    <label className="block text-sm font-semibold text-[#6A0066]">
                       Departure Date
                     </label>
                     <div className="relative">
@@ -167,7 +167,7 @@ const HomePage = ({ onSearch }) => {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="block text-sm font-semibold text-gray-700">
+                    <label className="block text-sm font-semibold text-[#6A0066]">
                       Passengers
                     </label>
                     <div className="relative">
@@ -212,7 +212,7 @@ const HomePage = ({ onSearch }) => {
       <section className="section-padding bg-gradient-to-b from-gray-50 to-white">
         <div className="container-responsive">
           <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-            <h2 className="text-responsive-xl font-bold text-gray-900 mb-4 sm:mb-6">
+            <h2 className="text-responsive-xl font-bold text-[#6A0066] mb-4 sm:mb-6">
               Popular Routes
             </h2>
             <p className="text-responsive-base text-gray-600 max-w-3xl mx-auto px-4 leading-relaxed">
@@ -225,7 +225,7 @@ const HomePage = ({ onSearch }) => {
               <div key={index} className="card-elevated hover:shadow-xl transition-all duration-300 cursor-pointer group">
                 <div className="text-center p-4 sm:p-6">
                   <div className="mb-4">
-                    <h3 className="font-bold text-lg sm:text-xl mb-2 text-gray-900 group-hover:text-navy transition-colors">
+                    <h3 className="font-bold text-lg sm:text-xl mb-2 text-[#6A0066] group-hover:text-navy transition-colors">
                       {route.from} → {route.to}
                     </h3>
                     <div className="flex justify-between items-center mb-4">
@@ -257,7 +257,7 @@ const HomePage = ({ onSearch }) => {
       <section className="section-padding bg-white">
         <div className="container-responsive">
           <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-            <h2 className="text-responsive-xl font-bold text-gray-900 mb-4 sm:mb-6">
+            <h2 className="text-responsive-xl font-bold text-[#6A0066] mb-4 sm:mb-6">
               Why Choose BusExpress?
             </h2>
             <p className="text-responsive-base text-gray-600 max-w-3xl mx-auto px-4 leading-relaxed">
@@ -271,7 +271,7 @@ const HomePage = ({ onSearch }) => {
                 <div className="bg-gradient-to-br from-blue-100 to-blue-200 w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
                   <feature.icon className="h-8 w-8 sm:h-10 sm:w-10 text-navy" />
                 </div>
-                <h3 className="font-bold text-lg sm:text-xl mb-2 sm:mb-3 text-gray-900">{feature.title}</h3>
+                <h3 className="font-bold text-lg sm:text-xl mb-2 sm:mb-3 text-[#6A0066]">{feature.title}</h3>
                 <p className="text-gray-600 text-sm sm:text-base leading-relaxed">{feature.description}</p>
               </div>
             ))}
@@ -283,7 +283,7 @@ const HomePage = ({ onSearch }) => {
       <section className="section-padding bg-gradient-to-b from-gray-50 to-gray-100">
         <div className="container-responsive">
           <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-            <h2 className="text-responsive-xl font-bold text-gray-900 mb-4 sm:mb-6">
+            <h2 className="text-responsive-xl font-bold text-[#6A0066] mb-4 sm:mb-6">
               What Our Customers Say
             </h2>
             <p className="text-responsive-base text-gray-600 max-w-2xl mx-auto px-4">
@@ -328,7 +328,7 @@ const HomePage = ({ onSearch }) => {
                     </span>
                   </div>
                   <div>
-                    <p className="font-semibold text-gray-900 text-sm sm:text-base">{testimonial.name}</p>
+                    <p className="font-semibold text-[#6A0066] text-sm sm:text-base">{testimonial.name}</p>
                     <p className="text-gray-500 text-xs sm:text-sm">{testimonial.role}</p>
                   </div>
                 </div>
