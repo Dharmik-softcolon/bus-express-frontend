@@ -26,7 +26,7 @@ const UserProfile = () => {
   const getRoleColor = (role) => {
     const colors = {
       'MASTER_ADMIN': 'bg-red-100 text-red-800',
-      'BUS_OWNER': 'bg-blue-100 text-navy',
+      'BUS_OWNER': 'bg-button text-primary',
       'BUS_ADMIN': 'bg-green-100 text-green-800',
       'BOOKING_MAN': 'bg-purple-100 text-purple-800',
       'BUS_EMPLOYEE': 'bg-orange-100 text-orange-800',
@@ -41,10 +41,10 @@ const UserProfile = () => {
     <div className="relative">
       <button
         onClick={() => setShowDropdown(!showDropdown)}
-        className="flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-navy-light transition-colors"
+        className="flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-hover transition-colors"
       >
         <div className="w-7 h-7 bg-white rounded-full flex items-center justify-center">
-          <User className="h-4 w-4 text-navy" />
+          <User className="h-4 w-4 text-icon" />
         </div>
         <span className="hidden sm:inline max-w-24 lg:max-w-none truncate font-medium">{user.name}</span>
       </button>
@@ -54,7 +54,7 @@ const UserProfile = () => {
           <div className="p-6">
             {/* User Info */}
             <div className="flex items-center space-x-4 mb-6">
-              <div className="w-12 h-12 bg-gradient-to-br from-navy to-navy-light rounded-full flex items-center justify-center flex-shrink-0">
+              <div className="w-12 h-12 bg-gradient-to-br from-primary to-hover rounded-full flex items-center justify-center flex-shrink-0">
                 <User className="h-6 w-6 text-white" />
               </div>
               <div className="flex-1 min-w-0">
@@ -68,18 +68,18 @@ const UserProfile = () => {
             {/* User Details */}
             <div className="space-y-3 mb-6 text-sm">
               <div className="flex items-center text-gray-600 p-2 rounded-lg bg-gray-50">
-                <Mail className="h-4 w-4 mr-3 flex-shrink-0 text-navy" />
+                <Mail className="h-4 w-4 mr-3 flex-shrink-0 text-icon" />
                 <span className="truncate">{user.email}</span>
               </div>
               {user.company && (
                 <div className="flex items-center text-gray-600 p-2 rounded-lg bg-gray-50">
-                  <Building className="h-4 w-4 mr-3 flex-shrink-0 text-navy" />
+                  <Building className="h-4 w-4 mr-3 flex-shrink-0 text-icon" />
                   <span className="truncate">{user.company}</span>
                 </div>
               )}
               {user.position && (
                 <div className="flex items-center text-gray-600 p-2 rounded-lg bg-gray-50">
-                  <User className="h-4 w-4 mr-3 flex-shrink-0 text-navy" />
+                  <User className="h-4 w-4 mr-3 flex-shrink-0 text-icon" />
                   <span className="truncate">{user.position}</span>
                 </div>
               )}
@@ -94,7 +94,7 @@ const UserProfile = () => {
                 }}
                 className="w-full flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 rounded-lg transition-colors font-medium"
               >
-                <Settings className="h-4 w-4 mr-3 flex-shrink-0 text-navy" />
+                <Settings className="h-4 w-4 mr-3 flex-shrink-0 text-icon" />
                 <span className="truncate">Profile Settings</span>
               </button>
               

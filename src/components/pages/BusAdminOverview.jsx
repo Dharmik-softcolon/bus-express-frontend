@@ -154,9 +154,9 @@ const BusAdminOverview = () => {
             <div className="flex space-x-1 bg-gray-100/50 p-1 rounded-md w-fit">
               <button
                 onClick={() => setActiveTab('overview')}
-                className={`px-3 py-1.5 text-xs font-medium rounded-sm transition-all duration-200 ${
+                className={`px-3 py-1.5 text-xs font-medium rounded-sm transition-all duration-200 border-0 hover:border-0 active:border-0 focus:border-0 ${
                   activeTab === 'overview'
-                    ? 'bg-blue-500/20 text-navy'
+                    ? 'bg-button/20 text-primary'
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200/50'
                 }`}
               >
@@ -164,9 +164,9 @@ const BusAdminOverview = () => {
               </button>
               <button
                 onClick={() => setActiveTab('bus-analytics')}
-                className={`px-3 py-1.5 text-xs font-medium rounded-sm transition-all duration-200 ${
+                className={`px-3 py-1.5 text-xs font-medium rounded-sm transition-all duration-200 border-0 hover:border-0 active:border-0 focus:border-0 ${
                   activeTab === 'bus-analytics'
-                    ? 'bg-blue-500/20 text-navy'
+                    ? 'bg-button/20 text-primary'
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200/50'
                 }`}
               >
@@ -174,9 +174,9 @@ const BusAdminOverview = () => {
               </button>
               <button
                 onClick={() => setActiveTab('route-analytics')}
-                className={`px-3 py-1.5 text-xs font-medium rounded-sm transition-all duration-200 ${
+                className={`px-3 py-1.5 text-xs font-medium rounded-sm transition-all duration-200 border-0 hover:border-0 active:border-0 focus:border-0 ${
                   activeTab === 'route-analytics'
-                    ? 'bg-blue-500/20 text-navy'
+                    ? 'bg-button/20 text-primary'
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200/50'
                 }`}
               >
@@ -184,9 +184,9 @@ const BusAdminOverview = () => {
               </button>
               <button
                 onClick={() => setActiveTab('trip-analytics')}
-                className={`px-3 py-1.5 text-xs font-medium rounded-sm transition-all duration-200 ${
+                className={`px-3 py-1.5 text-xs font-medium rounded-sm transition-all duration-200 border-0 hover:border-0 active:border-0 focus:border-0 ${
                   activeTab === 'trip-analytics'
-                    ? 'bg-blue-500/20 text-navy'
+                    ? 'bg-button/20 text-primary'
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200/50'
                 }`}
               >

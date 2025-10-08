@@ -226,7 +226,7 @@ const BookingManagerBookings = () => {
             <div className="flex items-center space-x-4">
               <button
                 onClick={fetchBookings}
-                className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
+                className="inline-flex items-center px-4 py-2 border-0 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
               >
                 <RefreshCw className="h-4 w-4 mr-2" />
                 Refresh
@@ -249,7 +249,7 @@ const BookingManagerBookings = () => {
                     placeholder="Search bookings..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 w-full"
+                    className="pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary w-full"
                   />
                 </div>
               </div>
@@ -257,7 +257,7 @@ const BookingManagerBookings = () => {
                 <select
                   value={filterStatus}
                   onChange={(e) => setFilterStatus(e.target.value)}
-                  className="px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                  className="px-3 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
                 >
                   <option value="all">All Status</option>
                   <option value="pending">Pending</option>
@@ -269,12 +269,12 @@ const BookingManagerBookings = () => {
                   type="date"
                   value={filterDate}
                   onChange={(e) => setFilterDate(e.target.value)}
-                  className="px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                  className="px-3 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
                 />
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                  className="px-3 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
                 >
                   <option value="latest">Latest First</option>
                   <option value="oldest">Oldest First</option>
@@ -478,7 +478,7 @@ const BookingManagerBookings = () => {
               <div className="mt-6 flex justify-end space-x-3">
                 <button
                   onClick={() => setShowBookingDetails(false)}
-                  className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50"
+                  className="px-4 py-2 border-0 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50"
                 >
                   Close
                 </button>
@@ -489,7 +489,7 @@ const BookingManagerBookings = () => {
                         handleBookingStatusUpdate(selectedBooking._id, 'confirmed')
                         setShowBookingDetails(false)
                       }}
-                      className="px-4 py-2 bg-green-600 border border-transparent rounded-md text-sm font-medium text-white hover:bg-green-700"
+                      className="px-4 py-2 bg-green-600 border-0 rounded-md text-sm font-medium text-white hover:bg-green-700"
                     >
                       Confirm Booking
                     </button>
@@ -498,7 +498,7 @@ const BookingManagerBookings = () => {
                         handleCancelBooking(selectedBooking._id, 'Cancelled by booking manager')
                         setShowBookingDetails(false)
                       }}
-                      className="px-4 py-2 bg-red-600 border border-transparent rounded-md text-sm font-medium text-white hover:bg-red-700"
+                      className="px-4 py-2 bg-red-600 border-0 rounded-md text-sm font-medium text-white hover:bg-red-700"
                     >
                       Cancel Booking
                     </button>

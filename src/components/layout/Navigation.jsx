@@ -69,10 +69,10 @@ const Navigation = () => {
                   <Link
                     key={item.path}
                     to={item.path}
-                    className={`inline-flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                    className={`inline-flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors border-0 hover:border-0 active:border-0 focus:border-0 ${
                       isActiveRoute(item.path)
-                        ? 'bg-navy text-white border-b-2 border-navy-light'
-                        : 'text-gray-600 hover:bg-blue-50 hover:text-navy'
+                        ? 'bg-primary text-white'
+                        : 'text-gray-600 hover:bg-button/20 hover:text-primary'
                     }`}
                   >
                     <IconComponent className="w-4 h-4 mr-2" />
@@ -94,10 +94,10 @@ const Navigation = () => {
               <Link
                 key={item.path}
                 to={item.path}
-                className={`flex items-center pl-3 pr-4 py-2 border-l-4 text-base font-medium transition-colors ${
+                className={`flex items-center pl-3 pr-4 py-2 text-base font-medium transition-colors border-0 hover:border-0 active:border-0 focus:border-0 ${
                   isActiveRoute(item.path)
-                    ? 'bg-navy border-navy-light text-white'
-                    : 'border-transparent text-gray-600 hover:bg-blue-50 hover:border-blue-300 hover:text-navy'
+                    ? 'bg-primary text-white'
+                    : 'text-gray-600 hover:bg-button/20 hover:text-primary'
                 }`}
               >
                 <IconComponent className="w-5 h-5 mr-3" />

@@ -7,9 +7,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        'navy': '#000435',
-        'navy-light': '#001a5c',
-        'navy-dark': '#00022a',
+        'navy': '#640D5F',
+        'navy-light': '#B95E82',
+        'navy-dark': '#640D5F',
+        'primary': '#640D5F',
+        'hover': '#B95E82',
+        'button': '#F39F9F',
+        'background': '#FFF1F1',
+        'icon': '#E9E294',
       },
       fontFamily: {
         'sans': ['Barlow Semi Condensed', 'sans-serif'],

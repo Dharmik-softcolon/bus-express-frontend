@@ -3,7 +3,7 @@ import { Bus, Users, BarChart3, Shield, Clock, MapPin } from 'lucide-react'
 
 const LandingPage = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-gradient-to-br from-background to-white">
       {/* Hero Section */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -11,7 +11,7 @@ const LandingPage = () => {
             <div className="text-center lg:text-left">
               <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
                 Modern Bus Management
-                <span className="text-navy"> System</span>
+                <span className="text-primary"> System</span>
               </h1>
               <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto lg:mx-0">
                 Streamline your bus operations with our comprehensive management platform. 
@@ -20,13 +20,13 @@ const LandingPage = () => {
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Link
                   to="/login"
-                  className="bg-navy text-white px-8 py-4 rounded-lg hover:bg-navy-light transition-colors font-medium text-lg"
+                  className="bg-primary text-white px-8 py-4 rounded-lg hover:bg-hover transition-colors font-medium text-lg"
                 >
                   Get Started
                 </Link>
                 <Link
                   to="/search"
-                  className="border-2 border-navy text-navy px-8 py-4 rounded-lg hover:bg-blue-50 transition-colors font-medium text-lg"
+                  className="border-2 border-primary text-primary px-8 py-4 rounded-lg hover:bg-button hover:border-0 transition-colors font-medium text-lg"
                 >
                   Book a Trip
                 </Link>
@@ -41,7 +41,7 @@ const LandingPage = () => {
                 />
                 <div className="absolute -bottom-4 -right-4 bg-white rounded-lg shadow-lg p-4">
                   <div className="flex items-center space-x-2">
-                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                    <div className="w-3 h-3 bg-button rounded-full"></div>
                     <span className="text-sm font-medium text-gray-700">Live Tracking</span>
                   </div>
                 </div>
@@ -73,7 +73,7 @@ const LandingPage = () => {
                   className="w-full h-48 object-cover rounded-lg mb-4"
                 />
               </div>
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-button rounded-full flex items-center justify-center mx-auto mb-4">
                 <Bus className="h-8 w-8 text-navy" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">Fleet Management</h3>
@@ -91,8 +91,8 @@ const LandingPage = () => {
                   className="w-full h-48 object-cover rounded-lg mb-4"
                 />
               </div>
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <MapPin className="h-8 w-8 text-green-600" />
+              <div className="w-16 h-16 bg-button rounded-full flex items-center justify-center mx-auto mb-4">
+                <MapPin className="h-8 w-8 text-icon" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">Route Planning</h3>
               <p className="text-gray-600">
@@ -145,8 +145,8 @@ const LandingPage = () => {
                   className="w-full h-48 object-cover rounded-lg mb-4"
                 />
               </div>
-              <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Shield className="h-8 w-8 text-red-600" />
+              <div className="w-16 h-16 bg-button rounded-full flex items-center justify-center mx-auto mb-4">
+                <Shield className="h-8 w-8 text-icon" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">Role-Based Access</h3>
               <p className="text-gray-600">
@@ -191,8 +191,8 @@ const LandingPage = () => {
             {/* Master Admin */}
             <div className="bg-white p-6 rounded-lg shadow-sm">
               <div className="text-center">
-                <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Shield className="h-6 w-6 text-red-600" />
+                <div className="w-12 h-12 bg-button rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Shield className="h-6 w-6 text-icon" />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">Master Admin</h3>
                 <p className="text-gray-600 text-sm mb-4">
@@ -200,7 +200,7 @@ const LandingPage = () => {
                 </p>
                 <Link
                   to="/login"
-                  className="text-red-600 hover:text-red-700 font-medium text-sm"
+                  className="text-primary hover:text-hover font-medium text-sm"
                 >
                   Access Dashboard →
                 </Link>
@@ -210,7 +210,7 @@ const LandingPage = () => {
             {/* Bus Owner */}
             <div className="bg-white p-6 rounded-lg shadow-sm">
               <div className="text-center">
-                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-12 h-12 bg-button rounded-full flex items-center justify-center mx-auto mb-4">
                   <Bus className="h-6 w-6 text-navy" />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">Bus Owner</h3>
@@ -229,8 +229,8 @@ const LandingPage = () => {
             {/* Bus Admin */}
             <div className="bg-white p-6 rounded-lg shadow-sm">
               <div className="text-center">
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Users className="h-6 w-6 text-green-600" />
+                <div className="w-12 h-12 bg-button rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Users className="h-6 w-6 text-icon" />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">Bus Admin</h3>
                 <p className="text-gray-600 text-sm mb-4">
@@ -381,7 +381,7 @@ const LandingPage = () => {
           <h2 className="text-3xl font-bold text-white mb-4">
             Ready to Transform Your Bus Operations?
           </h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
             Join thousands of bus operators who trust BusExpress for their daily operations.
           </p>
           <Link

@@ -94,10 +94,10 @@ const CustomerDashboard = () => {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors ${
+                  className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors border-0 hover:border-0 active:border-0 focus:border-0 ${
                     activeTab === tab.id
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
+                      ? 'bg-primary text-white'
+                      : 'bg-white text-gray-700 hover:bg-gray-50'
                   }`}
                 >
                   {tab.name}
@@ -244,7 +244,7 @@ const CustomerDashboard = () => {
                     <div className="mt-4">
                       <a
                         href="/search"
-                        className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+                        className="inline-flex items-center px-4 py-2 border-0 shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-hover"
                       >
                         Book a Trip
                       </a>

@@ -75,7 +75,7 @@ const ApiTest = () => {
           <div className="flex gap-4 mb-6">
             <button
               onClick={testGetAllBuses}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 border-0 hover:border-0"
             >
               Test Get All Buses
             </button>
@@ -83,7 +83,7 @@ const ApiTest = () => {
             {user?.role && (user.role === 'admin' || user.role === 'operator') && (
               <button
                 onClick={testCreateBus}
-                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 border-0 hover:border-0"
               >
                 Test Create Bus
               </button>
@@ -91,14 +91,14 @@ const ApiTest = () => {
             
             <button
               onClick={runAllTests}
-              className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+              className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 border-0 hover:border-0"
             >
               Run All Tests
             </button>
             
             <button
               onClick={() => setTestResults([])}
-              className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700"
+              className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 border-0 hover:border-0"
             >
               Clear Results
             </button>

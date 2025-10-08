@@ -3,13 +3,169 @@
 @tailwind utilities;
 
 @layer base {
+  /* Reset all button and link styles */
+  button,
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  a {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Override all possible states */
+  button:focus,
+  button:focus-visible,
+  button:focus-within,
+  button:active,
+  button:hover,
+  input[type="button"]:focus,
+  input[type="button"]:focus-visible,
+  input[type="button"]:focus-within,
+  input[type="button"]:active,
+  input[type="button"]:hover,
+  input[type="submit"]:focus,
+  input[type="submit"]:focus-visible,
+  input[type="submit"]:focus-within,
+  input[type="submit"]:active,
+  input[type="submit"]:hover,
+  input[type="reset"]:focus,
+  input[type="reset"]:focus-visible,
+  input[type="reset"]:focus-within,
+  input[type="reset"]:active,
+  input[type="reset"]:hover,
+  a:focus,
+  a:focus-visible,
+  a:focus-within,
+  a:active,
+  a:hover {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Override browser user agent stylesheets */
+  button::-moz-focus-inner {
+    border: 0 !important;
+    padding: 0 !important;
+  }
+
+  button::-webkit-focus-ring-color {
+    outline: none !important;
+  }
+
+  /* Apply subtle border radius (0.1rem) to specific elements */
+  input,
+  textarea,
+  select,
+  button,
+  nav a,
+  [role="button"],
+  a[role="button"] {
+    border-radius: 0.1rem !important;
+  }
+  button,
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  a,
+  nav a,
+  [role="button"] {
+    border: none !important;
+  }
+
+  /* Ensure all form elements have proper borders and styling */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="search"],
+  input[type="date"],
+  input[type="time"],
+  input[type="datetime-local"],
+  input[type="month"],
+  input[type="week"],
+  textarea,
+  select {
+    border: 1px solid #d1d5db !important;
+     border-radius: 0.1rem !important;
+    padding: 0.5rem 0.75rem !important;
+    background-color: white !important;
+    color: #111827 !important;
+    font-size: 0.875rem !important;
+    line-height: 1.25rem !important;
+    transition: all 0.2s !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Focus states for all form elements */
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="password"]:focus,
+  input[type="number"]:focus,
+  input[type="tel"]:focus,
+  input[type="url"]:focus,
+  input[type="search"]:focus,
+  input[type="date"]:focus,
+  input[type="time"]:focus,
+  input[type="datetime-local"]:focus,
+  input[type="month"]:focus,
+  input[type="week"]:focus,
+  textarea:focus,
+  select:focus {
+    border-color: #640D5F !important;
+    box-shadow: 0 0 0 2px rgba(100, 13, 95, 0.2) !important;
+    outline: none !important;
+  }
+
+  /* Override any existing focus classes */
+  .focus\:ring-blue-500:focus {
+    box-shadow: 0 0 0 2px rgba(100, 13, 95, 0.2) !important;
+  }
+
+  .focus\:ring-navy:focus {
+    box-shadow: 0 0 0 2px rgba(100, 13, 95, 0.2) !important;
+  }
+
+  .focus\:border-transparent:focus {
+    border-color: #640D5F !important;
+  }
+
+  .focus\:border-blue-500:focus {
+    border-color: #640D5F !important;
+  }
+
+  /* Allow borders for UI components */
+  .card,
+  .card-compact,
+  .card-elevated,
+  .input-field,
+  .input-field-sm,
+  .input-field-lg,
+  .dashboard-card,
+  .dashboard-metric,
+  .modal-content-responsive,
+  .dashboard-form-section,
+  .dashboard-table,
+  .dashboard-table-header,
+  .status-success,
+  .status-warning,
+  .status-error,
+  .status-info {
+    border: inherit !important;
+  }
+}
   html {
     font-family: "Barlow Semi Condensed", sans-serif;
     scroll-behavior: smooth;
   }
   
   body {
-    @apply bg-white text-gray-900;
+    @apply bg-background text-gray-900;
     line-height: 1.6;
   }
 
@@ -23,7 +179,78 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-}
+
+  /* Remove borders from all buttons and navigation links on hover and click */
+  button,
+  button:hover,
+  button:active,
+  button:focus,
+  button:focus-visible,
+  button:focus-within,
+  .btn,
+  .btn:hover,
+  .btn:active,
+  .btn:focus,
+  .btn:focus-visible,
+  .btn:focus-within,
+  [role="button"],
+  [role="button"]:hover,
+  [role="button"]:active,
+  [role="button"]:focus,
+  [role="button"]:focus-visible,
+  [role="button"]:focus-within,
+  a[role="button"],
+  a[role="button"]:hover,
+  a[role="button"]:active,
+  a[role="button"]:focus,
+  a[role="button"]:focus-visible,
+  a[role="button"]:focus-within,
+  nav a,
+  nav a:hover,
+  nav a:active,
+  nav a:focus,
+  nav a:focus-visible,
+  nav a:focus-within,
+  /* Override all possible focus states for buttons and navigation only */
+  button:focus,
+  button:focus-visible,
+  button:focus-within,
+  button:active,
+  button:hover,
+  input[type="button"]:focus,
+  input[type="button"]:focus-visible,
+  input[type="button"]:focus-within,
+  input[type="button"]:active,
+  input[type="button"]:hover,
+  input[type="submit"]:focus,
+  input[type="submit"]:focus-visible,
+  input[type="submit"]:focus-within,
+  input[type="submit"]:active,
+  input[type="submit"]:hover,
+  input[type="reset"]:focus,
+  input[type="reset"]:focus-visible,
+  input[type="reset"]:focus-within,
+  input[type="reset"]:active,
+  input[type="reset"]:hover,
+  a:focus,
+  a:focus-visible,
+  a:focus-within,
+  a:active,
+  a:hover,
+  nav a:focus,
+  nav a:focus-visible,
+  nav a:focus-within,
+  nav a:active,
+  nav a:hover,
+  [role="button"]:focus,
+  [role="button"]:focus-visible,
+  [role="button"]:focus-within,
+  [role="button"]:active,
+  [role="button"]:hover {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
 
 @layer components {
   /* Barlow Semi Condensed Font Classes */
@@ -136,29 +363,28 @@
   }
 
   /* Enhanced Button Components */
-  /* Enhanced Button Components */
   .btn-primary {
-    @apply bg-navy hover:bg-navy-light active:bg-navy-dark text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 text-sm sm:text-base shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-sm;
+    @apply bg-button hover:bg-hover active:bg-primary text-white font-medium py-2 px-4 transition-all duration-200 text-sm sm:text-base shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-sm border-0 hover:border-0 active:border-0 focus:border-0;
   }
   
   .btn-secondary {
-    @apply bg-gray-100 hover:bg-gray-200 active:bg-gray-300 text-gray-900 font-medium py-2 px-4 rounded-lg transition-all duration-200 text-sm sm:text-base shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-sm;
+    @apply bg-gray-100 hover:bg-hover active:bg-gray-300 text-gray-900 font-medium py-2 px-4 transition-all duration-200 text-sm sm:text-base shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-sm border-0 hover:border-0 active:border-0 focus:border-0;
   }
   
   .btn-outline {
-    @apply border border-navy text-navy hover:bg-navy hover:text-white active:bg-navy-light font-medium py-2 px-4 rounded-lg transition-all duration-200 text-sm sm:text-base shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-sm;
+    @apply border border-primary text-primary hover:bg-hover hover:text-white active:bg-navy-light font-medium py-2 px-4 transition-all duration-200 text-sm sm:text-base shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-sm hover:border-0 active:border-0 focus:border-0;
   }
 
   .btn-sm {
-    @apply py-1 px-2.5 text-xs;
+    @apply py-1 px-2.5 text-xs border-0 hover:border-0 active:border-0 focus:border-0;
   }
 
   .btn-lg {
-    @apply py-2 px-4 text-sm;
+    @apply py-2 px-4 text-sm border-0 hover:border-0 active:border-0 focus:border-0;
   }
 
   .btn-xl {
-    @apply py-2.5 px-6 text-base;
+    @apply py-2.5 px-6 text-base border-0 hover:border-0 active:border-0 focus:border-0;
   }
   
   /* Enhanced Card Components */
@@ -176,7 +402,7 @@
   
   /* Enhanced Input Components */
   .input-field {
-    @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-navy focus:border-transparent text-sm sm:text-base transition-colors duration-200 bg-white text-gray-900;
+    @apply w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-sm sm:text-base transition-colors duration-200 bg-white text-gray-900;
   }
 
   .input-field-sm {
@@ -189,11 +415,11 @@
 
   /* Enhanced Seat Components */
   .seat-available {
-    @apply bg-blue-50 border-blue-200 text-navy hover:bg-blue-100 cursor-pointer transition-colors duration-150;
+    @apply bg-button border-hover text-primary hover:bg-hover cursor-pointer transition-colors duration-150;
   }
   
   .seat-selected {
-    @apply bg-navy border-navy-dark text-white;
+    @apply bg-primary border-navy-dark text-white;
   }
   
   .seat-occupied {
@@ -288,20 +514,20 @@
 
   /* Loading States */
   .loading-spinner {
-    @apply animate-spin rounded-full border-2 border-gray-300 border-t-navy;
+    @apply animate-spin border-2 border-gray-300 border-t-navy;
   }
 
   .loading-skeleton {
-    @apply animate-pulse bg-gray-200 rounded;
+    @apply animate-pulse bg-gray-200;
   }
 
   /* Status Indicators */
   .status-success {
-    @apply bg-blue-50 text-navy border border-blue-200;
+    @apply bg-button text-primary border border-hover;
   }
 
   .status-warning {
-    @apply bg-blue-100 text-navy border border-blue-300;
+    @apply bg-hover text-primary border border-primary;
   }
 
   .status-error {
@@ -309,7 +535,7 @@
   }
 
   .status-info {
-    @apply bg-blue-50 text-navy border border-blue-200;
+    @apply bg-button text-primary border border-hover;
   }
 
   /* Responsive Modal */
@@ -348,7 +574,7 @@
   }
 
   .dashboard-stat {
-    @apply flex items-center justify-between p-3 sm:p-4 lg:p-5 rounded-lg bg-gradient-to-br from-white to-gray-50 border border-gray-200;
+    @apply flex items-center justify-between p-3 sm:p-4 lg:p-5 rounded-lg bg-gradient-to-br from-white to-background border border-gray-200;
   }
 
   .dashboard-stat-icon {
@@ -410,7 +636,7 @@
   }
 
   .dashboard-main {
-    @apply flex-1 bg-gray-50 min-h-screen;
+    @apply flex-1 bg-background min-h-screen;
   }
 
   .dashboard-content {

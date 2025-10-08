@@ -519,14 +519,14 @@ const RouteManagement = () => {
                     placeholder="Search routes by name, start city, end city..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
                 />
               </div>
 
               <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
               >
                 <option value="newest">Newest First</option>
                 <option value="name">Name A-Z</option>
@@ -659,7 +659,7 @@ const RouteManagement = () => {
                             type="text"
                             value={routeForm.routeName}
                             onChange={(e) => handleRouteInputChange('routeName', e.target.value)}
-                            className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                            className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary ${
                                 formErrors.routeName ? 'border-red-500' : 'border-gray-300'
                             }`}
                             placeholder="Enter route name"
@@ -681,7 +681,7 @@ const RouteManagement = () => {
                                 type="text"
                                 value={routeForm.from.city}
                                 onChange={(e) => handleRouteInputChange('from.city', e.target.value)}
-                                className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                                className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary ${
                                     formErrors['from.city'] ? 'border-red-500' : 'border-gray-300'
                                 }`}
                                 placeholder="Enter from city"
@@ -698,7 +698,7 @@ const RouteManagement = () => {
                                 type="text"
                                 value={routeForm.from.state}
                                 onChange={(e) => handleRouteInputChange('from.state', e.target.value)}
-                                className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                                className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary ${
                                     formErrors['from.state'] ? 'border-red-500' : 'border-gray-300'
                                 }`}
                                 placeholder="Enter from state"
@@ -722,7 +722,7 @@ const RouteManagement = () => {
                                 type="text"
                                 value={routeForm.to.city}
                                 onChange={(e) => handleRouteInputChange('to.city', e.target.value)}
-                                className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                                className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary ${
                                     formErrors['to.city'] ? 'border-red-500' : 'border-gray-300'
                                 }`}
                                 placeholder="Enter to city"
@@ -739,7 +739,7 @@ const RouteManagement = () => {
                                 type="text"
                                 value={routeForm.to.state}
                                 onChange={(e) => handleRouteInputChange('to.state', e.target.value)}
-                                className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                                className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary ${
                                     formErrors['to.state'] ? 'border-red-500' : 'border-gray-300'
                                 }`}
                                 placeholder="Enter to state"
@@ -761,7 +761,7 @@ const RouteManagement = () => {
                               type="number"
                               value={routeForm.distance}
                               onChange={(e) => handleRouteInputChange('distance', e.target.value)}
-                              className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                              className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary ${
                                   formErrors.distance ? 'border-red-500' : 'border-gray-300'
                               }`}
                               placeholder="Enter distance in km"
@@ -780,7 +780,7 @@ const RouteManagement = () => {
                               type="number"
                               value={routeForm.time}
                               onChange={(e) => handleRouteInputChange('time', e.target.value)}
-                              className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                              className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary ${
                                   formErrors.time ? 'border-red-500' : 'border-gray-300'
                               }`}
                               placeholder="Enter time in minutes"
@@ -798,7 +798,7 @@ const RouteManagement = () => {
                               type="number"
                               value={routeForm.fare}
                               onChange={(e) => handleRouteInputChange('fare', e.target.value)}
-                              className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                              className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary ${
                                   formErrors.fare ? 'border-red-500' : 'border-gray-300'
                               }`}
                               placeholder="Enter fare amount"
@@ -826,7 +826,7 @@ const RouteManagement = () => {
                                   type="text"
                                   value={currentPickupPoint.name}
                                   onChange={(e) => setCurrentPickupPoint({ name: e.target.value })}
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
                                   placeholder="Enter pickup point name"
                               />
                             </div>
@@ -875,7 +875,7 @@ const RouteManagement = () => {
                                   type="text"
                                   value={currentDropPoint.name}
                                   onChange={(e) => setCurrentDropPoint({ name: e.target.value })}
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
                                   placeholder="Enter drop point name"
                               />
                             </div>
@@ -915,7 +915,7 @@ const RouteManagement = () => {
                       <button
                           type="button"
                           onClick={closeModals}
-                          className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+                          className="px-6 py-2 border-0 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
                       >
                         Cancel
                       </button>

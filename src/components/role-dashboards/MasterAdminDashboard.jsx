@@ -68,10 +68,10 @@ const MasterAdminDashboard = () => {
                   <button
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id)}
-                      className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors ${
+                      className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors border-0 hover:border-0 active:border-0 focus:border-0 ${
                           activeTab === tab.id
-                              ? 'bg-navy text-white'
-                              : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
+                              ? 'bg-primary text-white'
+                              : 'bg-white text-gray-700 hover:bg-gray-50'
                       }`}
                   >
                     {tab.name}

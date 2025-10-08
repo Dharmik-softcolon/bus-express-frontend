@@ -368,7 +368,7 @@ const BookingManagerDashboard = () => {
             <div className="flex items-center space-x-4">
               <button
                 onClick={fetchDashboardData}
-                className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
+                className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
               >
                 <RefreshCw className="h-4 w-4 mr-2" />
                 Refresh
@@ -381,7 +381,7 @@ const BookingManagerDashboard = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="bg-white rounded-md shadow p-6">
             <div className="flex items-center">
               <div className="flex-shrink-0">
                 <Calendar className="h-8 w-8 text-navy" />
@@ -393,7 +393,7 @@ const BookingManagerDashboard = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="bg-white rounded-md shadow p-6">
             <div className="flex items-center">
               <div className="flex-shrink-0">
                 <CheckCircle className="h-8 w-8 text-green-600" />
@@ -405,7 +405,7 @@ const BookingManagerDashboard = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="bg-white rounded-md shadow p-6">
             <div className="flex items-center">
               <div className="flex-shrink-0">
                 <DollarSign className="h-8 w-8 text-green-600" />
@@ -417,7 +417,7 @@ const BookingManagerDashboard = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="bg-white rounded-md shadow p-6">
             <div className="flex items-center">
               <div className="flex-shrink-0">
                 <TrendingUp className="h-8 w-8 text-purple-600" />
@@ -465,7 +465,7 @@ const BookingManagerDashboard = () => {
         {activeTab === 'overview' && (
           <div className="space-y-6">
             {/* Recent Bookings */}
-            <div className="bg-white shadow rounded-lg">
+            <div className="bg-white shadow rounded-md">
               <div className="px-6 py-4 border-b border-gray-200">
                 <h3 className="text-lg font-medium text-gray-900">Recent Bookings</h3>
               </div>
@@ -540,7 +540,7 @@ const BookingManagerDashboard = () => {
             </div>
 
             {/* Recent Activities */}
-            <div className="bg-white shadow rounded-lg">
+            <div className="bg-white shadow rounded-md">
               <div className="px-6 py-4 border-b border-gray-200">
                 <h3 className="text-lg font-medium text-gray-900">Recent Activities</h3>
               </div>
@@ -579,14 +579,14 @@ const BookingManagerDashboard = () => {
         )}
 
         {activeTab === 'bookings' && (
-          <div className="bg-white shadow rounded-lg">
+          <div className="bg-white shadow rounded-md">
             <div className="px-6 py-4 border-b border-gray-200">
               <div className="flex justify-between items-center">
                 <h3 className="text-lg font-medium text-gray-900">All Bookings</h3>
                 <div className="flex space-x-4">
                   <button
                     onClick={() => setShowCreateBookingModal(true)}
-                    className="bg-navy text-white px-4 py-2 rounded-lg hover:bg-navy-light transition-colors flex items-center gap-2"
+                    className="bg-navy text-white px-4 py-2 rounded-md hover:bg-navy-light transition-colors flex items-center gap-2"
                   >
                     <Plus className="h-4 w-4" />
                     Create New Booking
@@ -598,13 +598,13 @@ const BookingManagerDashboard = () => {
                       placeholder="Search bookings..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-navy focus:border-navy"
+                      className="pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
                     />
                   </div>
                   <select
                     value={filterStatus}
                     onChange={(e) => setFilterStatus(e.target.value)}
-                    className="px-3 py-2 border border-gray-300 rounded-md focus:ring-navy focus:border-navy"
+                    className="px-3 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
                   >
                     <option value="all">All Status</option>
                     <option value="pending">Pending</option>
@@ -711,7 +711,7 @@ const BookingManagerDashboard = () => {
         )}
 
         {activeTab === 'customers' && (
-          <div className="bg-white shadow rounded-lg">
+          <div className="bg-white shadow rounded-md">
             <div className="px-6 py-4 border-b border-gray-200">
               <h3 className="text-lg font-medium text-gray-900">Customers</h3>
             </div>
@@ -771,26 +771,26 @@ const BookingManagerDashboard = () => {
         {activeTab === 'booking-management' && (
           <div className="space-y-6">
             {/* Quick Actions */}
-            <div className="bg-white shadow rounded-lg p-6">
+            <div className="bg-white shadow rounded-md p-6">
               <h3 className="text-lg font-medium text-gray-900 mb-4">Quick Actions</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <button
                   onClick={() => setShowCreateBookingModal(true)}
-                  className="bg-navy text-white p-4 rounded-lg hover:bg-navy-light transition-colors flex items-center justify-center gap-2"
+                  className="bg-navy text-white p-4 rounded-md hover:bg-navy-light transition-colors flex items-center justify-center gap-2"
                 >
                   <Plus className="h-5 w-5" />
                   Create New Booking
                 </button>
                 <button
                   onClick={() => setActiveTab('bookings')}
-                  className="bg-green-600 text-white p-4 rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center gap-2"
+                  className="bg-green-600 text-white p-4 rounded-md hover:bg-green-700 transition-colors flex items-center justify-center gap-2"
                 >
                   <Calendar className="h-5 w-5" />
                   View All Bookings
                 </button>
                 <button
                   onClick={() => setActiveTab('customers')}
-                  className="bg-purple-600 text-white p-4 rounded-lg hover:bg-purple-700 transition-colors flex items-center justify-center gap-2"
+                  className="bg-purple-600 text-white p-4 rounded-md hover:bg-purple-700 transition-colors flex items-center justify-center gap-2"
                 >
                   <Users className="h-5 w-5" />
                   Manage Customers
@@ -799,7 +799,7 @@ const BookingManagerDashboard = () => {
             </div>
 
             {/* Recent Bookings Summary */}
-            <div className="bg-white shadow rounded-lg">
+            <div className="bg-white shadow rounded-md">
               <div className="px-6 py-4 border-b border-gray-200">
                 <div className="flex justify-between items-center">
                   <h3 className="text-lg font-medium text-gray-900">Recent Bookings</h3>
@@ -897,7 +897,7 @@ const BookingManagerDashboard = () => {
 
             {/* Booking Statistics */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <div className="bg-white shadow rounded-lg p-6">
+              <div className="bg-white shadow rounded-md p-6">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
                     <Calendar className="h-8 w-8 text-navy" />
@@ -908,7 +908,7 @@ const BookingManagerDashboard = () => {
                   </div>
                 </div>
               </div>
-              <div className="bg-white shadow rounded-lg p-6">
+              <div className="bg-white shadow rounded-md p-6">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
                     <Clock className="h-8 w-8 text-yellow-600" />
@@ -919,7 +919,7 @@ const BookingManagerDashboard = () => {
                   </div>
                 </div>
               </div>
-              <div className="bg-white shadow rounded-lg p-6">
+              <div className="bg-white shadow rounded-md p-6">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
                     <CheckCircle className="h-8 w-8 text-green-600" />
@@ -930,7 +930,7 @@ const BookingManagerDashboard = () => {
                   </div>
                 </div>
               </div>
-              <div className="bg-white shadow rounded-lg p-6">
+              <div className="bg-white shadow rounded-md p-6">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
                     <DollarSign className="h-8 w-8 text-green-600" />
@@ -947,12 +947,12 @@ const BookingManagerDashboard = () => {
 
         {activeTab === 'analytics' && (
           <div className="space-y-6">
-            <div className="bg-white shadow rounded-lg p-6">
+            <div className="bg-white shadow rounded-md p-6">
               <div className="flex justify-between items-center mb-6">
                 <h3 className="text-lg font-medium text-gray-900">Booking Analytics & Commission</h3>
                 <button
                   onClick={() => setShowAnalyticsModal(true)}
-                  className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors flex items-center gap-2"
+                  className="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 transition-colors flex items-center gap-2"
                 >
                   <TrendingUp className="h-4 w-4" />
                   View Detailed Analytics
@@ -961,19 +961,19 @@ const BookingManagerDashboard = () => {
               
               {/* Quick Analytics Summary */}
               <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-                <div className="bg-blue-50 rounded-lg p-4 text-center">
+                <div className="bg-blue-50 rounded-md p-4 text-center">
                   <div className="text-2xl font-bold text-navy mb-1">{stats.totalBookings}</div>
                   <div className="text-sm text-gray-600">Total Bookings</div>
                 </div>
-                <div className="bg-green-50 rounded-lg p-4 text-center">
+                <div className="bg-green-50 rounded-md p-4 text-center">
                   <div className="text-2xl font-bold text-green-600 mb-1">{formatCurrency(stats.totalRevenue)}</div>
                   <div className="text-sm text-gray-600">Total Revenue</div>
                 </div>
-                <div className="bg-purple-50 rounded-lg p-4 text-center">
+                <div className="bg-purple-50 rounded-md p-4 text-center">
                   <div className="text-2xl font-bold text-purple-600 mb-1">{formatCurrency(stats.commissionEarned)}</div>
                   <div className="text-sm text-gray-600">Commission Earned</div>
                 </div>
-                <div className="bg-orange-50 rounded-lg p-4 text-center">
+                <div className="bg-orange-50 rounded-md p-4 text-center">
                   <div className="text-2xl font-bold text-orange-600 mb-1">{stats.totalCustomers}</div>
                   <div className="text-sm text-gray-600">Total Customers</div>
                 </div>
@@ -981,7 +981,7 @@ const BookingManagerDashboard = () => {
 
               {/* Performance Metrics */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div className="bg-gray-50 rounded-lg p-4">
+                <div className="bg-gray-50 rounded-md p-4">
                   <h4 className="font-medium text-gray-900 mb-3">Performance Metrics</h4>
                   <div className="space-y-2">
                     <div className="flex justify-between">
@@ -1005,7 +1005,7 @@ const BookingManagerDashboard = () => {
                   </div>
                 </div>
                 
-                <div className="bg-gray-50 rounded-lg p-4">
+                <div className="bg-gray-50 rounded-md p-4">
                   <h4 className="font-medium text-gray-900 mb-3">Commission Summary</h4>
                   <div className="space-y-2">
                     <div className="flex justify-between">
@@ -1129,7 +1129,7 @@ const BookingManagerDashboard = () => {
                         handleBookingStatusUpdate(selectedBooking._id, 'confirmed')
                         setShowBookingDetails(false)
                       }}
-                      className="px-4 py-2 bg-green-600 border border-transparent rounded-md text-sm font-medium text-white hover:bg-green-700"
+                      className="px-4 py-2 bg-green-600 border-0 rounded-md text-sm font-medium text-white hover:bg-green-700"
                     >
                       Confirm Booking
                     </button>
@@ -1138,7 +1138,7 @@ const BookingManagerDashboard = () => {
                         handleCancelBooking(selectedBooking._id, 'Cancelled by booking manager')
                         setShowBookingDetails(false)
                       }}
-                      className="px-4 py-2 bg-red-600 border border-transparent rounded-md text-sm font-medium text-white hover:bg-red-700"
+                      className="px-4 py-2 bg-red-600 border-0 rounded-md text-sm font-medium text-white hover:bg-red-700"
                     >
                       Cancel Booking
                     </button>

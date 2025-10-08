@@ -201,22 +201,22 @@ const BusApiTest = () => {
 
           {/* Action Buttons */}
           <div className="flex flex-wrap gap-4 mb-6">
-            <button onClick={fetchBuses} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+            <button onClick={fetchBuses} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 border-0 hover:border-0">
               Test Get All Buses
             </button>
-            <button onClick={testCreateBus} className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+            <button onClick={testCreateBus} className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 border-0 hover:border-0">
               Test Create Bus
             </button>
-            <button onClick={testUpdateBus} className="px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700">
+            <button onClick={testUpdateBus} className="px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 border-0 hover:border-0">
               Test Update Bus
             </button>
-            <button onClick={testDeleteBus} className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
+            <button onClick={testDeleteBus} className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 border-0 hover:border-0">
               Test Delete Bus
             </button>
-            <button onClick={runAllTests} className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
+            <button onClick={runAllTests} className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 border-0 hover:border-0">
               Run All Tests
             </button>
-            <button onClick={() => setResults([])} className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700">
+            <button onClick={() => setResults([])} className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 border-0 hover:border-0">
               Clear Results
             </button>
           </div>

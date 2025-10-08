@@ -95,7 +95,7 @@ const CustomerBookings = () => {
                 <div className="mt-6">
                   <a
                     href="/"
-                    className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+                    className="inline-flex items-center px-4 py-2 border-0 shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-hover"
                   >
                     Book a Trip
                   </a>
@@ -138,11 +138,11 @@ const CustomerBookings = () => {
                       </div>
                       <div className="flex space-x-2">
                         {booking.status === 'pending' && (
-                          <button className="px-3 py-1 text-sm text-red-600 hover:text-red-800 border border-red-300 rounded hover:bg-red-50">
+                          <button className="px-3 py-1 text-sm text-red-600 hover:text-red-800 rounded hover:bg-red-50 border-0 hover:border-0">
                             Cancel
                           </button>
                         )}
-                        <button className="px-3 py-1 text-sm text-blue-600 hover:text-blue-800 border border-blue-300 rounded hover:bg-blue-50">
+                        <button className="px-3 py-1 text-sm text-primary hover:text-hover rounded hover:bg-button border-0 hover:border-0">
                           View Details
                         </button>
                       </div>

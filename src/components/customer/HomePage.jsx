@@ -102,7 +102,7 @@ const HomePage = ({ onSearch }) => {
             <h1 className="text-responsive-2xl font-bold mb-4 sm:mb-6 lg:mb-8 text-balance">
               Book Your Perfect Bus Journey
             </h1>
-            <p className="text-responsive-lg text-blue-100 max-w-4xl mx-auto px-4 leading-relaxed text-balance">
+            <p className="text-responsive-lg text-white/80 max-w-4xl mx-auto px-4 leading-relaxed text-balance">
               Travel comfortably and affordably with BusExpress. 
               Find the perfect bus for your next adventure with our premium services.
             </p>

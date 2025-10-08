@@ -2,7 +2,7 @@ import { Bus, Phone, Mail, MapPin, Facebook, Twitter, Instagram, Linkedin, Youtu
 
 const Footer = () => {
   return (
-    <footer className="bg-navy text-white">
+    <footer className="bg-primary text-white">
       <div className="container-responsive py-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
           {/* Company Info */}
@@ -15,19 +15,19 @@ const Footer = () => {
               Your trusted partner for comfortable and reliable bus travel.
             </p>
             <div className="flex space-x-3">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200 p-1.5 hover:bg-navy-light rounded-lg">
+              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200 p-1.5 hover:bg-hover rounded-lg">
                 <Facebook className="h-4 w-4" />
                 <span className="sr-only">Facebook</span>
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200 p-1.5 hover:bg-navy-light rounded-lg">
+              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200 p-1.5 hover:bg-hover rounded-lg">
                 <Twitter className="h-4 w-4" />
                 <span className="sr-only">Twitter</span>
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200 p-1.5 hover:bg-navy-light rounded-lg">
+              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200 p-1.5 hover:bg-hover rounded-lg">
                 <Instagram className="h-4 w-4" />
                 <span className="sr-only">Instagram</span>
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200 p-1.5 hover:bg-navy-light rounded-lg">
+              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200 p-1.5 hover:bg-hover rounded-lg">
                 <Linkedin className="h-4 w-4" />
                 <span className="sr-only">LinkedIn</span>
               </a>

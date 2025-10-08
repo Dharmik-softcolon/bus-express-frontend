@@ -67,7 +67,7 @@ const Login = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-navy to-navy-dark flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-primary to-navy-dark flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-6 sm:space-y-8">
         {/* Header */}
         <div className="text-center">
@@ -77,7 +77,7 @@ const Login = () => {
           <h2 className="mt-4 sm:mt-6 text-2xl sm:text-3xl font-bold text-white">
             BusExpress Login
           </h2>
-          <p className="mt-2 text-blue-100 text-sm sm:text-base">
+          <p className="mt-2 text-white/80 text-sm sm:text-base">
             Sign in to your account
           </p>
         </div>
@@ -97,7 +97,7 @@ const Login = () => {
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <User className="h-5 w-5 text-gray-400" />
+                  <User className="h-5 w-5 text-icon" />
                 </div>
                 <input
                   id="email"
@@ -118,7 +118,7 @@ const Login = () => {
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-gray-400" />
+                  <Lock className="h-5 w-5 text-icon" />
                 </div>
                 <input
                   id="password"
