@@ -525,7 +525,7 @@ const BusManagement = () => {
                   setFormErrors({})
                   setShowAddModal(true)
                 }}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center"
+                className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary transition-colors flex items-center"
               >
                 <Plus className="h-4 w-4 mr-2" />
                 Add New Bus
@@ -603,8 +603,8 @@ const BusManagement = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
           <div className="bg-white rounded-lg shadow-sm border p-6">
             <div className="flex items-center">
-              <div className="p-2 bg-blue-100 rounded-lg">
-                <Bus className="h-6 w-6 text-blue-600" />
+              <div className="p-2 bg-primary/10 rounded-lg">
+                <Bus className="h-6 w-6 text-primary" />
               </div>
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">Total Buses</p>
@@ -665,7 +665,7 @@ const BusManagement = () => {
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-semibold text-gray-900">Buses</h2>
               {(searchTerm || filterStatus !== 'all' || filterType !== 'all') && (
-                <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">
+                <span className="px-3 py-1 bg-primary/10 text-blue-700 rounded-full text-sm">
                   {filteredAndSortedBuses().length} result{(filteredAndSortedBuses().length !== 1 ? 's' : '')} found
                 </span>
             )}
@@ -707,7 +707,7 @@ const BusManagement = () => {
                     setFormErrors({})
                     setShowAddModal(true)
                   }}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary transition-colors"
                 >
                   Add New Bus
                 </button>
@@ -719,8 +719,8 @@ const BusManagement = () => {
                 <div key={bus._id || bus.id} className="p-6 hover:bg-gray-50 transition-colors">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center flex-1">
-                      <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
-                        <Bus className="h-6 w-6 text-blue-600" />
+                      <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+                        <Bus className="h-6 w-6 text-primary" />
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center justify-between mb-2">
@@ -767,7 +767,7 @@ const BusManagement = () => {
                     <div className="flex items-center space-x-2 ml-4">
                       <button
                         onClick={() => openEditBus(bus)}
-                        className="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors"
+                        className="p-2 text-primary hover:bg-primary/10 rounded-lg transition-colors"
                         title="Edit bus"
                       >
                         <Edit className="h-4 w-4" />
@@ -932,7 +932,7 @@ const BusManagement = () => {
                           onChange={handleBusInputChange}
                           className="mr-2"
                         />
-                        <Wifi className="h-4 w-4 mr-2 text-blue-600" />
+                        <Wifi className="h-4 w-4 mr-2 text-primary" />
                         WiFi
                       </label>
                       <label className="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
@@ -965,7 +965,7 @@ const BusManagement = () => {
                           onChange={handleBusInputChange}
                           className="mr-2"
                         />
-                        <Coffee className="h-4 w-4 mr-2 text-blue-600" />
+                        <Coffee className="h-4 w-4 mr-2 text-primary" />
                         Water
                       </label>
                       <label className="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
@@ -1098,7 +1098,7 @@ const BusManagement = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
+                    className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
                   >
                     {isSubmitting ? (
                       <>

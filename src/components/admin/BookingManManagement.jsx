@@ -739,7 +739,7 @@ const BookingManManagement = () => {
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="text-2xl font-bold text-blue-600">
+                        <div className="text-2xl font-bold text-primary">
                           ${bus.price}
                         </div>
                         <div className="text-sm text-gray-500">
@@ -841,7 +841,7 @@ const BookingManManagement = () => {
                 <div className="flex space-x-2">
                   <button
                       onClick={() => handleEdit(bookingMan)}
-                      className="text-blue-600 hover:text-blue-900"
+                      className="text-primary hover:text-blue-900"
                   >
                     <Edit className="h-4 w-4" />
                   </button>
@@ -856,7 +856,7 @@ const BookingManManagement = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-blue-600">{bookingMan.commission}%</div>
+                  <div className="text-2xl font-bold text-primary">{bookingMan.commission}%</div>
                   <div className="text-sm text-gray-600">Commission</div>
                 </div>
                 <div className="text-center">
@@ -898,14 +898,14 @@ const BookingManManagement = () => {
               </span>
               </div>
               <div className="text-right">
-                <div className="text-2xl font-bold text-blue-600">{currentBookingMan.commission}%</div>
+                <div className="text-2xl font-bold text-primary">{currentBookingMan.commission}%</div>
                 <div className="text-sm text-gray-600">Commission Rate</div>
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div className="text-center p-4 bg-blue-50 rounded-lg">
-                <div className="text-2xl font-bold text-blue-600">{currentBookingMan.totalBookings}</div>
+                <div className="text-2xl font-bold text-primary">{currentBookingMan.totalBookings}</div>
                 <div className="text-sm text-gray-600">Total Bookings</div>
               </div>
               <div className="text-center p-4 bg-green-50 rounded-lg">
@@ -971,7 +971,7 @@ const BookingManManagement = () => {
                                     // Edit booking functionality
                                     showToast.info('Edit booking functionality would be implemented here')
                                   }}
-                                  className="text-blue-600 hover:text-blue-900"
+                                  className="text-primary hover:text-blue-900"
                                   title="Edit Booking"
                               >
                                 <Edit className="h-4 w-4" />
@@ -1080,7 +1080,7 @@ const BookingManManagement = () => {
           {/* Summary Cards */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="card text-center">
-              <div className="text-3xl font-bold text-blue-600 mb-2">{currentBookingMan.totalBookings}</div>
+              <div className="text-3xl font-bold text-primary mb-2">{currentBookingMan.totalBookings}</div>
               <div className="text-sm text-gray-600">Total Bookings</div>
               <div className="text-xs text-gray-500 mt-1">
                 {confirmedBookings.length} confirmed, {cancelledBookings.length} cancelled
@@ -1146,7 +1146,7 @@ const BookingManManagement = () => {
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
                       <div
-                          className="bg-blue-600 h-2 rounded-full"
+                          className="bg-primary h-2 rounded-full"
                           style={{ width: `${(data.revenue / totalRevenue) * 100}%` }}
                       ></div>
                     </div>
@@ -1265,7 +1265,7 @@ const BookingManManagement = () => {
                       onClick={() => setActiveTab(tab.id)}
                       className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors ${
                           activeTab === tab.id
-                              ? 'bg-blue-600 text-white'
+                              ? 'bg-primary text-white'
                               : 'bg-white text-gray-700 hover:bg-gray-50'
                       }`}
                   >
@@ -1308,7 +1308,7 @@ const BookingManManagement = () => {
                                 <span>Available</span>
                               </div>
                               <div className="flex items-center">
-                                <div className="w-6 h-6 rounded border-2 border-blue-500 bg-blue-200 mr-2 flex items-center justify-center">
+                                <div className="w-6 h-6 rounded border-2 border-primary bg-blue-200 mr-2 flex items-center justify-center">
                                   <User className="h-3 w-3 text-blue-800" />
                                 </div>
                                 <span>Selected</span>
@@ -1395,7 +1395,7 @@ const BookingManManagement = () => {
                                                                 ? 'border-pink-300 bg-pink-100 text-pink-600 cursor-not-allowed'
                                                                 : 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed'
                                                             : selectedSeats.includes(row[0].number)
-                                                                ? 'border-blue-500 bg-blue-200 text-blue-800 shadow-md'
+                                                                ? 'border-primary bg-blue-200 text-blue-800 shadow-md'
                                                                 : 'border-green-300 bg-green-100 text-green-800 hover:bg-green-200 hover:border-green-400'
                                                     }`}
                                                     disabled={row[0].occupied}
@@ -1426,7 +1426,7 @@ const BookingManManagement = () => {
                                                                 ? 'border-pink-300 bg-pink-100 text-pink-600 cursor-not-allowed'
                                                                 : 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed'
                                                             : selectedSeats.includes(row[1].number)
-                                                                ? 'border-blue-500 bg-blue-200 text-blue-800 shadow-md'
+                                                                ? 'border-primary bg-blue-200 text-blue-800 shadow-md'
                                                                 : 'border-green-300 bg-green-100 text-green-800 hover:bg-green-200 hover:border-green-400'
                                                     }`}
                                                     disabled={row[1].occupied}
@@ -1451,7 +1451,7 @@ const BookingManManagement = () => {
                                                                 ? 'border-pink-300 bg-pink-100 text-pink-600 cursor-not-allowed'
                                                                 : 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed'
                                                             : selectedSeats.includes(row[2].number)
-                                                                ? 'border-blue-500 bg-blue-200 text-blue-800 shadow-md'
+                                                                ? 'border-primary bg-blue-200 text-blue-800 shadow-md'
                                                                 : 'border-green-300 bg-green-100 text-green-800 hover:bg-green-200 hover:border-green-400'
                                                     }`}
                                                     disabled={row[2].occupied}

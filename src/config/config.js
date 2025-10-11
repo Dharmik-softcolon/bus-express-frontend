@@ -215,7 +215,7 @@ const config = {
   
   // Theme Configuration
   THEME: {
-    PRIMARY_COLOR: '#2563eb',
+    PRIMARY_COLOR: '#47143D',
     SECONDARY_COLOR: '#64748b',
     SUCCESS_COLOR: '#059669',
     WARNING_COLOR: '#d97706',

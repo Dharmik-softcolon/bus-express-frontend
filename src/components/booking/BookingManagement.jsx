@@ -242,7 +242,7 @@ const BookingManagement = () => {
       case 'cancelled':
         return 'bg-red-100 text-red-800'
       case 'completed':
-        return 'bg-blue-100 text-blue-800'
+        return 'bg-primary/10 text-blue-800'
       default:
         return 'bg-gray-100 text-gray-800'
     }
@@ -302,7 +302,7 @@ const BookingManagement = () => {
             <p className="text-sm text-gray-600">{trip.route?.routeName}</p>
           </div>
           <div className="text-right">
-            <div className="text-xl font-bold text-blue-600">₹{trip.fare}</div>
+            <div className="text-xl font-bold text-primary">₹{trip.fare}</div>
             <div className="text-sm text-gray-500">per seat</div>
           </div>
         </div>
@@ -335,7 +335,7 @@ const BookingManagement = () => {
           </div>
           <button
             onClick={() => handleSeatBooking(trip)}
-            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors flex items-center"
+            className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary transition-colors flex items-center"
             disabled={trip.availableSeats === 0}
           >
             {trip.availableSeats === 0 ? 'Sold Out' : 'Book Seats'}
@@ -381,7 +381,7 @@ const BookingManagement = () => {
               title="Total Bookings"
               value={bookingStats.totalBookings}
               icon={BarChart3}
-              color="bg-blue-500"
+              color="bg-primary"
             />
             <StatCard
               title="Confirmed"
@@ -420,7 +420,7 @@ const BookingManagement = () => {
                     onClick={() => setActiveTab(tab.id)}
                     className={`py-2 px-1 border-b-2 font-medium text-sm flex items-center ${
                       activeTab === tab.id
-                        ? 'border-blue-500 text-blue-600'
+                        ? 'border-blue-500 text-primary'
                         : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                     }`}
                   >
@@ -635,7 +635,7 @@ const BookingManagement = () => {
                                 // View booking details
                                 showToast.info('Booking details modal would open here')
                               }}
-                              className="text-blue-600 hover:text-blue-900"
+                              className="text-primary hover:text-blue-900"
                               title="View Details"
                             >
                               <Eye className="h-4 w-4" />

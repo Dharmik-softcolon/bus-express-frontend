@@ -150,7 +150,7 @@ const BusAdminOverview = () => {
                 onClick={() => setActiveTab('overview')}
                 className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
                   activeTab === 'overview'
-                    ? 'bg-blue-600 text-white'
+                    ? 'bg-primary text-white'
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200'
                 }`}
               >
@@ -160,7 +160,7 @@ const BusAdminOverview = () => {
                 onClick={() => setActiveTab('bus-analytics')}
                 className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
                   activeTab === 'bus-analytics'
-                    ? 'bg-blue-600 text-white'
+                    ? 'bg-primary text-white'
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200'
                 }`}
               >
@@ -170,7 +170,7 @@ const BusAdminOverview = () => {
                 onClick={() => setActiveTab('route-analytics')}
                 className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
                   activeTab === 'route-analytics'
-                    ? 'bg-blue-600 text-white'
+                    ? 'bg-primary text-white'
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200'
                 }`}
               >
@@ -180,7 +180,7 @@ const BusAdminOverview = () => {
                 onClick={() => setActiveTab('trip-analytics')}
                 className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
                   activeTab === 'trip-analytics'
-                    ? 'bg-blue-600 text-white'
+                    ? 'bg-primary text-white'
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200'
                 }`}
               >

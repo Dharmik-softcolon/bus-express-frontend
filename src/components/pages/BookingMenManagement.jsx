@@ -317,12 +317,12 @@ const BookingMenManagement = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Booking Men Management</h1>
+              <h1 className="text-2xl font-bold " style={{color: "#B99750"}}>Booking Men Management</h1>
               <p className="text-gray-600 mt-1">Manage booking men and their permissions</p>
             </div>
             <button
               onClick={() => setShowAddModal(true)}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+              className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary transition-colors flex items-center gap-2"
             >
               <Plus className="w-4 h-4" />
               Add Booking Man
@@ -391,7 +391,7 @@ const BookingMenManagement = () => {
               <p className="text-red-600">{error}</p>
               <button
                 onClick={fetchBookingMen}
-                className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                className="mt-4 bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary transition-colors"
               >
                 Try Again
               </button>
@@ -432,8 +432,8 @@ const BookingMenManagement = () => {
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           <div className="flex-shrink-0 h-10 w-10">
-                            <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
-                              <span className="text-sm font-medium text-blue-600">
+                            <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
+                              <span className="text-sm font-medium text-primary">
                                 {bookingMan.name?.charAt(0)?.toUpperCase() || 'B'}
                               </span>
                             </div>
@@ -480,7 +480,7 @@ const BookingMenManagement = () => {
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => handleEdit(bookingMan)}
-                            className="text-blue-600 hover:text-blue-900 p-1"
+                            className="text-primary hover:text-blue-900 p-1"
                             title="Edit"
                           >
                             <Edit className="w-4 h-4" />
@@ -747,7 +747,7 @@ const BookingMenManagement = () => {
                   name="isActive"
                   checked={formData.isActive}
                   onChange={handleInputChange}
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-primary focus:ring-blue-500 border-gray-300 rounded"
                 />
                 <label className="ml-2 block text-sm text-gray-700">
                   Active
@@ -765,7 +765,7 @@ const BookingMenManagement = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? 'Saving...' : (editingBookingMan ? 'Update' : 'Create')}
                 </button>

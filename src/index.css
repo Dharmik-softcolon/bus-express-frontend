@@ -117,26 +117,26 @@
   input[type="week"]:focus,
   textarea:focus,
   select:focus {
-    border-color: #640D5F !important;
-    box-shadow: 0 0 0 2px rgba(100, 13, 95, 0.2) !important;
+    border-color: #47143D !important;
+    box-shadow: 0 0 0 2px rgba(71, 20, 61, 0.2) !important;
     outline: none !important;
   }
 
   /* Override any existing focus classes */
   .focus\:ring-blue-500:focus {
-    box-shadow: 0 0 0 2px rgba(100, 13, 95, 0.2) !important;
+    box-shadow: 0 0 0 2px rgba(71, 20, 61, 0.2) !important;
   }
 
   .focus\:ring-navy:focus {
-    box-shadow: 0 0 0 2px rgba(100, 13, 95, 0.2) !important;
+    box-shadow: 0 0 0 2px rgba(71, 20, 61, 0.2) !important;
   }
 
   .focus\:border-transparent:focus {
-    border-color: #640D5F !important;
+    border-color: #47143D !important;
   }
 
   .focus\:border-blue-500:focus {
-    border-color: #640D5F !important;
+    border-color: #47143D !important;
   }
 
   /* Allow borders for UI components */

@@ -605,7 +605,7 @@ const BookingManagerCreateBookingPage = () => {
                   value={searchFilters.from}
                   onChange={(e) => setSearchFilters(prev => ({ ...prev, from: e.target.value }))}
                   placeholder="Enter departure city"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-primary"
                 />
               </div>
               <div>
@@ -615,7 +615,7 @@ const BookingManagerCreateBookingPage = () => {
                   value={searchFilters.to}
                   onChange={(e) => setSearchFilters(prev => ({ ...prev, to: e.target.value }))}
                   placeholder="Enter destination city"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-primary"
                 />
               </div>
               <div>
@@ -624,7 +624,7 @@ const BookingManagerCreateBookingPage = () => {
                   type="date"
                   value={searchFilters.date}
                   onChange={(e) => setSearchFilters(prev => ({ ...prev, date: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-primary"
                 />
               </div>
               <div>
@@ -632,7 +632,7 @@ const BookingManagerCreateBookingPage = () => {
                 <select
                   value={searchFilters.passengers}
                   onChange={(e) => setSearchFilters(prev => ({ ...prev, passengers: parseInt(e.target.value) }))}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-primary"
                 >
                   {[1,2,3,4,5,6].map(num => (
                     <option key={num} value={num}>{num} {num === 1 ? 'Passenger' : 'Passengers'}</option>
@@ -644,7 +644,7 @@ const BookingManagerCreateBookingPage = () => {
               <button
                 onClick={searchBuses}
                 disabled={loading}
-                className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? (
                   <>
@@ -673,7 +673,7 @@ const BookingManagerCreateBookingPage = () => {
                     <div className="flex-1">
                       <div className="flex items-center gap-4 mb-2">
                         <h4 className="text-lg font-semibold text-gray-900">{bus.operator}</h4>
-                        <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded-full">
+                        <span className="bg-primary/10 text-blue-800 text-xs font-medium px-2 py-1 rounded-full">
                           {bus.busType}
                         </span>
                         <span className="text-sm text-gray-600">{bus.busNumber}</span>
@@ -709,7 +709,7 @@ const BookingManagerCreateBookingPage = () => {
                     <div className="ml-6">
                       <button
                         onClick={() => handleSeatSelection(bus)}
-                        className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+                        className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary transition-colors flex items-center gap-2"
                       >
                         <Eye className="h-4 w-4" />
                         Select Seats
@@ -745,7 +745,7 @@ const BookingManagerCreateBookingPage = () => {
                             <span>Available</span>
                           </div>
                           <div className="flex items-center">
-                            <div className="w-6 h-6 rounded border-2 border-blue-500 bg-blue-200 mr-2 flex items-center justify-center">
+                            <div className="w-6 h-6 rounded border-2 border-primary bg-blue-200 mr-2 flex items-center justify-center">
                               <User className="h-3 w-3 text-blue-800" />
                             </div>
                             <span>Selected</span>
@@ -797,7 +797,7 @@ const BookingManagerCreateBookingPage = () => {
                                                 ? 'border-pink-300 bg-pink-100 text-pink-600 cursor-not-allowed'
                                                 : 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed'
                                               : selectedSeats.includes(row[0].number)
-                                                ? 'border-blue-500 bg-blue-200 text-blue-800 shadow-md'
+                                                ? 'border-primary bg-blue-200 text-blue-800 shadow-md'
                                                 : 'border-green-300 bg-green-100 text-green-800 hover:bg-green-200 hover:border-green-400'
                                           }`}
                                           disabled={row[0].occupied}
@@ -828,7 +828,7 @@ const BookingManagerCreateBookingPage = () => {
                                                 ? 'border-pink-300 bg-pink-100 text-pink-600 cursor-not-allowed'
                                                 : 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed'
                                               : selectedSeats.includes(row[1].number)
-                                                ? 'border-blue-500 bg-blue-200 text-blue-800 shadow-md'
+                                                ? 'border-primary bg-blue-200 text-blue-800 shadow-md'
                                                 : 'border-green-300 bg-green-100 text-green-800 hover:bg-green-200 hover:border-green-400'
                                           }`}
                                           disabled={row[1].occupied}
@@ -853,7 +853,7 @@ const BookingManagerCreateBookingPage = () => {
                                                 ? 'border-pink-300 bg-pink-100 text-pink-600 cursor-not-allowed'
                                                 : 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed'
                                               : selectedSeats.includes(row[2].number)
-                                                ? 'border-blue-500 bg-blue-200 text-blue-800 shadow-md'
+                                                ? 'border-primary bg-blue-200 text-blue-800 shadow-md'
                                                 : 'border-green-300 bg-green-100 text-green-800 hover:bg-green-200 hover:border-green-400'
                                           }`}
                                           disabled={row[2].occupied}
@@ -888,7 +888,7 @@ const BookingManagerCreateBookingPage = () => {
                             type="text"
                             value={customerDetails.name}
                             onChange={(e) => setCustomerDetails(prev => ({ ...prev, name: e.target.value }))}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-primary"
                             placeholder="Enter customer name"
                           />
                         </div>
@@ -898,7 +898,7 @@ const BookingManagerCreateBookingPage = () => {
                             type="tel"
                             value={customerDetails.phone}
                             onChange={(e) => setCustomerDetails(prev => ({ ...prev, phone: e.target.value }))}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-primary"
                             placeholder="Enter phone number"
                           />
                         </div>
@@ -908,7 +908,7 @@ const BookingManagerCreateBookingPage = () => {
                             type="email"
                             value={customerDetails.email}
                             onChange={(e) => setCustomerDetails(prev => ({ ...prev, email: e.target.value }))}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-primary"
                             placeholder="Enter email address"
                           />
                         </div>
@@ -919,7 +919,7 @@ const BookingManagerCreateBookingPage = () => {
                               type="number"
                               value={customerDetails.age}
                               onChange={(e) => setCustomerDetails(prev => ({ ...prev, age: e.target.value }))}
-                              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-primary"
                               placeholder="Age"
                             />
                           </div>
@@ -928,7 +928,7 @@ const BookingManagerCreateBookingPage = () => {
                             <select
                               value={customerDetails.gender}
                               onChange={(e) => setCustomerDetails(prev => ({ ...prev, gender: e.target.value }))}
-                              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-primary"
                             >
                               <option value="">Select Gender</option>
                               <option value="male">Male</option>
@@ -965,7 +965,7 @@ const BookingManagerCreateBookingPage = () => {
                           <div className="border-t pt-2">
                             <div className="flex justify-between font-semibold text-lg">
                               <span>Total Amount:</span>
-                              <span className="text-blue-600">₹{selectedBus.price * selectedSeats.length}</span>
+                              <span className="text-primary">₹{selectedBus.price * selectedSeats.length}</span>
                             </div>
                           </div>
                         </div>

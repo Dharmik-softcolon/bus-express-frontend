@@ -201,7 +201,7 @@ const UserProfileManagement = () => {
                 <tr key={user.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
-                      <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
+                      <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
                         <User className="h-5 w-5 text-white" />
                       </div>
                       <div className="ml-4">
@@ -246,7 +246,7 @@ const UserProfileManagement = () => {
                     <div className="flex space-x-2">
                       <button
                         onClick={() => handleEdit(user)}
-                        className="text-blue-600 hover:text-blue-900"
+                        className="text-primary hover:text-blue-900"
                       >
                         <Edit className="h-4 w-4" />
                       </button>

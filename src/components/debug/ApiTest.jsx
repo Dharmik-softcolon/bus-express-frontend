@@ -75,7 +75,7 @@ const ApiTest = () => {
           <div className="flex gap-4 mb-6">
             <button
               onClick={testGetAllBuses}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 border-0 hover:border-0"
+              className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary border-0 hover:border-0"
             >
               Test Get All Buses
             </button>

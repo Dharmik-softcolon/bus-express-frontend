@@ -32,8 +32,8 @@ const BusEmployeeWelcome = ({ employeeData, onClose }) => {
       <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
         <div className="text-center">
           {steps[currentStep - 1].icon && (
-            <div className="mx-auto w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-              <div className="text-blue-600">
+            <div className="mx-auto w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+              <div className="text-primary">
                 {steps[currentStep - 1].icon}
               </div>
             </div>
@@ -66,7 +66,7 @@ const BusEmployeeWelcome = ({ employeeData, onClose }) => {
               <div
                 key={index}
                 className={`w-3 h-3 rounded-full ${
-                  index < currentStep ? 'bg-blue-600' : 'bg-gray-300'
+                  index < currentStep ? 'bg-primary' : 'bg-gray-300'
                 }`}
               />
             ))}
@@ -88,7 +88,7 @@ const BusEmployeeWelcome = ({ employeeData, onClose }) => {
             {currentStep < steps.length ? (
               <button
                 onClick={() => setCurrentStep(currentStep + 1)}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary"
               >
                 Next
               </button>

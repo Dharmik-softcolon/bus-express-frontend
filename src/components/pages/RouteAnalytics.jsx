@@ -81,10 +81,10 @@ const RouteAnalytics = () => {
                 <p className="text-sm font-medium text-gray-600">Total Routes</p>
                 <p className="text-2xl font-bold text-gray-900">{analyticsData.totalRoutes}</p>
               </div>
-              <MapPin className="h-8 w-8 text-blue-600" />
+              <MapPin className="h-8 w-8 text-primary" />
             </div>
             <div className="mt-4">
-              <span className="text-blue-600 text-sm font-medium">{analyticsData.activeRoutes} active</span>
+              <span className="text-primary text-sm font-medium">{analyticsData.activeRoutes} active</span>
             </div>
           </div>
 
@@ -137,7 +137,7 @@ const RouteAnalytics = () => {
                 <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                   <div className="flex items-center space-x-3">
                     <div className="flex-shrink-0">
-                      <span className="inline-flex items-center justify-center w-8 h-8 bg-blue-600 text-white text-sm font-medium rounded-full">
+                      <span className="inline-flex items-center justify-center w-8 h-8 bg-primary text-white text-sm font-medium rounded-full">
                         {index + 1}
                       </span>
                     </div>
@@ -168,7 +168,7 @@ const RouteAnalytics = () => {
                   <div className="text-sm font-medium text-gray-900 mb-2">{route.route}</div>
                   <div className="grid grid-cols-3 gap-4 text-center">
                     <div>
-                      <div className="text-lg font-bold text-blue-600">{route.occupancyRate}%</div>
+                      <div className="text-lg font-bold text-primary">{route.occupancyRate}%</div>
                       <div className="text-xs text-gray-600">Occupancy</div>
                     </div>
                     <div>

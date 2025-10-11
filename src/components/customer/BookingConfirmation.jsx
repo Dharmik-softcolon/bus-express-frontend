@@ -74,7 +74,7 @@ const BookingConfirmation = ({ bookingData }) => {
             Booking Confirmed!
           </h1>
           <p className="text-gray-600">
-            Your bus tickets have been successfully booked. Booking ID: <span className="font-semibold text-blue-600">{booking.bookingId}</span>
+            Your bus tickets have been successfully booked. Booking ID: <span className="font-semibold text-primary">{booking.bookingId}</span>
           </p>
         </div>
 
@@ -171,19 +171,19 @@ const BookingConfirmation = ({ bookingData }) => {
           
           <div className="space-y-3 text-sm text-gray-600">
             <div className="flex items-start">
-              <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+              <div className="w-2 h-2 bg-primary rounded-full mt-2 mr-3 flex-shrink-0"></div>
               <p>Please arrive at the bus station at least 30 minutes before departure time.</p>
             </div>
             <div className="flex items-start">
-              <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+              <div className="w-2 h-2 bg-primary rounded-full mt-2 mr-3 flex-shrink-0"></div>
               <p>Carry a valid photo ID for verification at the time of boarding.</p>
             </div>
             <div className="flex items-start">
-              <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+              <div className="w-2 h-2 bg-primary rounded-full mt-2 mr-3 flex-shrink-0"></div>
               <p>Seat numbers are final and cannot be changed after booking.</p>
             </div>
             <div className="flex items-start">
-              <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+              <div className="w-2 h-2 bg-primary rounded-full mt-2 mr-3 flex-shrink-0"></div>
               <p>For cancellations, please contact customer support at least 2 hours before departure.</p>
             </div>
           </div>
@@ -217,8 +217,8 @@ const BookingConfirmation = ({ bookingData }) => {
 
         {/* Contact Information */}
         <div className="text-center mt-8 text-sm text-gray-600">
-          <p>Need help? Contact our customer support at <span className="text-blue-600">+1 (555) 123-4567</span></p>
-          <p>or email us at <span className="text-blue-600">support@busexpress.com</span></p>
+          <p>Need help? Contact our customer support at <span className="text-primary">+1 (555) 123-4567</span></p>
+          <p>or email us at <span className="text-primary">support@busexpress.com</span></p>
         </div>
       </div>
     </div>

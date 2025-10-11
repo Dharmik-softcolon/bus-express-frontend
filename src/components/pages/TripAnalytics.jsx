@@ -238,7 +238,7 @@ const TripAnalytics = () => {
               <button
                 onClick={fetchAnalyticsData}
                 disabled={loading}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center"
+                className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary transition-colors flex items-center"
               >
                 <RefreshCw className={`h-4 w-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
                 Refresh
@@ -304,7 +304,7 @@ const TripAnalytics = () => {
               title="Total Trips"
               value={tripStats.totalTrips}
               icon={BarChart3}
-              color="bg-blue-500"
+              color="bg-primary"
               subtitle={`${tripStats.completedTrips} completed`}
             />
             <StatCard
@@ -336,7 +336,7 @@ const TripAnalytics = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
             <div className="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
               <div className="flex items-center">
-                <div className="p-2 bg-blue-100 rounded-full mr-3">
+                <div className="p-2 bg-primary/10 rounded-full mr-3">
                   <Calendar className="h-4 w-4 text-navy" />
                 </div>
                 <div>
@@ -407,7 +407,7 @@ const TripAnalytics = () => {
                 onClick={() => setSelectedChart(chart.id)}
                 className={`flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                   selectedChart === chart.id
-                    ? 'bg-blue-600 text-white'
+                    ? 'bg-primary text-white'
                     : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
                 }`}
               >

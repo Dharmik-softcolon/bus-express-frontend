@@ -58,7 +58,7 @@ const Expenses = () => {
   const getCategoryIcon = (category) => {
     switch (category) {
       case 'Fuel': return <Fuel className="h-5 w-5 text-red-600" />
-      case 'Maintenance': return <Wrench className="h-5 w-5 text-blue-600" />
+      case 'Maintenance': return <Wrench className="h-5 w-5 text-primary" />
       case 'Staff': return <Users className="h-5 w-5 text-green-600" />
       case 'Insurance': return <CreditCard className="h-5 w-5 text-yellow-600" />
       default: return <DollarSign className="h-5 w-5 text-gray-600" />
@@ -98,18 +98,6 @@ const Expenses = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header with Navigation */}
-        <div className="mb-6 sm:mb-8">
-          <div className="flex flex-col gap-4">
-            <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Expense Management</h1>
-              <p className="text-gray-600 text-sm sm:text-base">
-                Track expenses and budget utilization across all operations
-              </p>
-            </div>
-          </div>
-        </div>
-
         {/* Key Metrics */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <div className="bg-white rounded-lg shadow p-6">
@@ -163,10 +151,10 @@ const Expenses = () => {
                   ₹{Math.round(expenseData.monthlyExpenses / 30).toLocaleString()}
                 </p>
               </div>
-              <DollarSign className="h-8 w-8 text-blue-600" />
+              <DollarSign className="h-8 w-8 text-primary" />
             </div>
             <div className="mt-4">
-              <span className="text-blue-600 text-sm font-medium">Expense rate</span>
+              <span className="text-primary text-sm font-medium">Expense rate</span>
             </div>
           </div>
         </div>

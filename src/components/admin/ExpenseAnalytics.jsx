@@ -44,7 +44,7 @@ const ExpenseAnalytics = () => {
   const buses = ['MH-01-AB-1234', 'MH-02-CD-5678', 'MH-03-EF-9012', 'MH-04-GH-3456']
   const periods = ['daily', 'weekly', 'monthly', 'yearly']
   const expenseTypes = [
-    { value: 'fuel', label: 'Fuel', icon: Fuel, color: 'text-blue-600' },
+    { value: 'fuel', label: 'Fuel', icon: Fuel, color: 'text-primary' },
     { value: 'fastag', label: 'FastTag', icon: CreditCard, color: 'text-green-600' },
     { value: 'maintenance', label: 'Maintenance', icon: Wrench, color: 'text-orange-600' },
     { value: 'tyres', label: 'Tyres', icon: Car, color: 'text-purple-600' },

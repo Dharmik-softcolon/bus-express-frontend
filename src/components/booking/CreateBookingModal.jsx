@@ -664,7 +664,7 @@ const CreateBookingModal = ({ isOpen, onClose }) => {
                             <span>Available</span>
                           </div>
                           <div className="flex items-center">
-                            <div className="w-6 h-6 rounded border-2 border-blue-500 bg-blue-200 mr-2 flex items-center justify-center">
+                            <div className="w-6 h-6 rounded border-2 border-primary bg-blue-200 mr-2 flex items-center justify-center">
                               <User className="h-3 w-3 text-navy" />
                             </div>
                             <span>Selected</span>
@@ -716,7 +716,7 @@ const CreateBookingModal = ({ isOpen, onClose }) => {
                                                 ? 'border-pink-300 bg-pink-100 text-pink-600 cursor-not-allowed'
                                                 : 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed'
                                               : selectedSeats.includes(row[0].number)
-                                                ? 'border-blue-500 bg-blue-200 text-navy shadow-md'
+                                                ? 'border-primary bg-blue-200 text-navy shadow-md'
                                                 : 'border-green-300 bg-green-100 text-green-800 hover:bg-green-200 hover:border-green-400'
                                           }`}
                                           disabled={row[0].occupied}
@@ -747,7 +747,7 @@ const CreateBookingModal = ({ isOpen, onClose }) => {
                                                 ? 'border-pink-300 bg-pink-100 text-pink-600 cursor-not-allowed'
                                                 : 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed'
                                               : selectedSeats.includes(row[1].number)
-                                                ? 'border-blue-500 bg-blue-200 text-navy shadow-md'
+                                                ? 'border-primary bg-blue-200 text-navy shadow-md'
                                                 : 'border-green-300 bg-green-100 text-green-800 hover:bg-green-200 hover:border-green-400'
                                           }`}
                                           disabled={row[1].occupied}
@@ -772,7 +772,7 @@ const CreateBookingModal = ({ isOpen, onClose }) => {
                                                 ? 'border-pink-300 bg-pink-100 text-pink-600 cursor-not-allowed'
                                                 : 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed'
                                               : selectedSeats.includes(row[2].number)
-                                                ? 'border-blue-500 bg-blue-200 text-navy shadow-md'
+                                                ? 'border-primary bg-blue-200 text-navy shadow-md'
                                                 : 'border-green-300 bg-green-100 text-green-800 hover:bg-green-200 hover:border-green-400'
                                           }`}
                                           disabled={row[2].occupied}
@@ -821,7 +821,7 @@ const CreateBookingModal = ({ isOpen, onClose }) => {
                             name="name"
                             value={customerDetails.name}
                             onChange={handleCustomerInputChange}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-primary"
                             placeholder="Enter full name"
                           />
                         </div>
@@ -834,7 +834,7 @@ const CreateBookingModal = ({ isOpen, onClose }) => {
                             name="phone"
                             value={customerDetails.phone}
                             onChange={handleCustomerInputChange}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-primary"
                             placeholder="Enter phone number"
                           />
                         </div>
@@ -847,7 +847,7 @@ const CreateBookingModal = ({ isOpen, onClose }) => {
                             name="email"
                             value={customerDetails.email}
                             onChange={handleCustomerInputChange}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-primary"
                             placeholder="Enter email address"
                           />
                         </div>
@@ -860,7 +860,7 @@ const CreateBookingModal = ({ isOpen, onClose }) => {
                             name="age"
                             value={customerDetails.age}
                             onChange={handleCustomerInputChange}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-primary"
                             placeholder="Enter age"
                             min="1"
                             max="120"
@@ -874,7 +874,7 @@ const CreateBookingModal = ({ isOpen, onClose }) => {
                             name="gender"
                             value={customerDetails.gender}
                             onChange={handleCustomerInputChange}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-primary"
                           >
                             <option value="">Select Gender</option>
                             <option value="male">Male</option>

@@ -40,7 +40,7 @@ const ProtectedRoute = ({ children, requiredRoles = null, redirectTo = null }) =
             </p>
             <button 
               onClick={() => window.history.back()}
-              className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+              className="mt-4 px-4 py-2 bg-primary text-white rounded hover:bg-primary"
             >
               Go Back
             </button>

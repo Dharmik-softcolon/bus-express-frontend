@@ -755,7 +755,7 @@ const BookingManagerDashboard = () => {
                             setSelectedCustomer(customer)
                             setShowCustomerDetails(true)
                           }}
-                          className="text-blue-600 hover:text-blue-900"
+                          className="text-primary hover:text-blue-900"
                         >
                           <Eye className="h-4 w-4" />
                         </button>

@@ -102,10 +102,10 @@ const Revenue = () => {
                 <p className="text-sm font-medium text-gray-600">Monthly Revenue</p>
                 <p className="text-2xl font-bold text-gray-900">₹{revenueData.monthlyRevenue.toLocaleString()}</p>
               </div>
-              <Calendar className="h-8 w-8 text-blue-600" />
+              <Calendar className="h-8 w-8 text-primary" />
             </div>
             <div className="mt-4">
-              <span className="text-blue-600 text-sm font-medium">Current month</span>
+              <span className="text-primary text-sm font-medium">Current month</span>
             </div>
           </div>
 
@@ -220,7 +220,7 @@ const Revenue = () => {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="w-full bg-gray-200 rounded-full h-2">
                         <div 
-                          className="bg-blue-600 h-2 rounded-full" 
+                          className="bg-primary h-2 rounded-full" 
                           style={{ width: `${route.percentage}%` }}
                         />
                       </div>
@@ -241,12 +241,12 @@ const Revenue = () => {
                   <p className="text-sm font-medium text-gray-600">{method.method}</p>
                   <p className="text-xl font-bold text-gray-900">₹{method.revenue.toLocaleString()}</p>
                 </div>
-                <PieChart className="h-8 w-8 text-blue-600" />
+                <PieChart className="h-8 w-8 text-primary" />
               </div>
               <div className="mt-4">
                 <div className="w-full bg-gray-200 rounded-full h-2">
                   <div 
-                    className="bg-blue-600 h-2 rounded-full" 
+                    className="bg-primary h-2 rounded-full" 
                     style={{ width: `${method.percentage}%` }}
                   />
                 </div>

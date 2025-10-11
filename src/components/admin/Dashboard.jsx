@@ -639,7 +639,7 @@ const Dashboard = () => {
 
   const getIconColor = (color) => {
     switch (color) {
-      case 'blue': return 'text-blue-600 bg-blue-100'
+      case 'blue': return 'text-primary bg-blue-100'
       case 'green': return 'text-green-600 bg-green-100'
       case 'purple': return 'text-purple-600 bg-purple-100'
       case 'orange': return 'text-orange-600 bg-orange-100'
@@ -765,7 +765,7 @@ const Dashboard = () => {
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-2xl font-bold text-blue-600">
+                    <div className="text-2xl font-bold text-primary">
                       ${bus.price}
                     </div>
                     <div className="text-sm text-gray-500">
@@ -963,7 +963,7 @@ const Dashboard = () => {
                   onClick={() => setActiveTab(tab.id)}
                   className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
                     activeTab === tab.id
-                      ? 'bg-blue-600 text-white'
+                      ? 'bg-primary text-white'
                       : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200'
                   }`}
                 >
@@ -1003,7 +1003,7 @@ const Dashboard = () => {
                     onClick={() => setTimeRange(range)}
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                       timeRange === range
-                        ? 'bg-blue-600 text-white'
+                        ? 'bg-primary text-white'
                         : 'bg-white text-gray-700 hover:bg-gray-50'
                     }`}
                   >
@@ -1052,7 +1052,7 @@ const Dashboard = () => {
               <div className="card">
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-xl font-semibold">Recent Bookings</h2>
-                  <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">
+                  <button className="text-primary hover:text-blue-700 text-sm font-medium">
                     View All
                   </button>
                 </div>
@@ -1142,7 +1142,7 @@ const Dashboard = () => {
 
                   <div className="grid grid-cols-2 gap-4 mb-4">
                     <div className="text-center">
-                      <div className="text-lg font-bold text-blue-600">{bus.fuelLevel}%</div>
+                      <div className="text-lg font-bold text-primary">{bus.fuelLevel}%</div>
                       <div className="text-sm text-gray-600">Fuel Level</div>
                     </div>
                     <div className="text-center">
@@ -1164,7 +1164,7 @@ const Dashboard = () => {
                     </button>
                     <button
                       onClick={() => setEditingItem(bus)}
-                      className="px-3 py-2 text-blue-600 hover:text-blue-900"
+                      className="px-3 py-2 text-primary hover:text-blue-900"
                     >
                       <Edit className="h-4 w-4" />
                     </button>
@@ -1221,7 +1221,7 @@ const Dashboard = () => {
                   <div className="flex space-x-2">
                     <button
                       onClick={() => setEditingItem(route)}
-                      className="flex-1 px-3 py-2 text-blue-600 hover:text-blue-900 border border-blue-600 rounded"
+                      className="flex-1 px-3 py-2 text-primary hover:text-blue-900 border border-blue-600 rounded"
                     >
                       <Edit className="h-4 w-4 inline mr-1" />
                       Edit
@@ -1278,7 +1278,7 @@ const Dashboard = () => {
 
                   <div className="grid grid-cols-2 gap-4 mb-4">
                     <div className="text-center">
-                      <div className="text-lg font-bold text-blue-600">{employee.totalTrips}</div>
+                      <div className="text-lg font-bold text-primary">{employee.totalTrips}</div>
                       <div className="text-sm text-gray-600">Total Trips</div>
                     </div>
                     <div className="text-center">
@@ -1311,7 +1311,7 @@ const Dashboard = () => {
                     </button>
                     <button
                       onClick={() => setEditingItem(employee)}
-                      className="px-3 py-2 text-blue-600 hover:text-blue-900"
+                      className="px-3 py-2 text-primary hover:text-blue-900"
                     >
                       <Edit className="h-4 w-4" />
                     </button>
@@ -1359,7 +1359,7 @@ const Dashboard = () => {
 
                   <div className="grid grid-cols-2 gap-4 mb-4">
                     <div className="text-center">
-                      <div className="text-lg font-bold text-blue-600">{bm.totalBookings}</div>
+                      <div className="text-lg font-bold text-primary">{bm.totalBookings}</div>
                       <div className="text-sm text-gray-600">Total Bookings</div>
                     </div>
                     <div className="text-center">
@@ -1392,7 +1392,7 @@ const Dashboard = () => {
                     </button>
                     <button
                       onClick={() => setEditingItem(bm)}
-                      className="px-3 py-2 text-blue-600 hover:text-blue-900"
+                      className="px-3 py-2 text-primary hover:text-blue-900"
                     >
                       <Edit className="h-4 w-4" />
                     </button>
@@ -1442,7 +1442,7 @@ const Dashboard = () => {
 
                   <div className="grid grid-cols-2 gap-4 mb-4">
                     <div className="text-center">
-                      <div className="text-lg font-bold text-blue-600">{trip.bookings}</div>
+                      <div className="text-lg font-bold text-primary">{trip.bookings}</div>
                       <div className="text-sm text-gray-600">Bookings</div>
                     </div>
                     <div className="text-center">
@@ -1454,7 +1454,7 @@ const Dashboard = () => {
                   <div className="flex space-x-2">
                     <button
                       onClick={() => setEditingItem(trip)}
-                      className="flex-1 px-3 py-2 text-blue-600 hover:text-blue-900 border border-blue-600 rounded"
+                      className="flex-1 px-3 py-2 text-primary hover:text-blue-900 border border-blue-600 rounded"
                     >
                       <Edit className="h-4 w-4 inline mr-1" />
                       Edit
@@ -1502,7 +1502,7 @@ const Dashboard = () => {
               </div>
               <div className="card">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-blue-600">₹{expenses.filter(exp => exp.category === 'maintenance').reduce((sum, exp) => sum + exp.amount, 0).toLocaleString()}</div>
+                  <div className="text-2xl font-bold text-primary">₹{expenses.filter(exp => exp.category === 'maintenance').reduce((sum, exp) => sum + exp.amount, 0).toLocaleString()}</div>
                   <div className="text-sm text-gray-600">Maintenance</div>
                 </div>
               </div>
@@ -1523,7 +1523,7 @@ const Dashboard = () => {
                   <div key={category} className="card">
                     <div className="text-center">
                       <h3 className="text-lg font-semibold text-gray-900 capitalize">{category}</h3>
-                      <div className="text-2xl font-bold text-blue-600">₹{totalAmount.toLocaleString()}</div>
+                      <div className="text-2xl font-bold text-primary">₹{totalAmount.toLocaleString()}</div>
                       <div className="text-sm text-gray-600">{categoryExpenses.length} entries</div>
                     </div>
                   </div>
@@ -1588,7 +1588,7 @@ const Dashboard = () => {
                   <div className="flex space-x-2">
                     <button
                       onClick={() => setEditingItem(expense)}
-                      className="flex-1 px-3 py-2 text-blue-600 hover:text-blue-900 border border-blue-600 rounded"
+                      className="flex-1 px-3 py-2 text-primary hover:text-blue-900 border border-blue-600 rounded"
                     >
                       <Edit className="h-4 w-4 inline mr-1" />
                       Edit
@@ -1630,7 +1630,7 @@ const Dashboard = () => {
               </div>
               <div className="card">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-blue-600">{earnings.reduce((sum, earn) => sum + earn.bookings, 0)}</div>
+                  <div className="text-2xl font-bold text-primary">{earnings.reduce((sum, earn) => sum + earn.bookings, 0)}</div>
                   <div className="text-sm text-gray-600">Total Bookings</div>
                 </div>
               </div>
@@ -1681,7 +1681,7 @@ const Dashboard = () => {
                       </button>
                       <button
                         onClick={() => setEditingItem(route)}
-                        className="px-3 py-2 text-blue-600 hover:text-blue-900 border border-blue-600 rounded"
+                        className="px-3 py-2 text-primary hover:text-blue-900 border border-blue-600 rounded"
                       >
                         <Edit className="h-4 w-4" />
                       </button>
@@ -1730,7 +1730,7 @@ const Dashboard = () => {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
               <div className="card">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-blue-600">{tripDetails.length}</div>
+                  <div className="text-2xl font-bold text-primary">{tripDetails.length}</div>
                   <div className="text-sm text-gray-600">Total Trips</div>
                 </div>
               </div>
@@ -1793,7 +1793,7 @@ const Dashboard = () => {
                         setSelectedTrip(trip)
                         setShowTripDetails(true)
                       }}
-                      className="flex-1 px-3 py-2 text-blue-600 hover:text-blue-900 border border-blue-600 rounded"
+                      className="flex-1 px-3 py-2 text-primary hover:text-blue-900 border border-blue-600 rounded"
                     >
                       <Users className="h-4 w-4 inline mr-1" />
                       View Details
@@ -1831,7 +1831,7 @@ const Dashboard = () => {
               {/* Trip Summary */}
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
                 <div className="bg-blue-50 p-4 rounded-lg">
-                  <div className="text-2xl font-bold text-blue-600">₹{selectedTrip.totalEarnings.toLocaleString()}</div>
+                  <div className="text-2xl font-bold text-primary">₹{selectedTrip.totalEarnings.toLocaleString()}</div>
                   <div className="text-sm text-gray-600">Total Earnings</div>
                 </div>
                 <div className="bg-red-50 p-4 rounded-lg">
@@ -1957,7 +1957,7 @@ const Dashboard = () => {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
               <div className="card">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-blue-600">{salaryPayments.length}</div>
+                  <div className="text-2xl font-bold text-primary">{salaryPayments.length}</div>
                   <div className="text-sm text-gray-600">Total Employees</div>
                 </div>
               </div>
@@ -2009,7 +2009,7 @@ const Dashboard = () => {
                       </div>
                       <div className="flex justify-between font-medium border-t pt-2">
                         <span>Net Salary:</span>
-                        <span className="text-blue-600">₹{payment.netSalary.toLocaleString()}</span>
+                        <span className="text-primary">₹{payment.netSalary.toLocaleString()}</span>
                       </div>
                     </div>
 
@@ -2027,7 +2027,7 @@ const Dashboard = () => {
                       </button>
                       <button
                         onClick={() => setEditingItem(payment)}
-                        className="px-3 py-2 text-blue-600 hover:text-blue-900 border border-blue-600 rounded"
+                        className="px-3 py-2 text-primary hover:text-blue-900 border border-blue-600 rounded"
                       >
                         <Edit className="h-4 w-4" />
                       </button>
@@ -2072,7 +2072,7 @@ const Dashboard = () => {
                     <div className="flex space-x-2">
                       <button
                         onClick={() => setEditingItem(payment)}
-                        className="flex-1 px-3 py-2 text-blue-600 hover:text-blue-900 border border-blue-600 rounded text-sm"
+                        className="flex-1 px-3 py-2 text-primary hover:text-blue-900 border border-blue-600 rounded text-sm"
                       >
                         <Edit className="h-4 w-4 inline mr-1" />
                         Edit
@@ -2110,7 +2110,7 @@ const Dashboard = () => {
 
               {/* Company Header */}
               <div className="text-center mb-6 border-b pb-4">
-                <h2 className="text-2xl font-bold text-blue-600">ABC Transport Company</h2>
+                <h2 className="text-2xl font-bold text-primary">ABC Transport Company</h2>
                 <p className="text-gray-600">Salary Slip for January 2024</p>
               </div>
 
@@ -2161,7 +2161,7 @@ const Dashboard = () => {
               {/* Performance Summary */}
               <div className="grid grid-cols-2 gap-4 mb-6">
                 <div className="text-center p-3 bg-blue-50 rounded-lg">
-                  <div className="text-2xl font-bold text-blue-600">{selectedEmployee.totalTrips}</div>
+                  <div className="text-2xl font-bold text-primary">{selectedEmployee.totalTrips}</div>
                   <div className="text-sm text-gray-600">Total Trips</div>
                 </div>
                 <div className="text-center p-3 bg-green-50 rounded-lg">
@@ -2240,7 +2240,7 @@ const Dashboard = () => {
                   <h4 className="text-lg font-semibold mb-4">Performance Summary</h4>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-blue-600">{selectedEmployee.totalTrips}</div>
+                      <div className="text-2xl font-bold text-primary">{selectedEmployee.totalTrips}</div>
                       <div className="text-sm text-gray-600">Total Trips</div>
                     </div>
                     <div className="text-center">
@@ -2353,7 +2353,7 @@ const Dashboard = () => {
                   <h4 className="text-lg font-semibold mb-4">Performance Summary</h4>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-blue-600">{selectedBookingMan.totalBookings}</div>
+                      <div className="text-2xl font-bold text-primary">{selectedBookingMan.totalBookings}</div>
                       <div className="text-sm text-gray-600">Total Bookings</div>
                     </div>
                     <div className="text-center">
@@ -2455,7 +2455,7 @@ const Dashboard = () => {
                             <span>Available</span>
                           </div>
                           <div className="flex items-center">
-                            <div className="w-6 h-6 rounded border-2 border-blue-500 bg-blue-200 mr-2 flex items-center justify-center">
+                            <div className="w-6 h-6 rounded border-2 border-primary bg-blue-200 mr-2 flex items-center justify-center">
                               <User className="h-3 w-3 text-blue-800" />
                             </div>
                             <span>Selected</span>
@@ -2507,7 +2507,7 @@ const Dashboard = () => {
                                                 ? 'border-pink-300 bg-pink-100 text-pink-600 cursor-not-allowed'
                                                 : 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed'
                                               : selectedSeats.includes(row[0].number)
-                                                ? 'border-blue-500 bg-blue-200 text-blue-800 shadow-md'
+                                                ? 'border-primary bg-blue-200 text-blue-800 shadow-md'
                                                 : 'border-green-300 bg-green-100 text-green-800 hover:bg-green-200 hover:border-green-400'
                                           }`}
                                           disabled={row[0].occupied}
@@ -2538,7 +2538,7 @@ const Dashboard = () => {
                                                 ? 'border-pink-300 bg-pink-100 text-pink-600 cursor-not-allowed'
                                                 : 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed'
                                               : selectedSeats.includes(row[1].number)
-                                                ? 'border-blue-500 bg-blue-200 text-blue-800 shadow-md'
+                                                ? 'border-primary bg-blue-200 text-blue-800 shadow-md'
                                                 : 'border-green-300 bg-green-100 text-green-800 hover:bg-green-200 hover:border-green-400'
                                           }`}
                                           disabled={row[1].occupied}
@@ -2563,7 +2563,7 @@ const Dashboard = () => {
                                                 ? 'border-pink-300 bg-pink-100 text-pink-600 cursor-not-allowed'
                                                 : 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed'
                                               : selectedSeats.includes(row[2].number)
-                                                ? 'border-blue-500 bg-blue-200 text-blue-800 shadow-md'
+                                                ? 'border-primary bg-blue-200 text-blue-800 shadow-md'
                                                 : 'border-green-300 bg-green-100 text-green-800 hover:bg-green-200 hover:border-green-400'
                                           }`}
                                           disabled={row[2].occupied}

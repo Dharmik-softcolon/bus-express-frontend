@@ -811,7 +811,7 @@ const BusEmployeeDashboard = () => {
           <div className="flex justify-between items-center py-6">
             <div className="flex items-center">
               <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
-                <User className="h-6 w-6 text-blue-600" />
+                <User className="h-6 w-6 text-primary" />
               </div>
               <div>
                 <div className="flex items-center mb-1">
@@ -820,7 +820,7 @@ const BusEmployeeDashboard = () => {
                   </h1>
                   <button
                     onClick={() => setShowWelcomeModal(true)}
-                    className="px-3 py-1 text-xs bg-blue-100 text-blue-600 rounded-full hover:bg-blue-200 transition-colors"
+                    className="px-3 py-1 text-xs bg-blue-100 text-primary rounded-full hover:bg-blue-200 transition-colors"
                     title="Show onboarding guide"
                   >
                     Help & Tour
@@ -872,7 +872,7 @@ const BusEmployeeDashboard = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
                   activeTab === tab.id
-                    ? 'bg-blue-600 text-white'
+                    ? 'bg-primary text-white'
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200'
                 }`}
               >

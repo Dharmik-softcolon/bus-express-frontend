@@ -245,7 +245,7 @@ const BusManagement = () => {
             <div className="flex space-x-2">
               <button
                 onClick={() => handleEdit(bus)}
-                className="text-blue-600 hover:text-blue-900"
+                className="text-primary hover:text-blue-900"
               >
                 <Edit className="h-4 w-4" />
               </button>
@@ -426,7 +426,7 @@ const BusManagement = () => {
             </div>
             <button
               onClick={() => setShowAddModal(true)}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+              className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary transition-colors flex items-center gap-2"
             >
               <Plus className="h-4 w-4" />
               Add New Bus
@@ -449,7 +449,7 @@ const BusManagement = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                   activeTab === tab.id
-                    ? 'bg-blue-600 text-white'
+                    ? 'bg-primary text-white'
                     : 'bg-white text-gray-700 hover:bg-gray-50'
                 }`}
               >

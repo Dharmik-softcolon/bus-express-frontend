@@ -262,7 +262,7 @@ const TripManagement = () => {
             <div className="flex space-x-2">
               <button
                 onClick={() => handleEdit(trip)}
-                className="text-blue-600 hover:text-blue-900"
+                className="text-primary hover:text-blue-900"
               >
                 <Edit className="h-4 w-4" />
               </button>
@@ -367,7 +367,7 @@ const TripManagement = () => {
                         <span className="font-medium">{point.name}</span>
                         <p className="text-sm text-gray-600">{point.address}</p>
                       </div>
-                      <span className="text-sm font-medium text-blue-600">{point.time}</span>
+                      <span className="text-sm font-medium text-primary">{point.time}</span>
                     </div>
                   </div>
                 ))}
@@ -433,7 +433,7 @@ const TripManagement = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                   activeTab === tab.id
-                    ? 'bg-blue-600 text-white'
+                    ? 'bg-primary text-white'
                     : 'bg-white text-gray-700 hover:bg-gray-50'
                 }`}
               >

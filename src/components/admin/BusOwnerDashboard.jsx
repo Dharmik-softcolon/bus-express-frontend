@@ -291,7 +291,7 @@ const BusOwnerDashboard = () => {
                   <h4 className="font-semibold text-gray-600">{route.name}</h4>
                   <p className="text-sm text-gray-600">{route.distance} • {route.duration} • {route.totalTrips} trips/day</p>
                 </div>
-                <span className="text-sm font-medium text-blue-600">{route.buses.length} bus(es)</span>
+                <span className="text-sm font-medium text-primary">{route.buses.length} bus(es)</span>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 {route.buses.map((busNumber, index) => {
@@ -420,7 +420,7 @@ const BusOwnerDashboard = () => {
           <Users className="h-5 w-5" style={{color: "rgb(59 130 246 / var(--tw-text-opacity, 1))"}} mr-2 />
           <div>
             <h3 className="text-sm font-medium text-blue-800">Bus Admin Limit</h3>
-            <p className="text-sm text-blue-600">
+            <p className="text-sm text-primary">
               You can manage up to 2 Bus Admins. Currently: {busAdmins.length}/2
             </p>
           </div>
@@ -455,7 +455,7 @@ const BusOwnerDashboard = () => {
               </button>
               <button
                 onClick={() => handleEdit(admin)}
-                className="text-blue-600 hover:text-blue-900"
+                className="text-primary hover:text-blue-900"
                 title="Edit Bus Admin"
               >
                 <Edit className="h-4 w-4" />
@@ -472,7 +472,7 @@ const BusOwnerDashboard = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-600">{admin.totalTrips}</div>
+              <div className="text-2xl font-bold text-primary">{admin.totalTrips}</div>
               <div className="text-sm text-gray-600">Total Trips</div>
             </div>
             <div className="text-center">
@@ -544,7 +544,7 @@ const BusOwnerDashboard = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors ${
                   activeTab === tab.id
-                    ? 'bg-blue-600 text-white'
+                    ? 'bg-primary text-white'
                     : 'bg-white text-gray-600 hover:bg-gray-50'
                 }`}
               >

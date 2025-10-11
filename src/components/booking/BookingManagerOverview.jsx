@@ -166,7 +166,7 @@ const BookingManagerOverview = () => {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <RefreshCw className="h-8 w-8 animate-spin mx-auto mb-4 text-blue-600" />
+          <RefreshCw className="h-8 w-8 animate-spin mx-auto mb-4 text-primary" />
           <p className="text-gray-600">Loading dashboard...</p>
         </div>
       </div>
@@ -202,7 +202,7 @@ const BookingManagerOverview = () => {
           <div className="bg-white rounded-lg shadow p-6">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <Calendar className="h-8 w-8 text-blue-600" />
+                <Calendar className="h-8 w-8 text-primary" />
               </div>
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-500">Total Bookings</p>
@@ -308,7 +308,7 @@ const BookingManagerOverview = () => {
                         )}
                         <div className="relative flex space-x-3">
                           <div>
-                            <span className="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center ring-8 ring-white">
+                            <span className="h-8 w-8 rounded-full bg-primary flex items-center justify-center ring-8 ring-white">
                               <Activity className="h-4 w-4 text-white" />
                             </span>
                           </div>

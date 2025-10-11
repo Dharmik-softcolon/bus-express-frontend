@@ -366,7 +366,7 @@ const TripManagement = () => {
   const getStatusInfo = (status) => {
     switch (status) {
       case 'scheduled':
-        return { color: 'bg-blue-100 text-blue-800', icon: Calendar }
+        return { color: 'bg-primary/10 text-blue-800', icon: Calendar }
       case 'in_progress':
         return { color: 'bg-green-100 text-green-800', icon: PlayCircle }
       case 'completed':
@@ -432,7 +432,7 @@ const TripManagement = () => {
               <div className="flex items-center space-x-2">
                 <h3 className="text-lg font-semibold text-gray-900">{trip.tripNumber}</h3>
                 {(trip.pickupPoints?.length > 1 || trip.dropPoints?.length > 1) && (
-                  <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full">
+                  <span className="px-2 py-1 bg-primary/10 text-blue-800 text-xs font-medium rounded-full">
                     Round Trip
                   </span>
                 )}
@@ -484,7 +484,7 @@ const TripManagement = () => {
             <div className="flex space-x-2">
               <button
                 onClick={() => openEditTrip(trip)}
-                className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg"
+                className="p-2 text-primary hover:bg-blue-50 rounded-lg"
               >
                 <Edit className="h-4 w-4" />
               </button>
@@ -524,7 +524,7 @@ const TripManagement = () => {
                   setEditingTrip(null)
                   setShowAddModal(true)
                 }}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center"
+                className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary transition-colors flex items-center"
               >
                 <Plus className="h-4 w-4 mr-2" />
                 Create Trip
@@ -543,13 +543,13 @@ const TripManagement = () => {
               title="Total Trips"
               value={statistics.totalTrips}
               icon={BarChart3}
-              color="bg-blue-500"
+              color="bg-primary"
             />
             <StatCard
               title="Scheduled"
               value={statistics.scheduledTrips}
               icon={Calendar}
-              color="bg-blue-500"
+              color="bg-primary"
             />
             <StatCard
               title="In Progress"
@@ -852,7 +852,7 @@ const TripManagement = () => {
                             type="button"
                             onClick={handleRoundTripToggle}
                             className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
-                              tripForm.isRoundTrip ? 'bg-blue-600' : 'bg-gray-200'
+                              tripForm.isRoundTrip ? 'bg-primary' : 'bg-gray-200'
                             }`}
                           >
                             <span

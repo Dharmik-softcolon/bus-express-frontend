@@ -7,10 +7,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        'navy': '#640D5F',
+        'navy': '#47143D',
         'navy-light': '#B95E82',
-        'navy-dark': '#640D5F',
-        'primary': '#640D5F',
+        'navy-dark': '#47143D',
+        'primary': '#47143D',
         'hover': '#B95E82',
         'button': '#F39F9F',
         'background': '#FFF1F1',

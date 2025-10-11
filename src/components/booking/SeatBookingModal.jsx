@@ -294,7 +294,7 @@ const SeatBookingModal = ({
         : 'border-gray-300 bg-gray-100 text-gray-600 cursor-not-allowed'
     }
     if (selectedSeats.includes(seat.number)) {
-      return 'border-blue-500 bg-blue-200 text-blue-800 shadow-md'
+      return 'border-primary bg-blue-200 text-blue-800 shadow-md'
     }
     return 'border-green-300 bg-green-100 text-green-800 hover:bg-green-200 hover:border-green-400'
   }
@@ -339,13 +339,13 @@ const SeatBookingModal = ({
               <div key={step} className="flex items-center">
                 <div className={`flex items-center justify-center w-10 h-10 rounded-full border-2 ${
                   currentStep >= step 
-                    ? 'border-blue-500 bg-blue-500 text-white' 
+                    ? 'border-primary bg-primary text-white' 
                     : 'border-gray-300 bg-gray-100 text-gray-600'
                 }`}>
                   <Icon className="h-5 w-5" />
                 </div>
                 <span className={`ml-2 text-sm font-medium ${
-                  currentStep >= step ? 'text-blue-600' : 'text-gray-600'
+                  currentStep >= step ? 'text-primary' : 'text-gray-600'
                 }`}>
                   {title}
                 </span>
@@ -367,14 +367,14 @@ const SeatBookingModal = ({
                 <div className="bg-gray-50 rounded-lg p-4">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center space-x-4">
-                      <Bus className="h-6 w-6 text-blue-600" />
+                      <Bus className="h-6 w-6 text-primary" />
                       <div>
                         <h4 className="font-semibold text-gray-600">{bus.busName}</h4>
                         <p className="text-sm text-gray-600">{bus.busNumber} • {bus.type}</p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="text-lg font-bold text-blue-600">₹{trip.fare}</div>
+                      <div className="text-lg font-bold text-primary">₹{trip.fare}</div>
                       <div className="text-sm text-gray-600">per seat</div>
                     </div>
                   </div>
@@ -407,7 +407,7 @@ const SeatBookingModal = ({
                       <span>Available</span>
                     </div>
                     <div className="flex items-center">
-                      <div className="w-6 h-6 rounded border-2 border-blue-500 bg-blue-200 mr-2 flex items-center justify-center">
+                      <div className="w-6 h-6 rounded border-2 border-primary bg-blue-200 mr-2 flex items-center justify-center">
                         <User className="h-3 w-3 text-blue-800" />
                       </div>
                       <span>Selected</span>
@@ -500,7 +500,7 @@ const SeatBookingModal = ({
                 {passengerDetails.map((passenger, index) => (
                   <div key={passenger.id} className="bg-gray-50 rounded-lg p-6">
                     <div className="flex items-center mb-4">
-                      <div className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-medium mr-3">
+                      <div className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center text-sm font-medium mr-3">
                         {index + 1}
                       </div>
                       <h5 className="font-medium text-gray-600">Passenger {index + 1} - Seat {passenger.seatNumber}</h5>
@@ -515,7 +515,7 @@ const SeatBookingModal = ({
                           type="text"
                           value={passenger.passengerName}
                           onChange={(e) => handlePassengerInputChange(index, 'passengerName', e.target.value)}
-                          className="w-full px-3 py-2 border border-[#B99750] rounded-md focus:ring-blue-500 focus:border-blue-500"
+                          className="w-full px-3 py-2 border border-[#B99750] rounded-md focus:ring-blue-500 focus:border-primary"
                           placeholder="Enter full name"
                           required
                         />
@@ -529,7 +529,7 @@ const SeatBookingModal = ({
                           type="tel"
                           value={passenger.passengerPhone}
                           onChange={(e) => handlePassengerInputChange(index, 'passengerPhone', e.target.value)}
-                          className="w-full px-3 py-2 border border-[#B99750] rounded-md focus:ring-blue-500 focus:border-blue-500"
+                          className="w-full px-3 py-2 border border-[#B99750] rounded-md focus:ring-blue-500 focus:border-primary"
                           placeholder="Enter phone number"
                           required
                         />
@@ -543,7 +543,7 @@ const SeatBookingModal = ({
                           type="number"
                           value={passenger.passengerAge}
                           onChange={(e) => handlePassengerInputChange(index, 'passengerAge', e.target.value)}
-                          className="w-full px-3 py-2 border border-[#B99750] rounded-md focus:ring-blue-500 focus:border-blue-500"
+                          className="w-full px-3 py-2 border border-[#B99750] rounded-md focus:ring-blue-500 focus:border-primary"
                           placeholder="Age"
                           min="1"
                           max="120"
@@ -558,7 +558,7 @@ const SeatBookingModal = ({
                         <select
                           value={passenger.passengerGender}
                           onChange={(e) => handlePassengerInputChange(index, 'passengerGender', e.target.value)}
-                          className="w-full px-3 py-2 border border-[#B99750] rounded-md focus:ring-blue-500 focus:border-blue-500"
+                          className="w-full px-3 py-2 border border-[#B99750] rounded-md focus:ring-blue-500 focus:border-primary"
                           required
                         >
                           <option value="">Select Gender</option>
@@ -576,7 +576,7 @@ const SeatBookingModal = ({
                           type="email"
                           value={passenger.passengerEmail}
                           onChange={(e) => handlePassengerInputChange(index, 'passengerEmail', e.target.value)}
-                          className="w-full px-3 py-2 border border-[#B99750] rounded-md focus:ring-blue-500 focus:border-blue-500"
+                          className="w-full px-3 py-2 border border-[#B99750] rounded-md focus:ring-blue-500 focus:border-primary"
                           placeholder="Enter email address"
                         />
                       </div>
@@ -671,7 +671,7 @@ const SeatBookingModal = ({
                 <h5 className="font-medium text-gray-600 mb-3">Bus Amenities</h5>
                 <div className="flex flex-wrap gap-2">
                   {bus.features?.wifi && (
-                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-800">
+                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-primary/10 text-blue-800">
                       <Wifi className="h-3 w-3 mr-1" />
                       WiFi
                     </span>
@@ -683,7 +683,7 @@ const SeatBookingModal = ({
                     </span>
                   )}
                   {bus.features?.water && (
-                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-800">
+                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-primary/10 text-blue-800">
                       <Droplets className="h-3 w-3 mr-1" />
                       Water
                     </span>
@@ -712,7 +712,7 @@ const SeatBookingModal = ({
                 {currentStep < 3 ? (
                   <button
                     onClick={handleNext}
-                    className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors flex items-center justify-center"
+                    className="w-full px-4 py-2 bg-primary text-white rounded-md hover:bg-primary transition-colors flex items-center justify-center"
                   >
                     Next
                     <ArrowRight className="h-4 w-4 ml-2" />

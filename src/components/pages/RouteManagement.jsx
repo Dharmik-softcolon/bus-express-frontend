@@ -439,7 +439,7 @@ const RouteManagement = () => {
             </div>
             <button
               onClick={() => setShowModal(true)}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+              className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary transition-colors flex items-center gap-2"
             >
               <Plus className="h-4 w-4" />
               Add New Route
@@ -453,8 +453,8 @@ const RouteManagement = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
           <div className="bg-white rounded-lg shadow-sm border p-6">
             <div className="flex items-center">
-              <div className="p-2 bg-blue-100 rounded-lg">
-                <MapPin className="h-6 w-6 text-blue-600" />
+              <div className="p-2 bg-primary/10 rounded-lg">
+                <MapPin className="h-6 w-6 text-primary" />
               </div>
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">Total Routes</p>
@@ -597,7 +597,7 @@ const RouteManagement = () => {
                         <div className="flex space-x-2">
                           <button
                               onClick={() => openEditRoute(route)}
-                              className="flex-1 bg-blue-50 hover:bg-blue-100 text-blue-700 px-3 py-2 rounded-lg flex items-center justify-center transition-colors"
+                              className="flex-1 bg-blue-50 hover:bg-primary/10 text-blue-700 px-3 py-2 rounded-lg flex items-center justify-center transition-colors"
                           >
                             <Edit className="h-4 w-4 mr-2" />
                             Edit

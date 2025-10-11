@@ -255,7 +255,7 @@ const EnhancedBookingManagement = () => {
       case 'cancelled':
         return 'bg-red-100 text-red-800'
       case 'completed':
-        return 'bg-blue-100 text-blue-800'
+        return 'bg-primary/10 text-blue-800'
       default:
         return 'bg-gray-100 text-gray-800'
     }
@@ -360,7 +360,7 @@ const EnhancedBookingManagement = () => {
                     onClick={() => setActiveTab(tab.id)}
                     className={`py-2 px-1 border-b-2 font-medium text-sm flex items-center ${
                       activeTab === tab.id
-                        ? 'border-blue-500 text-blue-600'
+                        ? 'border-blue-500 text-primary'
                         : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                     }`}
                   >
@@ -382,7 +382,7 @@ const EnhancedBookingManagement = () => {
                 title="Total Bookings"
                 value={dashboardStats.totalBookings}
                 icon={Calendar}
-                color="bg-blue-500"
+                color="bg-primary"
                 trend={dashboardStats.monthlyGrowth}
               />
               <StatCard
@@ -412,7 +412,7 @@ const EnhancedBookingManagement = () => {
                 title="New Booking"
                 description="Book seats for customers"
                 icon={Plus}
-                color="bg-blue-500"
+                color="bg-primary"
                 onClick={() => setActiveTab('search')}
               />
               <QuickActionCard
@@ -450,8 +450,8 @@ const EnhancedBookingManagement = () => {
                     {recentBookings.map((booking) => (
                       <div key={booking._id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                         <div className="flex items-center">
-                          <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                            <Calendar className="h-5 w-5 text-blue-600" />
+                          <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-3">
+                            <Calendar className="h-5 w-5 text-primary" />
                           </div>
                           <div>
                             <div className="font-medium text-gray-900">{booking.bookingReference}</div>
@@ -470,7 +470,7 @@ const EnhancedBookingManagement = () => {
                   <div className="mt-4 text-center">
                     <button
                       onClick={() => setActiveTab('bookings')}
-                      className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+                      className="text-primary hover:text-blue-800 text-sm font-medium"
                     >
                       View all bookings →
                     </button>
@@ -506,7 +506,7 @@ const EnhancedBookingManagement = () => {
                   <div className="mt-4 text-center">
                     <button
                       onClick={() => setActiveTab('search')}
-                      className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+                      className="text-primary hover:text-blue-800 text-sm font-medium"
                     >
                       Book seats →
                     </button>
@@ -601,7 +601,7 @@ const EnhancedBookingManagement = () => {
                             <p className="text-sm text-gray-600">{trip.route?.routeName}</p>
                           </div>
                           <div className="text-right">
-                            <div className="text-xl font-bold text-blue-600">₹{trip.fare}</div>
+                            <div className="text-xl font-bold text-primary">₹{trip.fare}</div>
                             <div className="text-sm text-gray-500">per seat</div>
                           </div>
                         </div>
@@ -634,7 +634,7 @@ const EnhancedBookingManagement = () => {
                           </div>
                           <button
                             onClick={() => handleSeatBooking(trip)}
-                            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors flex items-center"
+                            className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary transition-colors flex items-center"
                             disabled={trip.availableSeats === 0}
                           >
                             {trip.availableSeats === 0 ? 'Sold Out' : 'Book Seats'}

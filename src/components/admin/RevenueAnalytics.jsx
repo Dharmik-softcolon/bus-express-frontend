@@ -155,7 +155,7 @@ const RevenueAnalytics = () => {
               <p className="text-sm font-medium text-gray-600">Total Passengers</p>
               <p className="text-2xl font-bold text-gray-900">{totalPassengers.toLocaleString()}</p>
             </div>
-            <Bus className="h-8 w-8 text-blue-600" />
+            <Bus className="h-8 w-8 text-primary" />
           </div>
         </div>
         <div className="bg-white rounded-lg shadow p-6">
