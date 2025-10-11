@@ -11,7 +11,7 @@ const SeatSelection = ({ selectedSeats, onBooking }) => {
 
   const [bus, setBus] = useState({
     id: 1,
-    operator: 'Express Bus Lines',
+    operator: 'SafeRun Lines',
     from: 'New York',
     to: 'Boston',
     departureTime: '08:00 AM',

@@ -9,7 +9,7 @@ const Footer = () => {
           <div className="sm:col-span-2 lg:col-span-1">
             <div className="flex items-center space-x-2 mb-3">
               <Bus className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
-              <span className="text-base sm:text-lg font-bold">BusExpress</span>
+              <span className="text-base sm:text-lg font-bold">SafeRun</span>
             </div>
             <p className="text-white mb-3 max-w-md text-xs sm:text-sm leading-relaxed">
               Your trusted partner for comfortable and reliable bus travel.
@@ -102,7 +102,7 @@ const Footer = () => {
               <div className="flex items-center space-x-2">
                 <Mail className="h-3 w-3 sm:h-4 sm:w-4 text-white flex-shrink-0" />
                 <div>
-                  <span className="text-white text-xs sm:text-sm block break-all">info@busexpress.com</span>
+                  <span className="text-white text-xs sm:text-sm block break-all">info@saferun.com</span>
                 </div>
               </div>
             </div>
@@ -113,7 +113,7 @@ const Footer = () => {
         <div className="border-t border-gray-800 mt-6 pt-4">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-2">
             <p className="text-white text-xs text-center sm:text-left">
-              © 2024 BusExpress. All rights reserved.
+              © 2024 SafeRun. All rights reserved.
             </p>
             <div className="flex flex-wrap justify-center sm:justify-end gap-3">
               <a href="#" className="text-white hover:text-white transition-colors duration-200 text-xs">

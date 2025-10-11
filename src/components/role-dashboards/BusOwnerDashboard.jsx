@@ -62,14 +62,14 @@ const BusOwnerDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-hover-light">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b">
+      <div className="bg-background shadow-sm border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
+          <div className="flex justify-between items-center py-8">
             <div>
-              <h1 className="text-2xl font-bold" style={{color: "#B99750"}}>Bus Owner Dashboard</h1>
-              <p className="text-gray-600 mt-1">Monitor fleet performance and analytics</p>
+              <h1 className="text-heading-1">Bus Owner Dashboard</h1>
+              <p className="text-body-small mt-2">Monitor fleet performance and analytics</p>
             </div>
           </div>
         </div>
@@ -77,97 +77,97 @@ const BusOwnerDashboard = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Quick Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 mb-6">
-          <div className="bg-white rounded-lg shadow-sm border p-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 mb-8">
+          <div className="dashboard-stat">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                  <Bus className="w-5 h-5 text-blue-600" />
+                <div className="dashboard-stat-icon bg-primary/10 text-primary">
+                  <Bus className="w-6 h-6" />
                 </div>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Total Buses</p>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-caption">Total Buses</p>
+                <p className="dashboard-stat-value">
                   {loading ? '...' : stats.totalBuses}
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm border p-6">
+          <div className="dashboard-stat">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                  <MapPin className="w-5 h-5 text-green-600" />
+                <div className="dashboard-stat-icon bg-success/10 text-success">
+                  <MapPin className="w-6 h-6" />
                 </div>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Active Routes</p>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-caption">Active Routes</p>
+                <p className="dashboard-stat-value">
                   {loading ? '...' : stats.activeRoutes}
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm border p-6">
+          <div className="dashboard-stat">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
-                  <Calendar className="w-5 h-5 text-purple-600" />
+                <div className="dashboard-stat-icon bg-info/10 text-info">
+                  <Calendar className="w-6 h-6" />
                 </div>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Total Trips</p>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-caption">Total Trips</p>
+                <p className="dashboard-stat-value">
                   {loading ? '...' : stats.totalTrips}
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm border p-6">
+          <div className="dashboard-stat">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center">
-                  <DollarSign className="w-5 h-5 text-yellow-600" />
+                <div className="dashboard-stat-icon bg-warning/10 text-warning">
+                  <DollarSign className="w-6 h-6" />
                 </div>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Monthly Revenue</p>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-caption">Monthly Revenue</p>
+                <p className="dashboard-stat-value">
                   {loading ? '...' : `₹${stats.monthlyRevenue.toLocaleString()}`}
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm border p-6">
+          <div className="dashboard-stat">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center">
-                  <TrendingUp className="w-5 h-5 text-indigo-600" />
+                <div className="dashboard-stat-icon bg-primary/10 text-primary">
+                  <TrendingUp className="w-6 h-6" />
                 </div>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Total Bookings</p>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-caption">Total Bookings</p>
+                <p className="dashboard-stat-value">
                   {loading ? '...' : stats.totalBookings.toLocaleString()}
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm border p-6">
+          <div className="dashboard-stat">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
-                  <AlertCircle className="w-5 h-5 text-red-600" />
+                <div className="dashboard-stat-icon bg-error/10 text-error">
+                  <AlertCircle className="w-6 h-6" />
                 </div>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Maintenance Due</p>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-caption">Maintenance Due</p>
+                <p className="dashboard-stat-value">
                   {loading ? '...' : stats.maintenanceDue}
                 </p>
               </div>
@@ -176,129 +176,123 @@ const BusOwnerDashboard = () => {
         </div>
 
         {/* Dashboard Content */}
-        <div className="space-y-6">
+        <div className="space-y-8">
           {/* Fleet Status */}
-          <div className="bg-white rounded-lg shadow">
-            <div className="px-6 py-4 border-b border-gray-200">
-              <h2 className="text-lg font-medium text-gray-600">Fleet Status</h2>
+          <div className="dashboard-card">
+            <div className="dashboard-card-header">
+              <h2 className="text-heading-3">Fleet Status</h2>
             </div>
-            <div className="p-6">
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
-                    <span className="text-sm text-gray-600">Bus-001 (Mumbai-Delhi)</span>
-                  </div>
-                  <span className="text-sm text-green-600 font-medium">On Route</span>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between p-4 rounded-lg bg-success/5 border border-success/20">
+                <div className="flex items-center">
+                  <CheckCircle className="w-5 h-5 text-success mr-3" />
+                  <span className="text-body-small font-medium">Bus-001 (Mumbai-Delhi)</span>
                 </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
-                    <span className="text-sm text-gray-600">Bus-002 (Delhi-Bangalore)</span>
-                  </div>
-                  <span className="text-sm text-green-600 font-medium">On Route</span>
+                <span className="text-sm font-semibold text-success">On Route</span>
+              </div>
+              <div className="flex items-center justify-between p-4 rounded-lg bg-success/5 border border-success/20">
+                <div className="flex items-center">
+                  <CheckCircle className="w-5 h-5 text-success mr-3" />
+                  <span className="text-body-small font-medium">Bus-002 (Delhi-Bangalore)</span>
                 </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <Clock className="w-5 h-5 text-yellow-500 mr-2" />
-                    <span className="text-sm text-gray-600">Bus-003 (Chennai-Hyderabad)</span>
-                  </div>
-                  <span className="text-sm text-yellow-600 font-medium">Scheduled</span>
+                <span className="text-sm font-semibold text-success">On Route</span>
+              </div>
+              <div className="flex items-center justify-between p-4 rounded-lg bg-warning/5 border border-warning/20">
+                <div className="flex items-center">
+                  <Clock className="w-5 h-5 text-warning mr-3" />
+                  <span className="text-body-small font-medium">Bus-003 (Chennai-Hyderabad)</span>
                 </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <AlertCircle className="w-5 h-5 text-red-500 mr-2" />
-                    <span className="text-sm text-gray-600">Bus-004 (Pune-Goa)</span>
-                  </div>
-                  <span className="text-sm text-red-600 font-medium">Maintenance</span>
+                <span className="text-sm font-semibold text-warning">Scheduled</span>
+              </div>
+              <div className="flex items-center justify-between p-4 rounded-lg bg-error/5 border border-error/20">
+                <div className="flex items-center">
+                  <AlertCircle className="w-5 h-5 text-error mr-3" />
+                  <span className="text-body-small font-medium">Bus-004 (Pune-Goa)</span>
                 </div>
+                <span className="text-sm font-semibold text-error">Maintenance</span>
               </div>
             </div>
           </div>
 
           {/* Recent Bookings */}
-          <div className="bg-white rounded-lg shadow">
-            <div className="px-6 py-4 border-b border-gray-200">
-              <h2 className="text-lg font-medium text-gray-600">Recent Bookings</h2>
+          <div className="dashboard-card">
+            <div className="dashboard-card-header">
+              <h2 className="text-heading-3">Recent Bookings</h2>
             </div>
-            <div className="p-6">
-              <div className="space-y-4">
-                <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                  <div>
-                    <p className="text-sm font-medium text-gray-600">Mumbai → Delhi</p>
-                    <p className="text-xs text-gray-600">Bus-001 • Seat 12A, 12B</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm font-medium text-gray-600">₹2,500</p>
-                    <p className="text-xs text-gray-600">Today, 6:00 AM</p>
-                  </div>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between p-4 rounded-lg bg-hover-light border border-border hover:border-primary/20 transition-colors duration-200">
+                <div>
+                  <p className="text-body-small font-medium">Mumbai → Delhi</p>
+                  <p className="text-caption">Bus-001 • Seat 12A, 12B</p>
                 </div>
-                <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                  <div>
-                    <p className="text-sm font-medium text-gray-600">Delhi → Bangalore</p>
-                    <p className="text-xs text-gray-600">Bus-002 • Seat 8C, 8D</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm font-medium text-gray-600">₹3,200</p>
-                    <p className="text-xs text-gray-600">Tomorrow, 8:00 PM</p>
-                  </div>
+                <div className="text-right">
+                  <p className="text-body-small font-semibold">₹2,500</p>
+                  <p className="text-caption">Today, 6:00 AM</p>
                 </div>
-                <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                  <div>
-                    <p className="text-sm font-medium text-gray-600">Chennai → Hyderabad</p>
-                    <p className="text-xs text-gray-600">Bus-003 • Seat 15A</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm font-medium text-gray-600">₹1,800</p>
-                    <p className="text-xs text-gray-600">Dec 25, 10:00 AM</p>
-                  </div>
+              </div>
+              <div className="flex items-center justify-between p-4 rounded-lg bg-hover-light border border-border hover:border-primary/20 transition-colors duration-200">
+                <div>
+                  <p className="text-body-small font-medium">Delhi → Bangalore</p>
+                  <p className="text-caption">Bus-002 • Seat 8C, 8D</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-body-small font-semibold">₹3,200</p>
+                  <p className="text-caption">Tomorrow, 8:00 PM</p>
+                </div>
+              </div>
+              <div className="flex items-center justify-between p-4 rounded-lg bg-hover-light border border-border hover:border-primary/20 transition-colors duration-200">
+                <div>
+                  <p className="text-body-small font-medium">Chennai → Hyderabad</p>
+                  <p className="text-caption">Bus-003 • Seat 15A</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-body-small font-semibold">₹1,800</p>
+                  <p className="text-caption">Dec 25, 10:00 AM</p>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Quick Actions */}
-          <div className="bg-white rounded-lg shadow">
-            <div className="px-6 py-4 border-b border-gray-200">
-              <h2 className="text-lg font-medium text-gray-600">Quick Actions</h2>
+          <div className="dashboard-card">
+            <div className="dashboard-card-header">
+              <h2 className="text-heading-3">Quick Actions</h2>
             </div>
-            <div className="p-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-                <div 
-                  onClick={() => handleQuickAction('bus-analytics')}
-                  className="text-center p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors cursor-pointer"
-                >
-                  <Bus className="w-8 h-8 text-navy mx-auto mb-2" />
-                  <p className="text-sm font-medium text-gray-600">Bus Analytics</p>
-                </div>
-                <div 
-                  onClick={() => handleQuickAction('route-analytics')}
-                  className="text-center p-4 bg-green-50 rounded-lg hover:bg-green-100 transition-colors cursor-pointer"
-                >
-                  <MapPin className="w-8 h-8 text-green-600 mx-auto mb-2" />
-                  <p className="text-sm font-medium text-gray-600">Route Analytics</p>
-                </div>
-                <div 
-                  onClick={() => handleQuickAction('trip-analytics')}
-                  className="text-center p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors cursor-pointer"
-                >
-                  <Calendar className="w-8 h-8 text-purple-600 mx-auto mb-2" />
-                  <p className="text-sm font-medium text-gray-600">Trip Analytics</p>
-                </div>
-                <div 
-                  onClick={() => handleQuickAction('revenue')}
-                  className="text-center p-4 bg-yellow-50 rounded-lg hover:bg-yellow-100 transition-colors cursor-pointer"
-                >
-                  <DollarSign className="w-8 h-8 text-yellow-600 mx-auto mb-2" />
-                  <p className="text-sm font-medium text-gray-600">Revenue</p>
-                </div>
-                <div 
-                  onClick={() => handleQuickAction('expenses')}
-                  className="text-center p-4 bg-red-50 rounded-lg hover:bg-red-100 transition-colors cursor-pointer"
-                >
-                  <TrendingUp className="w-8 h-8 text-red-600 mx-auto mb-2" />
-                  <p className="text-sm font-medium text-gray-600">Expenses</p>
-                </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+              <div 
+                onClick={() => handleQuickAction('bus-analytics')}
+                className="text-center p-6 rounded-xl bg-primary/5 border border-primary/20 hover:bg-primary/10 hover:border-primary/30 transition-all duration-300 ease-in-out cursor-pointer hover:-translate-y-1 hover:shadow-md"
+              >
+                <Bus className="w-8 h-8 text-primary mx-auto mb-3" />
+                <p className="text-body-small font-semibold">Bus Analytics</p>
+              </div>
+              <div 
+                onClick={() => handleQuickAction('route-analytics')}
+                className="text-center p-6 rounded-xl bg-success/5 border border-success/20 hover:bg-success/10 hover:border-success/30 transition-all duration-300 ease-in-out cursor-pointer hover:-translate-y-1 hover:shadow-md"
+              >
+                <MapPin className="w-8 h-8 text-success mx-auto mb-3" />
+                <p className="text-body-small font-semibold">Route Analytics</p>
+              </div>
+              <div 
+                onClick={() => handleQuickAction('trip-analytics')}
+                className="text-center p-6 rounded-xl bg-info/5 border border-info/20 hover:bg-info/10 hover:border-info/30 transition-all duration-300 ease-in-out cursor-pointer hover:-translate-y-1 hover:shadow-md"
+              >
+                <Calendar className="w-8 h-8 text-info mx-auto mb-3" />
+                <p className="text-body-small font-semibold">Trip Analytics</p>
+              </div>
+              <div 
+                onClick={() => handleQuickAction('revenue')}
+                className="text-center p-6 rounded-xl bg-warning/5 border border-warning/20 hover:bg-warning/10 hover:border-warning/30 transition-all duration-300 ease-in-out cursor-pointer hover:-translate-y-1 hover:shadow-md"
+              >
+                <DollarSign className="w-8 h-8 text-warning mx-auto mb-3" />
+                <p className="text-body-small font-semibold">Revenue</p>
+              </div>
+              <div 
+                onClick={() => handleQuickAction('expenses')}
+                className="text-center p-6 rounded-xl bg-error/5 border border-error/20 hover:bg-error/10 hover:border-error/30 transition-all duration-300 ease-in-out cursor-pointer hover:-translate-y-1 hover:shadow-md"
+              >
+                <TrendingUp className="w-8 h-8 text-error mx-auto mb-3" />
+                <p className="text-body-small font-semibold">Expenses</p>
               </div>
             </div>
           </div>

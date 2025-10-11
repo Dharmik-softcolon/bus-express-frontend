@@ -22,7 +22,7 @@ const BookingManManagement = () => {
     {
       id: 1,
       name: 'Alice Johnson',
-      email: 'alice.johnson@busexpress.com',
+      email: 'alice.johnson@saferun.com',
       phone: '+1-555-0201',
       commission: 5.0,
       totalBookings: 45,
@@ -58,7 +58,7 @@ const BookingManManagement = () => {
     {
       id: 2,
       name: 'Bob Wilson',
-      email: 'bob.wilson@busexpress.com',
+      email: 'bob.wilson@saferun.com',
       phone: '+1-555-0202',
       commission: 4.5,
       totalBookings: 32,
@@ -95,7 +95,7 @@ const BookingManManagement = () => {
     {
       id: 1,
       busNumber: 'BE-001',
-      operator: 'Express Bus Lines',
+      operator: 'SafeRun Lines',
       route: 'New York → Boston',
       from: 'New York',
       to: 'Boston',

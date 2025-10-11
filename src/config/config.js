@@ -22,9 +22,9 @@ const config = {
   
   // Application Settings
   APP: {
-    NAME: import.meta.env.VITE_APP_NAME || 'BusExpress',
+    NAME: import.meta.env.VITE_APP_NAME || 'SafeRun',
     VERSION: import.meta.env.VITE_APP_VERSION || '1.0.0',
-    DESCRIPTION: import.meta.env.VITE_APP_DESCRIPTION || 'Bus Express Management System',
+    DESCRIPTION: import.meta.env.VITE_APP_DESCRIPTION || 'Safe Run Management System',
   },
   
   // Feature Flags
@@ -205,12 +205,12 @@ const config = {
   
   // Local Storage Keys
   STORAGE: {
-    USER: 'busexpress_user',
-    TOKEN: 'busexpress_token',
-    REFRESH_TOKEN: 'busexpress_refresh_token',
-    THEME: 'busexpress_theme',
-    LANGUAGE: 'busexpress_language',
-    SETTINGS: 'busexpress_settings',
+    USER: 'saferun_user',
+    TOKEN: 'saferun_token',
+    REFRESH_TOKEN: 'saferun_refresh_token',
+    THEME: 'saferun_theme',
+    LANGUAGE: 'saferun_language',
+    SETTINGS: 'saferun_settings',
   },
   
   // Theme Configuration

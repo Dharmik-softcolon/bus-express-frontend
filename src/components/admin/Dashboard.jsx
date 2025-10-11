@@ -126,7 +126,7 @@ const Dashboard = () => {
     {
       id: 1,
       busNumber: 'BE-001',
-      operator: 'Express Bus Lines',
+      operator: 'SafeRun Lines',
       route: 'New York → Boston',
       from: 'New York',
       to: 'Boston',

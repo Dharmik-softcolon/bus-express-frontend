@@ -128,7 +128,7 @@ const Login = () => {
 
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary via-navy-light to-navy-dark flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-primary via-primary/90 to-primary/80 flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-20">
         <div className="w-full h-full" style={{
@@ -143,36 +143,36 @@ const Login = () => {
           <div className="flex justify-center mb-4">
             <div className="relative">
               <div className="absolute inset-0 bg-white/20 rounded-full blur-xl"></div>
-              <Bus className="h-12 w-12 sm:h-16 sm:w-16 text-white relative z-10 animate-bounce-gentle" />
+              <Bus className="h-12 w-12 sm:h-16 sm:w-16 text-text relative z-10 animate-bounce-gentle" />
             </div>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">
-            BusExpress
+          <h2 className="text-3xl sm:text-4xl font-bold text-text mb-2">
+            SafeRun
           </h2>
-          <p className="text-white/80 text-sm sm:text-base">
+          <p className="text-text/80 text-sm sm:text-base">
             Welcome back! Sign in to your account
           </p>
         </div>
 
         {/* Login Form */}
-        <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-6 sm:p-8 lg:p-10 border border-white/20 animate-slide-up">
+        <div className="bg-background/95 backdrop-blur-sm rounded-2xl shadow-2xl p-6 sm:p-8 lg:p-10 border border-background/20 animate-slide-up">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Error Message */}
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg flex items-center space-x-2 animate-fade-in">
+              <div className="bg-error/5 border border-error/20 text-error px-4 py-3 rounded-lg flex items-center space-x-2 animate-fade-in">
                 <AlertCircle className="h-5 w-5 flex-shrink-0" />
-                <span className="text-sm">{error}</span>
+                <span className="text-sm font-medium">{error}</span>
               </div>
             )}
 
             {/* Email Field */}
             <div className="space-y-2">
-              <label htmlFor="email" className="block text-sm font-semibold text-gray-700">
+              <label htmlFor="email" className="text-label">
                 Email Address
               </label>
               <div className="flex items-start space-x-3">
-                <div className="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-lg mt-1">
-                  <Mail className={`h-5 w-5 ${emailError ? 'text-red-500' : 'text-primary'}`} />
+                <div className="flex items-center justify-center w-12 h-12 bg-primary/10 rounded-lg mt-1">
+                  <Mail className={`h-5 w-5 ${emailError ? 'text-error' : 'text-primary'}`} />
                 </div>
                 <div className="flex-1 relative">
                   <input
@@ -183,23 +183,23 @@ const Login = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     onBlur={handleEmailBlur}
-                    className={`w-full px-4 py-3 pr-12 border rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/20 ${
+                    className={`input-field ${
                       emailError 
-                        ? 'border-red-300 bg-red-50 focus:border-red-500' 
-                        : 'border-gray-300 bg-white focus:border-primary'
+                        ? 'border-error bg-error/5 focus:border-error' 
+                        : 'border-border bg-background focus:border-primary'
                     }`}
                     placeholder="Enter your email address"
                     aria-describedby={emailError ? "email-error" : undefined}
                   />
                   {formData.email && !emailError && validateEmail(formData.email) && (
                     <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                      <CheckCircle className="h-5 w-5 text-green-500" />
+                      <CheckCircle className="h-5 w-5 text-success" />
                     </div>
                   )}
                 </div>
               </div>
               {emailError && (
-                <p id="email-error" className="text-red-500 text-xs flex items-center space-x-1">
+                <p id="email-error" className="text-error text-xs flex items-center space-x-1 font-medium">
                   <AlertCircle className="h-3 w-3" />
                   <span>{emailError}</span>
                 </p>
@@ -208,12 +208,12 @@ const Login = () => {
 
             {/* Password Field */}
             <div className="space-y-2">
-              <label htmlFor="password" className="block text-sm font-semibold text-gray-700">
+              <label htmlFor="password" className="text-label">
                 Password
               </label>
               <div className="flex items-start space-x-3">
-                <div className="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-lg mt-1">
-                  <Lock className={`h-5 w-5 ${passwordError ? 'text-red-500' : 'text-primary'}`} />
+                <div className="flex items-center justify-center w-12 h-12 bg-primary/10 rounded-lg mt-1">
+                  <Lock className={`h-5 w-5 ${passwordError ? 'text-error' : 'text-primary'}`} />
                 </div>
                 <div className="flex-1 relative">
                   <input
@@ -224,30 +224,30 @@ const Login = () => {
                     value={formData.password}
                     onChange={handleInputChange}
                     onBlur={handlePasswordBlur}
-                    className={`w-full px-4 py-3 pr-12 border rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/20 ${
+                    className={`input-field ${
                       passwordError 
-                        ? 'border-red-300 bg-red-50 focus:border-red-500' 
-                        : 'border-gray-300 bg-white focus:border-primary'
+                        ? 'border-error bg-error/5 focus:border-error' 
+                        : 'border-border bg-background focus:border-primary'
                     }`}
                     placeholder="Enter your password"
                     aria-describedby={passwordError ? "password-error" : undefined}
                   />
                   <button
                     type="button"
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 hover:bg-gray-50 rounded-lg transition-colors duration-200 p-1"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 hover:bg-hover-light rounded-lg transition-colors duration-200 p-1"
                     onClick={() => setShowPassword(!showPassword)}
                     aria-label={showPassword ? "Hide password" : "Show password"}
                   >
                     {showPassword ? (
-                      <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                      <EyeOff className="h-5 w-5 text-text-light hover:text-text-dark" />
                     ) : (
-                      <Eye className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                      <Eye className="h-5 w-5 text-text-light hover:text-text-dark" />
                     )}
                   </button>
                 </div>
               </div>
               {passwordError && (
-                <p id="password-error" className="text-red-500 text-xs flex items-center space-x-1">
+                <p id="password-error" className="text-error text-xs flex items-center space-x-1 font-medium">
                   <AlertCircle className="h-3 w-3" />
                   <span>{passwordError}</span>
                 </p>
@@ -263,11 +263,11 @@ const Login = () => {
                   onChange={(e) => setRememberMe(e.target.checked)}
                   className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary focus:ring-2"
                 />
-                <span className="text-sm text-gray-600">Remember me</span>
+                <span className="text-body-small">Remember me</span>
               </label>
               <button
                 type="button"
-                className="text-sm text-primary hover:text-navy-dark font-medium transition-colors duration-200"
+                className="text-body-small text-primary hover:text-primary/80 font-semibold transition-colors duration-200"
                 onClick={() => {/* TODO: Implement forgot password */}}
               >
                 Forgot password?
@@ -278,7 +278,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading || isValidating}
-              className="w-full bg-gradient-to-r from-primary to-navy-dark hover:from-navy-dark hover:to-primary text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg hover:shadow-xl"
+              className="btn-primary w-full"
             >
               {loading || isValidating ? (
                 <div className="flex items-center justify-center space-x-2">
@@ -296,7 +296,7 @@ const Login = () => {
           <div className="mt-6 text-center">
             <button
               onClick={() => navigate('/')}
-              className="text-gray-600 hover:text-primary text-sm font-medium transition-colors duration-200 flex items-center justify-center space-x-1"
+              className="text-text-light hover:text-primary text-body-small font-semibold transition-colors duration-200 flex items-center justify-center space-x-1"
             >
               <span>←</span>
               <span>Back to Home</span>

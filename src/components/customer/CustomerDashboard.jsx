@@ -201,7 +201,7 @@ const CustomerDashboard = () => {
                             {booking.route?.from} → {booking.route?.to}
                           </div>
                           <div className="text-xs sm:text-sm text-gray-600">
-                            {booking.operator || 'BusExpress'}
+                            {booking.operator || 'SafeRun'}
                           </div>
                         </div>
                         <div>
@@ -331,7 +331,7 @@ const CustomerDashboard = () => {
                 </div>
                 <div className="flex-1">
                   <div className="text-sm sm:text-base font-semibold text-gray-600">Email Support</div>
-                  <div className="text-xs sm:text-sm text-gray-600">support@busexpress.com</div>
+                  <div className="text-xs sm:text-sm text-gray-600">support@saferun.com</div>
                 </div>
                 <div className="text-xs sm:text-sm text-green-600 font-medium">Fast</div>
               </div>

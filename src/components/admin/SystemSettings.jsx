@@ -5,9 +5,9 @@ import { showToast } from '../../utils/toast'
 const SystemSettings = () => {
   const [settings, setSettings] = useState({
     // General Settings
-    siteName: 'BusExpress',
+    siteName: 'SafeRun',
     siteDescription: 'Your trusted partner for comfortable and reliable bus travel',
-    contactEmail: 'info@busexpress.com',
+    contactEmail: 'info@saferun.com',
     contactPhone: '+1 (555) 123-4567',
     
     // Booking Settings

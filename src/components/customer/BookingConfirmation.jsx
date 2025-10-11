@@ -9,7 +9,7 @@ const BookingConfirmation = ({ bookingData }) => {
   // Mock booking data if not provided
   const booking = bookingData || {
     bus: {
-      operator: 'Express Bus Lines',
+      operator: 'SafeRun Lines',
       from: 'New York',
       to: 'Boston',
       departureTime: '08:00 AM',
@@ -218,7 +218,7 @@ const BookingConfirmation = ({ bookingData }) => {
         {/* Contact Information */}
         <div className="text-center mt-8 text-sm text-gray-600">
           <p>Need help? Contact our customer support at <span className="text-primary">+1 (555) 123-4567</span></p>
-          <p>or email us at <span className="text-primary">support@busexpress.com</span></p>
+          <p>or email us at <span className="text-primary">support@saferun.com</span></p>
         </div>
       </div>
     </div>

@@ -3,6 +3,25 @@
 @tailwind utilities;
 
 @layer base {
+  /* Modern Design System Reset */
+  * {
+    box-sizing: border-box;
+  }
+  
+  html {
+    font-family: "Barlow Semi Condensed", sans-serif;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  body {
+    @apply bg-background text-text-dark;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+  }
+
   /* Reset all button and link styles */
   button,
   input[type="button"],
@@ -75,7 +94,7 @@
     border: none !important;
   }
 
-  /* Ensure all form elements have proper borders and styling */
+  /* Modern form elements styling */
   input[type="text"],
   input[type="email"],
   input[type="password"],
@@ -90,19 +109,20 @@
   input[type="week"],
   textarea,
   select {
-    border: 1px solid #B99750 !important;
-     border-radius: 0.1rem !important;
-    padding: 0.5rem 0.75rem !important;
-    background-color: white !important;
-    color: #B99750 !important;
+    border: 1px solid #E5E7EB !important;
+    border-radius: 0.375rem !important;
+    padding: 0.75rem 1rem !important;
+    background-color: #FFFFFF !important;
+    color: #47143D !important;
     font-size: 0.875rem !important;
     line-height: 1.25rem !important;
-    transition: all 0.2s !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
     width: 100% !important;
     box-sizing: border-box !important;
+    font-weight: 500 !important;
   }
 
-  /* Focus states for all form elements */
+  /* Modern focus states for all form elements */
   input[type="text"]:focus,
   input[type="email"]:focus,
   input[type="password"]:focus,
@@ -118,8 +138,9 @@
   textarea:focus,
   select:focus {
     border-color: #47143D !important;
-    box-shadow: 0 0 0 2px rgba(71, 20, 61, 0.2) !important;
+    box-shadow: 0 0 0 3px rgba(71, 20, 61, 0.1) !important;
     outline: none !important;
+    transform: translateY(-1px) !important;
   }
 
   /* Override any existing focus classes */
@@ -127,7 +148,7 @@
     box-shadow: 0 0 0 2px rgba(71, 20, 61, 0.2) !important;
   }
 
-  .focus\:ring-navy:focus {
+  .focus\:ring-primary:focus {
     box-shadow: 0 0 0 2px rgba(71, 20, 61, 0.2) !important;
   }
 
@@ -165,13 +186,13 @@
   }
   
   body {
-    @apply bg-background text-[#B99750];
+    @apply bg-background text-text-dark;
     line-height: 1.6;
   }
 
   /* Improved focus styles for accessibility */
   *:focus {
-    @apply outline-none ring-2 ring-navy ring-offset-2;
+    @apply outline-none ring-2 ring-primary ring-offset-2;
   }
 
   /* Better text rendering */
@@ -253,177 +274,117 @@
   }
 
 @layer components {
-  /* Barlow Semi Condensed Font Classes */
-  .barlow-semi-condensed-thin {
-    font-family: "Barlow Semi Condensed", sans-serif;
-    font-weight: 100;
-    font-style: normal;
+  /* Modern Typography System */
+  .text-display {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold text-text-dark leading-tight;
   }
 
-  .barlow-semi-condensed-extralight {
-    font-family: "Barlow Semi Condensed", sans-serif;
-    font-weight: 200;
-    font-style: normal;
+  .text-heading-1 {
+    @apply text-3xl md:text-4xl font-bold text-text-dark leading-tight;
   }
 
-  .barlow-semi-condensed-light {
-    font-family: "Barlow Semi Condensed", sans-serif;
-    font-weight: 300;
-    font-style: normal;
+  .text-heading-2 {
+    @apply text-2xl md:text-3xl font-semibold text-text-dark leading-tight;
   }
 
-  .barlow-semi-condensed-regular {
-    font-family: "Barlow Semi Condensed", sans-serif;
-    font-weight: 400;
-    font-style: normal;
+  .text-heading-3 {
+    @apply text-xl md:text-2xl font-semibold text-text-dark leading-snug;
   }
 
-  .barlow-semi-condensed-medium {
-    font-family: "Barlow Semi Condensed", sans-serif;
-    font-weight: 500;
-    font-style: normal;
+  .text-heading-4 {
+    @apply text-lg md:text-xl font-medium text-text-dark leading-snug;
   }
 
-  .barlow-semi-condensed-semibold {
-    font-family: "Barlow Semi Condensed", sans-serif;
-    font-weight: 600;
-    font-style: normal;
+  .text-body-large {
+    @apply text-lg font-medium text-text-dark leading-relaxed;
   }
 
-  .barlow-semi-condensed-bold {
-    font-family: "Barlow Semi Condensed", sans-serif;
-    font-weight: 700;
-    font-style: normal;
+  .text-body {
+    @apply text-base font-normal text-text-dark leading-relaxed;
   }
 
-  .barlow-semi-condensed-extrabold {
-    font-family: "Barlow Semi Condensed", sans-serif;
-    font-weight: 800;
-    font-style: normal;
+  .text-body-small {
+    @apply text-sm font-normal text-text-light leading-relaxed;
   }
 
-  .barlow-semi-condensed-black {
-    font-family: "Barlow Semi Condensed", sans-serif;
-    font-weight: 900;
-    font-style: normal;
+  .text-caption {
+    @apply text-xs font-medium text-text-light leading-normal uppercase tracking-wide;
   }
 
-  .barlow-semi-condensed-thin-italic {
-    font-family: "Barlow Semi Condensed", sans-serif;
-    font-weight: 100;
-    font-style: italic;
+  .text-label {
+    @apply text-sm font-semibold text-text-dark leading-normal;
   }
 
-  .barlow-semi-condensed-extralight-italic {
-    font-family: "Barlow Semi Condensed", sans-serif;
-    font-weight: 200;
-    font-style: italic;
-  }
-
-  .barlow-semi-condensed-light-italic {
-    font-family: "Barlow Semi Condensed", sans-serif;
-    font-weight: 300;
-    font-style: italic;
-  }
-
-  .barlow-semi-condensed-regular-italic {
-    font-family: "Barlow Semi Condensed", sans-serif;
-    font-weight: 400;
-    font-style: italic;
-  }
-
-  .barlow-semi-condensed-medium-italic {
-    font-family: "Barlow Semi Condensed", sans-serif;
-    font-weight: 500;
-    font-style: italic;
-  }
-
-  .barlow-semi-condensed-semibold-italic {
-    font-family: "Barlow Semi Condensed", sans-serif;
-    font-weight: 600;
-    font-style: italic;
-  }
-
-  .barlow-semi-condensed-bold-italic {
-    font-family: "Barlow Semi Condensed", sans-serif;
-    font-weight: 700;
-    font-style: italic;
-  }
-
-  .barlow-semi-condensed-extrabold-italic {
-    font-family: "Barlow Semi Condensed", sans-serif;
-    font-weight: 800;
-    font-style: italic;
-  }
-
-  .barlow-semi-condensed-black-italic {
-    font-family: "Barlow Semi Condensed", sans-serif;
-    font-weight: 900;
-    font-style: italic;
-  }
-
-  /* Enhanced Button Components */
+  /* Modern Button Components */
   .btn-primary {
-    @apply bg-primary hover:bg-hover active:bg-navy-dark text-white font-medium py-2 px-4 transition-all duration-200 text-sm sm:text-base shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-sm border-0 hover:border-0 active:border-0 focus:border-0;
+    @apply bg-primary hover:bg-primary/90 active:bg-primary/95 text-text font-semibold py-3 px-6 rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:hover:shadow-none;
   }
   
   .btn-secondary {
-    @apply bg-button/20 hover:bg-button/30 active:bg-button/40 text-[#B99750] font-medium py-2 px-4 transition-all duration-200 text-sm sm:text-base shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-sm border-0 hover:border-0 active:border-0 focus:border-0;
+    @apply bg-background border-2 border-primary text-primary hover:bg-primary hover:text-text font-semibold py-3 px-6 rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:hover:shadow-none;
   }
   
   .btn-outline {
-    @apply border border-primary text-[#B99750] hover:bg-hover hover:text-white active:bg-navy-light font-medium py-2 px-4 transition-all duration-200 text-sm sm:text-base shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-sm hover:border-0 active:border-0 focus:border-0;
+    @apply border-2 border-border text-text-dark hover:bg-hover-light hover:border-primary font-semibold py-3 px-6 rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:hover:shadow-none;
+  }
+
+  .btn-ghost {
+    @apply text-text-dark hover:bg-hover-light font-semibold py-3 px-6 rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none;
   }
 
   .btn-sm {
-    @apply py-1 px-2.5 text-xs border-0 hover:border-0 active:border-0 focus:border-0;
+    @apply py-2 px-4 text-sm;
   }
 
   .btn-lg {
-    @apply py-2 px-4 text-sm border-0 hover:border-0 active:border-0 focus:border-0;
+    @apply py-4 px-8 text-lg;
   }
 
   .btn-xl {
-    @apply py-2.5 px-6 text-base border-0 hover:border-0 active:border-0 focus:border-0;
+    @apply py-5 px-10 text-xl;
   }
   
-  /* Enhanced Card Components */
+  /* Modern Card Components */
   .card {
-    @apply bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 p-3 sm:p-4 border border-gray-200;
+    @apply bg-background rounded-xl shadow-sm hover:shadow-md transition-all duration-300 ease-in-out p-6 border border-border hover:border-primary/20 hover:-translate-y-1;
   }
 
   .card-compact {
-    @apply bg-white rounded-lg shadow-sm p-2 sm:p-3 border border-gray-200;
+    @apply bg-background rounded-lg shadow-sm hover:shadow-md transition-all duration-300 ease-in-out p-4 border border-border hover:border-primary/20 hover:-translate-y-0.5;
   }
 
   .card-elevated {
-    @apply bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200 p-3 sm:p-4 border border-gray-200;
+    @apply bg-background rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out p-6 border border-border hover:border-primary/20 hover:-translate-y-2;
+  }
+
+  .card-interactive {
+    @apply bg-background rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 ease-in-out p-6 border border-border hover:border-primary/30 hover:-translate-y-1 cursor-pointer;
   }
   
-  /* Enhanced Input Components */
+  /* Modern Input Components */
   .input-field {
-    @apply w-full px-3 py-2 border border-[#B99750] focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-sm sm:text-base transition-colors duration-200 bg-white text-[#B99750];
+    @apply w-full px-4 py-3 border border-border focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary text-sm font-medium transition-all duration-300 ease-in-out bg-background text-text-dark rounded-lg hover:border-primary/50;
   }
 
   .input-field-sm {
-    @apply px-2 py-1.5 text-xs;
+    @apply px-3 py-2 text-xs;
   }
 
   .input-field-lg {
-    @apply px-3 py-2 text-sm;
+    @apply px-5 py-4 text-base;
   }
 
-  /* Enhanced Seat Components */
+  /* Modern Seat Components */
   .seat-available {
-    @apply bg-button border-hover text-[#B99750] hover:bg-hover cursor-pointer transition-colors duration-150;
+    @apply bg-background border-2 border-border text-text-dark hover:bg-primary hover:text-text hover:border-primary cursor-pointer transition-all duration-300 ease-in-out transform hover:scale-105;
   }
   
   .seat-selected {
-    @apply bg-primary border-navy-dark text-white;
+    @apply bg-primary border-primary text-text transform scale-105 shadow-lg;
   }
   
   .seat-occupied {
-    @apply bg-gray-100 border-gray-300 text-[#B99750] cursor-not-allowed;
+    @apply bg-hover-light border-border text-text-light cursor-not-allowed opacity-60;
   }
 
   /* Responsive Grid Components */
@@ -514,7 +475,7 @@
 
   /* Loading States */
   .loading-spinner {
-    @apply animate-spin border-2 border-gray-300 border-t-navy;
+    @apply animate-spin border-2 border-border border-t-primary;
   }
 
   .loading-skeleton {
@@ -523,19 +484,19 @@
 
   /* Status Indicators */
   .status-success {
-    @apply bg-button text-[#B99750] border border-hover;
+    @apply bg-success/10 text-success border border-success/20;
   }
 
   .status-warning {
-    @apply bg-hover text-[#B99750] border border-primary;
+    @apply bg-warning/10 text-warning border border-warning/20;
   }
 
   .status-error {
-    @apply bg-gray-100 text-[#B99750] border border-[#B99750];
+    @apply bg-error/10 text-error border border-error/20;
   }
 
   .status-info {
-    @apply bg-button text-[#B99750] border border-hover;
+    @apply bg-info/10 text-info border border-info/20;
   }
 
   /* Responsive Modal */
@@ -556,53 +517,53 @@
     @apply grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6;
   }
 
-  /* Professional Dashboard Components */
+  /* Modern Dashboard Components */
   .dashboard-card {
-    @apply bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 p-3 sm:p-4 lg:p-5 border border-gray-200;
+    @apply bg-background rounded-xl shadow-sm hover:shadow-md transition-all duration-300 ease-in-out p-6 border border-border hover:border-primary/20 hover:-translate-y-1;
   }
 
   .dashboard-card-header {
-    @apply border-b border-gray-200 pb-3 sm:pb-4 mb-3 sm:mb-4;
+    @apply border-b border-border pb-4 mb-4;
   }
 
   .dashboard-card-title {
-    @apply text-base sm:text-lg lg:text-xl font-bold text-[#B99750] mb-1;
+    @apply text-heading-4 mb-2;
   }
 
   .dashboard-card-subtitle {
-    @apply text-xs sm:text-sm text-[#B99750];
+    @apply text-body-small;
   }
 
   .dashboard-stat {
-    @apply flex items-center justify-between p-3 sm:p-4 lg:p-5 rounded-lg bg-gradient-to-br from-white to-background border border-gray-200;
+    @apply flex items-center justify-between p-6 rounded-xl bg-gradient-to-br from-background to-hover-light border border-border hover:border-primary/20 transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-md;
   }
 
   .dashboard-stat-icon {
-    @apply w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-lg flex items-center justify-center shadow-sm;
+    @apply w-12 h-12 rounded-xl flex items-center justify-center shadow-sm bg-primary/10 text-primary;
   }
 
   .dashboard-stat-content {
-    @apply flex-1 ml-3 sm:ml-4;
+    @apply flex-1 ml-4;
   }
 
   .dashboard-stat-value {
-    @apply text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold text-[#B99750] mb-1;
+    @apply text-2xl font-bold text-text-dark mb-1;
   }
 
   .dashboard-stat-label {
-    @apply text-xs font-medium text-[#B99750] uppercase tracking-wide;
+    @apply text-caption;
   }
 
   .dashboard-stat-change {
-    @apply text-xs sm:text-sm font-medium mt-1;
+    @apply text-sm font-medium mt-1;
   }
 
   .dashboard-stat-change.positive {
-    @apply text-navy;
+    @apply text-success;
   }
 
   .dashboard-stat-change.negative {
-    @apply text-[#B99750];
+    @apply text-error;
   }
 
   /* Dashboard Grid Systems */
@@ -643,34 +604,34 @@
     @apply p-3 sm:p-4 lg:p-5;
   }
 
-  /* Dashboard Tables */
+  /* Modern Dashboard Tables */
   .dashboard-table {
-    @apply w-full bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden;
+    @apply w-full bg-background rounded-xl shadow-sm border border-border overflow-hidden;
   }
 
   .dashboard-table-header {
-    @apply bg-gray-50 border-b border-gray-200 px-3 sm:px-4 py-2 sm:py-3;
+    @apply bg-hover-light border-b border-border px-6 py-4;
   }
 
   .dashboard-table-body {
-    @apply divide-y divide-gray-200;
+    @apply divide-y divide-border;
   }
 
   .dashboard-table-row {
-    @apply px-3 sm:px-4 py-2 sm:py-3 hover:bg-gray-50 transition-colors duration-150;
+    @apply px-6 py-4 hover:bg-hover-light transition-colors duration-200;
   }
 
-  /* Dashboard Forms */
+  /* Modern Dashboard Forms */
   .dashboard-form {
-    @apply space-y-3 sm:space-y-4;
+    @apply space-y-6;
   }
 
   .dashboard-form-group {
-    @apply grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4;
+    @apply grid grid-cols-1 sm:grid-cols-2 gap-6;
   }
 
   .dashboard-form-section {
-    @apply bg-white rounded-lg p-3 sm:p-4 lg:p-5 border border-gray-200;
+    @apply bg-background rounded-xl p-6 border border-border;
   }
 
   /* Dashboard Actions */
@@ -682,25 +643,25 @@
     @apply flex flex-wrap gap-2;
   }
 
-  /* Dashboard Metrics */
+  /* Modern Dashboard Metrics */
   .dashboard-metric {
-    @apply bg-white rounded-lg p-3 sm:p-4 border border-gray-200 hover:shadow-md transition-shadow duration-200;
+    @apply bg-background rounded-xl p-6 border border-border hover:shadow-md transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-primary/20;
   }
 
   .dashboard-metric-header {
-    @apply flex items-center justify-between mb-2 sm:mb-3;
+    @apply flex items-center justify-between mb-3;
   }
 
   .dashboard-metric-title {
-    @apply text-xs sm:text-sm font-semibold text-[#B99750];
+    @apply text-label;
   }
 
   .dashboard-metric-value {
-    @apply text-lg sm:text-xl lg:text-2xl font-bold text-[#B99750];
+    @apply text-2xl font-bold text-text-dark;
   }
 
   .dashboard-metric-subtitle {
-    @apply text-xs text-[#B99750] mt-1;
+    @apply text-body-small mt-1;
   }
 }
 
@@ -746,29 +707,30 @@
   }
 }
 
-/* Global Color Scheme */
+/* Modern Global Color Scheme */
 @layer base {
-  /* All headings should be golden brown */
+  /* All headings should use primary color */
   h1, h2, h3, h4, h5, h6 {
-    @apply text-[#B99750];
+    @apply text-text-dark;
   }
   
-  /* All paragraphs and normal text should be gray */
+  /* All paragraphs and normal text should use appropriate text colors */
   p, span, div, label, td, th, li {
-    @apply text-gray-600;
+    @apply text-text-dark;
   }
   
   /* Override any existing text colors for consistency */
-  .text-primary {
-    @apply text-[#B99750];
-  }
-  
   .text-heading {
-    @apply text-[#B99750];
+    @apply text-text-dark;
   }
   
   .text-body {
-    @apply text-gray-600;
+    @apply text-text-dark;
+  }
+
+  /* Modern focus styles for accessibility */
+  *:focus {
+    @apply outline-none ring-2 ring-primary/20 ring-offset-2;
   }
 }
 
