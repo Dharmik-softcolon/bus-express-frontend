@@ -31,9 +31,11 @@ export const FEATURE_ROUTES = {
     roles: '/dashboard/master/roles',
   },
   
-  // Bus Owner routes (analytics only)
+  // Bus Owner routes (management + analytics)
   [ROLES.BUS_OWNER]: {
     dashboard: '/bus-owner',
+    company: '/bus-owner/company',
+    busAdmins: '/bus-owner/bus-admins',
     busAnalytics: '/bus-owner/bus-analytics',
     routeAnalytics: '/bus-owner/route-analytics',
     tripAnalytics: '/bus-owner/trip-analytics',
@@ -91,8 +93,10 @@ export const ROUTE_PERMISSIONS = {
   [FEATURE_ROUTES[ROLES.MASTER_ADMIN].analytics]: [ROLES.MASTER_ADMIN],
   [FEATURE_ROUTES[ROLES.MASTER_ADMIN].roles]: [ROLES.MASTER_ADMIN],
   
-  // Bus Owner routes (analytics only)
+  // Bus Owner routes (management + analytics)
   [FEATURE_ROUTES[ROLES.BUS_OWNER].dashboard]: [ROLES.BUS_OWNER, ROLES.MASTER_ADMIN],
+  [FEATURE_ROUTES[ROLES.BUS_OWNER].company]: [ROLES.BUS_OWNER, ROLES.MASTER_ADMIN],
+  [FEATURE_ROUTES[ROLES.BUS_OWNER].busAdmins]: [ROLES.BUS_OWNER, ROLES.MASTER_ADMIN],
   [FEATURE_ROUTES[ROLES.BUS_OWNER].busAnalytics]: [ROLES.BUS_OWNER, ROLES.BUS_ADMIN, ROLES.MASTER_ADMIN],
   [FEATURE_ROUTES[ROLES.BUS_OWNER].routeAnalytics]: [ROLES.BUS_OWNER, ROLES.BUS_ADMIN, ROLES.MASTER_ADMIN],
   [FEATURE_ROUTES[ROLES.BUS_OWNER].tripAnalytics]: [ROLES.BUS_OWNER, ROLES.BUS_ADMIN, ROLES.MASTER_ADMIN],
@@ -168,6 +172,8 @@ export const NAVIGATION_MENU = {
   
   [ROLES.BUS_OWNER]: [
     { label: 'Dashboard', path: FEATURE_ROUTES[ROLES.BUS_OWNER].dashboard, icon: 'dashboard' },
+    { label: 'Company', path: FEATURE_ROUTES[ROLES.BUS_OWNER].company, icon: 'company' },
+    { label: 'Bus Admins', path: FEATURE_ROUTES[ROLES.BUS_OWNER].busAdmins, icon: 'users' },
     { label: 'Bus Analytics', path: FEATURE_ROUTES[ROLES.BUS_OWNER].busAnalytics, icon: 'buses' },
     { label: 'Route Analytics', path: FEATURE_ROUTES[ROLES.BUS_OWNER].routeAnalytics, icon: 'routes' },
     { label: 'Trip Analytics', path: FEATURE_ROUTES[ROLES.BUS_OWNER].tripAnalytics, icon: 'trips' },

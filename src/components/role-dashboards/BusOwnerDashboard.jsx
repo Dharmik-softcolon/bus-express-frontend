@@ -9,12 +9,17 @@ import {
   Users,
   AlertCircle,
   CheckCircle,
-  Clock
+  Clock,
+  Building2,
+  UserPlus,
+  Settings
 } from 'lucide-react'
+import { busOwnerAPI } from '../../services/api'
 
 const BusOwnerDashboard = () => {
   const navigate = useNavigate()
   const [stats, setStats] = useState({
+    totalBusAdmins: 0,
     totalBuses: 0,
     activeRoutes: 0,
     totalTrips: 0,
@@ -23,11 +28,45 @@ const BusOwnerDashboard = () => {
     maintenanceDue: 0
   })
   const [loading, setLoading] = useState(true)
+  const [company, setCompany] = useState(null)
 
   useEffect(() => {
-    // TODO: Fetch bus owner dashboard data
-    setTimeout(() => {
+    fetchDashboardData()
+  }, [])
+
+  const fetchDashboardData = async () => {
+    try {
+      setLoading(true)
+      const response = await busOwnerAPI.getDashboard()
+      if (response.success && response.data) {
+        // Ensure all required stats exist with fallback values
+        setStats({
+          totalBusAdmins: response.data.statistics?.totalBusAdmins || 0,
+          totalBuses: response.data.statistics?.totalBuses || 0,
+          activeRoutes: response.data.statistics?.activeRoutes || 0,
+          totalTrips: response.data.statistics?.totalTrips || 0,
+          monthlyRevenue: response.data.statistics?.monthlyRevenue || 0,
+          totalBookings: response.data.statistics?.totalBookings || 0,
+          maintenanceDue: response.data.statistics?.maintenanceDue || 0
+        })
+        setCompany(response.data.user?.company)
+      } else {
+        // Fallback to mock data if API fails
+        setStats({
+          totalBusAdmins: 3,
+          totalBuses: 12,
+          activeRoutes: 8,
+          totalTrips: 156,
+          monthlyRevenue: 245000,
+          totalBookings: 1240,
+          maintenanceDue: 3
+        })
+      }
+    } catch (error) {
+      console.error('Error fetching dashboard data:', error)
+      // Fallback to mock data
       setStats({
+        totalBusAdmins: 3,
         totalBuses: 12,
         activeRoutes: 8,
         totalTrips: 156,
@@ -35,12 +74,19 @@ const BusOwnerDashboard = () => {
         totalBookings: 1240,
         maintenanceDue: 3
       })
+    } finally {
       setLoading(false)
-    }, 1000)
-  }, [])
+    }
+  }
 
   const handleQuickAction = (action) => {
     switch(action) {
+      case 'company-management':
+        navigate('/bus-owner/company')
+        break
+      case 'bus-admin-management':
+        navigate('/bus-owner/bus-admins')
+        break
       case 'bus-analytics':
         navigate('/bus-owner/bus-analytics')
         break
@@ -77,7 +123,23 @@ const BusOwnerDashboard = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Quick Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 gap-6 mb-8">
+          <div className="dashboard-stat">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <div className="dashboard-stat-icon bg-primary/10 text-primary">
+                  <Users className="w-6 h-6" />
+                </div>
+              </div>
+              <div className="ml-4">
+                <p className="text-caption">Bus Admins</p>
+                <p className="dashboard-stat-value">
+                  {loading ? '...' : (stats.totalBusAdmins || 0)}
+                </p>
+              </div>
+            </div>
+          </div>
+
           <div className="dashboard-stat">
             <div className="flex items-center">
               <div className="flex-shrink-0">
@@ -88,7 +150,7 @@ const BusOwnerDashboard = () => {
               <div className="ml-4">
                 <p className="text-caption">Total Buses</p>
                 <p className="dashboard-stat-value">
-                  {loading ? '...' : stats.totalBuses}
+                  {loading ? '...' : (stats.totalBuses || 0)}
                 </p>
               </div>
             </div>
@@ -104,7 +166,7 @@ const BusOwnerDashboard = () => {
               <div className="ml-4">
                 <p className="text-caption">Active Routes</p>
                 <p className="dashboard-stat-value">
-                  {loading ? '...' : stats.activeRoutes}
+                  {loading ? '...' : (stats.activeRoutes || 0)}
                 </p>
               </div>
             </div>
@@ -120,7 +182,7 @@ const BusOwnerDashboard = () => {
               <div className="ml-4">
                 <p className="text-caption">Total Trips</p>
                 <p className="dashboard-stat-value">
-                  {loading ? '...' : stats.totalTrips}
+                  {loading ? '...' : (stats.totalTrips || 0)}
                 </p>
               </div>
             </div>
@@ -136,7 +198,7 @@ const BusOwnerDashboard = () => {
               <div className="ml-4">
                 <p className="text-caption">Monthly Revenue</p>
                 <p className="dashboard-stat-value">
-                  {loading ? '...' : `₹${stats.monthlyRevenue.toLocaleString()}`}
+                  {loading ? '...' : `₹${(stats.monthlyRevenue || 0).toLocaleString()}`}
                 </p>
               </div>
             </div>
@@ -152,7 +214,7 @@ const BusOwnerDashboard = () => {
               <div className="ml-4">
                 <p className="text-caption">Total Bookings</p>
                 <p className="dashboard-stat-value">
-                  {loading ? '...' : stats.totalBookings.toLocaleString()}
+                  {loading ? '...' : (stats.totalBookings || 0).toLocaleString()}
                 </p>
               </div>
             </div>
@@ -168,7 +230,7 @@ const BusOwnerDashboard = () => {
               <div className="ml-4">
                 <p className="text-caption">Maintenance Due</p>
                 <p className="dashboard-stat-value">
-                  {loading ? '...' : stats.maintenanceDue}
+                  {loading ? '...' : (stats.maintenanceDue || 0)}
                 </p>
               </div>
             </div>
@@ -258,27 +320,27 @@ const BusOwnerDashboard = () => {
             <div className="dashboard-card-header">
               <h2 className="text-heading-3">Quick Actions</h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               <div 
-                onClick={() => handleQuickAction('bus-analytics')}
+                onClick={() => handleQuickAction('company-management')}
                 className="text-center p-6 rounded-xl bg-primary/5 border border-primary/20 hover:bg-primary/10 hover:border-primary/30 transition-all duration-300 ease-in-out cursor-pointer hover:-translate-y-1 hover:shadow-md"
               >
-                <Bus className="w-8 h-8 text-primary mx-auto mb-3" />
-                <p className="text-body-small font-semibold">Bus Analytics</p>
+                <Building2 className="w-8 h-8 text-primary mx-auto mb-3" />
+                <p className="text-body-small font-semibold">Company Management</p>
               </div>
               <div 
-                onClick={() => handleQuickAction('route-analytics')}
+                onClick={() => handleQuickAction('bus-admin-management')}
                 className="text-center p-6 rounded-xl bg-success/5 border border-success/20 hover:bg-success/10 hover:border-success/30 transition-all duration-300 ease-in-out cursor-pointer hover:-translate-y-1 hover:shadow-md"
               >
-                <MapPin className="w-8 h-8 text-success mx-auto mb-3" />
-                <p className="text-body-small font-semibold">Route Analytics</p>
+                <UserPlus className="w-8 h-8 text-success mx-auto mb-3" />
+                <p className="text-body-small font-semibold">Bus Admin Management</p>
               </div>
               <div 
-                onClick={() => handleQuickAction('trip-analytics')}
+                onClick={() => handleQuickAction('bus-analytics')}
                 className="text-center p-6 rounded-xl bg-info/5 border border-info/20 hover:bg-info/10 hover:border-info/30 transition-all duration-300 ease-in-out cursor-pointer hover:-translate-y-1 hover:shadow-md"
               >
-                <Calendar className="w-8 h-8 text-info mx-auto mb-3" />
-                <p className="text-body-small font-semibold">Trip Analytics</p>
+                <Bus className="w-8 h-8 text-info mx-auto mb-3" />
+                <p className="text-body-small font-semibold">Bus Analytics</p>
               </div>
               <div 
                 onClick={() => handleQuickAction('revenue')}
@@ -286,13 +348,6 @@ const BusOwnerDashboard = () => {
               >
                 <DollarSign className="w-8 h-8 text-warning mx-auto mb-3" />
                 <p className="text-body-small font-semibold">Revenue</p>
-              </div>
-              <div 
-                onClick={() => handleQuickAction('expenses')}
-                className="text-center p-6 rounded-xl bg-error/5 border border-error/20 hover:bg-error/10 hover:border-error/30 transition-all duration-300 ease-in-out cursor-pointer hover:-translate-y-1 hover:shadow-md"
-              >
-                <TrendingUp className="w-8 h-8 text-error mx-auto mb-3" />
-                <p className="text-body-small font-semibold">Expenses</p>
               </div>
             </div>
           </div>

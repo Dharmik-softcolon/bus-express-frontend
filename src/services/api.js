@@ -280,6 +280,105 @@ export const authAPI = {
   },
 };
 
+// Company Management API (Bus Owner only)
+export const companyAPI = {
+  // Create company
+  createCompany: async (companyData) => {
+    return apiRequest('/bus-owner/company', {
+      method: 'POST',
+      data: companyData,
+    });
+  },
+
+  // Get company details
+  getCompany: async () => {
+    return apiRequest('/bus-owner/company');
+  },
+
+  // Update company
+  updateCompany: async (companyData) => {
+    return apiRequest('/bus-owner/company', {
+      method: 'PUT',
+      data: companyData,
+    });
+  },
+
+  // Delete company
+  deleteCompany: async () => {
+    return apiRequest('/bus-owner/company', {
+      method: 'DELETE',
+    });
+  },
+
+  // Get company statistics
+  getCompanyStatistics: async () => {
+    return apiRequest('/bus-owner/company/statistics');
+  },
+};
+
+// Bus Owner Management API
+export const busOwnerAPI = {
+  // Get bus owner dashboard
+  getDashboard: async () => {
+    return apiRequest('/bus-owner/dashboard');
+  },
+
+  // Get all users in flow
+  getAllUsersInFlow: async (params = {}) => {
+    return apiRequest('/bus-owner/users', {
+      method: 'GET',
+      params,
+    });
+  },
+
+  // Get bus admins
+  getBusAdmins: async (params = {}) => {
+    return apiRequest('/bus-owner/bus-admins', {
+      method: 'GET',
+      params,
+    });
+  },
+
+  // Create bus admin
+  createBusAdmin: async (busAdminData) => {
+    return apiRequest('/bus-owner/bus-admins', {
+      method: 'POST',
+      data: busAdminData,
+    });
+  },
+
+  // Update bus admin
+  updateBusAdmin: async (busAdminId, busAdminData) => {
+    return apiRequest(`/bus-owner/bus-admins/${busAdminId}`, {
+      method: 'PUT',
+      data: busAdminData,
+    });
+  },
+
+  // Delete bus admin
+  deleteBusAdmin: async (busAdminId) => {
+    return apiRequest(`/bus-owner/bus-admins/${busAdminId}`, {
+      method: 'DELETE',
+    });
+  },
+
+  // Get bus employees
+  getBusEmployees: async (params = {}) => {
+    return apiRequest('/bus-owner/bus-employees', {
+      method: 'GET',
+      params,
+    });
+  },
+
+  // Get booking managers
+  getBookingManagers: async (params = {}) => {
+    return apiRequest('/bus-owner/booking-managers', {
+      method: 'GET',
+      params,
+    });
+  },
+};
+
 // Search API
 export const searchAPI = {
   // Search buses
@@ -782,6 +881,93 @@ export const expenseAPI = {
       params,
     });
   },
+
+  // Approve expense
+  approveExpense: async (expenseId, data) => {
+    return apiRequest(`/expenses/${expenseId}/approve`, {
+      method: 'PUT',
+      data,
+    });
+  },
+
+  // Reject expense
+  rejectExpense: async (expenseId, data) => {
+    return apiRequest(`/expenses/${expenseId}/reject`, {
+      method: 'PUT',
+      data,
+    });
+  },
+
+  // Get expense analytics
+  getExpenseAnalytics: async (params = {}) => {
+    return apiRequest('/expenses/analytics', {
+      method: 'GET',
+      params,
+    });
+  },
+};
+
+// Master Admin Expense API
+export const masterAdminExpenseAPI = {
+  // Get all expenses for master admin
+  getAllExpenses: async (params = {}) => {
+    return apiRequest('/master-admin/expenses', {
+      method: 'GET',
+      params,
+    });
+  },
+
+  // Get expense by ID
+  getExpenseById: async (expenseId) => {
+    return apiRequest(`/master-admin/expenses/${expenseId}`);
+  },
+
+  // Create new expense
+  createExpense: async (expenseData) => {
+    return apiRequest('/master-admin/expenses', {
+      method: 'POST',
+      data: expenseData,
+    });
+  },
+
+  // Update expense
+  updateExpense: async (expenseId, expenseData) => {
+    return apiRequest(`/master-admin/expenses/${expenseId}`, {
+      method: 'PUT',
+      data: expenseData,
+    });
+  },
+
+  // Delete expense
+  deleteExpense: async (expenseId) => {
+    return apiRequest(`/master-admin/expenses/${expenseId}`, {
+      method: 'DELETE',
+    });
+  },
+
+  // Approve expense
+  approveExpense: async (expenseId, data) => {
+    return apiRequest(`/master-admin/expenses/${expenseId}/approve`, {
+      method: 'PUT',
+      data,
+    });
+  },
+
+  // Reject expense
+  rejectExpense: async (expenseId, data) => {
+    return apiRequest(`/master-admin/expenses/${expenseId}/reject`, {
+      method: 'PUT',
+      data,
+    });
+  },
+
+  // Get expense analytics
+  getExpenseAnalytics: async (params = {}) => {
+    return apiRequest('/master-admin/expenses/analytics', {
+      method: 'GET',
+      params,
+    });
+  },
 };
 
 // Bus Employee API
@@ -1041,6 +1227,33 @@ export const dashboardAPI = {
 
   getBusAdminEarnings: async (params = {}) => {
     return apiRequest('/bus-admin/earnings', {
+      method: 'GET',
+      params,
+    });
+  },
+};
+
+// Bus Admin Analytics API
+export const busAdminAnalyticsAPI = {
+  // Get bus admin analytics
+  getAnalytics: async (params = {}) => {
+    return apiRequest('/bus-admin/analytics', {
+      method: 'GET',
+      params,
+    });
+  },
+
+  // Get revenue analytics
+  getRevenueAnalytics: async (params = {}) => {
+    return apiRequest('/bus-admin/analytics/revenue', {
+      method: 'GET',
+      params,
+    });
+  },
+
+  // Get expense analytics
+  getExpenseAnalytics: async (params = {}) => {
+    return apiRequest('/bus-admin/analytics/expenses', {
       method: 'GET',
       params,
     });

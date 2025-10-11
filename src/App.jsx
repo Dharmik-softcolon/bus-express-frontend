@@ -19,6 +19,10 @@ import BookingConfirmation from './components/customer/BookingConfirmation'
 import MasterAdminDashboard from './components/role-dashboards/MasterAdminDashboard'
 import BusOwnerDashboard from './components/role-dashboards/BusOwnerDashboard'
 
+// Admin Management Components
+import CompanyManagement from './components/admin/CompanyManagement'
+import BusAdminManagement from './components/admin/BusAdminManagement'
+
 // Management Pages
 import RouteManagement from './components/pages/RouteManagement'
 import TripManagement from './components/pages/TripManagement'
@@ -110,6 +114,16 @@ function App() {
             <Route path="/bus-owner" element={
               <ProtectedRoute requiredRoles={[ROLES.BUS_OWNER, ROLES.MASTER_ADMIN]}>
                 <BusOwnerDashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/bus-owner/company" element={
+              <ProtectedRoute requiredRoles={[ROLES.BUS_OWNER, ROLES.MASTER_ADMIN]}>
+                <CompanyManagement />
+              </ProtectedRoute>
+            } />
+            <Route path="/bus-owner/bus-admins" element={
+              <ProtectedRoute requiredRoles={[ROLES.BUS_OWNER, ROLES.MASTER_ADMIN]}>
+                <BusAdminManagement />
               </ProtectedRoute>
             } />
             <Route path="/bus-owner/bus-analytics" element={

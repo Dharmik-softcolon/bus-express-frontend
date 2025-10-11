@@ -77,7 +77,7 @@ const BookingMenManagement = () => {
       })
       
       if (response.success) {
-        setBookingMen(response.data.bookingMen || [])
+        setBookingMen(response.data.bookingManagers || [])
       } else {
         setError(response.message || 'Failed to fetch booking men')
       }
@@ -378,6 +378,7 @@ const BookingMenManagement = () => {
             </div>
           </div>
         </div>
+
 
         {/* Content */}
         <div className="bg-white rounded-lg shadow-sm border">

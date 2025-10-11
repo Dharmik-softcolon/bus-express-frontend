@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useUser } from '../../contexts/UserContext'
 import { getNavigationMenu } from '../../config/routes'
+import { masterAdminExpenseAPI } from '../../services/api'
 import { 
   DollarSign,
   TrendingUp,
@@ -9,62 +10,186 @@ import {
   Wrench,
   Users,
   AlertTriangle,
-  CreditCard
+  CreditCard,
+  Plus,
+  Edit,
+  Trash2,
+  Check,
+  X,
+  Eye
 } from 'lucide-react'
 
 const Expenses = () => {
   const { user } = useUser()
   const navigationItems = getNavigationMenu(user?.role)
   const [activeTab, setActiveTab] = useState('expenses')
-  const [expenseData] = useState({
-    totalExpenses: 845000,
-    monthlyExpenses: 142000,
-    budgetAllocated: 180000,
-    budgetUtilized: 78.9,
-    expenseCategories: [
-      { category: 'Fuel', amount: 320000, percentage: 37.9 },
-      { category: 'Maintenance', amount: 165000, percentage: 19.5 },
-      { category: 'Staff Salaries', amount: 240000, percentage: 28.4 },
-      { category: 'Insurance', amount: 85000, percentage: 10.1 },
-      { category: 'Other', amount: 35000, percentage: 4.1 }
-    ],
-    monthlyExpensesData: [
-      { month: 'Jan', expenses: 125000, budget: 150000 },
-      { month: 'Feb', expenses: 142000, budget: 180000 },
-      { month: 'Mar', expenses: 138000, budget: 185000 },
-      { month: 'Apr', expenses: 152000, budget: 190000 },
-      { month: 'May', expenses: 135000, budget: 175000 },
-      { month: 'Jun', expenses: 142000, budget: 180000 }
-    ],
-    recentExpenses: [
-      { description: 'Fuel Refill - Mumbai Hub', amount: 18500, category: 'Fuel', date: '2024-01-15', status: 'approved' },
-      { description: 'Vehicle Maintenance - Bus A001', amount: 8500, category: 'Maintenance', date: '2024-01-14', status: 'pending' },
-      { description: 'Driver Salary - January', amount: 28000, category: 'Staff', date: '2024-01-05', status: 'approved' },
-      { description: 'Insurance Premium', amount: 12500, category: 'Insurance', date: '2024-01-01', status: 'approved' },
-      { description: 'Office Supplies', amount: 3200, category: 'Other', date: '2024-01-12', status: 'pending' },
-      { description: 'GPS Service Fee', amount: 4500, category: 'Other', date: '2024-01-10', status: 'approved' }
-    ],
-    alerts: [
-      { type: 'warning', message: 'Fuel expenses exceeded budget by 15%' },
-      { type: 'info', message: '3 maintenance requests pending approval' },
-      { type: 'success', message: 'Staff salaries processed on time' }
-    ]
+  const [expenses, setExpenses] = useState([])
+  const [analytics, setAnalytics] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const [showAddModal, setShowAddModal] = useState(false)
+  const [showEditModal, setShowEditModal] = useState(false)
+  const [editingExpense, setEditingExpense] = useState(null)
+  const [buses, setBuses] = useState([])
+  const [pagination, setPagination] = useState({
+    page: 1,
+    limit: 10,
+    total: 0,
+    pages: 0
   })
 
-  useEffect(() => {
-    // Component ready
-  }, [])
+  // Form state
+  const [formData, setFormData] = useState({
+    bus: '',
+    type: '',
+    amount: '',
+    description: '',
+    date: new Date().toISOString().split('T')[0],
+    category: '',
+    notes: ''
+  })
 
-  const getCategoryIcon = (category) => {
-    switch (category) {
-      case 'Fuel': return <Fuel className="h-5 w-5 text-red-600" />
-      case 'Maintenance': return <Wrench className="h-5 w-5 text-primary" />
-      case 'Staff': return <Users className="h-5 w-5 text-green-600" />
-      case 'Insurance': return <CreditCard className="h-5 w-5 text-yellow-600" />
-      default: return <DollarSign className="h-5 w-5 text-gray-600" />
+  // Fetch expenses
+  const fetchExpenses = async (page = 1) => {
+    try {
+      setLoading(true)
+      const response = await masterAdminExpenseAPI.getAllExpenses({
+        page,
+        limit: 10
+      })
+      
+      if (response.success) {
+        setExpenses(response.data.expenses)
+        setPagination(response.data.pagination)
+      }
+    } catch (err) {
+      setError('Failed to fetch expenses')
+      console.error('Error fetching expenses:', err)
+    } finally {
+      setLoading(false)
     }
   }
 
+  // Fetch analytics
+  const fetchAnalytics = async () => {
+    try {
+      const response = await masterAdminExpenseAPI.getExpenseAnalytics()
+      if (response.success) {
+        setAnalytics(response.data)
+      }
+    } catch (err) {
+      console.error('Error fetching analytics:', err)
+    }
+  }
+
+  // Fetch buses
+  const fetchBuses = async () => {
+    try {
+      // This would need to be implemented in the API service
+      // For now, we'll use mock data
+      setBuses([
+        { _id: '1', busNumber: 'KA01-AB-1234', busName: 'Luxury Express Mumbai-Delhi' },
+        { _id: '2', busNumber: 'MH03-CD-5678', busName: 'Comfort Plus Bangalore-Chennai' }
+      ])
+    } catch (err) {
+      console.error('Error fetching buses:', err)
+    }
+  }
+
+  useEffect(() => {
+    fetchExpenses()
+    fetchAnalytics()
+    fetchBuses()
+  }, [])
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      if (editingExpense) {
+        await masterAdminExpenseAPI.updateExpense(editingExpense._id, formData)
+      } else {
+        await masterAdminExpenseAPI.createExpense(formData)
+      }
+      
+      setShowAddModal(false)
+      setShowEditModal(false)
+      setEditingExpense(null)
+      setFormData({
+        bus: '',
+        type: '',
+        amount: '',
+        description: '',
+        date: new Date().toISOString().split('T')[0],
+        category: '',
+        notes: ''
+      })
+      fetchExpenses()
+    } catch (err) {
+      setError('Failed to save expense')
+      console.error('Error saving expense:', err)
+    }
+  }
+
+  // Handle delete
+  const handleDelete = async (expenseId) => {
+    if (window.confirm('Are you sure you want to delete this expense?')) {
+      try {
+        await masterAdminExpenseAPI.deleteExpense(expenseId)
+        fetchExpenses()
+      } catch (err) {
+        setError('Failed to delete expense')
+        console.error('Error deleting expense:', err)
+      }
+    }
+  }
+
+  // Handle approve
+  const handleApprove = async (expenseId) => {
+    try {
+      await masterAdminExpenseAPI.approveExpense(expenseId, {
+        approvedBy: user.id,
+        notes: 'Approved by master admin'
+      })
+      fetchExpenses()
+    } catch (err) {
+      setError('Failed to approve expense')
+      console.error('Error approving expense:', err)
+    }
+  }
+
+  // Handle reject
+  const handleReject = async (expenseId) => {
+    const reason = prompt('Please provide a reason for rejection:')
+    if (reason) {
+      try {
+        await masterAdminExpenseAPI.rejectExpense(expenseId, {
+          notes: reason
+        })
+        fetchExpenses()
+      } catch (err) {
+        setError('Failed to reject expense')
+        console.error('Error rejecting expense:', err)
+      }
+    }
+  }
+
+  // Handle edit
+  const handleEdit = (expense) => {
+    setEditingExpense(expense)
+    setFormData({
+      bus: expense.bus._id,
+      type: expense.type,
+      amount: expense.amount,
+      description: expense.description,
+      date: expense.date.split('T')[0],
+      category: expense.category,
+      notes: expense.notes || ''
+    })
+    setShowEditModal(true)
+  }
+
+  // Get status color
   const getStatusColor = (status) => {
     switch (status) {
       case 'approved': return 'bg-green-100 text-green-800'
@@ -74,13 +199,25 @@ const Expenses = () => {
     }
   }
 
-  const getAlertColor = (type) => {
-    switch (type) {
-      case 'warning': return 'bg-yellow-50 border-yellow-200 text-yellow-800'
-      case 'info': return 'bg-blue-50 border-blue-200 text-blue-800'
-      case 'success': return 'bg-green-50 border-green-200 text-green-800'
-      default: return 'bg-gray-50 border-gray-200 text-gray-800'
+  // Get category icon
+  const getCategoryIcon = (category) => {
+    switch (category) {
+      case 'Fuel': return <Fuel className="h-5 w-5 text-blue-600" />
+      case 'Maintenance': return <Wrench className="h-5 w-5 text-orange-600" />
+      case 'Insurance': return <CreditCard className="h-5 w-5 text-yellow-600" />
+      default: return <DollarSign className="h-5 w-5 text-gray-600" />
     }
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading expenses...</p>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -93,162 +230,116 @@ const Expenses = () => {
               <h1 className="text-2xl font-bold" style={{color: "#B99750"}}>Expense Management</h1>
               <p className="text-gray-600 mt-1">Track and manage fleet expenses</p>
             </div>
+            <button
+              onClick={() => setShowAddModal(true)}
+              className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark flex items-center"
+            >
+              <Plus className="h-4 w-4 mr-2" />
+              Add Expense
+            </button>
           </div>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Key Metrics */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-lg shadow p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Total Expenses</p>
-                <p className="text-2xl font-bold text-gray-900">₹{expenseData.totalExpenses.toLocaleString()}</p>
-              </div>
-              <DollarSign className="h-8 w-8 text-red-600" />
-            </div>
-            <div className="mt-4">
-              <span className="text-red-600 text-sm font-medium">This month</span>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Budget Utilized</p>
-                <p className="text-2xl font-bold text-gray-900">{expenseData.budgetUtilized}%</p>
-              </div>
-              <TrendingUp className="h-8 w-8 text-yellow-600" />
-            </div>
-            <div className="mt-4">
-              <span className="text-yellow-600 text-sm font-medium">
-                ₹{expenseData.monthlyExpenses.toLocaleString()} used
-              </span>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Budget Remaining</p>
-                <p className="text-2xl font-bold text-green-600">
-                  ₹{(expenseData.budgetAllocated - expenseData.monthlyExpenses).toLocaleString()}
-                </p>
-              </div>
-              <TrendingDown className="h-8 w-8 text-green-600" />
-            </div>
-            <div className="mt-4">
-              <span className="text-green-600 text-sm font-medium">Available</span>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Average Daily</p>
-                <p className="text-2xl font-bold text-gray-900">
-                  ₹{Math.round(expenseData.monthlyExpenses / 30).toLocaleString()}
-                </p>
-              </div>
-              <DollarSign className="h-8 w-8 text-primary" />
-            </div>
-            <div className="mt-4">
-              <span className="text-primary text-sm font-medium">Expense rate</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Alerts */}
-        {expenseData.alerts.length > 0 && (
-          <div className="mb-8">
-            <h3 className="text-lg font-medium text-gray-900 mb-4">Expense Alerts</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {expenseData.alerts.map((alert, index) => (
-                <div key={index} className={`p-4 rounded-lg border ${getAlertColor(alert.type)}`}>
-                  <div className="flex items-center">
-                    <AlertTriangle className="h-5 w-5 mr-2" />
-                    <span className="text-sm font-medium">{alert.message}</span>
-                  </div>
+        {/* Analytics Summary */}
+        {analytics && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div className="bg-white rounded-lg shadow p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-gray-600">Total Expenses</p>
+                  <p className="text-2xl font-bold text-gray-900">₹{analytics.totalAmount?.toLocaleString() || 0}</p>
                 </div>
-              ))}
+                <DollarSign className="h-8 w-8 text-red-600" />
+              </div>
+            </div>
+
+            <div className="bg-white rounded-lg shadow p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-gray-600">Total Count</p>
+                  <p className="text-2xl font-bold text-gray-900">{analytics.totalCount || 0}</p>
+                </div>
+                <TrendingUp className="h-8 w-8 text-blue-600" />
+              </div>
+            </div>
+
+            <div className="bg-white rounded-lg shadow p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-gray-600">Pending Expenses</p>
+                  <p className="text-2xl font-bold text-yellow-600">
+                    {expenses.filter(e => e.status === 'pending').length}
+                  </p>
+                </div>
+                <AlertTriangle className="h-8 w-8 text-yellow-600" />
+              </div>
+            </div>
+
+            <div className="bg-white rounded-lg shadow p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-gray-600">Approved Expenses</p>
+                  <p className="text-2xl font-bold text-green-600">
+                    {expenses.filter(e => e.status === 'approved').length}
+                  </p>
+                </div>
+                <Check className="h-8 w-8 text-green-600" />
+              </div>
             </div>
           </div>
         )}
 
-        {/* Expense Categories */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          <div className="bg-white rounded-lg shadow p-6">
-            <h3 className="text-lg font-medium text-gray-900 mb-4">Expense Categories</h3>
-            <div className="space-y-4">
-              {expenseData.expenseCategories.map((category, index) => (
-                <div key={category} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                  <div className="flex items-center space-x-3">
-                    {getCategoryIcon(category.category)}
-                    <div>
-                      <div className="text-sm font-medium text-gray-900">{category.category}</div>
-                      <div className="text-sm text-gray-600">{category.percentage}% of total</div>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-sm font-medium text-gray-900">
-                      ₹{category.amount.toLocaleString()}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+        {/* Expenses Table */}
+        <div className="bg-white rounded-lg shadow">
+          <div className="px-6 py-4 border-b border-gray-200">
+            <h3 className="text-lg font-medium text-gray-900">All Expenses</h3>
           </div>
-
-          {/* Monthly Trend */}
-          <div className="bg-white rounded-lg shadow p-6">
-            <h3 className="text-lg font-medium text-gray-900 mb-4">Monthly Expense Trend</h3>
-            <div className="space-y-4">
-              {expenseData.monthlyExpensesData.map((month, index) => (
-                <div key={index} className="flex items-center justify-between">
-                  <div className="text-sm font-medium text-gray-600">{month.month}</div>
-                  <div className="flex items-center space-x-4">
-                    <div className="w-32 bg-gray-200 rounded-full h-2">
-                      <div 
-                        className="bg-red-600 h-2 rounded-full" 
-                        style={{ width: `${(month.expenses / month.budget) * 100}%` }}
-                      />
-                    </div>
-                    <div className="text-sm font-medium text-gray-900 w-20 text-right">
-                      ₹{(month.expenses / 1000).toFixed(0)}k
-                    </div>
-                    <div className="text-sm text-gray-500 w-16 text-right">
-                      of ₹{(month.budget / 1000).toFixed(0)}k
-                    </div>
-                  </div>
-                </div>
-              ))}
+          
+          {error && (
+            <div className="px-6 py-4 bg-red-50 border-l-4 border-red-400">
+              <p className="text-red-700">{error}</p>
             </div>
-          </div>
-        </div>
+          )}
 
-        {/* Recent Expenses */}
-        <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-lg font-medium text-gray-900 mb-4">Recent Expenses</h3>
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Description</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Amount</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Category</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Bus
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Category
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Description
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Amount
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Date
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Status
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Actions
+                  </th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {expenseData.recentExpenses.map((expense, index) => (
-                  <tr key={index}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                      {expense.description}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      ₹{expense.amount.toLocaleString()}
+                {expenses.map((expense) => (
+                  <tr key={expense._id} className="hover:bg-gray-50">
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm font-medium text-gray-900">
+                        {expense.bus?.busNumber || 'N/A'}
+                      </div>
+                      <div className="text-sm text-gray-500">
+                        {expense.bus?.busName || 'N/A'}
+                      </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
@@ -256,21 +347,248 @@ const Expenses = () => {
                         <span className="ml-2 text-sm text-gray-900">{expense.category}</span>
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {new Date(expense.date).toLocaleDateString()}
+                    <td className="px-6 py-4">
+                      <div className="text-sm text-gray-900">{expense.description}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(expense.status)}`}>
+                      <div className="text-sm font-medium text-gray-900">
+                        ₹{expense.amount.toLocaleString()}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">
+                        {new Date(expense.date).toLocaleDateString()}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(expense.status)}`}>
                         {expense.status}
                       </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                      <div className="flex space-x-2">
+                        <button
+                          onClick={() => handleEdit(expense)}
+                          className="text-blue-600 hover:text-blue-900"
+                        >
+                          <Edit className="h-4 w-4" />
+                        </button>
+                        {expense.status === 'pending' && (
+                          <>
+                            <button
+                              onClick={() => handleApprove(expense._id)}
+                              className="text-green-600 hover:text-green-900"
+                            >
+                              <Check className="h-4 w-4" />
+                            </button>
+                            <button
+                              onClick={() => handleReject(expense._id)}
+                              className="text-red-600 hover:text-red-900"
+                            >
+                              <X className="h-4 w-4" />
+                            </button>
+                          </>
+                        )}
+                        <button
+                          onClick={() => handleDelete(expense._id)}
+                          className="text-red-600 hover:text-red-900"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
+
+          {/* Pagination */}
+          {pagination.pages > 1 && (
+            <div className="px-6 py-4 border-t border-gray-200">
+              <div className="flex items-center justify-between">
+                <div className="text-sm text-gray-700">
+                  Showing {((pagination.page - 1) * pagination.limit) + 1} to {Math.min(pagination.page * pagination.limit, pagination.total)} of {pagination.total} results
+                </div>
+                <div className="flex space-x-2">
+                  <button
+                    onClick={() => fetchExpenses(pagination.page - 1)}
+                    disabled={pagination.page === 1}
+                    className="px-3 py-1 text-sm border rounded disabled:opacity-50"
+                  >
+                    Previous
+                  </button>
+                  <button
+                    onClick={() => fetchExpenses(pagination.page + 1)}
+                    disabled={pagination.page === pagination.pages}
+                    className="px-3 py-1 text-sm border rounded disabled:opacity-50"
+                  >
+                    Next
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
+
+      {/* Add/Edit Modal */}
+      {(showAddModal || showEditModal) && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 w-full max-w-md">
+            <h3 className="text-lg font-medium text-gray-900 mb-4">
+              {editingExpense ? 'Edit Expense' : 'Add New Expense'}
+            </h3>
+            
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Bus
+                </label>
+                <select
+                  value={formData.bus}
+                  onChange={(e) => setFormData({...formData, bus: e.target.value})}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+                  required
+                >
+                  <option value="">Select Bus</option>
+                  {buses.map(bus => (
+                    <option key={bus._id} value={bus._id}>
+                      {bus.busNumber} - {bus.busName}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Category
+                </label>
+                <select
+                  value={formData.category}
+                  onChange={(e) => setFormData({...formData, category: e.target.value})}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+                  required
+                >
+                  <option value="">Select Category</option>
+                  <option value="Fuel">Fuel</option>
+                  <option value="Maintenance">Maintenance</option>
+                  <option value="Toll">Toll</option>
+                  <option value="Parking">Parking</option>
+                  <option value="Repair">Repair</option>
+                  <option value="Insurance">Insurance</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Type
+                </label>
+                <select
+                  value={formData.type}
+                  onChange={(e) => setFormData({...formData, type: e.target.value})}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+                  required
+                >
+                  <option value="">Select Type</option>
+                  <option value="fuel">Fuel</option>
+                  <option value="maintenance">Maintenance</option>
+                  <option value="toll">Toll</option>
+                  <option value="parking">Parking</option>
+                  <option value="repair">Repair</option>
+                  <option value="insurance">Insurance</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Amount
+                </label>
+                <input
+                  type="number"
+                  value={formData.amount}
+                  onChange={(e) => setFormData({...formData, amount: e.target.value})}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="Enter amount"
+                  step="0.01"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Description
+                </label>
+                <input
+                  type="text"
+                  value={formData.description}
+                  onChange={(e) => setFormData({...formData, description: e.target.value})}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="Enter description"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Date
+                </label>
+                <input
+                  type="date"
+                  value={formData.date}
+                  onChange={(e) => setFormData({...formData, date: e.target.value})}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Notes
+                </label>
+                <textarea
+                  value={formData.notes}
+                  onChange={(e) => setFormData({...formData, notes: e.target.value})}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="Enter notes (optional)"
+                  rows="3"
+                />
+              </div>
+
+              <div className="flex space-x-3 pt-4">
+                <button
+                  type="submit"
+                  className="flex-1 bg-primary text-white py-2 px-4 rounded-md hover:bg-primary-dark"
+                >
+                  {editingExpense ? 'Update' : 'Create'} Expense
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowAddModal(false)
+                    setShowEditModal(false)
+                    setEditingExpense(null)
+                    setFormData({
+                      bus: '',
+                      type: '',
+                      amount: '',
+                      description: '',
+                      date: new Date().toISOString().split('T')[0],
+                      category: '',
+                      notes: ''
+                    })
+                  }}
+                  className="flex-1 bg-gray-300 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-400"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

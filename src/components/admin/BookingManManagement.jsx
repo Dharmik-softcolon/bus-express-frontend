@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react'
 import { Plus, Edit, Trash2, Users, Calendar, Clock, MapPin, DollarSign, CheckCircle, XCircle, Search, Bus, Star, ArrowRight, Filter, User } from 'lucide-react'
-import { searchAPI, bookingAPI, tripAPI } from '../../services/api'
+import { searchAPI, bookingAPI, tripAPI, bookingManAPI } from '../../services/api'
 import { showToast } from '../../utils/toast'
 
 const BookingManManagement = () => {
   const [showAddModal, setShowAddModal] = useState(false)
   const [editingBookingMan, setEditingBookingMan] = useState(null)
-  const [activeTab, setActiveTab] = useState('booking')
+  const [activeTab, setActiveTab] = useState('managers')
   const [showSeatModal, setShowSeatModal] = useState(false)
   const [selectedBus, setSelectedBus] = useState(null)
   const [selectedSeats, setSelectedSeats] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
   const [customerDetails, setCustomerDetails] = useState({
     name: '',
     phone: '',
@@ -18,68 +20,7 @@ const BookingManManagement = () => {
     gender: ''
   })
 
-  const [bookingMen, setBookingMen] = useState([
-    {
-      id: 1,
-      name: 'Alice Johnson',
-      email: 'alice.johnson@saferun.com',
-      phone: '+1-555-0201',
-      commission: 5.0,
-      totalBookings: 45,
-      totalEarnings: 225.00,
-      status: 'active',
-      bookings: [
-        {
-          id: 'BK001',
-          customerName: 'John Doe',
-          customerPhone: '+1-555-1001',
-          route: 'New York → Boston',
-          seatNumber: '12A',
-          bookingDate: '2024-01-15',
-          travelDate: '2024-01-20',
-          amount: 45.00,
-          status: 'confirmed',
-          bookingTime: '10:30 AM'
-        },
-        {
-          id: 'BK002',
-          customerName: 'Jane Smith',
-          customerPhone: '+1-555-1002',
-          route: 'Los Angeles → San Francisco',
-          seatNumber: '8B',
-          bookingDate: '2024-01-15',
-          travelDate: '2024-01-22',
-          amount: 65.00,
-          status: 'cancelled',
-          bookingTime: '02:15 PM'
-        }
-      ]
-    },
-    {
-      id: 2,
-      name: 'Bob Wilson',
-      email: 'bob.wilson@saferun.com',
-      phone: '+1-555-0202',
-      commission: 4.5,
-      totalBookings: 32,
-      totalEarnings: 144.00,
-      status: 'active',
-      bookings: [
-        {
-          id: 'BK003',
-          customerName: 'Mike Brown',
-          customerPhone: '+1-555-1003',
-          route: 'Chicago → Detroit',
-          seatNumber: '15C',
-          bookingDate: '2024-01-14',
-          travelDate: '2024-01-18',
-          amount: 35.00,
-          status: 'confirmed',
-          bookingTime: '09:45 AM'
-        }
-      ]
-    }
-  ])
+  const [bookingMen, setBookingMen] = useState([])
 
   const [searchFilters, setSearchFilters] = useState({
     from: '',
@@ -87,9 +28,6 @@ const BookingManManagement = () => {
     date: '',
     passengers: 1
   })
-
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
 
   const [availableBuses, setAvailableBuses] = useState([
     {
@@ -304,12 +242,40 @@ const BookingManManagement = () => {
     try {
       setLoading(true)
       setError(null)
-      // This would be replaced with actual API call
-      // const response = await authAPI.getUsersByRole('BOOKING_MAN')
-      // setBookingMen(response.data.users)
+      
+      const response = await bookingManAPI.getAllBookingMen({
+        search: '',
+        status: 'all',
+        sort: 'latest'
+      })
+      
+      // Map API response to component state
+      if (response.success && response.data.bookingManagers) {
+        const mappedBookingMen = response.data.bookingManagers.map(manager => ({
+          id: manager._id,
+          name: manager.name,
+          email: manager.email,
+          phone: manager.phone,
+          commission: manager.commission || 0,
+          totalBookings: manager.totalTrips || 0,
+          totalEarnings: (manager.totalTrips || 0) * (manager.commission || 0),
+          status: manager.isActive ? 'active' : 'inactive',
+          company: manager.company || '',
+          position: manager.position || 'Booking Manager',
+          address: manager.address || '',
+          rating: manager.rating || 0,
+          joiningDate: manager.joiningDate || manager.createdAt,
+          bookings: [] // Initialize empty bookings array
+        }))
+        
+        setBookingMen(mappedBookingMen)
+      } else {
+        setBookingMen([])
+      }
     } catch (err) {
       setError(err.message || 'Failed to load booking managers')
       console.error('Error loading booking managers:', err)
+      setBookingMen([])
     } finally {
       setLoading(false)
     }
@@ -825,7 +791,21 @@ const BookingManManagement = () => {
 
   const renderBookingMenList = () => (
       <div className="space-y-4">
-        {bookingMen.map((bookingMan) => (
+        {bookingMen.length === 0 && !loading ? (
+          <div className="text-center py-12">
+            <Users className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+            <h3 className="text-lg font-medium text-gray-900 mb-2">No Booking Managers Found</h3>
+            <p className="text-gray-600 mb-4">There are no booking managers in the system yet.</p>
+            <button
+              onClick={() => setShowAddModal(true)}
+              className="btn-primary"
+            >
+              <Plus className="h-4 w-4 mr-2" />
+              Add First Booking Manager
+            </button>
+          </div>
+        ) : (
+          bookingMen.map((bookingMan) => (
             <div key={bookingMan.id} className="card">
               <div className="flex justify-between items-start mb-4">
                 <div>
@@ -875,7 +855,8 @@ const BookingManManagement = () => {
                 </div>
               </div>
             </div>
-        ))}
+          ))
+        )}
       </div>
   )
 
@@ -1239,23 +1220,41 @@ const BookingManManagement = () => {
           <div className="mb-6 sm:mb-8">
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
               <div>
+                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Booking Manager Management</h1>
                 <p className="text-gray-600 text-sm sm:text-base">
-                  Book seats for customers, manage bookings, and track earnings
+                  Manage booking managers, track performance, and oversee operations
                 </p>
               </div>
               <div className="flex items-center space-x-4">
                 <div className="text-right">
-                  <div className="text-sm text-gray-600">Welcome, {bookingMen[0]?.name}</div>
-                  <div className="text-xs text-gray-500">Commission: {bookingMen[0]?.commission}%</div>
+                  <div className="text-sm text-gray-600">Total Managers: {bookingMen.length}</div>
+                  <div className="text-xs text-gray-500">Active: {bookingMen.filter(m => m.status === 'active').length}</div>
                 </div>
               </div>
             </div>
           </div>
 
+          {/* Error State */}
+          {error && (
+            <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+              <div className="flex items-center space-x-2">
+                <XCircle className="h-5 w-5 text-red-500" />
+                <span className="text-red-700">{error}</span>
+              </div>
+              <button 
+                onClick={loadBookingMen}
+                className="mt-2 text-sm text-red-600 hover:text-red-800 underline"
+              >
+                Try again
+              </button>
+            </div>
+          )}
+
           {/* Tabs */}
           <div className="mb-4 sm:mb-6">
             <div className="flex flex-wrap gap-2">
               {[
+                { id: 'managers', name: 'Booking Managers' },
                 { id: 'booking', name: 'Book Seats' },
                 { id: 'bookings', name: 'My Bookings' },
                 { id: 'reports', name: 'Earnings Analytics' }
@@ -1271,7 +1270,8 @@ const BookingManManagement = () => {
                   >
                     <span className="hidden sm:inline">{tab.name}</span>
                     <span className="sm:hidden">
-                      {tab.id === 'booking' ? 'Book' :
+                      {tab.id === 'managers' ? 'Managers' :
+                       tab.id === 'booking' ? 'Book' :
                        tab.id === 'bookings' ? 'Bookings' :
                        tab.id === 'reports' ? 'Reports' : tab.name}
                     </span>
@@ -1280,10 +1280,23 @@ const BookingManManagement = () => {
             </div>
           </div>
 
+
           {/* Content */}
-          {activeTab === 'booking' && renderBookingInterface()}
-          {activeTab === 'bookings' && renderBookingManagement()}
-          {activeTab === 'reports' && renderReports()}
+          {loading ? (
+            <div className="flex items-center justify-center py-12">
+              <div className="flex items-center space-x-2">
+                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
+                <span className="text-gray-600">Loading booking managers...</span>
+              </div>
+            </div>
+          ) : (
+            <>
+              {activeTab === 'managers' && renderBookingMenList()}
+              {activeTab === 'booking' && renderBookingInterface()}
+              {activeTab === 'bookings' && renderBookingManagement()}
+              {activeTab === 'reports' && renderReports()}
+            </>
+          )}
 
           {/* Seat Selection Modal */}
           {showSeatModal && selectedBus && (
