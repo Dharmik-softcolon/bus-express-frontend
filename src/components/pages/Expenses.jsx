@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useUser } from '../../contexts/UserContext'
 import { getNavigationMenu } from '../../config/routes'
-import { masterAdminExpenseAPI } from '../../services/api'
+import { busAdminExpenseAPI } from '../../services/api'
 import { 
   DollarSign,
   TrendingUp,
@@ -53,7 +53,7 @@ const Expenses = () => {
   const fetchExpenses = async (page = 1) => {
     try {
       setLoading(true)
-      const response = await masterAdminExpenseAPI.getAllExpenses({
+      const response = await busAdminExpenseAPI.getAllExpenses({
         page,
         limit: 10
       })
@@ -73,7 +73,7 @@ const Expenses = () => {
   // Fetch analytics
   const fetchAnalytics = async () => {
     try {
-      const response = await masterAdminExpenseAPI.getExpenseAnalytics()
+      const response = await busAdminExpenseAPI.getExpenseAnalytics()
       if (response.success) {
         setAnalytics(response.data)
       }
@@ -107,9 +107,9 @@ const Expenses = () => {
     e.preventDefault()
     try {
       if (editingExpense) {
-        await masterAdminExpenseAPI.updateExpense(editingExpense._id, formData)
+        await busAdminExpenseAPI.updateExpense(editingExpense._id, formData)
       } else {
-        await masterAdminExpenseAPI.createExpense(formData)
+        await busAdminExpenseAPI.createExpense(formData)
       }
       
       setShowAddModal(false)
@@ -135,7 +135,7 @@ const Expenses = () => {
   const handleDelete = async (expenseId) => {
     if (window.confirm('Are you sure you want to delete this expense?')) {
       try {
-        await masterAdminExpenseAPI.deleteExpense(expenseId)
+        await busAdminExpenseAPI.deleteExpense(expenseId)
         fetchExpenses()
       } catch (err) {
         setError('Failed to delete expense')
@@ -147,9 +147,9 @@ const Expenses = () => {
   // Handle approve
   const handleApprove = async (expenseId) => {
     try {
-      await masterAdminExpenseAPI.approveExpense(expenseId, {
+      await busAdminExpenseAPI.approveExpense(expenseId, {
         approvedBy: user.id,
-        notes: 'Approved by master admin'
+        notes: 'Approved by bus admin'
       })
       fetchExpenses()
     } catch (err) {
@@ -163,7 +163,7 @@ const Expenses = () => {
     const reason = prompt('Please provide a reason for rejection:')
     if (reason) {
       try {
-        await masterAdminExpenseAPI.rejectExpense(expenseId, {
+        await busAdminExpenseAPI.rejectExpense(expenseId, {
           notes: reason
         })
         fetchExpenses()
